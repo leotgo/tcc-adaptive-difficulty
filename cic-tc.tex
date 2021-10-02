@@ -737,6 +737,8 @@ Spiral level designs can also feature alternate routes and shortcuts. Since the 
 
 \subsection{Tools, Frameworks and Assets}
 
+% Brief overview of tools used in the project
+
 % Motivation for using Unity3D
 % - A complete framework that is widely used in the industry, and is able to achieve AAA quality products with current examples in the industry;
 \sepfootnotecontent{fn-triple-a}{AAA (pronounced "triple A") games are an informal classification of video games distributed by major publishers and distinguished by large development and marketing budgets. In general, the term is used to represent the games that are supposed to achieve the highest standard of quality and content in video games.}
@@ -747,61 +749,55 @@ Spiral level designs can also feature alternate routes and shortcuts. Since the 
 \sepfootnotecontent{fn-cuphead}{Cuphead (Studio MDHR Entertainment Inc., 2017). Video Game. PlayStation 4, Nintendo Switch, Xbox One, Microsoft Windows, macOS.}
 
 Unity is widely used in the video games industry, with a feature-rich framework that supplies game developers with tools to achieve AAA\sepfootnote{fn-triple-a} quality products. Some examples of successful games implemented under Unity include Genshin Impact\sepfootnote{fn-genshin-impact}, Escape from Tarkov\sepfootnote{fn-escape-tarkov}, Hollow Knight\sepfootnote{fn-hollow-knight}, Ghost of a Tale\sepfootnote{fn-ghost-tale} and Cuphead\sepfootnote{fn-cuphead}.
+
 % - A concise integrated editor that can be used for map editor, project folder organization, game data management;
+Unity offers a concise, integrated project editor that offers functionality such as level editing, files and folders structural organization, game data management, in-game and serialized component inspection, a visual editor for serialized animation state machines, configuration options for deploying platforms and architectures, a debug console and tools for generating offline light mapping data for scene rendering.
+
 % - A general API that provides the tools to implement virtually any type of game;
+Unity also defines a streamlined API so developers can implement their custom game code in \textsc{C\#}, providing access to reusable functionality libraries and systems such as the component-based \textsc{MonoBehaviour} API, the serialized data \textsc{ScriptableObject} API, the Input and UI systems and even the Editor package, which permits the developer to extend the built-in functionality of the Unity Editor to develop Quality of Life tools for improved creation workflows.
+
 % - Possibility to deploy in multiple platforms (Windows, Linux, macOS) with minimal changes in source code;
+It is also possible to deploy Unity projects to multiple platforms such as Windows, Linux, macOS, PlayStation, Nintendo Switch and Xbox with minimal changes in code, as Unity's standardized API and builtin \textsc{IL2CPP} compiler translates Intermediate Language code into automatically generated \textsc{C++} code, which is then compiled into a native binary for each target platform.
+
 % - Possibility to import free and paid assets from the Unity Asset Store for 3D Models, Animations, Sounds, UI Elements, Shaders, Post-Processing Effects, Visual Effects;
+However, one of the key factors behind the choice of Unity as a platform was the possibility of including free and paid assets from the \emph{Unity Asset Store}, a digital platform for the distribution and acquisition of game assets such as 3D Models, Animations, Sounds, 2D UI Elements, Shaders, Post-Processing Effects and Visual Effects. Without this, it would be impossible for the authors to develop a game that would be sufficient to even remotely resemble the qualities of a AAA game such as Dark Souls. By acquiring and importing high-quality game assets into the project, it was possible to focus on the design and development of game systems, while also having AAA quality assets as a resource to work with.
+
 % - Possibility to import plug-and-play APIs and systems such as Cinematic Camera behavior controllers, Third person Movement Controllers and Universal Input Device Managers that can be easily integrated into the project and development workflow;
 % - Possibility to import and integrate multiple development tools that are tailored to the specific needs of the product being developed, such as data serialization utilities, map editor utilities, telemetry and database management tools and visual effect creation tools;
+As for the implementation and reuse of infrastructural development tools and game systems, the Unity development team has in recent years made relevant effort towards modularized, plug-and-play systems with the \emph{Packages} system. The Packages system defines a streamlined workflow for importing game assets, editor utilities and engine functionalities, where it is possible to individually import packages that are specific to the requirements of a Project. For the scope of this work, one relevant example would be the Cinemachine package, which contains functionality and tools for manipulating 3D cameras with sophisticated behaviors, real-time configurable properties based on lenses for real-world cameras, and pre-configured implementations of common functionality for cameras in video games.
+
 % - Authors had previous familiarity with the engine from personal and professional experience;
-
 The final deciding factor for the choice of Unity as a development platform was the previous personal and professional background of the authors with the engine, having implemented a wide variety of 2D and 3D Games, VR Serious Games and data visualization tools under Unity. The familiarity with the provided APIs, along with the knowledge of how to achieve a steady and concise workflow permitted the authors to plan a robust architecture and select the appropriate tools to implement the core features of Dark Souls with an acceptable quality in comparison to the original game.
-
-% Cinemachine
 
 % Assets
 % 3D Models, animations and sound assets were selected based on trying to replicate the same general 'feel' of Dark Souls
 
 
 % Table showing Asset Name, Type, Size, Price, Path in Project
-Table \ref{tab:table1} shows a list of Assets gathered from the Unity Asset Store for the assembly of this project, along with the appropriate extraction paths for the assets to work with the source code.
+Table \ref{tab:table-game-assets} shows a list of Assets gathered from the Unity Asset Store for the assembly of this project, along with the appropriate extraction paths for the assets to work with the source code.
 
 \begin{table}[h!]
   \begin{center}
     \caption{Assets used in the implementation of 'Bright Souls'.}
-    \label{tab:table1}
-    \begin{tabular}{ m{10em} m{20em} } % alignments
-    
-      \textbf{Name}                 & \textbf{Path in Project}                                 \\
-
-      \hline \multicolumn{2}{l|}{\textbf{3D Models}}                                           \\ \hline
+    \label{tab:table-game-assets}
+    \begin{tabular}{ m{12em} m{20em} } % alignments
+      \textbf{Name}                 & \textbf{Path in Project}                                 \\ \hline
       Fantasy Dungeon               & \texttt{../Assets/Asset Store/3D/FantasyDungeon/}        \\ \hline
       Skeleton Zombies              & \texttt{../Assets/Asset Store/3D/StudioNewPunch/}        \\ \hline
-      The Blacksmith: Characters    & \texttt{../Assets/Asset Store/3D/Challenger Character/}  \\
-
-      \hline \multicolumn{2}{l|}{\textbf{Animations}}                                          \\ \hline
-      ZOMBIE Starter Animation Pack & \texttt{../Assets/Asset Store/3D/Zombie\_01\_v25/}       \\ \hline
-      Sword and Shield Animset Pro  & \texttt{../Assets/Asset Store/3D/SwordShieldAnimsetPro/} \\ \hline
-      Longsword Animset Pro         & \texttt{../Assets/Asset Store/3D/LongswordAnimsetPro/}   \\
-
-      \hline \multicolumn{2}{l|}{\textbf{Sound Effects}} \\ \hline
-      Axe Swing \& Damage Sounds    & \texttt{../Assets/Asset Store/Audio/Axe Swing \& Damage Sounds/}             \\ \hline
+      The Blacksmith: Characters    & \texttt{../Assets/Asset Store/3D/Challenger Character/}  \\ \hline
+      ZOMBIE Starter Animation      & \texttt{../Assets/Asset Store/3D/Zombie\_01\_v25/}       \\ \hline
+      Sword and Shield Animset      & \texttt{../Assets/Asset Store/3D/SwordShieldAnimsetPro/} \\ \hline
+      Longsword Animset Pro         & \texttt{../Assets/Asset Store/3D/LongswordAnimsetPro/}   \\ \hline
+      Axe Swing \& Damage Sounds    & \texttt{../Assets/Asset Store/Audio/Axe Swing \& Damage Sounds/} \\ \hline
       Dark Fantasy Audio            & \texttt{../Assets/Asset Store/Audio/Dark Fantasy Studio- Shadows Guild mp3/} \\ \hline
-      Medieval Fantasy 2 Audio      & \texttt{../Assets/Asset Store/Audio/Medieval Fantasy Audio Bundle 2/}        \\ \hline
-      Universal Sound FX            & \texttt{../Assets/Asset Store/Audio/Universal Sound FX/}                     \\ 
-
-      \hline \multicolumn{2}{l|}{\textbf{Visual Effects}}                                   \\ \hline
+      Medieval Fantasy 2 Audio      & \texttt{../Assets/Asset Store/Audio/Medieval Fantasy Audio Bundle 2/} \\ \hline
+      Universal Sound FX            & \texttt{../Assets/Asset Store/Audio/Universal Sound FX/} \\ \hline
       Pseudo-Volume Blood Effects   & \texttt{../Assets/Asset Store/VFX/KriptoFX/BloodFX/}  \\ \hline
       Smoke \& Ember FX             & \texttt{../Assets/Asset Store/VFX/Smoke \& Ember FX/} \\ \hline
-      Unity Particle Pack           & \texttt{../Assets/Asset Store/VFX/UnityParticlePack/} \\
-
-      \hline \multicolumn{2}{l|}{\textbf{UI Elements}} \\ \hline
+      Unity Particle Pack           & \texttt{../Assets/Asset Store/VFX/UnityParticlePack/} \\ \hline
       PC \& Consoles Buttons Icons  & \texttt{../Assets/Asset Store/UI/PC \& Consoles Controller Buttons Icons Pack/} \\ \hline
-      RPG \& MMO UI 5               & \texttt{../Assets/Asset Store/UI/RPG and MMO UI 5/} \\
-
-      \hline \multicolumn{2}{l|}{\textbf{Editor Plugins}} \\ \hline
-      Odin Inspector                & \texttt{../Assets/Plugins/Sirenix/} \\
-
+      RPG \& MMO UI 5               & \texttt{../Assets/Asset Store/UI/RPG and MMO UI 5/} \\ \hline
+      Odin Inspector                & \texttt{../Assets/Plugins/Sirenix/} \\ \hline
     \end{tabular}
   \end{center}
 \end{table}
