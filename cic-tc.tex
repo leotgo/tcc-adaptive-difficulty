@@ -49,6 +49,8 @@
 
 \usepackage{listings}
 
+\usepackage{array}
+
 \usepackage{mathtools}
 
 \usepackage{sepfootnotes}
@@ -236,7 +238,7 @@ The customized experience might be represented by content tailored to the prefer
 This work is an implementation and analysis of a simplified replica of a successful hardcore niche game, \emph{Dark Souls}, using AGT to appeal to a broader audience. The application creates a Player Model based on user-provided information, adapts its content through statistical gameplay data obtained by telemetry and allows the user to experience the game with an appropriate difficulty curve by dynamically adapting the challenges presented on each level.
 
 \begin{figure}[!h]
-    \caption{A screen capture of our implementation of a \emph{Dark Souls}-based game with a subset of the features present in the original game.}
+    \caption{A screen capture of \emph{Bright Souls}, our implementation of a \emph{Dark Souls}-based game with a subset of the features presented in the original game.}
     \begin{center}
         \includegraphics[width=26em]{figures/fig-bright-souls.jpg}
     \end{center}
@@ -255,7 +257,7 @@ We propose a possible method for the design, implementation and usage of AGT as 
 %============================================================
 %============================================================
 
-\chapter{Related Work}
+\chapter{Landscape and Previous Work}
 
 In this chapter, we evaluate the early solutions to adaptivity in commercial games, analyzing their positive and negative aspects. We explore the concept of Player Modeling, an attempt at defining player profile and preferences as functional data that can be used by game applications as input for multiple systems. We relate the concept of player models to the ever increasing research in game analytics, where player behavior is monitored and used as a tool to identify game design issues and improvements that directly affect player engagement.
 
@@ -269,7 +271,12 @@ In conclusion, we review previous research on AGT \cite{ARTICLE_PlayerCentredGam
 
 \section{Adaptive Systems in Commercial Games}
 
-Several commercial games have attempted to create Dynamic Difficulty systems which embrace varying degrees of player skill, such as \emph{Mario Kart} \footnote{Super Mario Kart 8 Deluxe (Nintendo, 2017). Video Game. Nintendo Switch.}, \emph{Half-Life 2} \footnote{Half-Life 2 (Valve Software, 2004). Computer Game. Microsoft Windows.}, \emph{Resident Evil 4} \footnote{Resident Evil 4 (Capcom, 2004). Video Game. PlayStation 2.} and \emph{God Hand} \footnote{God Hand (Capcom, 2006). Video Game. PlayStation 2.}. In this section, we look at examples of Adaptive Systems in some of the most popular games developed by the video game industry in the last decades. We categorize the solutions based on which game systems they affect, and discuss some of the caveats of each system.
+\sepfootnotecontent{fn-mario-kart}     {Super Mario Kart 8 Deluxe (Nintendo, 2017). Video Game. Nintendo Switch.}
+\sepfootnotecontent{fn-half-life-2}    {Half-Life 2 (Valve Software, 2004). Computer Game. Microsoft Windows.}
+\sepfootnotecontent{fn-resident-evil-4}{Resident Evil 4 (Capcom, 2004). Video Game. PlayStation 2.}
+\sepfootnotecontent{fn-god-hand}       {God Hand (Capcom, 2006). Video Game. PlayStation 2.}
+
+Several commercial games have attempted to create Dynamic Difficulty systems which embrace varying degrees of player skill, such as \emph{Mario Kart} \sepfootnote{fn-mario-kart}, \emph{Half-Life 2} \sepfootnote{fn-half-life-2}, \emph{Resident Evil 4} \sepfootnote{fn-resident-evil-4} and \emph{God Hand} \sepfootnote{fn-god-hand}. In this section, we look at examples of Adaptive Systems in some of the most popular games developed by the video game industry in the last decades. We categorize the solutions based on which game systems they affect, and discuss some of the caveats of each system.
 
 \subsection{Rubber-banding in Mario Kart}
 
@@ -614,13 +621,6 @@ Ideally, a DDA system should embrace all skill levels, be transparent and only c
 %============================================================
 %============================================================
 
-%============================================================
-%============================================================
-%============================================================
-%============================================================
-%============================================================
-%============================================================
-
 \chapter{Methodology and Results}
 
 \section{Overview}
@@ -635,9 +635,10 @@ Ideally, a DDA system should embrace all skill levels, be transparent and only c
 
 % About the results comparing to previous DDA Systems
 
+\label{section-analysis-dark-souls}
 \section{Analysis of Dark Souls}
 
-In this section, we analyze the Game Design of our object of study to define the essential aspects behind creating a challenging action game. We argue that understanding the Game Design of \emph{Dark Souls} is crucial to the interpretation of difficulty in games. While \emph{Dark Souls} presents a wide variety of mechanics and interactions, only the basic rules required for the implementation of the combat system will be described.
+In this section, we analyze the Game Design of our object of study to define the essential aspects required to implement a replica of its core elements and experience. We argue that understanding the Game Design of \emph{Dark Souls} is crucial to the interpretation of difficulty in games. While \emph{Dark Souls} presents a wide variety of mechanics and interactions, only the basic rules required for the implementation of the combat system will be described.
 
 \subsection{Motivation of Choice}
 
@@ -648,6 +649,8 @@ The player does not fail in \emph{Dark Souls} by dying, but by giving up on fini
 While the average action game might reward the player for beating entire armies of enemies on his own, \emph{Dark Souls} can be a rewarding experience for the player even when basic encounters are surpassed, such as surviving a battle with a single enemy. When adventuring through the tight corridors of a dungeon or dark underground caves, the player faces unknown dangers and must fight their way out. Even the weakest enemies can surprise and kill an unsuspecting player. When facing the strong opponents, dealing the finishing blow in an intense fight means the player overcame a challenge.
 
 Understanding the design of Dark Souls is, therefore, a key component to understanding the relationship of challenge and reward.
+
+\subsection{Overview of Aesthetics}
 
 \subsection{Overview of Game Mechanics}
 
@@ -735,9 +738,17 @@ Spiral level designs can also feature alternate routes and shortcuts. Since the 
 
 \section{System Architecture and Design Decisions}
 
-\subsection{Tools, Frameworks and Assets}
+% Brief description of all subsections: Tools and Frameworks, Game Assets and Aesthetics, Gameplay Mechanics and Systems, Artificial Intelligence, Telemetry and Performance Tracking, Dynamic Adjustments
+In this section, we specify the details for each of the major decisions and systems for the implementation of an appropriate replica of the core elements of Dark souls with the additional aspect of an adaptive system that dynamically adjusts game difficulty to the profile of a player. We provide a detailed list of the requirements of our implementation, along with the motivation for the choice of each technology and game asset.
 
-% Brief overview of tools used in the project
+We specify the design and implementation of the gameplay mechanics and systems in Bright Souls, using a restricted set of the elements in the original game as a reference and comparing it to our previous analysis from section \ref{section-analysis-dark-souls}.
+
+\subsection{Tools and Frameworks}
+
+% Brief overview of tools used in the project, specify that we chose Unity, Cinemachine, Post Processing Stack, Aura Volumetric Rendering
+\sepfootnotecontent{fn-unity-engine}{[Footnote: What is the Unity engine]}
+
+In order to implement an appropriate replica of the main elements that compose Dark Souls, we first require a framework that can provide the tools to assemble and render 3D environments with high visual fidelity. Then, it is useful to have a set of utilities and ready-to-use systems to implement the functional aspects of the original game, such as a standardized Input System that can deal with multiple input devices, a set of definitions and functions to manipulate 3D Camera behavior and control and a physics engine that can detect and handle collisions for at least basic geometry such as bounding boxes. For these reasons, we chose \emph{Unity}\sepfootnote{fn-unity-engine} as our development platform as it contains most of the essential functionality we require, with the added possibility of extending and adapting the purpose of its editor to satisfy any additional needs.
 
 % Motivation for using Unity3D
 % - A complete framework that is widely used in the industry, and is able to achieve AAA quality products with current examples in the industry;
@@ -764,40 +775,101 @@ However, one of the key factors behind the choice of Unity as a platform was the
 
 % - Possibility to import plug-and-play APIs and systems such as Cinematic Camera behavior controllers, Third person Movement Controllers and Universal Input Device Managers that can be easily integrated into the project and development workflow;
 % - Possibility to import and integrate multiple development tools that are tailored to the specific needs of the product being developed, such as data serialization utilities, map editor utilities, telemetry and database management tools and visual effect creation tools;
-As for the implementation and reuse of infrastructural development tools and game systems, the Unity development team has in recent years made relevant effort towards modularized, plug-and-play systems with the \emph{Packages} system. The Packages system defines a streamlined workflow for importing game assets, editor utilities and engine functionalities, where it is possible to individually import packages that are specific to the requirements of a Project. For the scope of this work, one relevant example would be the Cinemachine package, which contains functionality and tools for manipulating 3D cameras with sophisticated behaviors, real-time configurable properties based on lenses for real-world cameras, and pre-configured implementations of common functionality for cameras in video games.
+As for the implementation and reuse of infrastructural development tools and game systems, the Unity development team has in recent years made relevant effort towards modularized, plug-and-play systems with the \emph{Packages} system. The Packages system defines a streamlined workflow for importing game assets, editor utilities and engine functionalities, where it is possible to individually import packages that are specific to the requirements of a Project. For the scope of this work, one relevant example would be the \textsc{Cinemachine} package, which contains functionality and tools for manipulating 3D cameras with sophisticated behaviors, real-time configurable properties based on lenses for real-world cameras, and pre-configured implementations of common functionality for cameras in video games.
 
 % - Authors had previous familiarity with the engine from personal and professional experience;
 The final deciding factor for the choice of Unity as a development platform was the previous personal and professional background of the authors with the engine, having implemented a wide variety of 2D and 3D Games, VR Serious Games and data visualization tools under Unity. The familiarity with the provided APIs, along with the knowledge of how to achieve a steady and concise workflow permitted the authors to plan a robust architecture and select the appropriate tools to implement the core features of Dark Souls with an acceptable quality in comparison to the original game.
 
-% Assets
-% 3D Models, animations and sound assets were selected based on trying to replicate the same general 'feel' of Dark Souls
+\subsection{Game Assets and Aesthetics}
 
+% 3D Models, animations and sound assets were selected based on trying to replicate the same general 'feel' of Dark Souls
+The assets for the implementation contained within this work were elected with the objective to serve as resources to attempt to replicate the general aesthetics of Dark Souls. Therefore, as a basis criteria for the selection of used assets, we use the brief analysis in section \ref{section-dark-souls-aesthetics} as a reference to explore options in the Unity Asset Store within the \emph{'Dark Fantasy'} thematic subcategory.
+
+% Fantasy Dungeon
+First, we require a set of 3D models to assemble a playable 3D environment that satisfy the aesthetics of the 'Dark Fantasy' genre. For this purpose, we elected the asset pack \emph{Fantasy Dungeon} -- a collection of 3D models with a 'Ruined Castle' theme. The overall aesthetics and theme of this aspect pack appropriately resemble the sense of 'abandonment' in the original game. When considering functionality aspects, this pack contains modular 3D objects and pieces that can be easily assembled into a playable environment. Furthermore, the asset pack also contains pre-assembled scenes with appropriate lighting and optimized meshes, which were adapted to fit the requirements of our implementation.
+
+\begin{figure}
+    \caption{A selection of screenshots from pre-assembled scenes using the 3D assets from the Fantasy Dungeon asset pack.}
+    \begin{center}
+        \includegraphics[width=24em]{figures/fig-environment-assets.png}
+    \end{center}
+    \legend{Source: Collation of screenshots performed by the authors from images captured from the original Unity Asset Store website pages for the \emph{Fantasy Dungeon} Unity asset.}
+    \label{fig:environment-assets}
+\end{figure}
+
+% Then, we need 3D models for the Characters, The Blacksmith: Characters, Skeleton Zombies and Longsword AnimsetPro
+\sepfootnotecontent{fn-undead}{\emph{Undead} beings are fictional characters represented by entities that were reanimated from death through supernatural means. Common representations of \emph{Undead} beings in popular media include \emph{Zombies}, \emph{Skeletons} and \emph{Vampires}.}
+
+In sequence, we require 3D models to represent the playable character and any non-playable entities the player would be able to interact with. In the scope of this work, we attempt to implement AI agents comparable to the enemies presented in the early levels of Dark Souls. Most of the enemy characters encountered in these early sections of the original game are \emph{Undead}\sepfootnote{fn-undead} beings named \emph{'The Hollow'}, which are represented by creatures with decomposed skin and a dehydrated body that resemble the media representation of \emph{Zombies}.
+
+\emph{The Hollow} are presented with varied levels of attire, including ragged clothes, armored pieces such as cuirasses, pauldrons and helmets, bare skin or even without flesh in their bodies in the form of \emph{Skeletons}. For the representation of these creatures, we elected the asset packs \emph{Skeleton Zombies}, \emph{Longsword Animset Pro}, \emph{Modular Skeleton Archer}, \emph{Modular Skeleton Rogue} and \emph{Skeleton Humanoid}, all of which contain 3D models representing stereotypes Zombies and Skeletons that resemble the enemies seen in the early stages of Dark Souls.
+
+\begin{figure}
+    \caption{A mosaic portraying the 3D character models in Bright Souls.}
+    \begin{center}
+        \includegraphics[width=30em]{figures/fig-character-assets.png}
+    \end{center}
+    \legend{Source: Collation of screenshots performed by the authors from images captured from the original Unity Asset Store website pages for each of the assets used in this work.}
+    \label{fig:character-assets}
+\end{figure}
+
+In addition to being in harmony with the aesthetics of the original game, we selected the enemy character models to serve a specific purpose in Enemy behavior design, level design and encounter design. Each enemy has a specific set of actions which can complement the actions of other enemies in a combat encounter. 
+
+% Talk about model for player Character: Blacksmith: Characters
+
+% After that, we need animations that can be easily integrated with the designed combat system
+\sepfootnotecontent{fn-skeletal-rigs}{Footnote: What are skeletal rigs}
+
+To properly integrate the characters into the game world, and to provide visual feedback as to what actions characters are performing given the state of the game world, we require animations for humanoid characters that are compatible with the \emph{skeletal rigs}\sepfootnote{fn-skeletal-rigs} for the 3D models we selected previously. Also, these animations should be congruent with the purpose of each model, where the animations should appropriately reflect the weapons and other equipment that each character possesses, as well as the overall body proportions and weight of attire.
+
+An example of animations being congruent with the purpose of a character would be an archer enemy that has proper animations for wielding a bow, drawing arrows from a quiver and shooting arrows. Since the armor pieces for an archer enemy should be lighter in comparison to a heavy-armored warrior enemy, the movement animations should reflect the weight of the attire with faster steps and less restricted joint rotations.
+
+
+% Then, we need sound effects and ambient background music that mirror the affective purpose of sound in Dark Souls
+
+% Finally, we need Visual Effects that can go along with the sound effects to provide a proper visual feedback when the player hits an enemy. Furthermore, we also need visual effects that can go along with the environmental lighting 
 
 % Table showing Asset Name, Type, Size, Price, Path in Project
-Table \ref{tab:table-game-assets} shows a list of Assets gathered from the Unity Asset Store for the assembly of this project, along with the appropriate extraction paths for the assets to work with the source code.
+Table \ref{tab:table-game-assets} shows a consolidated list of the assets discussed in this section, along with the appropriate extraction paths for the assets to work with the source code.
 
-\begin{table}[h!]
+\begin{table}
   \begin{center}
-    \caption{Assets used in the implementation of 'Bright Souls'.}
+    \caption{A consolidated list of the assets and packages used in the implementation of this work.}
     \label{tab:table-game-assets}
     \begin{tabular}{ m{12em} m{20em} } % alignments
-      \textbf{Name}                 & \textbf{Path in Project}                                 \\ \hline
-      Fantasy Dungeon               & \texttt{../Assets/Asset Store/3D/FantasyDungeon/}        \\ \hline
-      Skeleton Zombies              & \texttt{../Assets/Asset Store/3D/StudioNewPunch/}        \\ \hline
-      The Blacksmith: Characters    & \texttt{../Assets/Asset Store/3D/Challenger Character/}  \\ \hline
-      ZOMBIE Starter Animation      & \texttt{../Assets/Asset Store/3D/Zombie\_01\_v25/}       \\ \hline
-      Sword and Shield Animset      & \texttt{../Assets/Asset Store/3D/SwordShieldAnimsetPro/} \\ \hline
-      Longsword Animset Pro         & \texttt{../Assets/Asset Store/3D/LongswordAnimsetPro/}   \\ \hline
-      Axe Swing \& Damage Sounds    & \texttt{../Assets/Asset Store/Audio/Axe Swing \& Damage Sounds/} \\ \hline
-      Dark Fantasy Audio            & \texttt{../Assets/Asset Store/Audio/Dark Fantasy Studio- Shadows Guild mp3/} \\ \hline
-      Medieval Fantasy 2 Audio      & \texttt{../Assets/Asset Store/Audio/Medieval Fantasy Audio Bundle 2/} \\ \hline
-      Universal Sound FX            & \texttt{../Assets/Asset Store/Audio/Universal Sound FX/} \\ \hline
-      Pseudo-Volume Blood Effects   & \texttt{../Assets/Asset Store/VFX/KriptoFX/BloodFX/}  \\ \hline
-      Smoke \& Ember FX             & \texttt{../Assets/Asset Store/VFX/Smoke \& Ember FX/} \\ \hline
-      Unity Particle Pack           & \texttt{../Assets/Asset Store/VFX/UnityParticlePack/} \\ \hline
-      PC \& Consoles Buttons Icons  & \texttt{../Assets/Asset Store/UI/PC \& Consoles Controller Buttons Icons Pack/} \\ \hline
-      RPG \& MMO UI 5               & \texttt{../Assets/Asset Store/UI/RPG and MMO UI 5/} \\ \hline
-      Odin Inspector                & \texttt{../Assets/Plugins/Sirenix/} \\ \hline
+      \textbf{\textsc{Name}}                & \textbf{\textsc{Path in Project}} \\
+      \hline
+      \small{Fantasy Dungeon}               & \tiny{\texttt{../Assets/Asset Store/3D/FantasyDungeon/}}        \\ 
+      \hline
+      \small{Skeleton Zombies}              & \tiny{\texttt{../Assets/Asset Store/3D/StudioNewPunch/}}        \\
+      \hline
+      \small{The Blacksmith: Characters}    & \tiny{\texttt{../Assets/Asset Store/3D/ChallengerCharacter/}}  \\ 
+      \hline
+      \small{ZOMBIE Starter Animation}      & \tiny{\texttt{../Assets/Asset Store/3D/ZombieAnimset/}}       \\
+      \hline
+      \small{Sword and Shield Animset}      & \tiny{\texttt{../Assets/Asset Store/3D/SwordShieldAnimset/}} \\
+      \hline
+      \small{Longsword Animset Pro}         & \tiny{\texttt{../Assets/Asset Store/3D/LongswordAnimset/}}   \\
+      \hline
+      \small{Axe Swing \& Damage Sounds}    & \tiny{\texttt{../Assets/Asset Store/Audio/AxeSwingDamageSounds/}} \\
+      \hline
+      \small{Dark Fantasy Audio}            & \tiny{\texttt{../Assets/Asset Store/Audio/DarkFantasyAudio/}} \\ \hline
+      \small{Medieval Fantasy 2 Audio}      & \tiny{\texttt{../Assets/Asset Store/Audio/MedievalFantasyAudio2/}} \\ 
+      \hline
+      \small{Universal Sound FX}            & \tiny{\texttt{../Assets/Asset Store/Audio/UniversalSoundFX/}} \\ 
+      \hline
+      \small{Pseudo-Volume Blood Effects}   & \tiny{\texttt{../Assets/Asset Store/VFX/KriptoFX/BloodFX/}}  \\ 
+      \hline
+      \small{Smoke \& Ember FX}             & \tiny{\texttt{../Assets/Asset Store/VFX/SmokeEmberFX/}} \\ 
+      \hline
+      \small{Unity Particle Pack}           & \tiny{\texttt{../Assets/Asset Store/VFX/UnityParticlePack/}} \\ 
+      \hline
+      \small{PC \& Consoles Buttons Icons}  & \tiny{\texttt{../Assets/Asset Store/UI/PCConsolesIcons/}} \\ 
+      \hline
+      \small{RPG \& MMO UI 5}               & \tiny{\texttt{../Assets/Asset Store/UI/RPGMMOUI5/}} \\ 
+      \hline
+      \small{Odin Inspector}                & \tiny{\texttt{../Assets/Plugins/Sirenix/}} \\ 
+      \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -806,7 +878,9 @@ Table \ref{tab:table-game-assets} shows a list of Assets gathered from the Unity
 
 \subsection{Artificial Intelligence}
 
-Test.
+% Enemies in Dark Souls present basic, somewhat predictable behavior
+
+% We chose to implement AI agents using State Machines given the target simplicity of Enemy Behavior
 
 % Figure: Melee enemy AI State Machine
 \begin{figure}[!h]
