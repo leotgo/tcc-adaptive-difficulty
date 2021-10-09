@@ -34,8 +34,8 @@
 %==============================================================================
 % Declaração de opções
 %==============================================================================
-\newcommand{\iiu@novodoc}[1]{\DeclareOption{#1}{\AtEndOfClass{\input{#1.def}}}}
-\newcommand{\iiu@aliasdoc}[2]{\DeclareOption{#1}{\AtEndOfClass{\input{#2.def}}}}
+\newcommand{\iiu@novodoc}[1]{\DeclareOption{#1}{\AtEndOfClass{\input{definitions/#1.def}}}}
+\newcommand{\iiu@aliasdoc}[2]{\DeclareOption{#1}{\AtEndOfClass{\input{definitions/#2.def}}}}
 
 % programas
 \iiu@novodoc{cic}
@@ -80,15 +80,15 @@
 \RequirePackage{fixltx2e}
 
 \RequirePackage[english,brazilian]{babel}
-\input{brazilian.babel}
-\input{english.babel}
+\input{language/brazilian.babel}
+\input{language/english.babel}
 \if@english
         \selectlanguage{english}
         \AtBeginDocument{\selectlanguage{english}}
 \fi
 \RequirePackage{lastpage}
 \RequirePackage{indentfirst}
-\RequirePackage{iidefs}
+\RequirePackage{packages/iidefs}
 \RequirePackage{setspace}
 \RequirePackage{ccaption}
 \RequirePackage{titlesec}
@@ -136,7 +136,7 @@
     % Isso é opcional na norma ABNT (que permite que seja usado itálico) e
     % não é o padrão do abntex2.
     abnt-emphasize=bf
-]{abntex2cite}
+]{packages/abntex2cite}
 \fi
 
 % espaçamento entre as linhas
@@ -379,7 +379,7 @@
         }%
 }
 
-\AtEndOfClass{\input{nominata.def}}
+\AtEndOfClass{\input{definitions/nominata.def}}
 \newcommand{\nominata}{
   \setstretch{0.95}
   \noindent\MakeUppercase{\ufrgs}
