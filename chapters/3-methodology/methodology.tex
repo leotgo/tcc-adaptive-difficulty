@@ -2,6 +2,10 @@
 
 \input{chapters/3-methodology/footnotes}
 
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \section{Overview}
 
 % About the analysis of Dark Souls
@@ -14,10 +18,18 @@
 
 % About the results comparing to previous DDA Systems
 
-\label{sec:analysis-dark-souls}
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \section{Analysis of Dark Souls}
+\label{sec:analysis-dark-souls}
 
 In this section, we analyze the Game Design of our object of study to define the essential aspects required to implement a replica of its core elements and experience. We argue that understanding the Game Design of \emph{Dark Souls} is crucial to the interpretation of difficulty in games. While \emph{Dark Souls} presents a wide variety of mechanics and interactions, only the basic rules required for the implementation of the combat system will be described.
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
 \subsection{Motivation of Choice}
 
@@ -29,7 +41,15 @@ While the average action game might reward the player for beating entire armies 
 
 Understanding the design of Dark Souls is, therefore, a key component to understanding the relationship of challenge and reward.
 
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \subsection{Overview of Aesthetics}
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
 \subsection{Overview of Game Mechanics}
 
@@ -81,17 +101,25 @@ Similarly to Dodging, Parrying can be performed with precise timing to deflect a
 
 However, Blocking, Parrying and Dodging require the usage of Stamina, a valuable resource which is also required to perform offensive moves. If a player only blocks incoming attacks, their Stamina will not replenish quickly enough to sustain attacks indefinitely. Moreover, if a player faces multiple enemies, blocking can sustain even less attacks, and quickly deplete the player Stamina. Dodging and Parrying are timing dependent, and thus prone to mistakes and heavy punishment. If players repeatedly try to perform the same defensive action, they will often find themselves cornered, without Stamina and vulnerable to fatal blows. Experienced players have the knowledge of when they should perform none of these actions, instead simple moving away and creating space for favorable counterattack opportunities.
 
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \subsection{Artificial Intelligence}
 
 Upon the research conducted in the creation of this work, no official information on the implementation of the AI in Dark Souls was discovered. According to \citeonline{YT_DarkSoulsSimpleAI}, some sources indicate a \emph{Hierarchical Task Planning Network System}, but an analysis of the in-game enemy actions provides no support to this claim. However, by multiple tests and playthroughs, it was possible to reverse engineer the behavior of enemies and suggest a replication formulae in the implementation of this work.
 
-Non-player characters often share similar behavioral patterns in Dark Souls. While the actions of a humanoid NPC might differ from a quadruped, their overall behavior upon player presence is the same. The NPC stands idle until receiving interaction from their sensors, such as the player stepping into their line of sight. At that point, the enemy will either attack at range, if using a bow or spell, or rush towards the player and attack in close-quarters.
+Non-player characters often share similar behavioral patterns in Dark Souls. Whi\hyp{}le the actions of a humanoid NPC might differ from a quadruped, their overall behavior upon player presence is the same. The NPC stands idle until receiving interaction from their sensors, such as the player stepping into their line of sight. At that point, the enemy will either attack at range, if using a bow or spell, or rush towards the player and attack in close-quarters.
 
 Enemies wearing a shield will commonly attempt to defend themselves when the player repeatedly attacks. The defense stance can be punished by the player when they perform a kick or by attacking from behind. In other occasions, a low health enemy might evade attacks or even heal theirself. Most of these strategies are predictable, even when there is a variability in the patterns used.
 
 Ultimately, the AI of Dark Souls is simplistic, but sufficient for the objectives proposed by the developer. The predictability of this system can be considered a favorable factor for a player learning how to overcome an enemy. This simplicity is not perceivable by the player in the first playthrough, since the player will struggle with the challenging aspects of the level design. In addition, Dark Souls present its enemies as being overtly strong in comparison to the player. A slight mistake might cause the player to endure punishing amounts of damage, thus creating the illusion of a difficult opponent.
 
 The perception of strength in Dark Souls's enemies carries similarities to the development of the original \emph{Halo} by Bungie. According to \citeonline{URL_IllusionOfIntelligence}, players perceived the smartness of an enemy based on their endurance and damage dealt to the player. Simply increasing the Health points of an enemy enhanced the first perception of enemies intelligence for playtesters. This perception of toughness could shadow the lack of intelligence of an enemy in a first playthrough. However, as the player repeatedly faces the same enemy upon countless deaths, this illusion is gradually faded.
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
 \subsection{Level Design}
 
@@ -113,7 +141,15 @@ However, the pitfalls and traps of Dark Souls can be spotted ahead of time if th
 
 Spiral level designs can also feature alternate routes and shortcuts. Since the player is constantly facing the danger of losing Experience Points upon dying, the Spiral layout provides the player with shorter paths and less risk when returning to safe zones. In the same philosophy, the game will often contain shortcuts from safe zones to later attained areas. These shortcuts must be unlocked by reaching a certain location and performing an action, such as finding the key to a locked gate. This Level Design technique is commonly known as \emph{gating} \cite{BOOK_LevelUpTheGuideToGreat}.
 
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \subsection{The "Pain Points" of Dark Souls for Beginner-Level Players}
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
 \section{System Architecture, Design and Implementation}
 
@@ -121,6 +157,10 @@ Spiral level designs can also feature alternate routes and shortcuts. Since the 
 In this section, we specify the details for each of the major decisions and systems for the implementation of an appropriate replica of the core elements of Dark souls with the additional aspect of an adaptive system that dynamically adjusts game difficulty to the profile of a player. We provide a detailed list of the requirements of our implementation, along with the motivation for the choice of each technology and game asset.
 
 We specify the design and implementation of the gameplay mechanics and systems in Bright Souls, using a restricted set of the elements in the original game as a reference and comparing it to our previous analysis from section \ref{sec:analysis-dark-souls}.
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
 \subsection{Tools and Frameworks}
 
@@ -152,10 +192,14 @@ As for the implementation and reuse of infrastructural development tools and gam
 % - Authors had previous familiarity with the engine from personal and professional experience;
 The final deciding factor for the choice of Unity as a development platform was the previous personal and professional background of the authors with the engine, having implemented a wide variety of 2D and 3D Games, VR Serious Games and data visualization tools under Unity. The familiarity with the provided APIs, along with the knowledge of how to achieve a steady and concise workflow permitted the authors to plan a robust architecture and select the appropriate tools to implement the core features of Dark Souls with an acceptable quality in comparison to the original game.
 
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \subsection{Game Assets and Aesthetics}
 
 % 3D Models, animations and sound assets were selected based on trying to replicate the same general 'feel' of Dark Souls
-The assets for the implementation contained within this work were elected with the objective to serve as resources to attempt to replicate the general aesthetics of Dark Souls. Therefore, as a basis criteria for the selection of used assets, we use the brief analysis in section \ref{sec:dark-souls-aesthetics} as a reference to explore options in the Unity Asset Store within the \emph{'Dark Fantasy'} thematic subcategory.
+The assets for the implementation contained within this work were elected with the objective to serve as resources to attempt to replicate the general aesthetics of Dark Souls. Therefore, as a basis criteria for the selection of used assets, we use the brief analysis in section \ref{sec:analysis-dark-souls} as a reference to explore options in the Unity Asset Store within the \emph{'Dark Fantasy'} thematic subcategory.
 
 % Fantasy Dungeon
 First, we require a set of 3D models to assemble a playable 3D environment that satisfy the aesthetics of the 'Dark Fantasy' genre. For this purpose, we elected the asset pack \emph{Fantasy Dungeon} -- a collection of 3D models with a 'Ruined Castle' theme. The overall aesthetics and theme of this aspect pack appropriately resemble the sense of 'abandonment' in the original game. When considering functionality aspects, this pack contains modular 3D objects and pieces that can be easily assembled into a playable environment. Furthermore, the asset pack also contains pre-assembled scenes with appropriate lighting and optimized meshes, which were adapted to fit the requirements of our implementation.
@@ -235,43 +279,46 @@ In conclusion, we use table \ref{tab:table-game-assets} to provide a consolidate
       \textbf{Name}                & \bf Type  & \bf MSRP & \textbf{\small Path in Project}                             \\
       \midrule
       % 3D Models
-      Fantasy Dungeon              & 3D Models &  \$90.00 & \texttt{\tiny ../Assets/AssetStore/3D/FantasyDungeon/}      \\ 
-      Skeleton Zombies             & 3D Models &  \$16.00 & \texttt{\tiny ../Assets/AssetStore/3D/StudioNewPunch/}      \\
-      Modular Skeleton Archer      & 3D Models &  \$34.99 & \texttt{\tiny ../Assets/AssetStore/3D/SkeletonArcher/}      \\
-      Modular Skeleton Rogue       & 3D Models &  \$34.99 & \texttt{\tiny ../Assets/AssetStore/3D/SkeletonRogue/}       \\
-      Skeleton Humanoid            & 3D Models &  \$19.99 & \texttt{\tiny ../Assets/AssetStore/3D/SkeletonHumanoid/}    \\
-      The Blacksmith: Characters   & 3D Models &     FREE & \texttt{\tiny ../Assets/AssetStore/3D/ChallengerCharacter/} \\
+      Fantasy Dungeon              & 3D Models &  \$90.00 & \texttt{\tiny Assets/AssetStore/3D/FantasyDungeon/}      \\ 
+      Skeleton Zombies             & 3D Models &  \$16.00 & \texttt{\tiny Assets/AssetStore/3D/StudioNewPunch/}      \\
+      Modular Skeleton Archer      & 3D Models &  \$34.99 & \texttt{\tiny Assets/AssetStore/3D/SkeletonArcher/}      \\
+      Modular Skeleton Rogue       & 3D Models &  \$34.99 & \texttt{\tiny Assets/AssetStore/3D/SkeletonRogue/}       \\
+      Skeleton Humanoid            & 3D Models &  \$19.99 & \texttt{\tiny Assets/AssetStore/3D/SkeletonHumanoid/}    \\
+      The Blacksmith: Characters   & 3D Models &     FREE & \texttt{\tiny Assets/AssetStore/3D/ChallengerCharacter/} \\
       \midrule
       % Animations
-      ZOMBIE Starter Animation     & Animation &   \$4.99 & \texttt{\tiny ../Assets/AssetStore/3D/ZombieAnimset/}      \\
-      Sword and Shield Animset Pro & Animation &  \$65.00 & \texttt{\tiny ../Assets/AssetStore/3D/SwordShieldAnimset/} \\
-      Longsword Animset Pro        & Animation &  \$50.00 & \texttt{\tiny ../Assets/AssetStore/3D/LongswordAnimset/}   \\
-      Archer Animset Pro           & Animation &  \$55.00 & \texttt{\tiny ../Assets/AssetStore/3D/ArcherAnimset/}      \\
-      Rogue Animset Pro            & Animation &  \$50.00 & \texttt{\tiny ../Assets/AssetStore/3D/RogueAnimset/}      \\
+      ZOMBIE Starter Animation     & Animation &   \$4.99 & \texttt{\tiny Assets/AssetStore/3D/ZombieAnimset/}       \\
+      Sword and Shield Animset Pro & Animation &  \$65.00 & \texttt{\tiny Assets/AssetStore/3D/SwordShieldAnimset/}  \\
+      Longsword Animset Pro        & Animation &  \$50.00 & \texttt{\tiny Assets/AssetStore/3D/LongswordAnimset/}    \\
+      Archer Animset Pro           & Animation &  \$55.00 & \texttt{\tiny Assets/AssetStore/3D/ArcherAnimset/}       \\
+      Rogue Animset Pro            & Animation &  \$50.00 & \texttt{\tiny Assets/AssetStore/3D/RogueAnimset/}        \\
       \midrule
       % Sound effects and Music
-      Axe Swing \& Damage Sounds   & SFX       &   \$5.00 & \texttt{\tiny ../Assets/AssetStore/Audio/AxeSwingSounds/}   \\
-      Medieval Fantasy 2 Audio     & SFX       &  \$50.00 & \texttt{\tiny ../Assets/AssetStore/Audio/MedievalFantasy2/} \\ 
-      Universal Sound FX           & SFX       &  \$40.00 & \texttt{\tiny ../Assets/AssetStore/Audio/UniversalSoundFX/} \\
+      Axe Swing \& Damage Sounds   & SFX       &   \$5.00 & \texttt{\tiny Assets/AssetStore/Audio/AxeSwingSounds/}   \\
+      Medieval Fantasy 2 Audio     & SFX       &  \$50.00 & \texttt{\tiny Assets/AssetStore/Audio/MedievalFantasy2/} \\ 
+      Universal Sound FX           & SFX       &  \$40.00 & \texttt{\tiny Assets/AssetStore/Audio/UniversalSoundFX/} \\
       \midrule
       % Music
-      Dark Fantasy Audio           & Music     &  \$22.99 & \texttt{\tiny ../Assets/AssetStore/Audio/DarkFantasyAudio/} \\
+      Dark Fantasy Audio           & Music     &  \$22.99 & \texttt{\tiny Assets/AssetStore/Audio/DarkFantasyAudio/} \\
       \midrule
       % Visual Effects
-      Pseudo-Volume Blood Effects  & VFX       &  \$15.00 & \texttt{\tiny ../Assets/AssetStore/VFX/KriptoFX/BloodFX/}  \\ 
-      Smoke \& Ember FX            & VFX       &  \$10.00 & \texttt{\tiny ../Assets/AssetStore/VFX/SmokeEmberFX/}      \\ 
-      Unity Particle Pack          & VFX       &     FREE & \texttt{\tiny ../Assets/AssetStore/VFX/UnityParticlePack/} \\
+      Pseudo-Volume Blood Effects  & VFX       &  \$15.00 & \texttt{\tiny Assets/AssetStore/VFX/KriptoFX/BloodFX/}   \\ 
+      Smoke \& Ember FX            & VFX       &  \$10.00 & \texttt{\tiny Assets/AssetStore/VFX/SmokeEmberFX/}       \\ 
+      Unity Particle Pack          & VFX       &     FREE & \texttt{\tiny Assets/AssetStore/VFX/UnityParticlePack/}  \\
       \midrule
       % UI Elements
-      PC \& Consoles Buttons Icons & UI        &  \$14.99 & \texttt{\tiny ../Assets/AssetStore/UI/PCConsolesIcons/} \\ 
-      RPG \& MMO UI 5              & UI        &  \$35.00 & \texttt{\tiny ../Assets/AssetStore/UI/RPGMMOUI5/}       \\
+      PC \& Consoles Buttons Icons & UI        &  \$14.99 & \texttt{\tiny Assets/AssetStore/UI/PCConsolesIcons/}     \\ 
+      RPG \& MMO UI 5              & UI        &  \$35.00 & \texttt{\tiny Assets/AssetStore/UI/RPGMMOUI5/}           \\
       \midrule
       % Editor Utilities and Extensions
-      Odin Inspector               & Plugin    &  \$55.00 & \texttt{\tiny ../Assets/Plugins/Sirenix/} \\ 
+      Odin Inspector               & Plugin    &  \$55.00 & \texttt{\tiny Assets/Plugins/Sirenix/}                   \\ 
       \bottomrule
     \end{tabular}
   \end{center}
 \end{table}
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
 \subsection{Gameplay Mechanics and Systems}
 
@@ -285,6 +332,10 @@ In conclusion, we use table \ref{tab:table-game-assets} to provide a consolidate
 % - A combat system which handles hit and block detection, combat effects such as stamina draining, damage and poise break, attack action and state handling, and combat statuses that affect the ability of a character performing actions
 % - An attributes system that can be containerized into components for game entities, is able to serialize value data types, broadcasts events when its values are changed, and can be used by other gameplay subsystems to determine the status of a game entity
 % - A character status system that accounts for Invincibility Frames (IFrames) when dodging and the inability of performing actions when staggered or dead
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
 % Movement mechanics and physics
 \subsubsection{Movement mechanics and physics}
@@ -324,14 +375,14 @@ In contrast to using a regular Raycast, the SphereCast operation is able to dete
 
 In games where grounded-state detection is not handled appropriately, Character controller components will often accumulate vertical velocity indefinitely, since while being impossible to move downwards due to the character controller constraining movement against colliders, the 'grounded' state is never detected. What commonly happens after this is that when the player steps away from the ledge sufficiently, they will instantly fall to the ground instantly because of the accumulated speed. If the game is programmed to apply fall damage in this situation, this might mean instant death even though the player did not fall from a considerable height.
 
-Finally, in the frame where a character that was previously considered 'not grounded' detects ground collision, we invoke the \texttt{OnHitGround} event, and proceed to perform fall damage calculation. In our implementation, fall damage is calculated by considering fall speed multiplied by a parametrized speed-to-health-point conversion factor, named 'FallDamageMultiplier'.
+Finally, in the frame where a character that was previously considered not groun\hyp{}ded detects ground collision, we invoke the \textsc{OnHitGround} event, and proceed to perform fall damage calculation. In our implementation, fall damage is calculated by considering fall speed multiplied by a parametrized speed-to-health-point conversion factor, named 'FallDamageMultiplier'.
 
-Figure \ref{fig:movement-class-diagram} shows an overview of the class architecture for our implementation of the movement system. We have a top-level \texttt{Player} class which holds the components for all gameplay-related subsystems. The \texttt{PlayerMotor} component is an implementation of the \texttt{ICharacterMotor} abstraction, and is responsible for implementing the movement and physics logic of our motion controls.
+Figure \ref{fig:movement-class-diagram} shows an overview of the class architecture for our implementation of the movement system. We have a top-level \textsc{Player} class which holds the components for all gameplay-related subsystems. The \textsc{PlayerMotor} component is an implementation of the \textsc{ICharacterMotor} abstraction, and is responsible for implementing the movement and physics logic of our motion controls.
 
-When input is received from the user, the \texttt{PlayerMotor} component filters the input, calculates movement direction based on viewport orientation, and redirects the actual transform position changing to \texttt{Player.Move()}. The \texttt{Player} class in turn calls \texttt{CharacterController.Move()} that considers collisions and other physics-related constraints, and broadcasts movement signals that will be consumed by the \texttt{PlayerBody} class, which is responsible for handling character animation.
+When input is received from the user, the \textsc{PlayerMotor} component filters the input, calculates movement direction based on viewport orientation, and redirects the actual transform position changing to \textsc{Player.Move()}. The \textsc{Player} class in turn calls \textsc{CharacterController.Move()} that considers collisions and other physics-related constraints, and broadcasts movement signals that will be consumed by the \textsc{PlayerBody} class, which is responsible for handling character animation.
 
 % Figure: Player Movement Class Diagram for Bright Souls
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \caption{Class diagram representing the architecture of our Movement System.}
     \vspace{0.5em}
     \begin{center}
@@ -341,15 +392,56 @@ When input is received from the user, the \texttt{PlayerMotor} component filters
     \label{fig:movement-class-diagram}
 \end{figure}
 
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \subsubsection{Camera System}
 \label{sec:lock-on-camera}
 
+% In this implementation, we design and implement two separate camera modes
+%   - Orbital Third Person Camera
+%       > Commonly used for third person hack n' slash or platformer games
+In our implementation, we use our analysis of \emph{Dark Souls} in section \ref{sec:analysis-dark-souls} to design two separate camera modes with complementary functionality that can be used as tools for the player to achieve optimal performance in and out of combat. First we implement an \emph{Orbital Third Person Camera}, which is commonly used in third person \emph{Hack and Slash} and \emph{Platformer} games where the player has to evaluate the properties of the environment they are in and quickly assess dangers that might cause their defeat to devise a plan of action.
+
+%       > Camera positions itself in the perimeter of an ellipsoid that is centered on the player
+%       > Input from the player generates movement along the perimeter, causing the camera to orbit around the player
+%       > Attempts to frame both the player and the environment by using a position above the player as pivot
+An Orbital Third Person Camera positions itself in the perimeter of a three dimensional ellipsoid that is centered on the player, where input from the player generates movement along this perimeter. This type of camera attempts to frame both the player and the environment at the same time, having the player on a central position in the screen and using a position above the player as a rotation pivot. The rotations from player input along with the framing algorithm causes the camera to perform an orbital movement.
+
+%       > In our game, it is the default camera mode, used for traversal around the map
+%       > Free control over framing enables player to scout for enemies, avoid pitfalls
+In our game, Orbital Third Person Cameras are the default camera mode, and are mainly designed for traversal around the three-dimensional environment. The fact that the player has control over the positioning and framing of the camera enables the player with the possibility to scout the environment for pitfalls and enemies before performing movement. This is the perfect type of camera to be used in out-of-combat situations in third person games, as players can gather information safely and use it to devise a plan-of-action.
+
+%   - Lock-On camera
+%       > Mostly used in action third person hack n' slash games that have melee combat, although some RPGs also use it
+%       > Camera positions itself behind the player and attempts to frame both the player and a target character
+The second type of camera in our implementation is the \emph{Lock-On Camera}, which is mostly used in action third-person \emph{Hack and Slash} games that have melee combat. This type of camera positions itself behind the player character, and attempts to frame both the player and a target -- most commonly an enemy character. Whenever the target character moves, the camera adjusts its position and framing to maintain a fixed relative positioning between the player character and their target.
+
+%       > Camera positioning and framing creates fixed "dimensions of movement" of the player relative to a target,
+%         making it easier for a player to avoid attacks from that target and find the optimal spacing to land their
+%         own attacks
+The relative positioning and framing of a Lock-On Camera creates fixed axes of movement between the player character and their target where if a player moves horizontally, they will move in a circle around the target character. Moving forward and backwards adjusts the distance between the player and their target. The purpose of this mechanism is for the player to have better control of spacing during combat, making it easier for the player to avoid attacks and find the optimal distance to land their own attacks.
+
+%       > Useful for the player to be able to track and attack a single target with ease without missing,
+%         instead of having to specify a "direction" for the attack, the player can simply press the attack button
+%         and the character will already be facing the enemy and perform the attack in the correct direction
+The fact that a Lock-On Camera is always facing a single target character removes the necessity for players to specify a direction for their attacks through input. Instead, players can simply press the attack button when their characters are within attack range. Since the character is constantly facing the enemy, the direction of their attack is guaranteed to be correct. Another positive effect caused by this behavior is that the framing helps the player to focus on the actions being performed by the enemy character, helping to understand when an enemy is attacking and which kind of attack an enemy is performing.
+
+%       > Has issues in environments in constrained spaces, where the enemy is too close to the player or the player
+%         is too close to a wall. Framing becomes an issue in this case
+However, Lock-On camera implementations face issues when the target character is too close to the player character, or when they are operating in environments with constrained space. When the player character is too close to their target, it is common for Lock-On cameras to not adjust their vertical offset, meaning that the framing direction must be angled downwards and into the ground. This causes the player to have limited geometric information about the surroundings of both characters, making it harder to efficiently navigate the environment during combat. Furthermore, if a player is moving horizontally when close to their target, the perimeter of the circle of movement has a significantly reduced radius, making the camera rotate at high speeds and causing motion sickness\sepfootnote{fn:motion-sickness} in some instances.
+
+When Lock-On cameras operate in constrained space, it is common for the default offset position to be located outside the playable space (e.g. inside walls), and thus a position resolution algorithm is required to guarantee that the camera is always in a valid position. The most common algorithm is the pull-forward approach, where if the camera would be located outside the playable space the target position is recalculated so that the camera is brought closer to the player. While this solution works until a certain point, if the player positions their character too close to a wall it might create a situation where it is impossible for the camera to frame both the player and their target, with either the player character occluding the target or the camera focusing solely on the target by being positioned above the player character. In addition, a similar problem to that of players being to close to targets occurs, where in this case the camera might reposition too quickly due to the resolution algorithm.
+
+Figure \ref{fig:camera-types} shows a comparative diagram of both camera types implemented in this work, where four screen captures are used for the Orbital Third Person Camera to illustrate multiple framing angles that can be achieved from player controlled rotations.
+
 % Figure:  Orbital and Lock-On camera framing/rotation
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \caption{Comparative screenshots showing the difference between the Orbital and Lock-On camera modes.}
     \vspace{0.5em}
     \begin{center}
-        \includegraphics[width=36em]{figures/fig-camera-types.png}
+        \includegraphics[width=34em]{figures/fig-camera-types.png}
     \end{center}
     \legend{Source: Screen capture of application developed by authors.}
     \label{fig:camera-types}
@@ -359,7 +451,11 @@ When input is received from the user, the \texttt{PlayerMotor} component filters
 % - Use of Cinemachine
 %     * Ready-to use implementation of orbital rotation with parametric spline curve for vertical axis
 %     * Smooth transition between virtual cameras which was useful for Orbital Camera and Lock-on modes
+Regarding the implementation of the Orbital Third person Camera, we chose to use the \emph{Cinemachine} Unity Package due to its comprehensive API and components that include functionality for multiple types of cameras, including Orbital third person Cameras. Another useful trait is that APIs provided by Cinemachine enable defining parametric curves to calculate vertical and horizontal positioning of the camera when rotated by the player or by external components. 
+
 %     * Algorithmic motion that can simulate cinematic behavior with camera shake effect and framing corrections
+Cinemachine also provides systems for , composing and blending multiple cameras, which satisfies our requirement of handling multiple camera modes by facilitating the transition between shots with a behavior-controlled signal system. Furthermore, Cinemachine also defines algorithms for procedural generation of motion and framing, which is useful to create screen shake effects with high fidelity when the player is attacked by an enemy, or when the camera needs to track the movement of high velocity targets.
+
 % - Orbit around player character model
 %     * Rotate around Y axis for horizontal input and X axis for vertical input
 %     * Rotation pivot slightly above character head for improved visibility
@@ -426,13 +522,13 @@ When input is received from the user, the \texttt{PlayerMotor} component filters
 
 
 % Figure: Melee enemy AI State Machine
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \caption{An example of the State Machine that represents a Melee Enemy AI Agent. Each state holds its own behavior.}
     \begin{center}
-        \includegraphics[width=40em]{figures/fig-melee-ai-state-machine.png}
+        \includegraphics[width=34em]{figures/fig-melee-ai-state-machine.png}
     \end{center}
     \legend{Source: Diagram assembled by authors.}
-    \label{fig:ex1}
+    \label{fig:fig-ai-state-machine}
 \end{figure}
 
 \subsection{Telemetry and Performance Tracking}
