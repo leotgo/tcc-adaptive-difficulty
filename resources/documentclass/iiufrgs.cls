@@ -94,12 +94,51 @@
 \RequirePackage{titlesec}
 \RequirePackage{fancyhdr}
 \RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\RequirePackage[tocindentauto,tocfullflat]{tocstyle}
-\settocfeature[toc][0]{entryhook}{\bfseries\uppercase}
-\settocfeature[toc][1]{entryhook}{\bfseries}
-\settocstylefeature{pagenumberbox}{\pnbox}
-\settocfeature[lof][1]{entryhook}{\figurename\hspace{0.2em}} % valor calculado no olho. Deveria ser um espaço de tamanho fixo, mas ~ tem tamanho variável
-\settocfeature[lot][1]{entryhook}{\tablename\hspace{0.2em}}
+\RequirePackage{tocbasic} % changed from tocstyle to tocbasic because tocstyle is osbolete
+
+% Adjust \dotfill command spacing to better reflect what we had with tosctyle
+\renewcommand{\dotfill}{%
+  \leavevmode\cleaders\hb@xt@0.25em{\hss .\hss }\hfill\kern\z@}
+
+\DeclareTOCStyleEntries[
+  raggedentrytext,
+  linefill=\dotfill, % fill space between line text and page number with dots
+  numwidth=0pt,
+  numsep=1ex,
+  pagenumberwidth=1em, % avoid additional space between dots and page number
+  dynnumwidth
+]{tocline}{chapter,section,subsection,subsubsection,paragraph,subparagraph}
+
+\DeclareTOCStyleEntries[
+  indent=0pt,
+  dynindent
+]{tocline}{section,subsection,subsubsection,paragraph,subparagraph}
+
+\DeclareTOCStyleEntries[
+  beforeskip=0em plus 1pt,% default is 1em plus 12pt
+  entryformat=\bfseries,
+  linefill=\bfseries\dotfill,
+  pagenumberformat=\bfseries
+]{tocline}{chapter,section}
+
+\DeclareTOCStyleEntries[
+  dynnumwidth,
+  entrynumberformat=\figurename\hspace{0.2em},
+  beforeskip=0em plus 0pt,
+  pagenumberwidth=1em,
+  indent=0pt,
+  dynindent
+]{tocline}{figure,table}
+
+\DeclareTOCStyleEntry[
+  entrynumberformat=\tablename\hspace{0.2em}
+]{tocline}{table}
+
+%\settocfeature[toc][0]{entryhook}{\bfseries\uppercase}
+%\settocfeature[toc][1]{entryhook}{\bfseries}
+%\settocstylefeature{pagenumberbox}{\pnbox}
+%\settocfeature[lof][1]{entryhook}{\figurename\hspace{0.2em}} % valor calculado no olho. Deveria ser um espaço de tamanho fixo, mas ~ tem tamanho variável
+%\settocfeature[lot][1]{entryhook}{\tablename\hspace{0.2em}}
 
 \RequirePackage[%
         bookmarksnumbered=true,
