@@ -2,9 +2,10 @@ cic-tc.pdf
 cic-tc.out
 cic-tc.TOC
 cic-tc.aux
-.gitignore
-.gitignore
-.gitignore
 cic-tc.LOT
-.gitignore
 cic-tc.synctex.gz
+cic-tc.lof
+cic-tc.fls
+cic-tc.blg
+cic-tc.bbl
+cic-tc.fdb_latexmk
