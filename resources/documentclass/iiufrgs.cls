@@ -141,16 +141,16 @@
 %\settocfeature[lot][1]{entryhook}{\tablename\hspace{0.2em}}
 
 \RequirePackage[%
-        bookmarksnumbered=true,
-        breaklinks=true,
-        unicode=true,
+    bookmarksnumbered=true,
+    breaklinks=true,
+    unicode=true,
 %
-        colorlinks=true,
-        anchorcolor=black,
-        citecolor=black,
-        filecolor=black,
-        linkcolor=black,
-        urlcolor=black
+    colorlinks=true,
+    anchorcolor=black,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
 ]{hyperref}[2009/10/09]
 \RequirePackage[all]{hypcap}
 
