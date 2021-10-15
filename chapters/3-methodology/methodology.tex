@@ -386,7 +386,7 @@ When input is received from the user, the \textsc{PlayerMotor} component filters
     \caption{Class diagram representing the architecture of our Movement System.}
     \vspace{0.5em}
     \begin{center}
-        \includegraphics[width=34em]{figures/fig-player-movement-class-diagram.png}
+        \includegraphics[width=30em]{figures/fig-player-movement-class-diagram.png}
     \end{center}
     \legend{Source: Diagram assembled by authors.}
     \label{fig:movement-class-diagram}
@@ -451,44 +451,50 @@ Figure \ref{fig:camera-types} shows a comparative diagram of both camera types i
 % - Use of Cinemachine
 %     * Ready-to use implementation of orbital rotation with parametric spline curve for vertical axis
 %     * Smooth transition between virtual cameras which was useful for Orbital Camera and Lock-on modes
-Regarding the implementation of the Orbital Third person Camera, we chose to use the \emph{Cinemachine} Unity Package due to its comprehensive API and components that include functionality for multiple types of cameras, including Orbital third person Cameras. Another useful trait is that APIs provided by Cinemachine enable defining parametric curves to calculate vertical and horizontal positioning of the camera when rotated by the player or by external components. 
+Regarding the implementation of the Orbital Camera, we chose to use the \emph{Cinemachine} Unity Package due to its comprehensive API and functionality for multiple types of cameras, including specific algorithms to manipulate Orbital Cameras. Another useful trait is that the APIs provided by Cinemachine enable defining parametric curves for positioning, which increases the expressive power of game designers.
 
 %     * Algorithmic motion that can simulate cinematic behavior with camera shake effect and framing corrections
-Cinemachine also provides systems for , composing and blending multiple cameras, which satisfies our requirement of handling multiple camera modes by facilitating the transition between shots with a behavior-controlled signal system. Furthermore, Cinemachine also defines algorithms for procedural generation of motion and framing, which is useful to create screen shake effects with high fidelity when the player is attacked by an enemy, or when the camera needs to track the movement of high velocity targets.
+Cinemachine can also manage, compose and blend multiple cameras, which is useful to perform shot transitions triggered by a signal system that resembles the \emph{Observer} pattern\sepfootnote{fn:observer-pattern}. Cinemachine also includes algorithms for procedural motion generation, which is used to create screen shake effects with high fidelity when the player is attacked by an enemy, or to properly adjust framing when the camera needs to track movement of high velocity targets.
 
-% - Orbit around player character model
-%     * Rotate around Y axis for horizontal input and X axis for vertical input
-%     * Rotation pivot slightly above character head for improved visibility
-%     * Vertical arc is not a sphere 
-%         > Use of Cinemachine to create a parametric arc that simulates a camera dolly
-% - Collision layer specific to camera collision detection to ignore small and thin objects to avoid jittery camera movement or weird framing of the player character
+% Prefab GameObject hierarchy with CinemachineBrain at root 
+% MainCamera object as a child of the CinemachineBrain
+We start by creating a \textsc{Prefab}\sepfootnote{fn:unity-prefabs} hierarchy of \textsc{GameObjects}\sepfootnote{fn:unity-gameobjects} where we include a \textsc{CinemachineBrain} component in the root level, and multiple \textsc{VirtualCameras} as child objects. The \textsc{CinemachineBrain} component is responsible for defining the current active camera, camera transitions and the signals that trigger each transition. The \textsc{CinemachineBrain} brain component requires a reference to a \emph{Main Camera}, a special \textsc{GameObject} with a \textsc{Camera} component responsible for rendering the final output of our camera management system. We add the \emph{MainCamera} object as a child of the root.
+
+% VirtualCamera child objects that contain definitions for transposing and composing strategies
+As child GameObjects of the hierarchy root, we include a set of \textsc{VirtualCameras} for each of the camera modes in our implementation. In this case, we simply add a VirtualCamera for the Orbital Camera and another for the Lock-On Camera. VirtualCameras are Cinemachine abstractions that define the physical properties of a camera along with transposing and composing strategies\sepfootnote{fn:transposing-and-composing}. In this case, we use a VirtualCamera with an Orbital transposing strategy and a single LookAt target aiming at a pivot position above the player character. For the Lock-On camera, we use a simple Follow strategy for transposing and a Group Composition strategy to frame both the player character and their target enemy.
+
+% PlayerCameraDirector component, which is responsible for receiving signals from player and translating them into signals for the CinemachineBrain and activating and deactivating PlayerCameraBehaviours
+We also add a \textsc{GameObject} containing a \textsc{PlayerCameraDirector} component, which is responsible for receiving signals from the \emph{Player} component and translating them into signals for the \textsc{CinemachineBrain}. The signals are then used to switch and transition between shots. The \textsc{PlayerCameraDirector} is also responsible for enabling and disabling \textsc{PlayerCameraBehaviour} components, which receive player input, manage camera framing targets and initialize camera states.
+
+The \textsc{VirtualCamera} components are tasked with receiving player input and performing the appropriate actions given the input. For instance, the \textsc{OrbitalCamera} receives a two-dimensional vector as input, which is translated into vertical rotation and translation for the Y axis and horizontal for the X axis. In the Lock-On camera, the horizontal axis of the vector input is used to switch Lock-On targets. Figure \ref{fig:camera-class-diagram} shows an overview of the class relationship in our camera system implementation, as well as the signals that are being sent and listened to.
+
+% Figure:  Camera system class diagram
+\begin{figure}[!ht]
+    \caption{A diagram showing the class relationship of our Camera System implementation, along with the signals being sent and processed.}
+    \vspace{0.5em}
+    \begin{center}
+        \includegraphics[width=24em]{figures/fig-camera-system-class-diagram.png}
+    \end{center}
+    \legend{Source: Diagram assembled by the authors.}
+    \label{fig:camera-class-diagram}
+\end{figure}
+
 %     * Simplified collision geometry enables using a pull-forward collision resolution
+For position resolution, we created a simplified and invisible collision map to define the constraints of where a camera can be positioned in a game level. This is done to both improve the performance of raycasts and to avoid jittery movement when using pull-forward collision resolution on thin objects. This collision map is limited to interact with camera algorithms, and does not affect player movement or any other physics entities in any way.
 
 % Lock-On camera and targeting system
 % - Possible Lock-on targets must be located in an intersection of the camera viewport with a collision sphere centered at player character
 % - Lock-On target prioritization is higher for targets that are closer to the player and to the center of the screen
+To detect Lock-On eligible targets, we use a spheric collider in a radius around the player collider and intersect any detected entities with those present in the viewport, to constrain selection to entities being visualized. Eligible targets are collected into a list ordered by distance to the player character, which is updated every second. This is done because targets that are closer to the player are considered a higher threat, as they are more likely to hit the player when attacking.
+
 % - Use of horizontal input axis from Orbital Camera to switch between targets
-
-% - Figure: Camera System class diagram
-
-\subsubsection{Animation System}
-
-% Animation system
-% - Difference in body movement when in Orbital vs Lock-On Cameras
-% - React to attribute changes, motor velocity and physics updates
-
-% - Figure: Player Animation State Machine
-
-% - Statuses such as staggered, dead will override other animations
-% - Blending between animations states when performing directional actions
-% - Transitioning between combo states
-% - Animation events for hit detection when attacking
-
-% - Figure: Animation System class diagram showing component relations and events
+Horizontal input from the player is used to switch between targets, where moving the input axis to the left switch to the closest target at the left of the current Locked-On target, using coordinates relative to viewport space. Therefore, the position of the next target is selected using a comparison of the position of the entity in the X-axis when converting their coordinates to a viewport space.
 
 \subsubsection{Combat System}
 
 % Attacking and combo system, hit and block detection
+
+
 % - Hit detection:
 %     * Hitbox overlap detection for attacker weapons and target character when Attack animation event signals are received
 %     * Consider character faction to recognize which combat characters can be hurt by an attack
@@ -511,6 +517,21 @@ Cinemachine also provides systems for , composing and blending multiple cameras,
 %     * Possibility to dynamically assign attributes during the course of a session, which can be useful for a telemetry system
 % - Definition of interfaces that expose attributes to any of the classes that might require it
 %     * UI elements, Character status controllers, Animation controllers
+
+\subsubsection{Animation System}
+
+% Animation system
+% - Difference in body movement when in Orbital vs Lock-On Cameras
+% - React to attribute changes, motor velocity and physics updates
+
+% - Figure: Player Animation State Machine
+
+% - Statuses such as staggered, dead will override other animations
+% - Blending between animations states when performing directional actions
+% - Transitioning between combo states
+% - Animation events for hit detection when attacking
+
+% - Figure: Animation System class diagram showing component relations and events
 
 \subsection{Artificial Intelligence}
 
