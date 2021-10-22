@@ -490,6 +490,38 @@ To detect Lock-On eligible targets, we use a spheric collider in a radius around
 % - Use of horizontal input axis from Orbital Camera to switch between targets
 Horizontal input from the player is used to switch between targets, where moving the input axis to the left switch to the closest target at the left of the current Locked-On target, using coordinates relative to viewport space. Therefore, the position of the next target is selected using a comparison of the position of the entity in the X-axis when converting their coordinates to a viewport space.
 
+\subsubsection{Attributes System}
+
+% Attributes system
+Attributes are our abstraction for runtime data that represents the current state of a gameplay entity, such as the Player Character, an Enemy Character or even an interactable object in a level such as a door. Attributes can be initialized, serialized and monitored by external components and are used by a multitude of gameplay related systems. In our implementation, attributes are mostly used to represent combat related variables such as Health, Stamina and Poise, and thus are affected by events triggered by the combat system, such as Stamina being used when the player attempts to attack an enemy, or the Health lost when an enemy succesfully hits the player.
+
+% Based on Generics: Attributes can be generated for any primitive type, such as int, float, double, string.
+%   - Serialized into binary gameplay data files for game designers to define the default and maximum values for character health, stamina and poise
+%   - Initialized by persistent data managers to maintain player status when transitioning between levels
+Attributes are based on \textsc{C\#} \emph{Generics}, and can be generated for any value type such as integers, floating point variables, strings and enumerations. This limitation is imposed in our architecture so that attributes can be easily serialized into binary data files that can be used to define the default and maximum values for each attribute holder. This constraint also facilitates Attribute initialization, which is useful to support persistent data such as maintaining attributes between levels  or loading the state of an entity from a file in a savegame system. 
+
+%   - Monitored by UI systems to display relevant data about the status of the player, for instance a Health Bar that display the current health of the player and shows health lost when getting attacked.
+All Attribute types implement the \textsc{IAttribute} interface, which exposes acessors for data manipulation and events for value changes. This facilitates the use of attributes by separate, independent systems in our architecture. For instance, Attributes are monitored by UI (User Interface) systems to display relevant data about gameplay entities, such as the status of the player. Health bars show the current player health and also provide a good estimation of health lost when getting attacked by an enemy using a secondary, trailing health bar.
+
+The advantage of creating of an event monitoring system between Attributes external systems is that upon initial conception of the architecture, we do not exactly know how many components will require communication with each gameplay entity. For instance, when implementing the UI for the player character we can initially propose a single health bar that would simply read the value of runtime variables from the \textsc{Player} class, but if we iteratively add new elements such as floating text, combat messages and visual effects, each of these systems should have direct access to the components that hold data regarding player state, which enforces component coupling in our architecture. With an event system, we can simply subscribe to signals being sent by attributes, constraining the exposed data and methods and facilitating component decoupling.
+
+% - AttributesContainers
+%     * Containerization of attributes to allow for entities with different attribute configurations without defining static types
+%     * Possibility to dynamically assign attributes during the course of a session, which can be useful for a telemetry system
+% - Definition of interfaces that expose attributes to any of the classes that might require it
+Attribute owners will often contain different sets of attributes to satisfy the requirements of the systems they interact with. As such, characters that can partake into combat encounters will present different attributes in relation to interactable objects such as doors. To provide a standardized interface for the access of attributes over different entity types, we containerize attributes into \emph{Attribute Containers}, which provide a public interface for dynamic access and manipulation of statically typed attributes contained within an entity. Figure \ref{fig:attributes-diagram} shows an overview of the class relationships in the Attributes System, along with examples of how attributes signalize changes to external components such as UI Elements.
+
+% - Figure: Attributes system class diagram
+\begin{figure}[!ht]
+    \caption{Class diagram for the Attributes System, showing examples of signals being used by UI Elements.}
+    \vspace{0.5em}
+    \begin{center}
+        \includegraphics[width=34em]{figures/fig-attributes-diagram.png}
+    \end{center}
+    \legend{Source: Diagram assembled by the authors.}
+    \label{fig:attributes-diagram}
+\end{figure}
+
 \subsubsection{Combat System}
 
 % Attacking and combo system, hit and block detection
@@ -505,18 +537,6 @@ Horizontal input from the player is used to switch between targets, where moving
 % - Combos: 
 %     * Detecting and queuing input commands during attacking animations to allow for chained attacks
 %     * Alternating between attack animations to create the impression of a seamless combo that is only limited by the stamina resource
-
-\subsubsection{Attributes System}
-
-% Attributes system
-% - Figure: Attributes system class diagram
-% - Based on Generics: Attributes can be generated for any valued type
-% - Objective is to assign multiple serializable type attributes to a game entity such as a character, allowing for editing game object properties in Unity Editor
-% - AttributesContainers 
-%     * Containerization of attributes to allow for entities with different attribute configurations without defining static types
-%     * Possibility to dynamically assign attributes during the course of a session, which can be useful for a telemetry system
-% - Definition of interfaces that expose attributes to any of the classes that might require it
-%     * UI elements, Character status controllers, Animation controllers
 
 \subsubsection{Animation System}
 
