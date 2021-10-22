@@ -111,7 +111,7 @@ Upon the research conducted in the creation of this work, no official informatio
 
 Non-player characters often share similar behavioral patterns in Dark Souls. Whi\hyp{}le the actions of a humanoid NPC might differ from a quadruped, their overall behavior upon player presence is the same. The NPC stands idle until receiving interaction from their sensors, such as the player stepping into their line of sight. At that point, the enemy will either attack at range, if using a bow or spell, or rush towards the player and attack in close-quarters.
 
-Enemies wearing a shield will commonly attempt to defend themselves when the player repeatedly attacks. The defense stance can be punished by the player when they perform a kick or by attacking from behind. In other occasions, a low health enemy might evade attacks or even heal theirself. Most of these strategies are predictable, even when there is a variability in the patterns used.
+Enemies wearing a shield will commonly attempt to defend themselves when the player repeatedly attacks. The defense stance can be punished by the player when they perform a kick or by attacking from behind. In other occasions, a low health enemy might evade attacks or even heal itself. Most of these strategies are predictable, even when there is a variability in the patterns used.
 
 Ultimately, the AI of Dark Souls is simplistic, but sufficient for the objectives proposed by the developer. The predictability of this system can be considered a favorable factor for a player learning how to overcome an enemy. This simplicity is not perceivable by the player in the first playthrough, since the player will struggle with the challenging aspects of the level design. In addition, Dark Souls present its enemies as being overtly strong in comparison to the player. A slight mistake might cause the player to endure punishing amounts of damage, thus creating the illusion of a difficult opponent.
 
@@ -254,14 +254,14 @@ For this project, the immersion of players in the environment of an abandoned ca
 In sequence, we require a collection of \emph{particle-based}\sepfootnote{fn:particle-vfx} visual effects to provide a proper visual feedback when characters are able to successfully attack their enemies, as well as visual effects that complement the aesthetics and purpose of the 3D models we selected for our environment. For conveying successful attacks, we chose to add pseudo-volumetric particles for a splatter of blood that originates from the body of the attacked target, with the asset pack \emph{Pseudo-Volume Blood Effects} being the most appropriate for this purpose. To increase the detail and depth of our 3D environment, we used fire particle effects for candle and small torches from \emph{Smoke \& Ember FX} and \emph{Unity Particle Pack}. In additional to fire particles, these asset packs also provided smoke particle effects, which were used to both complement the fire from light sources and to help occlude certain parts of our levels until the player moved to a closer position.
 
 % We need 2D UI Elements that can convey the basic gameplay resources: Health and Stamina
-We also need a collection of 2D UI Elements that are able to convey the basic gameplay resources that the player should be able to keep track of during a gameplay session: \emph{Health} and \emph{Stamina}. For this purpose, \emph{Health Bars} will suffice as they are a common standard for representing attributes that have a variable maximum value and a minimum value of zero. The design and layout of these elements should be in overall accordance with the Dark Fantasy genre, avoiding overly satured color palletes and an exaggerated geometric complexity.
+We also need a collection of 2D UI Elements that are able to convey the basic gameplay resources that the player should be able to keep track of during a gameplay session: \emph{Health} and \emph{Stamina}. For this purpose, \emph{Health Bars} will suffice as they are a common standard for representing attributes that have a variable maximum value and a minimum value of zero. The design and layout of these elements should be in overall accordance with the Dark Fantasy genre, avoiding overly saturated color pallettes and an exaggerated geometric complexity.
 
 % We also need UI Elements for menus, settings, tooltips and button captions
 We also require a variety of UI elements that can be used for assembling the menus that will be used by the player to initiate sessions, pages for the configuration of game settings, small tooltips that provide a brief description of the functionality of UI elements, and button captions that can be displayed during a game session to provide the player with a reference of the actions that can be performed at any given time.
 
 To represent most of the UI elements in our implementation, we selected the asset pack \emph{RPG \& MMO UI 5} which contains the most common UI elements used in the video games such as menus, buttons, tooltips, Health bars, loading screens and portraits, with an overall design tailored for Fantasy games. This asset pack also contains an under-saturated color palette with greyed out colors, which goes in accordance with our aesthetic needs for a Dark Fantasy game. For button captions, we selected the asset pack \emph{PC \& Consoles Buttons Icons} which contains button icons for a multitude of input devices such as Xbox Controllers, PlayStation Controllers, Mouse \& Keyboard and even joysticks for Head-Mounted devices.
 
-% Finally, we used complementary editor tools that allowwed for a more concise and streamlined workflow for serializing game data and implementing common functionality for third-person hack and slash games
+% Finally, we used complementary editor tools that allowed for a more concise and streamlined workflow for serializing game data and implementing common functionality for third-person hack and slash games
 We also included \emph{Odin Inspector} as a complementary editor tool that allowed for a more concise workflow when serializing game data such as character attributes, physics properties and gameplay values into binary game asset files. With \emph{Odin Inspector}, it was possible to create reusable serializable classes that could be assigned to components directly from the \textsc{Unity} engine editor, which was used as a base for the creation of our \emph{Attributes}, \emph{State Machines} and \emph{Performance Tracking} systems.
 
 % Table showing Asset Name, Type, Size, Price, Path in Project
@@ -354,7 +354,7 @@ While this setup of the Movement System handling body rotation and the Animation
 
 In the state where the player performs a \emph{Lock-On}\sepfootnote{fn:lock-on} targeting an enemy character, movement input causes the player to directly move at a direction without changing its body rotation. In this state, body rotation is handled by the camera system, where the player-controlled character will always face an assigned target. The Animation System will use movement input to blend between multiple movement animations such as forward movement, side steps and back steps. Movement motion in this state is still relative to viewport direction, but the viewport in itself is positioned relative to the player and their target. Camera positioning for \emph{Locked-On Cameras} will be further explained in subsection \ref{sec:lock-on-camera}.
 
-Another state that should be considered for motion controls is when the player is not touching the ground. In technical terms, the Capsule-shaped \emph{collider}\sepfootnote{fn:colliders} from the player CharacterController would not \emph{overlap}\sepfootnote{fn:collider-overlapping} with ground geometry. In this situation the player character should be considered "On-Air", and movement input should have less of an influence in motion and body rotation or no influence at all, as being able to accelerate, decelerate and quickly turn without ground friction would be considered implausible by players and could possibly break immersion. When the player is not on ground, we constantly accelerate our CharacterController velocity by a gravity vector on fixed time steps defined by the \emph{MonoBehaviour's}\sepfootnote{fn:monobehaviour} \emph{FixedUpdate}\sepfootnote{fn:fixed-update}.
+Another state that should be considered for motion controls is when the player is not touching the ground. In technical terms, the Capsule-shaped \emph{collider}\sepfootnote{fn:colliders} from the player CharacterController would not \emph{overlap}\sepfootnote{fn:collider-overlapping} with ground geometry. In this situation the player character should be considered "On-Air", and movement input should have less of an influence in motion and body rotation or no influence at all, as being able to accelerate, decelerate and quickly turn without ground friction would be considered implausible by players and could possibly break immersion. When the player is not on ground, we constantly accelerate our CharacterController velocity by a gravity vector on fixed time steps defined by the \emph{FixedUpdate}\sepfootnote{fn:fixed-update} event of the \emph{MonoBehaviour}\sepfootnote{fn:monobehaviour}.
 
 % - Gravity and grounded state detection
 
@@ -401,8 +401,8 @@ When input is received from the user, the \textsc{PlayerMotor} component filters
 
 % In this implementation, we design and implement two separate camera modes
 %   - Orbital Third Person Camera
-%       > Commonly used for third person hack n' slash or platformer games
-In our implementation, we use our analysis of \emph{Dark Souls} in section \ref{sec:analysis-dark-souls} to design two separate camera modes with complementary functionality that can be used as tools for the player to achieve optimal performance in and out of combat. First we implement an \emph{Orbital Third Person Camera}, which is commonly used in third person \emph{Hack and Slash} and \emph{Platformer} games where the player has to evaluate the properties of the environment they are in and quickly assess dangers that might cause their defeat to devise a plan of action.
+%       > Commonly used for third person hack n' slash or platforming games
+In our implementation, we use our analysis of \emph{Dark Souls} in section \ref{sec:analysis-dark-souls} to design two separate camera modes with complementary functionality that can be used as tools for the player to achieve optimal performance in and out of combat. First we implement an \emph{Orbital Third Person Camera}, which is commonly used in third person \emph{Hack and Slash} and \emph{Platforming} games where the player has to evaluate the properties of the environment they are in and quickly assess dangers that might cause their defeat to devise a plan of action.
 
 %       > Camera positions itself in the perimeter of an ellipsoid that is centered on the player
 %       > Input from the player generates movement along the perimeter, causing the camera to orbit around the player
@@ -524,12 +524,98 @@ Attribute owners will often contain different sets of attributes to satisfy the 
 
 \subsubsection{Combat System}
 
-% Attacking and combo system, hit and block detection
+% Combat System involves:
+% - Managing attacking and combo animation and logical states for the player
+% - Being able to detect when the weapon of the attacker collides with a target
+% - Being able to detect when the target was able to block or dodge an attack
+% - Applying combat effects when the target is hit
+To implement combat-related mechanics for a \emph{Souls-like} game, we need a set of functionality components that are able to:
+\begin{itemize}
+    \item{Manage attack animations and logical states for the player character;}
+    \item{Detect when the weapon of the attacker overlaps with the body of a target to validate a \emph{Succesful Hit};}
+    \item{Apply \emph{Combat Effects} when a target is hit by an attack, such as a \emph{Health Damage} effect;}
+    \item{Verify if attacks are blocked or dodged, and apply modifiers or even nullify Combat Effects;}
+    \item{Modify character state according to the effects that are applied.}
+\end{itemize}
+By combining the functionality aforementioned with AI agents that also make use of the same components, we can create a simple but credible Combat System that provides appropriate feedback to player actions and decisions. In figure \ref{fig:combat-system-overview}, we provide an overview of the subsystems and classes regarding to our implementation of a Combat System.
 
+% Figure: Combat System Overview Diagram
+
+% Attacking and combo system
+%  - Continuously check for Attack input
+We begin by listening to input from the player to determine when an \emph{Attack Command} should be issued. If the button mapped to the \emph{Attack Command} is pressed, we proceed to verify the current state of the player character to determine if an attack can be performed. The current state of the player is defined by a composition of boolean variables that reflect by the Animation being played on their character model.
+
+% - Player/character is unable to perform attack if on Animation Lock
+% - Attacks cost Stamina
+If the character model is in the \emph{Dead}, \emph{Staggered}, \emph{AttackEnding}, \emph{On-Air}, \emph{Landing}, \emph{Dodging} or \emph{Blocking} animation states, the player is unable to perform an attack. This is commonly referred as \emph{Animation Locking} in games, and is an important aspect to potentially punish the player when taking strategically negative decisions. Attack Commands also have a resource cost for the player, where each attack depletes an amount of \emph{Stamina}. If the player Stamina resource has a value of zero, the player is unable to perform an attack. If the player has any Stamina value above zero, they are able to perform the attack.
+
+%  - When sending attack command, enter a "combo" state and "Attack animation state machine"
+%  - "OnCombo" state:
+%    * Preemptively read player input before current attack animation ends. If player successfully sent attack input, continue the combo.
+%    * If no attack input command is read within animation time frame, escape the Attack animation state machine
+After an Attack Command is successfully validated, player state is set to \emph{Attacking} and the player enters an \emph{Attack State Machine} where Attack Commands are preemptively verified during attack animations. If an Attack Command is successfully executed before an attack animation ends an \emph{Attack Chain} is toggled, meaning that another attack animation is queued and transitioned to when the current attack animation ends. This behavior is commonly referred to as a \emph{Combo} in video games.
+
+This replicates how attacking works in Dark Souls, where the player can continuously enqueue attack commands until their \emph{Stamina} resource is depleted. If no Attack Command is successfully executed within the time frame of an attack animation, the player exits the \emph{Attack State Machine} and is locked to a short \emph{AttackEnding} animation state, where the player character model transitions from attacking to an idle state.
+
+% Figure: Attack and combos Class Diagram
+
+%   > Hit detection toggled when receiving an event signal from the Attack animation
+During Attack animations, the Animation System broadcasts event signals that toggle the activation and deactivation of the \emph{Hit Detection System}, which has the purpose of determining whether an attack successfully hit an enemy. At a certain point during the attack animation, we broadcast the \emph{AttackCollisionStartEvent} which signalizes that attack collisions must be checked on each frame until an \emph{AttackCollisionEndEvent} is signalized. The \emph{AttackCollisionEndEvent} is required to be signalized after the \emph{AttackCollisionStartEvent} and before the attack animation ends so that attacks appropriately reflect what the attacking character performs. Generally, the point in time at which \emph{AttackCollisionStartEvent} and \emph{AttackCollisionEndEvent} are triggered should occur in the small time frame where the character swings the weapon in the direction of their target.
+
+%     * Hit detection must not occur twice between the same target and same attack
+%     * Specific collision layer to detect hitbox collision
+To implement hit detection, we perform collider overlap checks in fixed time intervals of 16 milliseconds. These collision checks occur in a special collision layer called HitDetection, where every Collider is either the weapon of an attacker or the body of a target. This is an optimization requirement to meet the required time constraint in most computing systems. If a system is unable to meet the time constraint, there is a small chance that an attack might not be detected, where the attacker weapon "passes-by" the body of the attacker without triggering collision detection.
+
+We estimate that attack collision detection occurs for approximately 20 frames from the point where it is first activated. Thus, if a computer system is able perform at least 4 updates per second, attack collision is guaranteed to be correctly detected. It is important to note that updates to the collision detection system are independent to the rendering performed by the graphics pipeline, and as a consequence are unaffected by most forms of temporary stutters in the application.
+
+We also require safety measures to ensure that attack collision detection does not trigger a Hit event twice given the same Attack and Target entities. Therefore, for each attack performed by an attacking entity that is successfully registered as a Hit, we store a reference to an \emph{AttackCollision} instance in the \emph{Hitbox} component of the target entity. The Hitbox component then listens for the \emph{AttackCollisionEndEvent}, where the reference can be deleted since at this point the same \emph{AttackCollision} instance is not performing any collision checks.
 
 % - Hit detection:
-%     * Hitbox overlap detection for attacker weapons and target character when Attack animation event signals are received
+%   > Colliders:
+%     * Hitbox overlap detection for attacker weapons and target character
+%     * Attack Colliders are bounding boxes in weapons
+%     * Character colliders are simplified bounding boxes that enclose torso, head and partially legs
+For each occurrence of an attack collision, two colliders are obligatorily involved: one for the weapon of the attacker, and one for the body of the target. The colliders are instanced as \emph{bounding boxes}\sepfootnote{fn:bounding-boxes} that fully or partially enclose the 3D models of their relative entity. In order to perform collision checks with a reasonably optimized numbers of collision checks, we simplify bounding boxes of character models to only enclose the torso, head and a central position of the legs of a target. Using this method, we can minimize the amount of collision checks per frame, while also having appropriate precision for our implementation purposes.
+
 %     * Consider character faction to recognize which combat characters can be hurt by an attack
+After the collision detection step is performed, we must ensure that the attacking character is hitting a target that is not part of their own \emph{Combat Group} before validating an attack as a \emph{Successful Hit}. To do this we create the \emph{Faction Attribute}, which determines that each character belongs to a combat group that is unable to perform attacks to other members of the same group. This is done so that groups of characters such as enemies of the player do not damage themselves when attempting to hit a target while being too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}.
+
+\begin{table}
+    \begin{center}
+      \caption{A description of the values that can be assigned to the \emph{Faction Attribute} of targets that are part of the Combat System in our implementation.}
+      \label{tab:table-faction-groups}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{3em} >{\small}w{c}{3em} m{25em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name    & \bf Id   & \bf Description                                              \\
+        \midrule
+        % 3D Models
+        Player       &       0 & Player character. The player is a single entity and the sole 
+                                 participant of this faction group.                           \\
+
+        Enemy        &       1 & AI Agents that represent Enemies, which are hostile to the 
+                                 player character.                                            \\
+
+        NPC          &       2 & Non-Playable Characters. AI Agents which are not hostile to 
+                                 the player character, but are hittable by and potentially 
+                                 hostile to Enemies. An example of a Non-Playable Character 
+                                 would be a companion which follows the player character and 
+                                 aids them in combat encounters, being hostile to characters 
+                                 belonging to the Enemy faction.                              \\
+
+        Interactable &       3 & Static objects that can be attacked by the Player, Enemies or 
+                                 Non-Player Characters and provide some type of feedback when 
+                                 attacked. An example of an interactable entity would be a 
+                                 barrel that can be attacked and destroyed.                   \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+  \end{table}
+
+% Figure: Hit detection class diagram
+
 % - Attack damage and other effects are abstracted into Combat effects
 %     * Manipulate character attributes, statuses and physics
 %     * Instant combat effects are completely applied in the same frame as hit detection occurred
@@ -537,6 +623,27 @@ Attribute owners will often contain different sets of attributes to satisfy the 
 % - Combos: 
 %     * Detecting and queuing input commands during attacking animations to allow for chained attacks
 %     * Alternating between attack animations to create the impression of a seamless combo that is only limited by the stamina resource
+
+% - Combat Effect Modifiers
+%     * Block detection occurs when target is hit, is in "blocking" state and vector dot product between attack and target directions is < 0
+%     * Dodge detection also occurs when target is hit. If hit detection occurs during target invincibility frames, a "dodge" is registered, and target receives no combat effects
+
+% Player has a default Stamina regeneration effect
+The player character has a a default Stamina regeneration \emph{Combat Effect} that is temporarily blocked or modified by combat-related actions. After a certain amount of time without issuing combat-related commands such as Attacking and Dodging, Stamina regeneration is re-enabled. Entering the Blocking state applies a modifier to the Default stamina regeneration, where the Stamina value recovered is halved. 
+
+% Figure: Combat Effect class diagram
+
+\subsubsection{Attributes System}
+
+% Attributes system
+% - Figure: Attributes system class diagram
+% - Based on Generics: Attributes can be generated for any valued type
+% - Objective is to assign multiple serializable type attributes to a game entity such as a character, allowing for editing game object properties in Unity Editor
+% - AttributesContainers 
+%     * Containerization of attributes to allow for entities with different attribute configurations without defining static types
+%     * Possibility to dynamically assign attributes during the course of a session, which can be useful for a telemetry system
+% - Definition of interfaces that expose attributes to any of the classes that might require it
+%     * UI elements, Character status controllers, Animation controllers
 
 \subsubsection{Animation System}
 
