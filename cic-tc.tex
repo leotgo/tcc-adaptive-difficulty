@@ -35,6 +35,7 @@
 \usepackage{mathtools}
 \usepackage{sepfootnotes}
 \usepackage{hyphenat}
+\usepackage{import}
 
 % ==============================
 % LISTINGS STYLE DEFINITION
@@ -94,11 +95,13 @@
 
 %============================================================
 
-\input{chapters/0_1-abstract/abstract}
+% Abstract
+\subimport{chapters/0_1-abstract/}{abstract.tex}
 
 %============================================================
 
-\input{chapters/0_2-acknowledgments/acknowledgments}
+% Acknowledgments
+\subimport{chapters/0_2-acknowledgments/}{acknowledgments.tex}
 
 %============================================================
 
@@ -139,28 +142,33 @@
 
 %============================================================
 
-\input{chapters/1-introduction/introduction}
+% Introduction
+\subimport{chapters/1-introduction/}{introduction}
 
 %============================================================
 
-\input{chapters/2-related-work/related-work}
+% Literature, Related Work
+\subimport{chapters/2-related-work/}{related-work}
 
 %============================================================
 
-\input{chapters/3-methodology/methodology}
+% Methodology and Results
+\subimport{chapters/3-methodology/}{methodology}
 
 %============================================================
 
-\input{chapters/4-discussion/discussion}
+% Dicussion
+\subimport{chapters/4-discussion/}{discussion}
 
 %============================================================
 
-\input{chapters/5-conclusion/conclusion}
+% Conclusion
+\subimport{chapters/5-conclusion/}{conclusion}
 
 %============================================================
 
 % References
-\input{references/bibliography}
+\subimport{references/}{bibliography}
 
 %============================================================
 

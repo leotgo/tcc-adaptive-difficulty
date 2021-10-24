@@ -1,0 +1,33 @@
+\begin{table}
+    \begin{center}
+      \caption{A description of the values that can be assigned to the \emph{Faction Attribute} of targets that are part of the Combat System in our implementation.}
+      \label{tab:table-faction-groups}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{3em} >{\small}w{c}{3em} m{25em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name    & \bf Id   & \bf Description                                              \\
+        \midrule
+        % 3D Models
+        Player       &       0 & Player character. The player is a single entity and the sole 
+                                 participant of this faction group.                           \\
+
+        Enemy        &       1 & AI Agents that represent Enemies, which are hostile to the 
+                                 player character.                                            \\
+
+        NPC          &       2 & Non-Playable Characters. AI Agents which are not hostile to 
+                                 the player character, but are hittable by and potentially 
+                                 hostile to Enemies. An example of a Non-Playable Character 
+                                 would be a companion which follows the player character and 
+                                 aids them in combat encounters, being hostile to characters 
+                                 belonging to the Enemy faction.                              \\
+
+        Interactable &       3 & Static objects that can be attacked by the Player, Enemies or 
+                                 Non-Player Characters and provide some type of feedback when 
+                                 attacked. An example of an interactable entity would be a 
+                                 barrel that can be attacked and destroyed.                   \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}

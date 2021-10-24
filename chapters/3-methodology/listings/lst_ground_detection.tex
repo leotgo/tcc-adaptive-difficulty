@@ -1,0 +1,6 @@
+\begin{lstlisting}[caption={Implementation of grounded state detection.},label={lst:grounded-detection}]
+var ray = new Ray(transform.position, Vector3.down);
+grounded = Physics.SphereCast(ray, charController.radius + 0.1f, charController.height / 2f + 0.5f, physicsData.GroundDetectionLayers.value);
+// Animator also applies gravity, so when not grounded disable animator physics
+player.Anim.applyRootMotion = grounded;
+\end{lstlisting}
