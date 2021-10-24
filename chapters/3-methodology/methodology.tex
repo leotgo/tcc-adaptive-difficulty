@@ -6,7 +6,7 @@
 % ============================================================================
 % ============================================================================
 
-\section{Overview}
+\section{Overview (TO DO)}
 
 % About the analysis of Dark Souls
 
@@ -45,7 +45,7 @@ Understanding the design of Dark Souls is, therefore, a key component to underst
 % ============================================================================
 % ============================================================================
 
-\subsection{Overview of Aesthetics}
+\subsection{Overview of Aesthetics (TO DO)}
 
 % ============================================================================
 % ============================================================================
@@ -403,6 +403,10 @@ To detect Lock-On eligible targets, we use a spheric collider in a radius around
 % - Use of horizontal input axis from Orbital Camera to switch between targets
 Horizontal input from the player is used to switch between targets, where moving the input axis to the left switch to the closest target at the left of the current Locked-On target, using coordinates relative to viewport space. Therefore, the position of the next target is selected using a comparison of the position of the entity in the X-axis when converting their coordinates to a viewport space.
 
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \subsubsection{Attributes System}
 
 % Attributes system
@@ -427,22 +431,26 @@ Attribute owners will often contain different sets of attributes to satisfy the 
 % - Figure: Attributes system class diagram
 \input{figures/fig_attributes_diagram}
 
-\subsubsection{Combat System}
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+\subsubsection{Combat System (WIP)}
 
 % Combat System involves:
 % - Managing attacking and combo animation and logical states for the player
 % - Being able to detect when the weapon of the attacker collides with a target
 % - Being able to detect when the target was able to block or dodge an attack
 % - Applying combat effects when the target is hit
-To implement combat-related mechanics for a \emph{Souls-like} game, we need a set of functionality components that are able to:
+To implement combat mechanics in a \emph{Souls-like} game, we need a set of functionality components that are able to:
 \begin{itemize}
     \item{Manage attack animations and logical states for the player character;}
-    \item{Detect when the weapon of the attacker overlaps with the body of a target to validate a \emph{Succesful Hit};}
-    \item{Apply \emph{Combat Effects} when a target is hit by an attack, such as a \emph{Health Damage} effect;}
-    \item{Verify if attacks are blocked or dodged, and apply modifiers or even nullify Combat Effects;}
+    \item{A \emph{Hit Detection System} which is able to detect when the weapon of the attacker overlaps with the \emph{Hitbox} of a target to validate a \emph{Succesful Hit};}
+    \item{Verify if attacks are blocked or dodged, and apply modifiers to Combat Effects;}
+    \item{Apply \emph{Combat Effects} when a target is hit, such as a \emph{Health Damage} effect;}
     \item{Modify character state according to the effects that are applied.}
 \end{itemize}
-By combining the functionality aforementioned with AI agents that also make use of the same components, we can create a simple but credible Combat System that provides appropriate feedback to player actions and decisions. In figure \ref{fig:combat-system-overview}, we provide an overview of the subsystems and classes regarding to our implementation of a Combat System.
+By combining the functionality aforementioned with AI agents that also make use of the same components, we can create a credible Combat System that provides appropriate feedback to player actions and decisions. In figure \ref{fig:combat-system-overview}, we provide an overview of the subsystems and classes regarding to our implementation of a Combat System.
 
 % Figure: Combat System Overview Diagram
 \input{figures/fig_combat_system_overview}
@@ -461,12 +469,13 @@ If the character model is in the \emph{Dead}, \emph{Staggered}, \emph{AttackEndi
 %    * If no attack input command is read within animation time frame, escape the Attack animation state machine
 After an Attack Command is successfully validated, player state is set to \emph{Attacking} and the player enters an \emph{Attack State Machine} where Attack Commands are preemptively verified during attack animations. If an Attack Command is successfully executed before an attack animation ends an \emph{Attack Chain} is toggled, meaning that another attack animation is queued and transitioned to when the current attack animation ends. This behavior is commonly referred to as a \emph{Combo} in video games.
 
-This replicates how attacking works in Dark Souls, where the player can continuously enqueue attack commands until their \emph{Stamina} resource is depleted. If no Attack Command is successfully executed within the time frame of an attack animation, the player exits the \emph{Attack State Machine} and is locked to a short \emph{AttackEnding} animation state, where the player character model transitions from attacking to an idle state.
+%     * Alternating between attack animations to create the impression of a seamless combo that is only limited by the stamina resource
+This replicates how attacking works in Dark Souls, where the player can continuously enqueue attack commands until their \emph{Stamina} resource is depleted. If no Attack Command is successfully executed within the time frame of an attack animation, the player exits the \emph{Attack State Machine} and is locked to a short \emph{AttackEnding} animation state, where the player character model transitions from attacking to an idle state. Figure \ref{fig:attack-combo-diagram} shows the relationships between components involved in issuing Attack commands and handling combo states and animations.
 
 % Figure: Attack and combos Class Diagram
 
 %   > Hit detection toggled when receiving an event signal from the Attack animation
-During Attack animations, the Animation System broadcasts event signals that toggle the activation and deactivation of the \emph{Hit Detection System}, which has the purpose of determining whether an attack successfully hit an enemy. At a certain point during the attack animation, we broadcast the \emph{AttackCollisionStartEvent} which signalizes that attack collisions must be checked on each frame until an \emph{AttackCollisionEndEvent} is signalized. The \emph{AttackCollisionEndEvent} is required to be signalized after the \emph{AttackCollisionStartEvent} and before the attack animation ends so that attacks appropriately reflect what the attacking character performs. Generally, the point in time at which \emph{AttackCollisionStartEvent} and \emph{AttackCollisionEndEvent} are triggered should occur in the small time frame where the character swings the weapon in the direction of their target.
+During Attack animations, the Animation System broadcasts event signals that toggle the activation and deactivation of the \emph{Hit Detection System}, which has the purpose of determining whether an attack successfully hit an enemy. At a certain point during the attack animation, we broadcast the \textsc{AttackCollisionStartEvent} which signalizes that attack collisions must be checked on each frame until an \textsc{AttackCollisionEndEvent} is signalized. The \textsc{AttackCollisionEndEvent} is required to be signalized after the \textsc{AttackCollisionStartEvent} and before the attack animation ends so that attacks appropriately reflect what the attacking character performs. Generally, the point in time at which \textsc{AttackCollisionStartEvent} and \textsc{AttackCollisionEndEvent} are triggered should occur in the small time frame where the character swings the weapon in the direction of their target.
 
 %     * Hit detection must not occur twice between the same target and same attack
 %     * Specific collision layer to detect hitbox collision
@@ -484,34 +493,56 @@ We also require safety measures to ensure that attack collision detection does n
 For each occurrence of an attack collision, two colliders are obligatorily involved: one for the weapon of the attacker, and one for the body of the target. The colliders are instanced as \emph{bounding boxes}\sepfootnote{fn:bounding-boxes} that fully or partially enclose the 3D models of their relative entity. In order to perform collision checks with a reasonably optimized numbers of collision checks, we simplify bounding boxes of character models to only enclose the torso, head and a central position of the legs of a target. Using this method, we can minimize the amount of collision checks per frame, while also having appropriate precision for our implementation purposes.
 
 %     * Consider character faction to recognize which combat characters can be hurt by an attack
-After the collision detection step is performed, we must ensure that the attacking character is hitting a target that is not part of their own \emph{Combat Group} before validating an attack as a \emph{Successful Hit}. To do this we create the \emph{Faction Attribute}, which determines that each character belongs to a combat group that is unable to perform attacks to other members of the same group. This is done so that groups of characters such as enemies of the player do not damage themselves when attempting to hit a target while being too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}.
+After the collision detection step is performed, we must ensure that the attacking character is hitting a target that is not part of their own \emph{Combat Group} before validating an attack as a \emph{Successful Hit}. To do this we create the \textsc{FactionAttribute}, which determines that each character belongs to a combat group that is unable to perform attacks to other members of the same group. This is done so that groups of characters such as enemies of the player do not damage themselves when attempting to hit a target while being too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}.
 
 % Table: Values for the Faction Attribute
 \input{tables/tab_faction_groups}
 
-Figure \ref{fig:hit-detection-classes} shows the execution flow of components used during the Hit Detection step.
+Figure \ref{fig:hit-detection-classes} shows the execution flow and class relationship of components used during the Hit Detection step.
 
 % Figure: Hit detection class diagram
 \input{figures/fig_hit_detection_classes}
 
+\sepfootnotecontent{fn:stagger}{Footnote: What is a stagger effect}
+
+\sepfootnotecontent{fn:knockback}{Footnote: What is a knockback effect}
+
 % - Attack damage and other effects are abstracted into Combat effects
 %     * Manipulate character attributes, statuses and physics
+Once we performed all steps regarding the verification of whether an attack successfully hit an enemy, we can proceed to the next step of applying the \emph{Combat Effects} contained by the Attack. Combat Effects are our abstraction to the set of attribute effects, status effects and any other behaviors that occur when a character is struck by an attack. Examples of Combat Effects include the damage dealt to the Health of a target, Status effects such as \emph{Staggers}\sepfootnote{fn:stagger}, and physics effects such as the \emph{Knockback}\sepfootnote{fn:knockback} caused by an attack.
+
 %     * Instant combat effects are completely applied in the same frame as hit detection occurred
 %     * Over-time combat effects with fixed interval ticks
-% - Combos: 
-%     * Detecting and queuing input commands during attacking animations to allow for chained attacks
-%     * Alternating between attack animations to create the impression of a seamless combo that is only limited by the stamina resource
-
-% - Combat Effect Modifiers
-%     * Block detection occurs when target is hit, is in "blocking" state and vector dot product between attack and target directions is < 0
-%     * Dodge detection also occurs when target is hit. If hit detection occurs during target invincibility frames, a "dodge" is registered, and target receives no combat effects
+In our implementation, we differentiate between \emph{Instant Combat Effects} and \emph{Over-time Combat Effects}. Instant Effects are applied to a target when a discrete event such as an attack takes place, and will often simply modify the value of an attribute. Examples of Instant Effects include the Health damage caused by an attack to a target and the Stamina cost of performing the attack, which is applied to the attacker. Over-time Effects are effects that occur in fixed time intervals over the course of a duration or is bound to the life of an entity.
 
 % Player has a default Stamina regeneration effect
-The player character has a a default Stamina regeneration \emph{Combat Effect} that is temporarily blocked or modified by combat-related actions. After a certain amount of time without issuing combat-related commands such as Attacking and Dodging, Stamina regeneration is re-enabled. Entering the Blocking state applies a modifier to the Default stamina regeneration, where the Stamina value recovered is halved. 
+An example of Over-time effect would be the \textsc{StaminaRegeneration} effect that is permanently applied to the player, and which is temporarily blocked or modified by combat-related actions. During the course of a level, the player recovers a default amount of the Stamina resource over fixed time intervals, until either their Stamina resource is at the maximum possible amount or a combat action is performed. After a certain amount of time without issuing combat-related commands such as Attacking and Dodging, Stamina regeneration is re-enabled. Entering the Blocking state also modifies stamina regeneration by applying the \textsc{BlockingStaminaRegenModifier}, where the amount of stamina recovered is halved.
+
+% - Combat Effect Modifiers
+Combat Effects are restricted to performing modifications on a limited set of Attributes and Components exposed through the \textsc{ICombatTarget} interface, which is implemented by any entity that can be attacked. Before applying an effect to a target, we first check if the target contains any \emph{Combat Effect Modifiers}, such as a damage modifier caused by the target \emph{Blocking} or \emph{Dodging} an attack.
+
+If the target has effect modifiers that are compatible with any of the effects being applied by an attack, the \textsc{Attack} class uses the modifiers to reconstruct its Combat Effects with updated values that reflect the purpose of the modifier. For instance, if the target succesfully blocks an attack, the \textsc{BlockDamage} modifier is added to the target, which is used by the \textsc{Attack} class to update the \textsc{AttackDamage} combat effect by halving the damage that should be applied to the target.
+
+After the reconstruction of Combat Effects using any applicable modifiers, we finally commit to performing the attribute and status modifications and behaviours that are caused by an attack. Figure \ref{fig:combat-effects-diagram} shows an overview of the relationship between classes and components regarding the application of \textsc{CombatEffects} to \textsc{ICombatTarget} entities.
 
 % Figure: Combat Effect class diagram
+\input{figures/fig_combat_effects_diagram}
 
-\subsubsection{Animation System}
+In figure \ref{fig:combat-system-flow-diagram}, we show an overview of all the steps involved with handling attacks, including detection of Attack commands being issued by the player, management of the animation states associated with weapons, validating hitbox collision and combat groups with a Hit Detection System, and applying combat effects to modify target attributes and execute behaviors.
+
+% Figure: Flow of combat system components
+
+
+%     * Block detection occurs when target is hit, is in "blocking" state and vector dot product between attack and target directions is < 0
+
+
+%     * Dodge detection also occurs when target is hit. If hit detection occurs during target invincibility frames, a "dodge" is registered, and target receives no combat effects
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+\subsubsection{Animation System (TO DO)}
 
 % Animation system
 % - Difference in body movement when in Orbital vs Lock-On Cameras
@@ -526,7 +557,11 @@ The player character has a a default Stamina regeneration \emph{Combat Effect} t
 
 % - Figure: Animation System class diagram showing component relations and events
 
-\subsection{Artificial Intelligence}
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+\subsection{Artificial Intelligence (TO DO)}
 
 % Enemies in Dark Souls present basic, somewhat predictable behavior
 
@@ -538,18 +573,46 @@ The player character has a a default Stamina regeneration \emph{Combat Effect} t
 % Figure: Melee enemy AI State Machine
 \input{figures/fig_ai_state_machine}
 
-\subsection{Telemetry and Performance Tracking}
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
-\subsection{Dynamic Adjustments}
+\subsection{Telemetry and Performance Tracking (TO DO)}
 
-\section{Experimentation Model}
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
-\subsection{Methodology}
+\subsection{Dynamic Adjustments (TO DO)}
 
-\subsection{Results and Analysis}
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
-\section{Conclusions}
+\section{Experimentation Model (TO DO)}
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+\subsection{Methodology (TO DO)}
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+\subsection{Results and Analysis (TO DO)}
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+\section{Conclusions (TO DO)}
 
 % limitations
 
 % comparison with previous work
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
