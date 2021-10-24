@@ -110,8 +110,7 @@
 ]{tocline}{chapter,section,subsection,subsubsection,paragraph,subparagraph}
 
 \DeclareTOCStyleEntries[
-  indent=0pt,
-  dynindent
+  indent=0pt
 ]{tocline}{section,subsection,subsubsection,paragraph,subparagraph}
 
 \DeclareTOCStyleEntries[
@@ -126,8 +125,7 @@
   entrynumberformat=\figurename\hspace{0.2em},
   beforeskip=0em plus 0pt,
   pagenumberwidth=1em,
-  indent=0pt,
-  dynindent
+  indent=0pt
 ]{tocline}{figure,table}
 
 \DeclareTOCStyleEntry[
