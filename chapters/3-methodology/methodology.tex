@@ -499,15 +499,13 @@ We also require safety measures to ensure that attack collision detection does n
 For each occurrence of an attack collision, two colliders are obligatorily involved: one for the weapon of the attacker, and one for the body of the target. The colliders are instanced as \emph{bounding boxes}\sepfootnote{fn:bounding-boxes} that fully or partially enclose the 3D models of their relative entity. In order to perform collision checks with a reasonably optimized numbers of collision checks, we simplify bounding boxes of character models to only enclose the torso, head and a central position of the legs of a target. Using this method, we can minimize the amount of collision checks per frame, while also having appropriate precision for our implementation purposes.
 
 %     * Consider character faction to recognize which combat characters can be hurt by an attack
-After the collision detection step is performed, we must ensure that the attacking character is hitting a target that is not part of their own \emph{Combat Group} before validating an attack as a \emph{Successful Hit}. To do this we create the \textsc{FactionAttribute}, which determines that each character belongs to a combat group that is unable to perform attacks to other members of the same group. This is done so that groups of characters such as enemies of the player do not damage themselves when attempting to hit a target while being too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}.
+After the collision detection step is performed, we must ensure that the attacking character is hitting a target that is not part of their own \emph{Combat Group} before validating an attack as a \emph{Successful Hit}. To do this we create the \textsc{FactionAttribute}, which determines that each character belongs to a combat group that is unable to perform attacks to other members of the same group. This is done so that groups of characters such as enemies of the player do not damage themselves when attempting to hit a target while being too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}. In addition, figure \ref{fig:hit-detection-diagram} shows the execution flow and class relationship of components used during the Hit Detection step.
 
 % Table: Values for the Faction Attribute
 \input{tables/tab_faction_groups}
 
-Figure \ref{fig:hit-detection-classes} shows the execution flow and class relationship of components used during the Hit Detection step.
-
 % Figure: Hit detection class diagram
-\input{figures/fig_hit_detection_classes}
+\input{figures/fig_hit_detection_diagram}
 
 \sepfootnotecontent{fn:stagger}{Footnote: What is a stagger effect}
 
@@ -536,7 +534,7 @@ After the reconstruction of Combat Effects using any applicable modifiers, we fi
 
 In figure \ref{fig:combat-system-flow-diagram}, we show an overview of all the steps involved with handling attacks, including detection of Attack commands being issued by the player, management of the animation states associated with weapons, validating hitbox collision and combat groups with a Hit Detection System, and applying combat effects to modify target attributes and execute behaviors.
 
-% Figure: Flow of combat system components
+% Figure: Flow of Combat System when processing Attack of entities
 
 
 %     * Block detection occurs when target is hit, is in "blocking" state and vector dot product between attack and target directions is < 0
