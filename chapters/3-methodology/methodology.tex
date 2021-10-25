@@ -467,15 +467,21 @@ If the character model is in the \emph{Dead}, \emph{Staggered}, \emph{AttackEndi
 %  - "OnCombo" state:
 %    * Preemptively read player input before current attack animation ends. If player successfully sent attack input, continue the combo.
 %    * If no attack input command is read within animation time frame, escape the Attack animation state machine
-After an Attack Command is successfully validated, player state is set to \emph{Attacking} and the player enters an \emph{Attack State Machine} where Attack Commands are preemptively verified during attack animations. If an Attack Command is successfully executed before an attack animation ends an \emph{Attack Chain} is toggled, meaning that another attack animation is queued and transitioned to when the current attack animation ends. This behavior is commonly referred to as a \emph{Combo} in video games.
+After an Attack Command is successfully validated, player state is set to \emph{Attacking} and the player enters an \emph{Attack State Machine} where Attack Commands are preemptively verified during attack animations. If an Attack Command is successfully executed before an attack animation ends an \emph{Attack Chain} is toggled, meaning that another attack animation is queued and transitioned to when the current attack animation ends. This behavior is commonly referred to as a \emph{Combo} in video games. Figure \ref{fig:player-anim-state-machine} shows the state machine definition that we use to implement the aforementioned behavior.
 
 %     * Alternating between attack animations to create the impression of a seamless combo that is only limited by the stamina resource
-This replicates how attacking works in Dark Souls, where the player can continuously enqueue attack commands until their \emph{Stamina} resource is depleted. If no Attack Command is successfully executed within the time frame of an attack animation, the player exits the \emph{Attack State Machine} and is locked to a short \emph{AttackEnding} animation state, where the player character model transitions from attacking to an idle state. Figure \ref{fig:attack-combo-diagram} shows the relationships between components involved in issuing Attack commands and handling combo states and animations.
+This replicates how attacking works in Dark Souls, where the player can continuously enqueue attack commands until their \emph{Stamina} resource is depleted. If no Attack Command is successfully executed within the time frame of an attack animation, the player exits the \emph{Attack State Machine} and is locked to a short \emph{AttackEnding} animation state, where the player character model transitions from attacking to an idle state.
 
-% Figure: Attack and combos Class Diagram
+% Figure: Player Animation state machine
+\input{figures/fig_player_anim_state_machine}
 
 %   > Hit detection toggled when receiving an event signal from the Attack animation
-During Attack animations, the Animation System broadcasts event signals that toggle the activation and deactivation of the \emph{Hit Detection System}, which has the purpose of determining whether an attack successfully hit an enemy. At a certain point during the attack animation, we broadcast the \textsc{AttackCollisionStartEvent} which signalizes that attack collisions must be checked on each frame until an \textsc{AttackCollisionEndEvent} is signalized. The \textsc{AttackCollisionEndEvent} is required to be signalized after the \textsc{AttackCollisionStartEvent} and before the attack animation ends so that attacks appropriately reflect what the attacking character performs. Generally, the point in time at which \textsc{AttackCollisionStartEvent} and \textsc{AttackCollisionEndEvent} are triggered should occur in the small time frame where the character swings the weapon in the direction of their target.
+During Attack animations, the Animation System broadcasts event signals that toggle the activation and deactivation of the \emph{Hit Detection System}, which has the purpose of determining whether an attack successfully hit an enemy. At a certain point during the attack animation, we broadcast the \textsc{AttackCollisionStartEvent} which signalizes that attack collisions must be checked on each frame until an \textsc{AttackCollisionEndEvent} is signalized.
+
+The \textsc{AttackCollisionEndEvent} is required to be signalized after the \textsc{AttackCollisionStartEvent} and before the attack animation ends so that attacks appropriately reflect what the attacking character performs. Generally, the point in time at which \textsc{AttackCollisionStartEvent} and \textsc{AttackCollisionEndEvent} are triggered should occur in the small time frame where the character swings the weapon in the direction of their target. Figure \ref{fig:attack-combo-diagram} shows the relationships between components involved in issuing Attack commands and handling combo states and animations.
+
+% Figure: Attack and combos Class Diagram
+\input{figures/fig_attack_combo_diagram}
 
 %     * Hit detection must not occur twice between the same target and same attack
 %     * Specific collision layer to detect hitbox collision
