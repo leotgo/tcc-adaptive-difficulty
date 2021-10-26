@@ -110,8 +110,16 @@
 ]{tocline}{chapter,section,subsection,subsubsection,paragraph,subparagraph}
 
 \DeclareTOCStyleEntries[
-  indent=0pt
-]{tocline}{section,subsection,subsubsection,paragraph,subparagraph}
+  indent=16pt
+]{tocline}{section}
+
+\DeclareTOCStyleEntries[
+  indent=32pt
+]{tocline}{subsection}
+
+\DeclareTOCStyleEntries[
+  indent=48pt
+]{tocline}{subsubsection,paragraph,subparagraph}
 
 \DeclareTOCStyleEntries[
   beforeskip=0em plus 1pt,% default is 1em plus 12pt
