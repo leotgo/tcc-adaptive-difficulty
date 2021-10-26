@@ -435,7 +435,7 @@ Attribute owners will often contain different sets of attributes to satisfy the 
 % ============================================================================
 % ============================================================================
 
-\subsubsection{Combat System (WIP)}
+\subsubsection{Combat System}
 
 % Combat System involves:
 % - Managing attacking and combo animation and logical states for the player
@@ -513,7 +513,10 @@ After the collision detection step is performed, we must ensure that the attacki
 
 % - Attack damage and other effects are abstracted into Combat effects
 %     * Manipulate character attributes, statuses and physics
-Once we performed all steps regarding the verification of whether an attack successfully hit an enemy, we can proceed to the next step of applying the \emph{Combat Effects} contained by the Attack. Combat Effects are our abstraction to the set of attribute effects, status effects and any other behaviors that occur when a character is struck by an attack. Examples of Combat Effects include the damage dealt to the Health of a target, Status effects such as \emph{Staggers}\sepfootnote{fn:stagger}, and physics effects such as the \emph{Knockback}\sepfootnote{fn:knockback} caused by an attack.
+Once we performed all steps regarding the verification of whether an attack successfully hit an enemy, we can proceed to the next step of applying the \emph{Combat Effects} contained by the Attack. Combat Effects are our abstraction to the set of attribute effects, status effects and any other behaviors that occur when a character is struck by an attack. Examples of Combat Effects include the damage dealt to the Health of a target, Status effects such as \emph{Staggers}\sepfootnote{fn:stagger}, and physics effects such as the \emph{Knockback}\sepfootnote{fn:knockback} caused by an attack. Figure \ref{fig:combat-effects-diagram} shows an overview of the relationship between classes and components regarding the application of \textsc{CombatEffects} to \textsc{ICombatTarget} entities.
+
+% Figure: Combat Effect class diagram
+\input{figures/fig_combat_effects_diagram}
 
 %     * Instant combat effects are completely applied in the same frame as hit detection occurred
 %     * Over-time combat effects with fixed interval ticks
@@ -525,28 +528,29 @@ An example of Over-time effect would be the \textsc{StaminaRegeneration} effect 
 % - Combat Effect Modifiers
 Combat Effects are restricted to performing modifications on a limited set of Attributes and Components exposed through the \textsc{ICombatTarget} interface, which is implemented by any entity that can be attacked. Before applying an effect to a target, we first check if the target contains any \emph{Combat Effect Modifiers}, such as a damage modifier caused by the target \emph{Blocking} or \emph{Dodging} an attack.
 
-If the target has effect modifiers that are compatible with any of the effects being applied by an attack, the \textsc{Attack} class uses the modifiers to reconstruct its Combat Effects with updated values that reflect the purpose of the modifier. For instance, if the target succesfully blocks an attack, the \textsc{BlockDamage} modifier is added to the target, which is used by the \textsc{Attack} class to update the \textsc{AttackDamage} combat effect by halving the damage that should be applied to the target.
+If the target has effect modifiers that are compatible with any of the effects being applied by an attack, the \textsc{Attack} class uses the modifiers to reconstruct its Combat Effects with updated values that reflect the purpose of the modifier. For instance, if the target successfully blocks an attack, the \textsc{BlockDamage} modifier is added to the target, which is used by the \textsc{Attack} class to update the \textsc{AttackDamage} combat effect by halving the damage that should be applied to the target. After the reconstruction of Combat Effects using any applicable modifiers, we finally commit to performing the attribute and status modifications and behaviors that are caused by an attack.
 
-After the reconstruction of Combat Effects using any applicable modifiers, we finally commit to performing the attribute and status modifications and behaviours that are caused by an attack. Figure \ref{fig:combat-effects-diagram} shows an overview of the relationship between classes and components regarding the application of \textsc{CombatEffects} to \textsc{ICombatTarget} entities.
-
-% Figure: Combat Effect class diagram
-\input{figures/fig_combat_effects_diagram}
-
-In figure \ref{fig:combat-system-flow-diagram}, we show an overview of all the steps involved with handling attacks, including detection of Attack commands being issued by the player, management of the animation states associated with weapons, validating hitbox collision and combat groups with a Hit Detection System, and applying combat effects to modify target attributes and execute behaviors.
+In figure \ref{fig:combat-flow-diagram}, we show an overview of all the steps involved with handling attacks, including detection of Attack commands being issued by the player, management of the animation states associated with weapons, validating Hitbox collision and combat groups with a Hit Detection System, and applying combat effects to modify target attributes and execute behaviors.
 
 % Figure: Flow of Combat System when processing Attack of entities
-
+\input{figures/fig_combat_flow_diagram}
 
 %     * Block detection occurs when target is hit, is in "blocking" state and vector dot product between attack and target directions is < 0
+To perform the blocking action, the player holds an input button which continuously issues the \textsc{BlockCommand}. When the player character is hit by an attack while performing the blocking action, we calculate the vector dot product between the attacker direction and the player direction before the player is hit. If the result has a negative value, it means that the player is pointing their shield towards the target, and thus it results in a successful block. If the target attacks the player from behind, the player is unable to block the attack.
 
+% ! (ADDITIONAL) Add formulae to vector dot product between defender and attacker direction, with outcomes.
 
 %     * Dodge detection also occurs when target is hit. If hit detection occurs during target invincibility frames, a "dodge" is registered, and target receives no combat effects
+Contrary to blocking, the \textsc{DodgeCommand} is issued discreetly at the press of a button. When the player presses the dodge command, the \textsc{Player} component signalizes the action to the animation system. If the player issues the command when moving towards a specific direction, the \textsc{Animator} component handles the movement of the \textsc{Transform} to translate the character into that direction. If the player is stationary when the dodge command is issued, the \textsc{Animator} simply uses the current direction defined by the \textsc{Transform}.
+
+Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin} and the \textsc{DodgeIFramesEnd} events, which toggle the \textsc{Invincibility} combat effect modifier to the player. The Invincibility combat effect nullifies any negative combat effects that might affect the player during an attack, causing enemy attacks to have essentially no effect over the player.
+
 
 % ============================================================================
 % ============================================================================
 % ============================================================================
 
-\subsubsection{Animation System (TO DO)}
+\subsubsection{Animation System (ADDITIONAL)}
 
 % Animation system
 % - Difference in body movement when in Orbital vs Lock-On Cameras
@@ -576,6 +580,18 @@ In figure \ref{fig:combat-system-flow-diagram}, we show an overview of all the s
 
 % Figure: Melee enemy AI State Machine
 \input{figures/fig_ai_state_machine}
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+\subsection{Audio and Visual Effects (ADDITIONAL)}
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+\subsection{User Interface (ADDITIONAL)}
 
 % ============================================================================
 % ============================================================================
