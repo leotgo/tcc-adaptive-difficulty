@@ -576,11 +576,11 @@ Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin
 
 \sepfootnotecontent{fn:cooldown}{Footnote: What is a cooldown timer}
 
-As discussed in \ref{sec:analysis-dark-souls}, enemies in Dark Souls present basic and somewhat predictable behavior. In general, enemies that are spawned in environments either remain stationary or move through predefined paths until interaction with the player. When detecting player presence, they will often switch to a combat stance where they perform an attack from a limited and small set, and then switch to a defensive stance for the duration of a \emph{Cooldown}\sepfootnote{fn:cooldown} timer.
-
-\subsubsection{State Machines}
+As discussed in \ref{sec:analysis-dark-souls}, enemies in Dark Souls present basic and somewhat predictable behavior. When spawned, enemies either remain stationary or move through predefined paths until interaction with the player. When detecting player presence, they will often switch to a combat stance where they perform an attack from a limited and small set, and then switch to a defensive stance for the duration of a \emph{Cooldown}\sepfootnote{fn:cooldown} timer.
 
 While we were unable to gather any specific information on how \emph{AI Agents} are implemented in the source code of Dark Souls, we argue that \emph{State Machines} can be used to implement the behaviors we observed and described. Using State Machines, we can represent the actions performed by enemies in Dark Souls as \emph{States} and \emph{Behaviors}. Each enemy will be in a particular State at a given point in time, and each State contains a set of behaviors that define the actions performed by an agent given environmental and player-related circumstances.
+
+\subsubsection{Implementation of State Machines}
 
 To exemplify our claim, when an enemy is stationary we consider it to be in the \emph{Idle} state, which contains no particular Behaviors attached to it. When an enemy is moving along predefined paths and scouting for the player it is considered in the \emph{Patrolling} state, which contains the \emph{Scan} Behavior, which checks for the presence of the player in an area near the enemy, and the \emph{WaypointMovement} Behavior, which handles movement of the entity. Figure \ref{fig:fig-ai-state-machine} shows an example of a State Machine definition which is used by Melee-range enemies in our implementation, such as the \emph{Ghouls} and \emph{Warrior Skeletons}.
 
@@ -603,43 +603,7 @@ The definitions of State Machine, including their States, Transitions and Behavi
 Each \textsc{State} has a set of dynamically assignable \textsc{Behaviors}, which determine the actions that are performed by the AI Agent that contains the State Machine. In table \ref{tab:ai-behaviors}, we define all the possible behaviors in our implementation, specifying the States in which they are used and a brief description of the actions performed by the AI Agent when executing the Behavior.
 
 % Table - AICharacter Behaviors
-% ===============|==================|==============================================
-% Name           | Related States   | Description
-% ===============|==================|==============================================
-% WaypointMove   | Patrolling       | Uses a set of waypoints (which can be empty)
-%                |                  | to move a character in fixed points on the
-%                |                  | NavMesh of the environment.
-% ---------------|------------------|----------------------------------------------
-% Scan           | Idle, Patrolling | Uses a set of collision triggers to detect
-%                |                  | enemies of the AI agent in an area around or
-%                |                  | in front of its position, and assigns a 
-%                |                  | target upon detection.
-% ---------------|------------------|----------------------------------------------
-% Seek           | Seeking          | Follows a target, constantly moving to its
-%                |                  | position until the target is out of range.
-% ---------------|------------------|----------------------------------------------
-% AdjustDistance | CombatMovement   | Adjusts the distance of the AI Agent to be
-%                |                  | close enough to perform an attack, without
-%                |                  | being too close to the target.
-% ---------------|------------------|----------------------------------------------
-% PlanAttack     | CombatMovement   | Chooses the next attack based on the actions
-%                |                  | being performed by the target, or by using
-%                |                  | random number generation.
-% ---------------|------------------|----------------------------------------------
-% Attack         | CombatMovement   | Performs the chosen attack on the target
-%                |                  | using the Attack System pipeline.
-% ---------------|------------------|----------------------------------------------
-% RotateAttack   | CombatMovement   | Performs body rotation to adjust the attack
-%                |                  | to a moving target. The rotation has limited
-%                |                  | speed to permit the target to dodge.
-% ---------------|------------------|----------------------------------------------
-% Shoot          | Shooting         | Used by ranged enemies. Continuously shoot
-%                |                  | arrows at a target until the target is
-%                |                  | out of range.
-% ---------------|------------------|----------------------------------------------
-% Death          | Dead             | Deactivates all components, triggers the
-%                |                  | death animation and de-spawns the AI agent.
-% ===============|==================|==============================================
+\input{tables/tab_ai_behaviors}
 
 % State machines are serialized, therefore Behaviors are unable to keep state of objects that are instanced in a scene. We need to keep data for each behavior in the container of the state machine, which in this case is the AICharacter.
 States are serialized and independent of any instanced objects, which in consequence creates the restriction that Behaviors are unable to store any type of runtime data from instanced entities, or even static data that is referenced by the entities. Therefore, we are required to maintain the data used by each behavior in the container of the \textsc{StateMachineController}. For this reason we create the \textsc{IStateMachineOwner} interface, which provides a public accessor to a \textsc{Hashmap} structure which contains the runtime and referenced data for an instanced entity, using an identifier for the current state as the \emph{Key}.
@@ -649,7 +613,7 @@ States are serialized and independent of any instanced objects, which in consequ
 % Movement:
 %   - Use of NavMeshes to define walkable space in 3D environment for AI Agents.
 %   - Use of A* path-finding algorithm to define movement over nodes scattered throughout the mesh.
-For an AI Agent to perform movement over the environments that were assembled, we make use of the \emph{NavMesh} system, which uses the 3D topology of the environment and a user-defined set of layers with movement costs to generate a simplified mesh. The resulting mesh represents the area that can be traversed by an AI Agent, along with weights for each vertex that causes the AI Agent to prioritize certain paths defined by the user. Using this definition, we define the movement performed by the AI as a set of waypoints that are calculated using the \textsc{A\*} algorithm with the \textsc{Manhattan Distance} heuristic.
+For an AI Agent to perform movement over the environments that were assembled when executing the \textsc{WaypointMove} or \textsc{Seek} behaviors we use Unity's \emph{NavMesh} system, which uses the topology of 3D objects and a user-defined set of layers with movement costs to generate a simplified mesh representing the traversable ground in the environment. The resulting mesh also contains weights for each vertex, which causes the AI Agent to prioritize certain paths defined by the user. Using the data generated from \emph{NavMeshes}, we define the movement performed by the AI as a set of waypoints that are calculated using the \textsc{A\*} algorithm with the \textsc{Manhattan Distance} heuristic.
 
 % How AI agents scan for targets
 

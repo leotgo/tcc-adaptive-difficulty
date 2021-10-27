@@ -1,0 +1,78 @@
+% =================================================================================
+% Name           | Related States   | Description
+% =================================================================================
+% WaypointMove   | Patrolling       | Uses a set of waypoints (which can be empty)
+%                |                  | to move a character in fixed points on the
+%                |                  | NavMesh of the environment.
+% ---------------|------------------|----------------------------------------------
+% Scan           | Idle, Patrolling | Uses a set of collision triggers to detect
+%                |                  | enemies of the AI agent in an area around or
+%                |                  | in front of its position, and assigns a 
+%                |                  | target upon detection.
+% ---------------|------------------|----------------------------------------------
+% Seek           | Seeking          | Follows a target, constantly moving to its
+%                |                  | position until the target is out of range.
+% ---------------|------------------|----------------------------------------------
+% AdjustDistance | CombatMovement   | Adjusts the distance of the AI Agent to be
+%                |                  | close enough to perform an attack, without
+%                |                  | being too close to the target.
+% ---------------|------------------|----------------------------------------------
+% PlanAttack     | CombatMovement   | Chooses the next attack based on the actions
+%                |                  | being performed by the target, or by using
+%                |                  | random number generation.
+% ---------------|------------------|----------------------------------------------
+% Attack         | CombatMovement   | Performs the chosen attack on the target
+%                |                  | using the Attack System pipeline.
+% ---------------|------------------|----------------------------------------------
+% RotateAttack   | CombatMovement   | Performs body rotation to adjust the attack
+%                |                  | to a moving target. The rotation has limited
+%                |                  | speed to permit the target to dodge.
+% ---------------|------------------|----------------------------------------------
+% Shoot          | Shooting         | Used by ranged enemies. Continuously shoot
+%                |                  | arrows at a target until the target is
+%                |                  | out of range.
+% ---------------|------------------|----------------------------------------------
+% Death          | Dead             | Deactivates all components, triggers the
+%                |                  | death animation and de-spawns the AI agent.
+% =================================================================================
+
+\begin{table}[!h]
+    \begin{center}
+      \caption{A list of the behaviors in the States of the AI Agents in our implementation.}
+      \label{tab:ai-behaviors}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{6em} >{\small}w{l}{7em} >{\small}m{17em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name       & \bf Related States  & \bf Description                              \\
+        \midrule
+        WaypointMove   & Patrolling          & Uses a set of waypoints (which can be empty)
+                                               to move a character in fixed points on the 
+                                               NavMesh of the environment.                  \\
+        Scan           & Idle, Patrolling    & Uses a set of collision triggers to detect   
+                                               enemies of the AI agent in an area around
+                                               or in front of its position, and assigns a 
+                                               target upon detection.                       \\
+        Seek           & Seeking             & Follows a target, constantly moving to its
+                                               position until the target is out of range.   \\
+        AdjustDistance & CombatMovement      & Adjusts the distance of the AI Agent to be 
+                                               close enough to perform an attack, without
+                                               being too close to the target.               \\
+        PlanAttack     & CombatMovement      & Chooses the next attack based on the actions 
+                                               being performed by the target, or by using
+                                               random number generation.                    \\
+        Attack         & CombatMovement      & Performs the chosen attack on the target 
+                                               using the Attack System pipeline.            \\
+        RotateAttack   & CombatMovement      & Performs body rotation to adjust the attack 
+                                               to a moving target. The rotation has limited 
+                                               speed to permit the target to dodge.         \\
+        Shoot          & Shooting            & Used by ranged enemies. Continuously shoot 
+                                               arrows at a target until the target is 
+                                               out of range.                                \\
+        Death          & Dead                & Deactivates all components, triggers the 
+                                               death animation and de-spawns the AI agent.  \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+  \end{table}
