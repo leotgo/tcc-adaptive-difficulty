@@ -365,16 +365,16 @@ When Lock-On cameras operate in constrained space, it is common for the default 
 
 Figure \ref{fig:camera-types} shows a comparative diagram of both camera types implemented in this work, where four screen captures are used for the Orbital Third Person Camera to illustrate multiple framing angles that can be achieved from player controlled rotations.
 
-% Figure:  Orbital and Lock-On camera framing/rotation
+% * Figure: Orbital and Lock-On camera framing/rotation
 \input{figures/fig_camera_types}
 
 % Third Person Orbital Camera implementation
 % - Use of Cinemachine
-%     * Ready-to use implementation of orbital rotation with parametric spline curve for vertical axis
-%     * Smooth transition between virtual cameras which was useful for Orbital Camera and Lock-on modes
+%     - Ready-to use implementation of orbital rotation with parametric spline curve for vertical axis
+%     - Smooth transition between virtual cameras which was useful for Orbital Camera and Lock-on modes
 Regarding the implementation of the Orbital Camera, we chose to use the \emph{Cinemachine} Unity Package due to its comprehensive API and functionality for multiple types of cameras, including specific algorithms to manipulate Orbital Cameras. Another useful trait is that the APIs provided by Cinemachine enable defining parametric curves for positioning, which increases the expressive power of game designers.
 
-%     * Algorithmic motion that can simulate cinematic behavior with camera shake effect and framing corrections
+%     - Algorithmic motion that can simulate cinematic behavior with camera shake effect and framing corrections
 Cinemachine can also manage, compose and blend multiple cameras, which is useful to perform shot transitions triggered by a signal system that resembles the \emph{Observer} pattern\sepfootnote{fn:observer-pattern}. Cinemachine also includes algorithms for procedural motion generation, which is used to create screen shake effects with high fidelity when the player is attacked by an enemy, or to properly adjust framing when the camera needs to track movement of high velocity targets.
 
 % Prefab GameObject hierarchy with CinemachineBrain at root 
@@ -389,10 +389,10 @@ We also add a \textsc{GameObject} containing a \textsc{PlayerCameraDirector} com
 
 The \textsc{VirtualCamera} components are tasked with receiving player input and performing the appropriate actions given the input. For instance, the \textsc{OrbitalCamera} receives a two-dimensional vector as input, which is translated into vertical rotation and translation for the Y axis and horizontal for the X axis. In the Lock-On camera, the horizontal axis of the vector input is used to switch Lock-On targets. Figure \ref{fig:camera-class-diagram} shows an overview of the class relationship in our camera system implementation, as well as the signals that are being sent and listened to.
 
-% Figure:  Camera system class diagram
+% * Figure:  Camera system class diagram
 \input{figures/fig_camera_system_diagram}
 
-%     * Simplified collision geometry enables using a pull-forward collision resolution
+%     - Simplified collision geometry enables using a pull-forward collision resolution
 For position resolution, we created a simplified and invisible collision map to define the constraints of where a camera can be positioned in a game level. This is done to both improve the performance of raycasts and to avoid jittery movement when using pull-forward collision resolution on thin objects. This collision map is limited to interact with camera algorithms, and does not affect player movement or any other physics entities in any way.
 
 % Lock-On camera and targeting system
@@ -423,12 +423,12 @@ All Attribute types implement the \textsc{IAttribute} interface, which exposes a
 The advantage of creating of an event monitoring system between Attributes external systems is that upon initial conception of the architecture, we do not exactly know how many components will require communication with each gameplay entity. For instance, when implementing the UI for the player character we can initially propose a single health bar that would simply read the value of runtime variables from the \textsc{Player} class, but if we iteratively add new elements such as floating text, combat messages and visual effects, each of these systems should have direct access to the components that hold data regarding player state, which enforces component coupling in our architecture. With an event system, we can simply subscribe to signals being sent by attributes, constraining the exposed data and methods and facilitating component decoupling.
 
 % - AttributesContainers
-%     * Containerization of attributes to allow for entities with different attribute configurations without defining static types
-%     * Possibility to dynamically assign attributes during the course of a session, which can be useful for a telemetry system
+%     - Containerization of attributes to allow for entities with different attribute configurations without defining static types
+%     - Possibility to dynamically assign attributes during the course of a session, which can be useful for a telemetry system
 % - Definition of interfaces that expose attributes to any of the classes that might require it
 Attribute owners will often contain different sets of attributes to satisfy the requirements of the systems they interact with. As such, characters that can partake into combat encounters will present different attributes in relation to interactable objects such as doors. To provide a standardized interface for the access of attributes over different entity types, we containerize attributes into \emph{Attribute Containers}, which provide a public interface for dynamic access and manipulation of statically typed attributes contained within an entity. Figure \ref{fig:attributes-diagram} shows an overview of the class relationships in the Attributes System, along with examples of how attributes signalize changes to external components such as UI Elements.
 
-% - Figure: Attributes system class diagram
+% * Figure: Attributes system class diagram
 \input{figures/fig_attributes_diagram}
 
 % ============================================================================
@@ -452,7 +452,7 @@ To implement combat mechanics in a \emph{Souls-like} game, we need a set of func
 \end{itemize}
 By combining the functionality aforementioned with AI agents that also make use of the same components, we can create a credible Combat System that provides appropriate feedback to player actions and decisions. In figure \ref{fig:combat-system-overview}, we provide an overview of the subsystems and classes regarding to our implementation of a Combat System.
 
-% Figure: Combat System Overview Diagram
+% * Figure: Combat System Overview Diagram
 \input{figures/fig_combat_system_overview}
 
 % Attacking and combo system
@@ -465,11 +465,11 @@ If the character model is in the \emph{Dead}, \emph{Staggered}, \emph{AttackEndi
 
 %  - When sending attack command, enter a "combo" state and "Attack animation state machine"
 %  - "OnCombo" state:
-%    * Preemptively read player input before current attack animation ends. If player successfully sent attack input, continue the combo.
-%    * If no attack input command is read within animation time frame, escape the Attack animation state machine
+%    - Preemptively read player input before current attack animation ends. If player successfully sent attack input, continue the combo.
+%    - If no attack input command is read within animation time frame, escape the Attack animation state machine
 After an Attack Command is successfully validated, player state is set to \emph{Attacking} and the player enters an \emph{Attack State Machine} where Attack Commands are preemptively verified during attack animations. If an Attack Command is successfully executed before an attack animation ends an \emph{Attack Chain} is toggled, meaning that another attack animation is queued and transitioned to when the current attack animation ends. This behavior is commonly referred to as a \emph{Combo} in video games. Figure \ref{fig:player-anim-state-machine} shows the state machine definition that we use to implement the aforementioned behavior.
 
-%     * Alternating between attack animations to create the impression of a seamless combo that is only limited by the stamina resource
+%     - Alternating between attack animations to create the impression of a seamless combo that is only limited by the stamina resource
 This replicates how attacking works in Dark Souls, where the player can continuously enqueue attack commands until their \emph{Stamina} resource is depleted. If no Attack Command is successfully executed within the time frame of an attack animation, the player exits the \emph{Attack State Machine} and is locked to a short \emph{AttackEnding} animation state, where the player character model transitions from attacking to an idle state.
 
 % Figure: Player Animation state machine
@@ -483,8 +483,8 @@ The \textsc{AttackCollisionEndEvent} is required to be signalized after the \tex
 % Figure: Attack and combos Class Diagram
 \input{figures/fig_attack_combo_diagram}
 
-%     * Hit detection must not occur twice between the same target and same attack
-%     * Specific collision layer to detect hitbox collision
+%     - Hit detection must not occur twice between the same target and same attack
+%     - Specific collision layer to detect hitbox collision
 To implement hit detection, we perform collider overlap checks in fixed time intervals of 16 milliseconds. These collision checks occur in a special collision layer called HitDetection, where every Collider is either the weapon of an attacker or the body of a target. This is an optimization requirement to meet the required time constraint in most computing systems. If a system is unable to meet the time constraint, there is a small chance that an attack might not be detected, where the attacker weapon "passes-by" the body of the attacker without triggering collision detection.
 
 We estimate that attack collision detection occurs for approximately 20 frames from the point where it is first activated. Thus, if a computer system is able perform at least 4 updates per second, attack collision is guaranteed to be correctly detected. It is important to note that updates to the collision detection system are independent to the rendering performed by the graphics pipeline, and as a consequence are unaffected by most forms of temporary stutters in the application.
@@ -493,18 +493,18 @@ We also require safety measures to ensure that attack collision detection does n
 
 % - Hit detection:
 %   > Colliders:
-%     * Hitbox overlap detection for attacker weapons and target character
-%     * Attack Colliders are bounding boxes in weapons
-%     * Character colliders are simplified bounding boxes that enclose torso, head and partially legs
+%     - Hitbox overlap detection for attacker weapons and target character
+%     - Attack Colliders are bounding boxes in weapons
+%     - Character colliders are simplified bounding boxes that enclose torso, head and partially legs
 For each occurrence of an attack collision, two colliders are obligatorily involved: one for the weapon of the attacker, and one for the body of the target. The colliders are instanced as \emph{bounding boxes}\sepfootnote{fn:bounding-boxes} that fully or partially enclose the 3D models of their relative entity. In order to perform collision checks with a reasonably optimized numbers of collision checks, we simplify bounding boxes of character models to only enclose the torso, head and a central position of the legs of a target. Using this method, we can minimize the amount of collision checks per frame, while also having appropriate precision for our implementation purposes.
 
-%     * Consider character faction to recognize which combat characters can be hurt by an attack
+%     - Consider character faction to recognize which combat characters can be hurt by an attack
 After the collision detection step is performed, we must ensure that the attacking character is hitting a target that is not part of their own \emph{Combat Group} before validating an attack as a \emph{Successful Hit}. To do this we create the \textsc{FactionAttribute}, which determines that each character belongs to a combat group that is unable to perform attacks to other members of the same group. This is done so that groups of characters such as enemies of the player do not damage themselves when attempting to hit a target while being too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}. In addition, figure \ref{fig:hit-detection-diagram} shows the execution flow and class relationship of components used during the Hit Detection step.
 
-% Table: Values for the Faction Attribute
+% * Table: Values for the Faction Attribute
 \input{tables/tab_faction_groups}
 
-% Figure: Hit detection class diagram
+% * Figure: Hit detection class diagram
 \input{figures/fig_hit_detection_diagram}
 
 \sepfootnotecontent{fn:stagger}{Footnote: What is a stagger effect}
@@ -512,14 +512,14 @@ After the collision detection step is performed, we must ensure that the attacki
 \sepfootnotecontent{fn:knockback}{Footnote: What is a knockback effect}
 
 % - Attack damage and other effects are abstracted into Combat effects
-%     * Manipulate character attributes, statuses and physics
+%     - Manipulate character attributes, statuses and physics
 Once we performed all steps regarding the verification of whether an attack successfully hit an enemy, we can proceed to the next step of applying the \emph{Combat Effects} contained by the Attack. Combat Effects are our abstraction to the set of attribute effects, status effects and any other behaviors that occur when a character is struck by an attack. Examples of Combat Effects include the damage dealt to the Health of a target, Status effects such as \emph{Staggers}\sepfootnote{fn:stagger}, and physics effects such as the \emph{Knockback}\sepfootnote{fn:knockback} caused by an attack. Figure \ref{fig:combat-effects-diagram} shows an overview of the relationship between classes and components regarding the application of \textsc{CombatEffects} to \textsc{ICombatTarget} entities.
 
-% Figure: Combat Effect class diagram
+% * Figure: Combat Effect class diagram
 \input{figures/fig_combat_effects_diagram}
 
-%     * Instant combat effects are completely applied in the same frame as hit detection occurred
-%     * Over-time combat effects with fixed interval ticks
+%     - Instant combat effects are completely applied in the same frame as hit detection occurred
+%     - Over-time combat effects with fixed interval ticks
 In our implementation, we differentiate between \emph{Instant Combat Effects} and \emph{Over-time Combat Effects}. Instant Effects are applied to a target when a discrete event such as an attack takes place, and will often simply modify the value of an attribute. Examples of Instant Effects include the Health damage caused by an attack to a target and the Stamina cost of performing the attack, which is applied to the attacker. Over-time Effects are effects that occur in fixed time intervals over the course of a duration or is bound to the life of an entity.
 
 % Player has a default Stamina regeneration effect
@@ -532,15 +532,15 @@ If the target has effect modifiers that are compatible with any of the effects b
 
 In figure \ref{fig:combat-flow-diagram}, we show an overview of all the steps involved with handling attacks, including detection of Attack commands being issued by the player, management of the animation states associated with weapons, validating Hitbox collision and combat groups with a Hit Detection System, and applying combat effects to modify target attributes and execute behaviors.
 
-% Figure: Flow of Combat System when processing Attack of entities
+% * Figure: Flow of Combat System when processing Attack of entities
 \input{figures/fig_combat_flow_diagram}
 
-%     * Block detection occurs when target is hit, is in "blocking" state and vector dot product between attack and target directions is < 0
+%     - Block detection occurs when target is hit, is in "blocking" state and vector dot product between attack and target directions is < 0
 To perform the blocking action, the player holds an input button which continuously issues the \textsc{BlockCommand}. When the player character is hit by an attack while performing the blocking action, we calculate the vector dot product between the attacker direction and the player direction before the player is hit. If the result has a negative value, it means that the player is pointing their shield towards the target, and thus it results in a successful block. If the target attacks the player from behind, the player is unable to block the attack.
 
-% ! (ADDITIONAL) Add formulae to vector dot product between defender and attacker direction, with outcomes.
+% TODO (ADDITIONAL) Add formulae to vector dot product between defender and attacker direction, with outcomes.
 
-%     * Dodge detection also occurs when target is hit. If hit detection occurs during target invincibility frames, a "dodge" is registered, and target receives no combat effects
+%     - Dodge detection also occurs when target is hit. If hit detection occurs during target invincibility frames, a "dodge" is registered, and target receives no combat effects
 Contrary to blocking, the \textsc{DodgeCommand} is issued discreetly at the press of a button. When the player presses the dodge command, the \textsc{Player} component signalizes the action to the animation system. If the player issues the command when moving towards a specific direction, the \textsc{Animator} component handles the movement of the \textsc{Transform} to translate the character into that direction. If the player is stationary when the dodge command is issued, the \textsc{Animator} simply uses the current direction defined by the \textsc{Transform}.
 
 Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin} and the \textsc{DodgeIFramesEnd} events, which toggle the \textsc{Invincibility} combat effect modifier to the player. The Invincibility combat effect nullifies any negative combat effects that might affect the player during an attack, causing enemy attacks to have essentially no effect over the player.
@@ -550,7 +550,7 @@ Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin
 % ============================================================================
 % ============================================================================
 
-\subsubsection{Animation System (ADDITIONAL)}
+% TODO \subsubsection{Animation System (ADDITIONAL)}
 
 % Animation system
 % - Difference in body movement when in Orbital vs Lock-On Cameras
@@ -571,20 +571,19 @@ Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin
 
 \subsection{Artificial Intelligence and Enemy Design (WIP)}
 
-% Enemies in Dark Souls present basic, somewhat predictable behavior (REF Analysis Dark Souls)
-%   - Decided to use State Machines to replicate simplistic behavior
-
 \sepfootnotecontent{fn:cooldown}{Footnote: What is a cooldown timer}
 
+% Enemies in Dark Souls present basic, somewhat predictable behavior (REF Analysis Dark Souls)
 As discussed in \ref{sec:analysis-dark-souls}, enemies in Dark Souls present basic and somewhat predictable behavior. When spawned, enemies either remain stationary or move through predefined paths until interaction with the player. When detecting player presence, they will often switch to a combat stance where they perform an attack from a limited and small set, and then switch to a defensive stance for the duration of a \emph{Cooldown}\sepfootnote{fn:cooldown} timer.
 
+%   - Decided to use State Machines to replicate simplistic behavior
 While we were unable to gather any specific information on how \emph{AI Agents} are implemented in the source code of Dark Souls, we argue that \emph{State Machines} can be used to implement the behaviors we observed and described. Using State Machines, we can represent the actions performed by enemies in Dark Souls as \emph{States} and \emph{Behaviors}. Each enemy will be in a particular State at a given point in time, and each State contains a set of behaviors that define the actions performed by an agent given environmental and player-related circumstances.
 
-\subsubsection{Implementation of State Machines}
+\subsubsection{State Machines}
 
 To exemplify our claim, when an enemy is stationary we consider it to be in the \emph{Idle} state, which contains no particular Behaviors attached to it. When an enemy is moving along predefined paths and scouting for the player it is considered in the \emph{Patrolling} state, which contains the \emph{Scan} Behavior, which checks for the presence of the player in an area near the enemy, and the \emph{WaypointMovement} Behavior, which handles movement of the entity. Figure \ref{fig:fig-ai-state-machine} shows an example of a State Machine definition which is used by Melee-range enemies in our implementation, such as the \emph{Ghouls} and \emph{Warrior Skeletons}.
 
-% Figure: Melee enemy AI State Machine
+% * Figure: Melee enemy AI State Machine
 \input{figures/fig_ai_state_machine}
 
 % Implementation of a Serializable, multipurpose State Machine structure
@@ -595,14 +594,15 @@ To exemplify our claim, when an enemy is stationary we consider it to be in the 
 %   - Transitions: References an origin and a target state, and contains a set of boolean conditions to validate a transition as valid.
 For our implementation, we use a generic definition of State Machines which can be used outside the scope of implementations of AI Agents. We start by defining a \textsc{StateMachineController} component which can be assigned to a MonoBehaviour. In the context of AI Agents, the StateMachineController will be attached to an \textsc{AICharacter} component, which represents the root hierarchy level of AI-controlled characters. The \textsc{StateMachineController} contains a reference to the \textsc{StateMachine} and to its owner, and is tasked with performing frame-bound updates to states and validating the conditions to perform transitions between states. Therefore, the \textsc{StateMachineController} is the sole runtime component in our State Machine implementation.
 
-The definitions of State Machine, including their States, Transitions and Behaviors are constrained to serializable space, with State Machines being bound to asset files that can be referenced to by the \textsc{StateMachineController}. The \textsc{StateMachine} class contains serialization data for \textsc{States}, which contain a variable set of \textsc{Behaviors}; and textsc{Transitions}, which contain references to an origin and target state and a set of boolean conditions to define when the transition should occur. Figure \ref{fig:state-machine-diagram} shows the class and data structure relationships for our implementation of state machines.
+The definitions of State Machine, including their States, Transitions and Behaviors are constrained to serializable space, with State Machines being bound to asset files that can be referenced to by the \textsc{StateMachineController}. The \textsc{StateMachine} class contains serialization data for \textsc{States}, which contain a variable set of \textsc{Behaviors}; and textsc{Transitions}, which contain references to an origin and target state and a set of boolean conditions to define when the transition should occur. Figure \ref{fig:state-machine-class-diagram} shows the class and data structure relationships for our implementation of state machines.
 
-% Figure: State Machine system architecture
+% * Figure: State Machine system architecture
+\input{figures/fig_state_machine_class_diagram}
 
 % Each state has a set of dynamically assigned Behaviors that determine the actions performed by an AI Agent on that state.
 Each \textsc{State} has a set of dynamically assignable \textsc{Behaviors}, which determine the actions that are performed by the AI Agent that contains the State Machine. In table \ref{tab:ai-behaviors}, we define all the possible behaviors in our implementation, specifying the States in which they are used and a brief description of the actions performed by the AI Agent when executing the Behavior.
 
-% Table - AICharacter Behaviors
+% * Table - AICharacter Behaviors
 \input{tables/tab_ai_behaviors}
 
 % State machines are serialized, therefore Behaviors are unable to keep state of objects that are instanced in a scene. We need to keep data for each behavior in the container of the state machine, which in this case is the AICharacter.
@@ -613,20 +613,89 @@ States are serialized and independent of any instanced objects, which in consequ
 % Movement:
 %   - Use of NavMeshes to define walkable space in 3D environment for AI Agents.
 %   - Use of A* path-finding algorithm to define movement over nodes scattered throughout the mesh.
-For an AI Agent to perform movement over the environments that were assembled when executing the \textsc{WaypointMove} or \textsc{Seek} behaviors we use Unity's \emph{NavMesh} system, which uses the topology of 3D objects and a user-defined set of layers with movement costs to generate a simplified mesh representing the traversable ground in the environment. The resulting mesh also contains weights for each vertex, which causes the AI Agent to prioritize certain paths defined by the user. Using the data generated from \emph{NavMeshes}, we define the movement performed by the AI as a set of waypoints that are calculated using the \textsc{A\*} algorithm with the \textsc{Manhattan Distance} heuristic.
+For an AI Agent to perform movement over the environments that were assembled when executing the \textsc{WaypointMove} or \textsc{Seek} behaviors we use Unity's \emph{NavMesh} system, which uses the topology of 3D objects and a user-defined set of layers with movement costs to generate a simplified mesh representing the traversable ground in the environment. The resulting mesh also contains weights for each vertex, which causes the AI Agent to prioritize certain paths defined by the user. Using the data generated from \emph{NavMeshes}, we define the movement performed by the AI as a set of waypoints that are calculated using the \textsc{A*} algorithm with the \textsc{Manhattan Distance} heuristic.
+
+\sepfootnotecontent{fn:forward-vector}{Footnote: What is the forward vector}
 
 % How AI agents scan for targets
+% - Spheric collider for frontal view cone
+%      - Detects collision with ICombatCharacters from different Faction
+% - Calculate the angle between agent forward and target relative pos
+To scan for targets in the environment, AI Agents have a spheric collider representing the radius where a target can be detected by a frontal view cone. The collider detects collision with \textsc{ICombatCharacter} entities where the \textsc{FactionAttribute} has a different value to that of the agent. If a target is within this radius, we calculate the angle between the forward vector\sepfootnote{fn:forward-vector} of the agent and the relative direction of the target. The forward vector is natively supplied by \textsc{Unity} with the \textsc{Transform} component, but we also need to project the vector onto the two-dimensional [X, Z] plane.
+
+% - How target relative pos is calculated
+% - Use of another, smaller spheric collider for enemy hearing
+The \emph{Target Relative Direction} is calculated by subtracting the target position to the position of the agent, normalizing the result and projecting it onto the ground plane. Having these vectors, we use the \textsc{Vector3.Angle} operation from \textsc{Unity} to clamp field detection range to a cone of 90 degrees, causing the agent to have a constrained field of view. Additionally, we use another spheric collider with smaller radius to represent the distance in which the AI Agent would be able to hear. When an entity of the type \textsc{ICombatCharacter} enters this collider, the AI Agent will immediately consider it as the new target.
+
+% - What happens when the target dies
+%       - AI agent is reset to Idle
+% - If target is unreachable, same thing happens
+When the target dies, the AI agent is reset to their default state - which is generally the start point of its state machine. Therefore, when an enemy AI agent is able to defeat the player, they will return to the \emph{Idle} state. A similar event happens when the AI agent is in the \emph{Seeking} state and the target can not be interacted with. If the target is in an unreachable position where there is no path connecting the ground NavMesh from agent to player position, the AI loses interest in the target and returns to its default state.
 
 % How AI Agents attack
+%   - Each enemy has own state machine
+%   - State state differs because of behaviors and data
+%   - CombatMovement: adjust position, plan attack, execute
+In our implementation, we group AI agents by an \emph{Enemy Type}. Each enemy type will have its own State Machine definition. While the State Machine for an enemy type might contain states with the same name as another, their functionality might differ by using a different set of behaviors or different values for the data in the behaviors. The most relevant example would be in the \textsc{CombatMovement} state where a melee AI agent must adjust their position, plan their attack and perform the attack based on their position in the environment, their available actions and the actions being performed by the player. The \textsc{CombatMovement} state is functionally the same as the sub-state machine concept used in hierarchical state machines. We switch between three unique behaviors to give the impression of different states: \emph{PositionAdjustment}, \emph{AttackPlanning} and \emph{AttackExecution}.
 
-% What happens when the target dies
+% AdjustPosition
+%     - Two-dimensional radial and distance-based positioning
+ In the \textsc{PositionAdjustment} behavior, we have several steps to calculate the position an AI agent should move towards. We start by defining a two-dimensional vector to define the position an AI agent should be in relative to their target: a \emph{distance relationship} between the agent and their target and a \emph{radial-distribution} position, where the agent positions itself in a circular perimeter around the target.
 
-\subsubsection{Design of Enemy Types}
+%     - GroupAIBrain: What is the expected distance?
+% TODO add reference to AI Brain component subsection
+To define the distance relationship between the agent and their target, we consider parameters that define the context of the combat encounter. First, we communicate with the \textsc{GroupAIBrain} component to understand whether the player is dealing with too many enemies, which means the agent should take a more idle stance and remain in the backline. The \textsc{GroupAIBrain} component is a manager to all AI agents engaged in a \emph{Combat Encounter} against the player. Specific details about functionality involving the \textsc{GroupAIBrain} component will be further discussed in section \ref{sec:ai-brain}.
+
+\sepfootnotecontent{fn:hitbox-central-point}{Footnote: What is the hitbox central point?}
+
+%     - Is the attack in cooldown?
+%     - Distance to Player: Would an attack hit?
+Second, we determine if the AI agent attacks are on \emph{cooldown}, meaning that the agent is not able to attack for a short period of time after performing another attack. If so, the agent takes a defensive approach and attempts to position itself further away from the player so that the player has to make a time investment to be able to attack the agent. Third, we calculate the average \emph{Hitbox Central Point}\sepfootnote{hitbox-central-point} distance for all attacks that the AI Agent can perform. We use this average to create a target position that minimizes the chances of the player being able to avoid an attack by simply moving backwards. This step is performed when the target is either out of attack range or after half of the \emph{cooldown} duration for the next attack.
+
+% - GroupAIBrain: What is the expected radial position?
+%     - Priority index
+%     - Positions in arc in circular perimeter
+%     - Arc boundaries restricted by environment geometry
+%     - Arc also restricted by dynamic radian in GroupAIBrain
+To define the radial-distribution position for an entity, the AI Agent is assigned a numeric priority index upon entering a \emph{Combat Encounter} instance against the player. The value of the priority index is used to evenly arrange AI Agents in a constrained arc of a circular perimeter around the player. The aperture of the arc is defined by both the geometry of environment colliders around the player and adjustment metrics. If the arc boundaries are not restricted by environmental geometry, the aperture is defined by an adjustable radian supplied by the \textsc{GroupAIBrain} component.
+
+% - How agents are distributed in the arc
+The agent placement arc is divided in equal size segments that are used to distribute the agents uniformly in relation to the player. At the beginning of a combat encounter, a single agent becomes part of the AI group. This initial agent is defined as the pivot for the group. The arc is divided in two segments by the position of the pivot agent, which is exactly at the center of the two segments. The following two agents are placed at the outer boundaries of the arc, each at the limits of their respective segments.
+
+Every subsequent agent subdivides the largest segment that is closest to the pivot, using the center position of the segment and creating two new segments. When the pivot agent is defeated, a new pivot agent is selected based on its distance from the original pivot, and the segments are recalculated by adding each subsequent agent that is closest to the pivot through the same algorithm. When non-pivot agents are defeated, the group is also recalculated but with the difference that we use the same pivot when recalculating agent segments. This algorithm is exemplified by figure \ref{fig:arc-segments}, and the resulting behavior can be seen in figure \ref{fig:enemy-positioning-example}.
+
+% TODO Figure: Figure illustrating the behavior of the "arc segments" algorithm
+\input{figures/fig_arc_segments}
+
+% TODO Figure: Enemy typical radial placement around the player character
+\input{figures/fig_enemy_positioning_example}
+
+% PlanAttack
+%     - Is the player out of attack range?
+%     - AI Brain: does it give permission for special attack?
+%         - How often does the player block, dodge?
+%         - Is the player blocking?
+%     - AI Brain: Does it give permission to attack?
+
+% Attack categories
+%     - Default attack: basic values, easy to avoid
+%     - Special attacks:
+%         - Gap closer attack: good vs walking out
+%         - Defense break attack: good vs blocking
+%         - Sweep attack: good vs dodging
+
+\subsection{Management of Agent Groups}
+\label{sec:ai-brain}
+
+% special attacks have a queue to be executed
+% global attack cooldown
+
+% TODO \subsubsection{Design of Enemy Types (ADDITIONAL)}
 
 % Table - Enemy Types
 %
 % =========|============|========|===========|=========|==========================================
-%  Name    | Move Speed | Damage | Atk Speed | Health  |  Description                             
+%  Name    | Move Speed | Damage | Atk Speed | Health  | Description                             
 % =========|============|========|===========|=========|==========================================
 % Ghoul    | Slowest    | Lowest | Slow      | Lowest  | Meant to be introductory enemy for player
 %          |            |        |           |         | to test mechanics.                       
@@ -686,19 +755,19 @@ For an AI Agent to perform movement over the environments that were assembled wh
 % ============================================================================
 % ============================================================================
 
-\subsection{Level Design (ADDITIONAL)}
+% TODO \subsection{Level Design (ADDITIONAL)}
 
 % ============================================================================
 % ============================================================================
 % ============================================================================
 
-\subsection{Audio and Visual Effects (ADDITIONAL)}
+% TODO \subsection{Audio and Visual Effects (ADDITIONAL)}
 
 % ============================================================================
 % ============================================================================
 % ============================================================================
 
-\subsection{User Interface (ADDITIONAL)}
+% TODO \subsection{User Interface (ADDITIONAL)}
 
 % ============================================================================
 % ============================================================================
