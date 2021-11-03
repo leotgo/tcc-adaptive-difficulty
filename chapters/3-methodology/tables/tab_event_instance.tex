@@ -1,0 +1,33 @@
+% Event Instance
+%   • Timestamp ( Time : double )
+%   • Name ( String )
+%   • Type ( String )
+%   • Source ( ObjectId : GUID )
+%   • Params[]
+%       • { "name", "type", "value" }
+
+\begin{table}
+    \begin{center}
+      \caption{A description of the fields associated with an \textsc{EventInstance}.}
+      \label{tab:event-instance}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{5em} m{7em} m{16em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Field Name & \bf Field Type  & \bf Description \\
+        \midrule
+        % Data
+        Timestamp      & double          & The time since application start when an event was 
+                                           raised. Measured in seconds.                        \\
+        Name           & String          & The Name Identifier for an event.                   \\
+        Type           & String          & The System from which the event is raised from.     \\
+        Source         & ObjectId        & The source in-game entity which caused the event to 
+                                           be raised.                                          \\
+        Params         & Array of Tuples & A set of data parameters, given in string format,  
+                                           that are used to represent any contextual related 
+                                           with the event.                                     \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}

@@ -507,8 +507,10 @@ After the collision detection step is performed, we must ensure that the attacki
 % * Figure: Hit detection class diagram
 \input{figures/fig_hit_detection_diagram}
 
+% TODO Footnote fn:stagger
 \sepfootnotecontent{fn:stagger}{Footnote: What is a stagger effect}
 
+% TODO Footnote fn:knockback
 \sepfootnotecontent{fn:knockback}{Footnote: What is a knockback effect}
 
 % - Attack damage and other effects are abstracted into Combat effects
@@ -569,8 +571,9 @@ Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin
 % ============================================================================
 % ============================================================================
 
-\subsection{Artificial Intelligence and Enemy Design (WIP)}
+\subsection{Artificial Intelligence and Enemy Design}
 
+% TODO Footnote fn:cooldown
 \sepfootnotecontent{fn:cooldown}{Footnote: What is a cooldown timer}
 
 % Enemies in Dark Souls present basic, somewhat predictable behavior (REF Analysis Dark Souls)
@@ -578,6 +581,10 @@ As discussed in \ref{sec:analysis-dark-souls}, enemies in Dark Souls present bas
 
 %   - Decided to use State Machines to replicate simplistic behavior
 While we were unable to gather any specific information on how \emph{AI Agents} are implemented in the source code of Dark Souls, we argue that \emph{State Machines} can be used to implement the behaviors we observed and described. Using State Machines, we can represent the actions performed by enemies in Dark Souls as \emph{States} and \emph{Behaviors}. Each enemy will be in a particular State at a given point in time, and each State contains a set of behaviors that define the actions performed by an agent given environmental and player-related circumstances.
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
 
 \subsubsection{State Machines}
 
@@ -587,13 +594,14 @@ To exemplify our claim, when an enemy is stationary we consider it to be in the 
 \input{figures/fig_ai_state_machine}
 
 % Implementation of a Serializable, multipurpose State Machine structure
-% Class Definitions:States, Transitions, StateBehaviors
 %   - StateMachineController: MonoBehaviours, instanced in scenes. Contains a reference to the state machine and its owner. Validates conditions for transitions, performs transitions and updates states.
+For our implementation, we use a generic definition of State Machines which can be used outside the scope of implementations of AI Agents. We start by defining a \textsc{StateMachineController} component which can be assigned to a MonoBehaviour. In the context of AI Agents, the StateMachineController will be attached to an \textsc{AICharacter} component, which represents the root hierarchy level of AI-controlled characters. The \textsc{StateMachineController} contains a reference to the \textsc{StateMachine} and to its owner, and is tasked with performing frame-bound updates to states and validating the conditions to perform transitions between states. Therefore, the \textsc{StateMachineController} is the sole runtime component in our State Machine implementation.
+
+% - State Machines are bound to asset files
+% - Class Definitions:States, Transitions, StateBehaviors
 %   - StateMachine: Class definition for all the serialized data involving our implementation of state machines. Contains states and transitions. 
 %   - States: Contain a variable set of Behaviors, that can be assigned dynamically during runtime and serialization.
 %   - Transitions: References an origin and a target state, and contains a set of boolean conditions to validate a transition as valid.
-For our implementation, we use a generic definition of State Machines which can be used outside the scope of implementations of AI Agents. We start by defining a \textsc{StateMachineController} component which can be assigned to a MonoBehaviour. In the context of AI Agents, the StateMachineController will be attached to an \textsc{AICharacter} component, which represents the root hierarchy level of AI-controlled characters. The \textsc{StateMachineController} contains a reference to the \textsc{StateMachine} and to its owner, and is tasked with performing frame-bound updates to states and validating the conditions to perform transitions between states. Therefore, the \textsc{StateMachineController} is the sole runtime component in our State Machine implementation.
-
 The definitions of State Machine, including their States, Transitions and Behaviors are constrained to serializable space, with State Machines being bound to asset files that can be referenced to by the \textsc{StateMachineController}. The \textsc{StateMachine} class contains serialization data for \textsc{States}, which contain a variable set of \textsc{Behaviors}; and textsc{Transitions}, which contain references to an origin and target state and a set of boolean conditions to define when the transition should occur. Figure \ref{fig:state-machine-class-diagram} shows the class and data structure relationships for our implementation of state machines.
 
 % * Figure: State Machine system architecture
@@ -608,6 +616,10 @@ Each \textsc{State} has a set of dynamically assignable \textsc{Behaviors}, whic
 % State machines are serialized, therefore Behaviors are unable to keep state of objects that are instanced in a scene. We need to keep data for each behavior in the container of the state machine, which in this case is the AICharacter.
 States are serialized and independent of any instanced objects, which in consequence creates the restriction that Behaviors are unable to store any type of runtime data from instanced entities, or even static data that is referenced by the entities. Therefore, we are required to maintain the data used by each behavior in the container of the \textsc{StateMachineController}. For this reason we create the \textsc{IStateMachineOwner} interface, which provides a public accessor to a \textsc{Hashmap} structure which contains the runtime and referenced data for an instanced entity, using an identifier for the current state as the \emph{Key}.
 
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
 \subsubsection{Implementation of Behaviors}
 
 % Movement:
@@ -615,6 +627,7 @@ States are serialized and independent of any instanced objects, which in consequ
 %   - Use of A* path-finding algorithm to define movement over nodes scattered throughout the mesh.
 For an AI Agent to perform movement over the environments that were assembled when executing the \textsc{WaypointMove} or \textsc{Seek} behaviors we use Unity's \emph{NavMesh} system, which uses the topology of 3D objects and a user-defined set of layers with movement costs to generate a simplified mesh representing the traversable ground in the environment. The resulting mesh also contains weights for each vertex, which causes the AI Agent to prioritize certain paths defined by the user. Using the data generated from \emph{NavMeshes}, we define the movement performed by the AI as a set of waypoints that are calculated using the \textsc{A*} algorithm with the \textsc{Manhattan Distance} heuristic.
 
+% TODO Footnote fn:forward-vector
 \sepfootnotecontent{fn:forward-vector}{Footnote: What is the forward vector}
 
 % How AI agents scan for targets
@@ -636,21 +649,20 @@ When the target dies, the AI agent is reset to their default state - which is ge
 %   - Each enemy has own state machine
 %   - State state differs because of behaviors and data
 %   - CombatMovement: adjust position, plan attack, execute
-In our implementation, we group AI agents by an \emph{Enemy Type}. Each enemy type will have its own State Machine definition. While the State Machine for an enemy type might contain states with the same name as another, their functionality might differ by using a different set of behaviors or different values for the data in the behaviors. The most relevant example would be in the \textsc{CombatMovement} state where a melee AI agent must adjust their position, plan their attack and perform the attack based on their position in the environment, their available actions and the actions being performed by the player. The \textsc{CombatMovement} state is functionally the same as the sub-state machine concept used in hierarchical state machines. We switch between three unique behaviors to give the impression of different states: \emph{PositionAdjustment}, \emph{AttackPlanning} and \emph{AttackExecution}.
+In our implementation, we group AI agents by an \emph{Enemy Type}. Each enemy type will have its own State Machine definition. While the State Machine for an enemy type might contain states with the same name as another, their functionality differs by using a different set of behaviors or different values for the data in the behaviors. The most relevant example would be in the \textsc{CombatMovement} state where a melee AI agent must adjust their position, plan their attack and perform the attack based on their position in the environment, their available actions and the actions being performed by the player. The \textsc{CombatMovement} state is functionally the same as the sub-state machine concept used in hierarchical state machines. We switch between three unique behaviors to give the impression of different states: \emph{PositionAdjustment}, \emph{AttackPlanning} and \emph{AttackExecution}.
 
 % AdjustPosition
 %     - Two-dimensional radial and distance-based positioning
- In the \textsc{PositionAdjustment} behavior, we have several steps to calculate the position an AI agent should move towards. We start by defining a two-dimensional vector to define the position an AI agent should be in relative to their target: a \emph{distance relationship} between the agent and their target and a \emph{radial-distribution} position, where the agent positions itself in a circular perimeter around the target.
+In the \textsc{PositionAdjustment} behavior, we have several steps to calculate the position an AI agent should move towards. We start by defining a two-dimensional vector to define the position an AI agent should be in relative to their target: a \emph{distance relationship} between the agent and their target and a \emph{radial-distribution} position, where the agent positions itself in a circular perimeter around the target.
 
 %     - GroupAIBrain: What is the expected distance?
-% TODO add reference to AI Brain component subsection
 To define the distance relationship between the agent and their target, we consider parameters that define the context of the combat encounter. First, we communicate with the \textsc{GroupAIBrain} component to understand whether the player is dealing with too many enemies, which means the agent should take a more idle stance and remain in the backline. The \textsc{GroupAIBrain} component is a manager to all AI agents engaged in a \emph{Combat Encounter} against the player. Specific details about functionality involving the \textsc{GroupAIBrain} component will be further discussed in section \ref{sec:ai-brain}.
 
 \sepfootnotecontent{fn:hitbox-central-point}{Footnote: What is the hitbox central point?}
 
 %     - Is the attack in cooldown?
 %     - Distance to Player: Would an attack hit?
-Second, we determine if the AI agent attacks are on \emph{cooldown}, meaning that the agent is not able to attack for a short period of time after performing another attack. If so, the agent takes a defensive approach and attempts to position itself further away from the player so that the player has to make a time investment to be able to attack the agent. Third, we calculate the average \emph{Hitbox Central Point}\sepfootnote{hitbox-central-point} distance for all attacks that the AI Agent can perform. We use this average to create a target position that minimizes the chances of the player being able to avoid an attack by simply moving backwards. This step is performed when the target is either out of attack range or after half of the \emph{cooldown} duration for the next attack.
+Second, we determine if the AI agent attacks are on \emph{cooldown}, meaning that the agent is not able to attack for a short period of time after performing another attack. If so, the agent takes a defensive approach and attempts to position itself further away from the player so that the player has to make a time investment to be able to attack the agent. Third, we calculate the average \emph{Hitbox Central Point}\sepfootnote{fn:hitbox-central-point} distance for all attacks that the AI Agent can perform. We use this average to create a target position that minimizes the chances of the player being able to avoid an attack by simply moving backwards. This step is performed when the target is either out of attack range or after half of the \emph{cooldown} duration for the next attack.
 
 % - GroupAIBrain: What is the expected radial position?
 %     - Priority index
@@ -660,96 +672,163 @@ Second, we determine if the AI agent attacks are on \emph{cooldown}, meaning tha
 To define the radial-distribution position for an entity, the AI Agent is assigned a numeric priority index upon entering a \emph{Combat Encounter} instance against the player. The value of the priority index is used to evenly arrange AI Agents in a constrained arc of a circular perimeter around the player. The aperture of the arc is defined by both the geometry of environment colliders around the player and adjustment metrics. If the arc boundaries are not restricted by environmental geometry, the aperture is defined by an adjustable radian supplied by the \textsc{GroupAIBrain} component.
 
 % - How agents are distributed in the arc
+% - Arc divided in equal size segment
+% - First agent in center
+% - Second and third agent in boundaries
 The agent placement arc is divided in equal size segments that are used to distribute the agents uniformly in relation to the player. At the beginning of a combat encounter, a single agent becomes part of the AI group. This initial agent is defined as the pivot for the group. The arc is divided in two segments by the position of the pivot agent, which is exactly at the center of the two segments. The following two agents are placed at the outer boundaries of the arc, each at the limits of their respective segments.
 
+% - Subsequent agents subdivides largest segments from center outwards
+% - Recalculate segments when agents die
 Every subsequent agent subdivides the largest segment that is closest to the pivot, using the center position of the segment and creating two new segments. When the pivot agent is defeated, a new pivot agent is selected based on its distance from the original pivot, and the segments are recalculated by adding each subsequent agent that is closest to the pivot through the same algorithm. When non-pivot agents are defeated, the group is also recalculated but with the difference that we use the same pivot when recalculating agent segments. This algorithm is exemplified by figure \ref{fig:arc-segments}, and the resulting behavior can be seen in figure \ref{fig:enemy-positioning-example}.
 
-% TODO Figure: Figure illustrating the behavior of the "arc segments" algorithm
+% * Figure: Figure illustrating the behavior of the "arc segments" algorithm
 \input{figures/fig_arc_segments}
 
-% TODO Figure: Enemy typical radial placement around the player character
+% * Figure: Enemy typical radial placement around the player character
 \input{figures/fig_enemy_positioning_example}
 
-% PlanAttack
-%     - Is the player out of attack range?
-%     - AI Brain: does it give permission for special attack?
-%         - How often does the player block, dodge?
-%         - Is the player blocking?
+% PlanAttack behavior
+% Player State + GroupAIBrain info used as input
+% Decide if can attack and which attack
+In the \textsc{PlanAttack} behavior, we use information from player state along with constraints imposed by the \textsc{GroupAIBrain} component to define if an attack can be executed, and which attack the AI Agent should perform at a given context. Each attack has a different purpose designed to guide the player towards a specific response. In table \ref{tab:enemy-attack-types} we present the implemented attack types and the entities that are able to use it.
+
+% TODO Footnote fn:poise-break
+\sepfootnotecontent{fn:poise-break}{Footnote: What is Poise Break}
+
 %     - AI Brain: Does it give permission to attack?
+%     - EGCD: Enemy Group Cool-Down
+First, we query the \textsc{GroupAIBrain} component to check whether the current AI Agent being processed has permission to attack. Enemy AI Groups have a shared set of \emph{Enemy Group Cooldown} timers that are reset every time an AI agent performs an attack. All AI Agents that are part of a group will be unable to attack unless at least one of the available cooldown timers has a specific amount of elapsed time. Both the numbers of timers available and the minimum elapsed time for each are determined by adaptive parameters from the \textsc{GroupAIBrain} component, and are further discussed in section \ref{sec:adjustments}.
 
-% Attack categories
-%     - Default attack: basic values, easy to avoid
-%     - Special attacks:
-%         - Gap closer attack: good vs walking out
-%         - Defense break attack: good vs blocking
-%         - Sweep attack: good vs dodging
+% Uses list of available types to query for information
+%     - AI Brain: does it give permission for special attack?
+Second, the PlanAttack behavior uses information on the available attack types to query which information is necessary to decide the attack. We communicate with the \textsc{GroupAIBrain} component to determine if the entity is able to perform \emph{Special Attacks}. Given a small interval of time, a limited number of non-basic attacks can be performed by an agent. If the agent is unable to perform a Special Attack after querying availability from the \textsc{GroupAIBrain} component, it simply chooses one of multiple basic attacks to perform.
 
-\subsection{Management of Agent Groups}
-\label{sec:ai-brain}
+Non-basic attacks have the purpose of creating incentive for the player to perform a new or specific reaction. For instance, the \emph{Overhead} and \emph{Pierce} attacks are designed to punish the player if attempted to be blocked and drain their Stamina resource. If the player does attempt to block one of such attacks, they will quickly find themselves out of Stamina and trigger a \emph{Poise Break}\sepfootnote{fn:poise-break}.
 
-% special attacks have a queue to be executed
-% global attack cooldown
+%     - Is the player out of attack range?
+%     - How often does the player back-step
+Then, we check if the player is still out of attack range even after the adjusting its position during the PositionAdjustment behavior. If so, we use a parametrized threshold related to the chance of an agent performing a \emph{Charge} attack, if it is one the available movements. The threshold is combined with a \emph{profile} metric regarding the frequency the player uses back-steps to avoid attacks, and then used as input for a RNG (random number generation) algorithm to determine if the agent will perform the \emph{Charge} attack. The parametrized thresholds for each attack type are explained further in section \ref{sec:adjustments}. If the agent is not able to perform the \emph{Charge} attack, it is reverted back to the \emph{PositionAdjustment} behavior.
 
-% TODO \subsubsection{Design of Enemy Types (ADDITIONAL)}
+%         - Is the player blocking?
+%         - How often does the player block, dodge?
+In the same sense, we check if the player is blocking and use a threshold related to the chance of the agent performing an \emph{Anti-Block} attack, such as the \emph{Overhead} or \emph{Pierce} attacks. We combine that chance with the player \emph{profile} metric regarding the frequency which the player uses the Block Action to mitigate the damage of attacks, and use these values as input for the RNG algorithm to determine if the agent will perform an \emph{Anti-Block} attack. Anti-dodge attacks use a similar threshold adjustment system, with the exception that it is not considered whether the player is performing a dodge or not. Since the dodging action is discrete and occurs in a fraction of a second, the agent has to be able to predict when a player would perform a dodge so that the attack punishes the player.
 
-% Table - Enemy Types
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+% TODO \subsubsection{Management of Agent Groups}
+%\label{sec:ai-brain}
+
+% ============================================================================
+% ============================================================================
+% ============================================================================
+
+% TODO \subsection{Design of Enemy Types (ADDITIONAL)}
+
+% TODO Table - Enemy Types
 %
 % =========|============|========|===========|=========|==========================================
 %  Name    | Move Speed | Damage | Atk Speed | Health  | Description                             
 % =========|============|========|===========|=========|==========================================
-% Ghoul    | Slowest    | Lowest | Slow      | Lowest  | Meant to be introductory enemy for player
-%          |            |        |           |         | to test mechanics.                       
+% Ghoul    | Slowest    | Lowest | Slow      | Lowest  | Slow and weak enemy. Introductory enemy 
+%          |            |        |           |         | for player to test mechanics.
 % ---------|------------|--------|-----------|---------|------------------------------------------
-% Basic    | Fast       | Low    | Medium    | Low     | Meant to keep player away from archers    
-% Skeleton |            |        |           |         | and flee from warriors.                  
+% Skeleton | Fast       | Low    | Medium    | Low     | Fast enemy. Causes player to reposition 
+%          |            |        |           |         | and protects archers.                  
 % ---------|------------|--------|-----------|---------|------------------------------------------
-% Warrior  | Slow       | Medium | Slowest   | High    | Uses shield and is meant to be the last  
-% Skeleton |            |        |           |         | killed, hard for the the player to kill.  
+% Warrior  | Slow       | Medium | Slowest   | High    | Uses shield. Hard to kill. Buys time for  
+%          |            |        |           |         | all other enemies.  
 % ---------|------------|--------|-----------|---------|------------------------------------------ 
 % Archer   | Stationary | Low    | Slowest   | Medium  | Meant to slowly drain player health from
-% Skeleton |            |        |           |         | a distance if not prioritized.           
+%          |            |        |           |         | a distance if not prioritized.           
 % ---------|------------|--------|-----------|---------|------------------------------------------
-% Undead   | Medium     | High   | Fast      | Highest | Meant to force player to dodge, blocking 
-% Knight   |            |        |           |         | his Attacks Drain too much Stamina.      
+% Knight   | Medium     | High   | Fast      | Highest | Meant to force player to dodge, blocking 
+%          |            |        |           |         | his Attacks Drain too much Stamina.      
 % =========|============|========|===========|=========|==========================================
 
-% Table - Attack Speed Values
+% TODO Table - Attack Speed Values (tab:attack-speed-values)
 %
-% ==========|==========|==================
-% Atk Speed | Atks per | Entities
-%           | Second   |
-% ==========|==========|==================
-% Slowest   |     0.33 | Archers, Warriors
-% Slow      |      0.5 | Ghouls
-% Medium    |      0.8 | Basic Skeletons
-% Fast      |      1.5 | Knights
-% Fastest   |      2.3 | Player
-% ==========|==========|==================
+% ==========|======|===========
+% Atk Speed | APS  | Entities
+% ==========|======|===========
+% Slowest   | 0.33 | Archers,
+%           |      | Warriors
+% ----------|------|-----------
+% Slow      |  0.5 | Ghouls
+% ----------|------|-----------
+% Medium    |  0.8 | Skeletons
+% ----------|------|-----------
+% Fast      |  1.5 | Knights
+% ----------|------|-----------
+% Fastest   |  2.3 | Player
+% ==========|======|===========
 
-% Table - Health Values
+% TODO Table - Health Values (tab:enemy-health-values)
 %
-% ========|=========|================
-% Health  | Atks to | Entities
-%         | Kill    |
-% ========|=========|================
-% Lowest  |       2 | Ghouls
-% Low     |       3 | Basic Skeletons
-% Medium  |       6 | Archers
-% High    |       8 | Warriors
-% Highest |      10 | Knights
-% ========|=========|================
+% ========|======|===========
+% Health  | PATK | Entities
+% ========|======|===========
+% Lowest  |    2 | Ghouls
+% --------|------|-----------
+% Low     |    3 | Skeletons
+% --------|------|-----------
+% Medium  |    6 | Archers
+% --------|------|-----------
+% High    |    8 | Warriors
+% --------|------|-----------
+% Highest |   10 | Knights
+% ========|======|===========
 
-% Table - Damage Values
+% TODO Table - Damage Values (tab:enemy-damage-values)
 %
-% =======|=============|=========================
-% Damage | Atks to     | Entities
-%        | Kill Player |
-% =======|=============|=========================
-% Lowest |          20 | Ghouls
-% Low    |          14 | Archers, Basic Skeletons
-% Medium |          12 | Warriors
-% High   |           9 | Knights
-% =======|=============|=========================
+% =======|======|===========
+% Damage | ATKP | Entities
+% =======|======|===========
+% Lowest |   20 | Ghouls
+% -------|------|-----------
+% Low    |   14 | Archers, 
+%        |      | Skeletons
+% -------|------|-----------
+% Medium |   12 | Warriors
+% -------|------|-----------
+% High   |    9 | Knights
+% =======|======|===========
+
+% TODO Table - Attack Types (tab:enemy-attack-types)
+%
+% =========|============|==========|===============================
+% Name     | Type       | Enemies  | Description
+% =========|============|==========|===============================
+% Slash    | Basic      | Ghoul,   | Low damage attack, no health
+%          |            | Skeleton | damage when blocked. Low poise
+%          |            |          | damage.
+% ---------|------------|----------|-------------------------------
+% Arrow    | Basic      | Archer   | Low damage attack, no damage
+%          |            |          | when blocked.
+% ---------|------------|----------|-------------------------------
+% Double   | Basic      | Knight   | Medium damage attacks, low 
+% Slash    |            |          | damage when blocked.
+% ---------|------------|----------|-------------------------------
+% Charge   | Gap Closer | Skeleton,| Medium damage attack. Enemy
+%          |            | Knight   | runs to player to land the
+%          |            |          | attack from a long distance.
+% ---------|------------|----------|-------------------------------
+% Overhead | Anti-Block | Warrior  | Medium damage attack. Consumes
+%          |            |          | half of player stamina if
+%          |            |          | attempted to be blocked.
+% ---------|------------|----------|-------------------------------
+% Pierce   | Anti-Block | Knight   | High damage attack. Pierces
+%          |            |          | through player defense, 
+%          |            |          | consuming most of player
+%          |            |          | stamina if blocked.
+% ---------|------------|----------|-------------------------------
+% Sweep    | Anti-Dodge | Knight   | Medium damage attack. Has
+%          |            |          | three hit detection phases
+%          |            |          | and a long duration. Meant
+%          |            |          | to catch the player in the
+%          |            |          | final position after a dodge.
+% =========|============|==========|===============================
 
 % ============================================================================
 % ============================================================================
@@ -773,13 +852,139 @@ Every subsequent agent subdivides the largest segment that is closest to the piv
 % ============================================================================
 % ============================================================================
 
-\subsection{Telemetry and Performance Tracking (TO DO)}
+\subsection{Telemetry and Performance Tracking (WIP)}
+
+To perform difficulty adjustments that satisfy the skill level and knowledge of a player regarding our implementation, we need to capture data regarding to how the game is being played. We then must use the data to reconstruct an order of events and analyze the patterns and outcomes of player actions, to determine if the player is being overtly successful or failing to meet the requirements of the challenged that was imposed by the current difficulty.
+
+We can start to determine the player \emph{profile} and \emph{performance} by implementing a pipeline of data acquisition, manipulation and analysis using a log of \emph{Events} raised during a play session. To do this, we implement a set of components that observe the actions performed by in-game entities to raise parametrized events while also gathering variable elements of contextual data as input.
+
+Events are then packaged into a standardized data structure called \textsc{EventInstance}, where we store data such as a \emph{Timestamp} which represents the time since application start where an event was raised, a \emph{Name} which is used as an identifier for the event, a \emph{Type} which is used to determine the superset of systems where the event is raised, a \emph{Source} which is used to determine which in-game entity the event is related to, and a set of \emph{Parameters} which are valued types that might contain contextual data for the event. Table \ref{tab:event-instance} shows a detailed description of the fields in the \textsc{EventInstance} data structure, along with the associated types for each fields.
+
+% * Table: Event Instances
+\input{tables/tab_event_instance}
+
+% - Write events to file in batches for performance
+Events are captured and written to output files in batches to minimize performance costs over extended gameplay sessions. By doing this, frame rendering "hiccups" are minimized to a few particular moments where events exceed a specific threshold of allocated memory for batches, and in most instances do not occur over the duration of a game level. We attempt to keep the use of the input/output system and any data processing restricted to the duration of the loading screen, which happens in the transition between in-game levels. Since players does not have any sort of input or control over the application during the loading screen, this implementation abstracts the processing from the player, keeping the gameplay experience fluid.
+
+\sepfootnotecontent{fn:play-session}{A Play Session is delimited by the moment where a user starts the game application and the moment where the user exits the application, returning to the operating system.}
+
+% - Events are stored in a simple .csv file
+% - .csv file is uploaded to google sheets after session
+For each \emph{Play Session}\sepfootnote{fn:play-session}, we store a unique \emph{CSV} (Comma-Separated Values) file that is implemented to serve as a simplified relational database to store in-game events. Before the end of a play session and after all levels are completed by the player, our database file is uploaded to a \emph{Google Sheets} repository using the Sheets API.
+
+\subsubsection{Captured Events}
+
+In this section, we specify the basic events that are captured in the data acquisition step of our performance tracking pipeline. First, we differentiate between \emph{discrete} events and \emph{timer-based} events. Discrete events are events that can be raised at any given moment in a session. They do not have a pre-defined time-based restriction, and instead are simply raised from signals emitted from entity components. An example of a discrete event would be the player character performing an attack, where the occurrence of the event depends entirely on input provided by the player and can not be bound to any specific timed measure. Discrete events are generally used to represent system-based state changes, entity actions and the results of actions.
+
+In contrast, timer-based events 
+
+% ========================================
+%  Base Events
+% ========================================
+
+% Event types
+%   - Raised, Timer-based, Composite
+
+% Event categories
+%   - Game, Encounter, Action, Response
+
+% TODO Table - Raised Events
+%
+%   Game Loop
+%       • Session Started
+%       • Session Ended
+%       • Level Started
+%       • Level Ended
+%   Encounter
+%       • Encounter Started
+%       • Encounter Ended
+%       • Entity Entered Encounter
+%   Action
+%       • Attack Start
+%           • { "attackId" , "GUID" }
+%       • Attack End
+%           • { "attackId" , "GUID" }
+%       • Block Start
+%       • Block End
+%       • Dodge Start
+%           • { "position"  , "Vector3" }
+%           • { "direction" , "Vector3" }
+%       • Dodge End
+%           • { "position"  , "Vector3" }
+%   Response
+%       • Hit Entity
+%           • { "target" , "GUID"  }
+%           • { "damage" , "float" }
+%       • Hit by Entity 
+%           • { "attacker" , "GUID"  }
+%           • { "damage"   , "float" }
+%       • Blocked Attack
+%       • Dodged Attack
+%       • Staggered
+%       • Death
+
+% TODO Table - Timer-Based Events
+%
+%   • Entity Position
+%       • Global Position (Vector3)
+%   • Entity Movement
+%       • Distance (float)
+%       • Direction (Vector3)
+
+\subsubsection{Profile Metrics}
+
+% Separation between Events and Metrics
+
+% Metrics are calculated using Composite Events
+%   - Use of composite events as helpers
+%   - Composite events are runtime only
+
+% TODO Table - Composite Events
+%   • Successful Dodge
+%       • Enemy Attack Start
+%       • Dodge start
+%       • Dodged Attack
+%   • Failed Dodge
+%       • Hit By Entity
+%   • Successful Block
+%   • Failed Block
+
+% Profile
+%    • Target prioritization
+%        • Archer
+%        • Skeleton
+%        • Ghoul
+%    • Relative positioning
+%    • Attack Avoidance Method:
+%        • Back step %
+%        • Block %
+%        • Dodge %
+
+\subsubsection{Performance Metrics}
+
+% Performance
+%   Health efficiency
+%	    • Average health lost per encounter
+%       •
+%   Avoid Damage efficiency
+%       • Blocking Efficiency
+%       • Dodge Efficiency
+%   Stamina Management Efficiency
+%       • Average Stamina Level
+%       • Average Stamina When Initiating Attack Sequence
+%       • Average Stamina Level during encounter
+%   Damage dealing efficiency
+%       • Attack Window Efficiency
+%       • Attack Sequence Average Damage
+%   Positional Efficiency
+%       • Obstacle Avoidance
 
 % ============================================================================
 % ============================================================================
 % ============================================================================
 
-\subsection{Dynamic Adjustments (TO DO)}
+\subsection{Adaptive Adjustments (TO DO)}
+\label{sec:adjustments}
 
 % ============================================================================
 % ============================================================================
