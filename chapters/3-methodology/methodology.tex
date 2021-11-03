@@ -874,9 +874,7 @@ For each \emph{Play Session}\sepfootnote{fn:play-session}, we store a unique \em
 
 \subsubsection{Captured Events}
 
-In this section, we specify the basic events that are captured in the data acquisition step of our performance tracking pipeline. First, we differentiate between \emph{discrete} events and \emph{timer-based} events. Discrete events are events that can be raised at any given moment in a session. They do not have a pre-defined time-based restriction, and instead are simply raised from signals emitted from entity components. An example of a discrete event would be the player character performing an attack, where the occurrence of the event depends entirely on input provided by the player and can not be bound to any specific timed measure. Discrete events are generally used to represent system-based state changes, entity actions and the results of actions.
-
-In contrast, timer-based events 
+In this section, we specify the basic events that are captured in the data acquisition step of our performance tracking pipeline. First, we explain the difference between \emph{discrete} events and \emph{timer-based} events, which are both part of the \emph{basic events} category. After collecting events over the course of a play session or level, we aggregate and transform basic events into \emph{composite events}, which are abstractions used to simplify our definitions for metrics.
 
 % ========================================
 %  Base Events
@@ -884,44 +882,11 @@ In contrast, timer-based events
 
 % Event types
 %   - Raised, Timer-based, Composite
+Discrete events are events that can be raised at any given moment in a session. They do not have a pre-defined time-based restriction, and instead are simply raised from signals emitted from entity components. An example of a discrete event would be the player character performing an attack, where the occurrence of the event depends entirely on input provided by the player and can not be bound to any specific timed measure. Discrete events are generally used to represent system-based state changes, entity actions and the results of actions. In table \ref{tab:discrete-events}, we specify the discrete events in our implementation.
 
-% Event categories
-%   - Game, Encounter, Action, Response
+\input{tables/tab_discrete_events}
 
-% TODO Table - Raised Events
-%
-%   Game Loop
-%       • Session Started
-%       • Session Ended
-%       • Level Started
-%       • Level Ended
-%   Encounter
-%       • Encounter Started
-%       • Encounter Ended
-%       • Entity Entered Encounter
-%   Action
-%       • Attack Start
-%           • { "attackId" , "GUID" }
-%       • Attack End
-%           • { "attackId" , "GUID" }
-%       • Block Start
-%       • Block End
-%       • Dodge Start
-%           • { "position"  , "Vector3" }
-%           • { "direction" , "Vector3" }
-%       • Dodge End
-%           • { "position"  , "Vector3" }
-%   Response
-%       • Hit Entity
-%           • { "target" , "GUID"  }
-%           • { "damage" , "float" }
-%       • Hit by Entity 
-%           • { "attacker" , "GUID"  }
-%           • { "damage"   , "float" }
-%       • Blocked Attack
-%       • Dodged Attack
-%       • Staggered
-%       • Death
+In contrast, timer-based events are raised repeatedly after fixed time intervals over the course of a level or play session. They are generally used to track values and actions that change over the course of time, such as the position of an entity, the movement performed by the player and the proximity of the player to walls and obstacles. Contrary to discrete events, timer-based events use a \emph{polling} approach to determine the value of its parameters, instead of the signal-based system used by discrete events. In table \ref{tab:timed-events}, we specify the timer-based events used in our implementation.
 
 % TODO Table - Timer-Based Events
 %

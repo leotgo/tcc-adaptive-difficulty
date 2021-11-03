@@ -1,7 +1,7 @@
 % Event Instance
 %   • Timestamp ( Time : double )
 %   • Name ( String )
-%   • Type ( String )
+%   • Category ( String )
 %   • Source ( ObjectId : GUID )
 %   • Params[]
 %       • { "name", "type", "value" }
@@ -21,7 +21,7 @@
         Timestamp      & double          & The time since application start when an event was 
                                            raised. Measured in seconds.                        \\
         Name           & String          & The Name Identifier for an event.                   \\
-        Type           & String          & The System from which the event is raised from.     \\
+        Category       & String          & The System from which the event is raised from.     \\
         Source         & ObjectId        & The source in-game entity which caused the event to 
                                            be raised.                                          \\
         Params         & Array of Tuples & A set of data parameters, given in string format,  

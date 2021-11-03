@@ -1,0 +1,73 @@
+% TODO Table - Discrete Events
+%
+%   Game Loop
+%       • Session Started
+%           • { "sessionId" , GUID  }
+%       • Session Ended
+%           • { "sessionId" , GUID  }
+%       • Level Started
+%           • { "levelNumber" , int  }
+%           • { "levelLayout" , GUID }
+%       • Level Ended
+%           • { "levelNumber" , int  }
+%           • { "levelLayout" , GUID }
+%   Encounter
+%       • Encounter Started
+%           • { "encounterId" , GUID  }
+%       • Encounter Ended
+%           • { "encounterId" , GUID  }
+%       • Entity Entered Encounter
+%           • { "encounterId" , GUID  }
+%   Action
+%       • Attack Start
+%           • { "attackId" , "GUID" }
+%       • Attack End
+%           • { "attackId" , "GUID" }
+%       • Block Start
+%       • Block End
+%       • Dodge Start
+%           • { "position"  , "Vector3" }
+%           • { "direction" , "Vector3" }
+%       • Dodge End
+%           • { "position"  , "Vector3" }
+%   Response
+%       • Hit Entity
+%           • { "target" , "GUID"  }
+%           • { "damage" , "float" }
+%       • Hit by Entity 
+%           • { "attacker" , "GUID"  }
+%           • { "damage"   , "float" }
+%       • Blocked Attack
+%       • Dodged Attack
+%       • Staggered
+%       • Death
+
+\begin{table}
+    \begin{center}
+      \caption{A list of the discrete events captured over a play session in our implementation.}
+      \label{tab:discrete-events}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ w{l}{7em} m{6em} w{l}{9em} m{10em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name & \bf Category & \bf Parameters & \bf Description \\
+        \midrule
+        % Game System Events
+        Session Start & GameSystem & sessionId : GUID & User started and loaded the application. \\
+        Session End   & GameSystem & sessionId : GUID & User quit the application. \\
+        Level Start   & GameSystem & \makecell[l]{levelNumber : int\\levelLayout : GUID} & Player started a level. \\
+        Level End     & GameSystem & \makecell[l]{levelNumber : int\\levelLayout : GUID} & Player finished level. \\
+        \midrule
+        % Encounter Events
+        Encounter Start & Encounter & encounterId : GUID & User started and loaded the application. \\
+        Encounter End   & Encounter & encounterId : GUID & User started and loaded the application. \\
+        \makecell[l]{Entity Enter\\Encounter} & Encounter & encounterId : GUID & User started and loaded the application. \\
+        \midrule
+        % Action Events
+        \midrule
+        % Response Events
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
