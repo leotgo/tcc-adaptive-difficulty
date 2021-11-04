@@ -884,17 +884,13 @@ In this section, we specify the basic events that are captured in the data acqui
 %   - Raised, Timer-based, Composite
 Discrete events are events that can be raised at any given moment in a session. They do not have a pre-defined time-based restriction, and instead are simply raised from signals emitted from entity components. An example of a discrete event would be the player character performing an attack, where the occurrence of the event depends entirely on input provided by the player and can not be bound to any specific timed measure. Discrete events are generally used to represent system-based state changes, entity actions and the results of actions. In table \ref{tab:discrete-events}, we specify the discrete events in our implementation.
 
+% * Table - Discrete Events
 \input{tables/tab_discrete_events}
 
-In contrast, timer-based events are raised repeatedly after fixed time intervals over the course of a level or play session. They are generally used to track values and actions that change over the course of time, such as the position of an entity, the movement performed by the player and the proximity of the player to walls and obstacles. Contrary to discrete events, timer-based events use a \emph{polling} approach to determine the value of its parameters, instead of the signal-based system used by discrete events. In table \ref{tab:timed-events}, we specify the timer-based events used in our implementation.
+In contrast, timer-based events are raised repeatedly after fixed time intervals over the course of a level or play session. They are generally used to track values and actions that change over the course of time, such as the position of an entity, the movement performed by the player and the proximity of the player to walls and obstacles. Contrary to discrete events, timer-based events use a \emph{polling} approach to determine the value of its parameters, instead of the signal-based system used by discrete events. In table \ref{tab:timer-based-events}, we specify the timer-based events used in our implementation.
 
-% TODO Table - Timer-Based Events
-%
-%   • Entity Position
-%       • Global Position (Vector3)
-%   • Entity Movement
-%       • Distance (float)
-%       • Direction (Vector3)
+% * Table - Timer-Based Events
+\input{tables/tab_timer_based_events}
 
 \subsubsection{Profile Metrics}
 

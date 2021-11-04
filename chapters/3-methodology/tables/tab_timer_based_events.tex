@@ -1,0 +1,29 @@
+%
+%   • Entity Position
+%       • Global Position (Vector3)
+%   • Entity Movement
+%       • Distance (float)
+%       • Direction (Vector3)
+
+\begin{table}[!ht]
+    \begin{center}
+      \caption{A list of the timer-based events captured in our implementation.}
+      \label{tab:timer-based-events}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{4em} >{\small}w{c}{3em} >{\small}w{c}{4.5em} >{\small}w{c}{2.5em} >{\small}m{15em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name & \bf Category & \bf Params & \bf Types & \bf Description \\
+        \midrule
+        % Entity Events
+        Position & Entity & position & Vector3 & The position of an entity at a given time. \\
+        \midrule
+        Movement & Player & \makecell[c]{distance\\direction} & \makecell[c]{float\\Vector3} & The movement performed by the player in a small time frame. \\
+        Health   & Player & value & float & The Health of the Player at a given time. \\
+        Stamina  & Player & value & float & The Stamina of the Player at a given time. \\
+        \makecell[l]{Available\\Dodge Area} & Player & value & float & The percentage of the area where the player is able to dodge that is not occupied by walls or other obstacles. \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
