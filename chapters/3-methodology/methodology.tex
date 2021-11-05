@@ -892,23 +892,30 @@ In contrast, timer-based events are raised repeatedly after fixed time intervals
 % * Table - Timer-Based Events
 \input{tables/tab_timer_based_events}
 
+% Composite Events
+%   - Use of composite events as helpers
+%   - Composite events are runtime only
+The last type of events implemented in our application are the \emph{composite} events, which are created by agreggating discrete and timer-based events and are used as helper tools to simplify the definition of our metrics. Composite events are not raised or stored during play sessions, and instead only exist at runtime before the processing of player metrics. Table \ref{tab:composite-events} specifies the composite events used in our implementation.
+
+% TODO Table - Composite Events
+%   • Successful Dodge
+%       • AttackStart (Enemy)
+%       • DodgeStart (Player)
+%       • NOT HitByAttack (Player)
+%       • AttackEnd (Enemy)
+%   • Failed Dodge
+%       • Dodge start
+%       • Hit By Entity
+%   • Successful Block
+%   • Failed Block
+
+% \input{tables/tab_composite_events}
+
 \subsubsection{Profile Metrics}
 
 % Separation between Events and Metrics
 
-% Metrics are calculated using Composite Events
-%   - Use of composite events as helpers
-%   - Composite events are runtime only
 
-% TODO Table - Composite Events
-%   • Successful Dodge
-%       • Enemy Attack Start
-%       • Dodge start
-%       • Dodged Attack
-%   • Failed Dodge
-%       • Hit By Entity
-%   • Successful Block
-%   • Failed Block
 
 % Profile
 %    • Target prioritization

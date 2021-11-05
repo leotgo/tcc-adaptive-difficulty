@@ -72,23 +72,23 @@
         \makecell[l]{Entity Enter\\Encounter} & Combat & encounterId & GUID & A character entered a combat encounter. \\
         \midrule
         % Action Events
-        Attack Start & Action & attackId & GUID    & Character performed an attack. \\
-        Attack End   & Action & attackId & GUID    & Character finished an attack. \\
-        Block Start  & Action & --       & --      & Character started blocking. \\
-        Block End    & Action & --       & --      & Character stopped blocking. \\
-        Dodge Start  & Action & \makecell[c]{position\\direction} & \makecell[c]{Vector3\\Vector3} & Character performed a dodge. \\
-        Dodge End    & Action & position & Vector3 & Character stopped blocking. \\
+        Attack Start & Action & \makecell[c]{actionId\\attack} & \makecell[c]{GUID\\GUID}    & Character performed an attack. \\
+        Attack End   & Action & actionId & GUID    & Character finished an attack. \\
+        Block Start  & Action & actionId & GUID      & Character started blocking. \\
+        Block End    & Action & actionId & GUID      & Character stopped blocking. \\
+        Dodge Start  & Action & \makecell[c]{actionId\\position\\direction} & \makecell[c]{GUID\\Vector3\\Vector3} & Character performed a dodge. \\
+        Dodge End    & Action & \makecell[c]{actionId\\position} & \makecell[c]{GUID\\Vector3} & Character stopped blocking. \\
         \midrule
         % Response Events
-        Hit Entity     & Result & \makecell[c]{target\\damage} & \makecell[c]{GUID\\float} & Character hit another character with an attack. \\
-        Hit By Entity  & Result & \makecell[c]{attacker\\damage} & \makecell[c]{GUID\\float} & Character was hit by another character with an attack. \\
-        Blocked Attack & Result & \makecell[c]{attacker\\attackId} & \makecell[c]{GUID\\GUID} & Character successfully blocked an attack. \\
+        Hit Entity     & Result & \makecell[c]{target\\attackId} & \makecell[c]{GUID\\float} & Character hit another character with an attack. \\
+        Hit By Entity  & Result & \makecell[c]{attackId} & \makecell[c]{GUID} & Character was hit by another character with an attack. \\
+        Blocked Attack & Result & \makecell[c]{attackId} & \makecell[c]{GUID} & Character successfully blocked an attack. \\
         Defense Break  & Result & attacker & GUID & Character defense got broken by an attack. \\
         Dodged Attack  & Result & \makecell[c]{attacker\\attackId} & \makecell[c]{GUID\\GUID} & Character successfully dodged an attack. \\
         \midrule
         % State Events
         \makecell[l]{Attribute\\Changed} & State & \makecell[c]{name\\type\\oldValue\\newValue} & \makecell[c]{string\\string\\object\\object} & An attribute of a character, such as Health, Stamina or Poise has changed its value. \\
-        Staggered & State & -- & -- & Character got staggered by an attack. \\
+        Staggered & State & attackId & GUID & Character got staggered by an attack. \\
         Death     & State & -- & -- & Character died. \\
         \bottomrule
       \end{tabular}
