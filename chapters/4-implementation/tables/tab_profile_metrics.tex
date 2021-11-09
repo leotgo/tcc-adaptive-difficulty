@@ -1,0 +1,37 @@
+% * Table - Profile Metrics
+
+\begin{table}[!ht]
+    \begin{center}
+      \caption{A list of the \emph{profile metrics} implemented to monitor player habits and common responses to combat situations in our application.}
+      \label{tab:profile-metrics}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{4.5em} >{\small}w{c}{7em} >{\small}m{16.5em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name & \bf Related Events & \bf Description \\
+        \midrule
+
+        \makecell[l]{Block\\Frequency} & \makecell[c]{SuccessfulBlock\\FailedBlock\\DefensiveAction} & The frequency [0,1] in which the player performs the Block action in comparison to other defensive methods. \\
+
+        \makecell[l]{Dodge\\Frequency} & \makecell[c]{SuccessfulDodge\\FailedDodge\\DefensiveAction} & The frequency [0,1] in which the player performs the Dodge action in comparison to other defensive methods. \\
+
+        \makecell[l]{Avoid\\Frequency} & \makecell[c]{SuccessfulAvoid\\DefensiveAction} & The frequency [0,1] in which the player avoids an attack without blocking or dodging in comparison to other defensive methods. \\
+
+        \makecell[l]{Avg. Enemy\\Lifetime} & \makecell[c]{EncounterStart\\EntityJoinEncounter\\EntityDeath} & The average time it takes for an enemy to die from the moment it joins an encounter. This metric has one instance per enemy type. \\
+
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
+
+% Profile
+
+%   Defensive action frequency
+%       • Blocking frequency
+%       • Dodge frequency
+%       • Avoid frequency
+
+%   • Enemy Lifetime
+%       - Per enemy lifetime
+%       - Scoped in {Encounter, Level, Session}

@@ -1,0 +1,120 @@
+% * Table - Adjustments
+
+\begin{table}[!ht]
+    \begin{center}
+      \caption{A list of the \emph{performance metrics} implemented to perform adjustments related to the efficiency and results of player actions.}
+      \label{tab:adjustments}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{5.5em} >{\small}w{c}{7em} >{\small}m{20em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name & \bf Related Metrics & \bf Description \\
+        \midrule
+
+        \makecell[l]{Pierce Attack\\Chance} & \makecell[c]{Block Efficiency\\Block Frequency} & The modifier for the chance of an enemy performing a \emph{Pierce} attack. \\
+
+        \makecell[l]{Sweep Attack\\Chance} & \makecell[c]{Dodge Efficiency\\Dodge Frequency} & The modifier for the chance of an enemy performing a \emph{Sweep} attack. \\
+
+        \makecell[l]{Charge Attack\\Chance} & \makecell[c]{Avoid Efficiency\\Avoid Frequency} & The modifier for the chance of an enemy performing a \emph{Charge} attack when the player is out of attack range. \\
+
+        \midrule
+
+        \makecell[l]{Near Target\\Number} & \makecell[c]{Attack Avoidance\\Efficiency\\Avg. Stamina Level} & The number of enemies that can be in close quarters (near the player) in an encounter. \\
+
+        \makecell[l]{Simultaneous\\Attacks} & \makecell[c]{Attack Window\\Efficiency\\Avg. Health Lost\\Per Encounter} & The number of enemies that can simultaneously attack the player in an encounter. \\
+
+        \makecell[l]{Global Atk.\\Cooldown} & \makecell[c]{Attack Window\\Efficiency} & The global cool-down timer for all enemy agents after an attack is performed by any agent. The number of simultaneous attacks defines the number of separate timers. \\
+
+        \makecell[l]{Global Special\\Atk. Cooldown} & \makecell[c]{Attack Avoidance\\Efficiency} & The global cool-down timer for all enemy agents after a Special Attack is performed by any agent. \\
+
+        \midrule
+
+        \makecell[l]{Game Speed} & \makecell[c]{Attack Avoidance\\Efficiency} & The global \emph{Timescale} at which the game runs, which is increased or decreased according to the effectiveness of player reactions to combat situations. \\
+
+        \makecell[l]{Attack\\Visual Cues} & \makecell[c]{Attack Avoidance\\Efficiency} & The presence or absence of easily recognizable Attack Startup Animations indicating which attack an enemy is performing. \\
+
+        \midrule
+
+        \makecell[l]{Archer Enemy\\Placement} & \makecell[c]{Avg. Archer\\Lifetime} & The general positional placement of archer enemies in levels so that they are easier or harder to eliminate during combat encounters. \\
+
+        \makecell[l]{Basic Enemies\\Occurence} & \makecell[c]{Avg. Enemy\\Lifetime} & The chance of a Basic Enemy using one of the available slots for enemy placement in the level layout to be placed in an encounter. \\
+
+        \makecell[l]{Warrior Enemies\\Occurence} & \makecell[c]{Avg. Non-Warrior\\Lifetime} & The chance of a Warrior Enemy using one of the available slots for enemy placement in the level layout to be placed in an encounter. \\
+
+        \makecell[l]{Knight Enemies\\Occurence} & \makecell[c]{Avg. Health Lost\\Per Encounter\\Attack Window\\Efficiency} & The chance of a Knight Enemy using one of the available slots for enemy placement in the level layout to be placed in an encounter. \\
+
+        \midrule
+
+        \makecell[l]{Combat Area\\Openness} & \makecell[c]{Obstacle Avoidance} & The size and placement of obstacles in areas where combat encounters are designed to occur. \\
+
+        \makecell[l]{Checkpoint\\Placement} & \makecell[c]{Level Duration\\Avg. Deaths/Level} & The presence or absence of checkpoints in specific areas of levels, such as at a central point of level layouts or right before combat encounters. \\
+
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
+
+% Enemy Individual Behavior
+% 	• Special Attacks
+% 		○ Pierce attack chance
+% 			§ Blocking Efficiency
+% 			§ Blocking Frequency
+% 		○ Charge attack chance
+% 			§ Avoid Efficiency
+% 			§ Avoid Frequency
+% 		○ Sweep attack chance
+% 			§ Dodge Efficiency
+% 			§ Dodge Frequency
+
+% Enemy Group Behavior
+% 	• Number in close quarters
+% 		○ {1, 2, 3} enemies
+% 		○ Attack Avoidance Efficiency
+% 		○ Avg. Stamina Level
+% 	• Simultaneous attacks
+% 		○ {1, 2} attacks
+% 		○ Attack Window Efficiency
+% 		○ Avg. Health Lost per Encounter
+% 	• Global Attack Cooldown
+% 		○ {5, 4.4, 3.5} seconds
+% 		○ Attack Window Efficiency
+% 	• Global Special Attack cooldown
+% 		○ {10, 8, 6} seconds
+% 		○ Attack Window Efficiency
+%       ○ Attack Avoidance Efficiency
+
+% Accessibility
+%	• Game Speed
+%		○ {0.8, 0.9, 1.0} speed
+%		○ Attack Avoidance Efficiency
+%	• Attack Visual Cues
+%		○ Red highlight on attack
+%		○ Default attack anims
+%       ○ Ambiguous animations
+
+% Encounter design
+%	• Archer enemy placement
+%		○ Forward positions
+%		○ Backline positions
+%		○ Long-range positions
+%		○ Avg Archer Lifetime
+%	• Basic enemies occurrence
+%		○ Avg Archer Lifetime
+%	• Warrior enemies occurrence
+%		○ Avg Non-Warrior Lifetime
+%	• Knight enemies occurrence
+%		○ Attack Avoidance Efficiency
+%		○ Damage Efficiency
+
+% Level Design
+%	• Combat area openess
+%		○ Wide open areas
+%		○ Mid-sized with obstacles
+%		○ Constricted areas
+%		○ Level Clear Time
+%		○ Deaths
+%	• Checkpoints
+%		○ One checkpoint per encounter
+%		○ Mid level checkpoints
+%		○ Single level checkpoint

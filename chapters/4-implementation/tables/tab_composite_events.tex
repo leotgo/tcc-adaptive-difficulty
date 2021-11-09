@@ -1,0 +1,74 @@
+% * Table - Composite events
+
+\begin{table}[!ht]
+    \begin{center}
+      \caption{A list of the composite events that are created by aggregating basic events.}
+      \label{tab:composite-events}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{4em} >{\small}w{c}{4em} >{\small}w{c}{10em} >{\small}m{12em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name & \bf Category & \bf Base Events & \bf Description \\
+        \midrule
+        % Session Composite Events
+        \makecell[l]{Encounter\\Completed} & Game & \makecell[c]{EncounterStart\\EncounterEnd} & Player successfully eliminated all enemies in an encounter. \\
+        \makecell[l]{Level\\Completed} & Game & \makecell[c]{LevelStart\\LevelEnd} & Player successfully completed a level. \\
+        \makecell[l]{Session\\Completed} & Game & \makecell[c]{SessionStart\\SessionEnd} & Player finished a play session. \\
+        \midrule
+        % Combat Composite Events
+        \makecell[l]{Successful\\Dodge} & Combat & \makecell[c]{AttackStart,DodgeStart\\!HitByEntity,AttackEnd} & Player successfully dodged an attack. \\
+
+        \makecell[l]{Failed\\Dodge} & Combat & \makecell[c]{AttackStart,DodgeStart\\HitByEntity,AttackEnd} & Player failed to dodge an attack. \\
+
+        \makecell[l]{Successful\\Block} & Combat & \makecell[c]{AttackStart,BlockStart\\BlockedAttack,AttackEnd} & Player successfully blocked an attack. \\
+
+        \makecell[l]{Failed\\Block} & Combat & \makecell[c]{AttackStart,BlockStart\\HitByEntity,DefenseBreak\\AttackEnd} & Player failed to block an attack. \\
+
+        \makecell[l]{Successful\\Avoid} & Combat & \makecell[c]{AttackStart,!HitByAttack\\!BlockStart,!DodgeStart\\AttackEnd} & Player successfully avoided an attack without performing a Dodge or Block. \\
+
+        \makecell[l]{Failed\\Avoid} & Combat & \makecell[c]{AttackStart,HitByAttack\\!BlockStart,!DodgeStart\\AttackEnd} & Player got hit by an attack without performing a Dodge or Block. \\
+
+        \makecell[l]{Offensive\\Action} & Combat & \makecell[c]{AttackStart} & Player performed an offensive action. \\
+
+        \makecell[l]{Defensive\\Action} & Combat & \makecell[c]{DodgeStart,BlockStart\\SuccessfulAvoid} & Player performed a defensive action. \\
+
+        \midrule
+        % Entity Composite Events
+        \makecell[l]{Entity\\Eliminated} & Entity & \makecell[c]{EncounterStart\\EntityJoinEncounter\\EntityDeath} & Player eliminates an entity after it joins an encounter \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
+
+% TODO Table - Composite Events
+
+%   • Successful Dodge
+%       • Attack Start (Enemy)
+%       • Dodge Start (Player)
+%       • NOT HitByAttack (Player)
+%       • Attack End (Enemy)
+%   • Failed Dodge
+%       • Attack Start (Enemy)
+%       • Dodge Start (Player)
+%       • Hit By Entity
+%       • Attack End (Enemy)
+%   • Successful Block
+%       • Attack Start (Enemy)
+%       • Block Start (Player)
+%       • Blocked Attack (Player)
+%       • Attack End (Enemy)
+%   • Failed Block
+%       • Attack Start (Enemy)
+%       • Block Start (Player)
+%       • Hit By Entity OR Defense Break
+%       • Attack End (Enemy)
+%   • Successful Avoid
+%       • Attack Start (Enemy)
+%       • NOT Hit By Attack (Player)
+%       • Attack End (Enemy)
+%   • Failed Avoid
+%       • Attack Start (Enemy)
+%       • NOT Block Start (Player)
+%       • NOT Dodge Start (Player)
+%       • Attack End (Enemy)

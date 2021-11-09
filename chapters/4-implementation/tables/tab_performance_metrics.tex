@@ -1,0 +1,90 @@
+\begin{table}[!ht]
+    \begin{center}
+      \caption{A list of the \emph{performance metrics} implemented to perform adjustments related to the efficiency and results of player actions.}
+      \label{tab:performance-metrics}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{4.5em} >{\small}w{c}{7em} >{\small}m{16.5em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name & \bf Related Events & \bf Description \\
+        \midrule
+
+        \makecell[l]{Level\\Duration} & \makecell[c]{LevelStart\\LevelEnd} & The time it takes for the player to clear a level. \\
+
+        \makecell[l]{Encounter\\Duration} & \makecell[c]{EncounterStart\\EncounterEnd} & The time it takes for the player to eliminate all enemies in an encounter. \\
+
+        \makecell[l]{Session\\Duration} & \makecell[c]{SessionStart\\SessionEnd} & The time it takes for the player to complete all levels in a game session. \\
+
+        \midrule
+
+        \makecell[l]{Dodge\\Efficiency} & \makecell[c]{SuccessfulDodge\\FailedDodge} & The rate of successful dodges in relation to the total number of performed dodges. \\
+
+        \makecell[l]{Block\\Efficiency} & \makecell[c]{SuccessfulBlock\\FailedBlock} & The rate of successfully performed blocks in relation to the total number of blocks. \\
+
+        \makecell[l]{Avoid\\Efficiency} & \makecell[c]{SuccessfulAvoid\\FailedAvoid} & The rate of attacks successfully avoided without blocking or dodging. \\
+
+        \makecell[l]{Attack\\Avoidance\\Efficiency} & \makecell[c]{Successful\\and Failed Blocks,\\Dodges,Avoids} & The rate of attacks that are successfully blocked, dodged or avoided in comparison to attacks that hit the player. \\
+
+        \makecell[l]{Obstacle\\Avoidance} & \makecell[c]{Available\\Dodge Area} & The average percentage of the dodge area that is occupied by walls and obstacles over the course of a Level. \\
+
+        \midrule
+
+        \makecell[l]{Avg. Health\\Level} & \makecell[c]{Health\\AttributeChanged} & The average Health level of the player over the course of an Encounter or Level. \\
+
+        \makecell[l]{Avg. Stamina\\Level} & \makecell[c]{Stamina\\AttributeChanged} & The average Stamina level of the player over the course of an Encounter or Level. \\
+
+        \makecell[l]{Avg. Health\\Lost Per\\Encounter} & \makecell[c]{EncounterStart\\AttributeChanged\\EncounterEnd} & The average Health lost by the player over the course of an Encounter. \\
+
+        \makecell[l]{Number of\\Deaths} & \makecell[c]{EncounterStart\\LevelStart,Death} & The number of times the player died over the curse of an Encounter or a Level. \\
+
+        \makecell[l]{Average\\Deaths} & \makecell[c]{LevelStart\\Death} & The average number of times the player died over the course of a Session. \\
+
+        \midrule
+
+        \makecell[l]{Avg. Time\\To Kill} & \makecell[c]{AttackStart\\Death} & The average time for the player to kill an enemy type since the first attack hits. \\
+
+        \makecell[l]{Atk. Window\\Efficiency} & \makecell[c]{CooldownStart\\HitEntity\\CooldownEnd} & The average damage dealt by the player during an attack window opportunity where an enemy is in cooldown. \\
+
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
+
+% Performance Metrics List
+
+%   • Level Duration
+%       • Level Start
+%       • Level End
+
+%   • Encounter Duration
+%       • Encounter Start
+%       • Encounter End
+
+%   • Session Duration
+%       • Session Start
+%       • Session End
+
+%   Level Clear Time
+%       • Level Duration
+
+%   Health efficiency
+%	    • Average health lost per {Encounter, Level}
+
+%   Action Efficiency
+%       • Blocking Efficiency
+%       • Dodge Efficiency
+%       • Avoid Efficiency
+%   Stamina Management Efficiency
+%       • Average Stamina Level
+%       • Average Stamina When Initiating Attack Sequence
+%       • Average Stamina Level during encounter
+%   Damage dealing efficiency
+%       • Attack Window Efficiency
+%       • Attack Sequence Average Damage
+%   Positional Efficiency
+%       • Obstacle Avoidance
+
+% • Attack Avoidance Efficiency
+%   - Successful Dodges + Blocks + Avoids / Failed Dodges + Blocks + Avoids
+%   - Scoped in Encounter, Level, Session
