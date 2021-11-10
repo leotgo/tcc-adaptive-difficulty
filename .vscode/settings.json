@@ -12,5 +12,8 @@
         "Scriptable",
         "Skyrim",
         "Tarkov"
+    ],
+    "cSpell.ignoreWords": [
+        "Diablo"
     ]
 }
