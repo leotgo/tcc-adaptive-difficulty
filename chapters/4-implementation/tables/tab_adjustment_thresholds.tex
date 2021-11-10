@@ -1,0 +1,56 @@
+% * Table - Adjustments
+
+\begin{table}[!ht]
+    \begin{center}
+      \caption{A list of the thresholds and their associated values for each parametrized difficulty adjustment in our application.}
+      \label{tab:adjustment-thresholds}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{5.5em} >{\small}w{c}{7em} >{\small}w{c}{2.5em} >{\small}w{c}{9.5em} >{\small}w{c}{6em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name & \bf Parameters & \bf Symbol & \bf Thresholds & \bf Values \\
+        \midrule
+
+        \makecell[l]{Pierce Attack\\Chance Mod.} & \makecell[c]{BlockEff\\BlockFreq} & \makecell[c]{BE\\BF} & \makecell[c]{BE < 0.3, BF < 0.5\\BE > 0.3, BF > 0.2\\BE > 0.6, BF > 0.5} & \makecell[c]{0.5x\\1.0x\\1.35x} \\
+
+        \makecell[l]{Sweep Attack\\Chance Mod.} & \makecell[c]{DodgeEff\\DodgeFreq} & \makecell[c]{DE\\DF} & \makecell[c]{DE < 0.3, DF < 0.5\\DE > 0.3, DF > 0.2\\DE > 0.6, DF > 0.5} & \makecell[c]{0.5x\\1.0x\\1.35x} \\
+
+        \makecell[l]{Charge Attack\\Chance Mod.} & \makecell[c]{AvoidEff\\AvoidFreq} & \makecell[c]{AE\\AF} & \makecell[c]{AE < 0.3, AF < 0.5\\AE > 0.3, AF > 0.2\\AE > 0.6, AF > 0.5} & \makecell[c]{0.5x\\1.0x\\1.35x} \\
+
+        \midrule
+
+        \makecell[l]{Near Target\\Max. Number} & \makecell[c]{AtkAvoidanceEff\\AvgStaminaLevel} & \makecell[c]{AAE\\ASL} & \makecell[c]{AAE < 0.4\\AAE > 0.4, ASL < 0.6\\AAE > 0.6, ASL > 0.4} & \makecell[c]{1 Agent\\2 Agents\\3 Agents} \\
+
+        \makecell[l]{Simultaneous\\Max. Attacks} & \makecell[c]{AtkWindowEff\\AvgHealthLostEnc} & \makecell[c]{AWE\\AHLE} & \makecell[c]{AWE < 0.1\\AWE > 0.15, AHLE < 50} & \makecell[c]{1 Attack\\2 Attacks} \\
+
+        \makecell[l]{Global Atk.\\Cooldown} & \makecell[c]{AtkWindowEff} & \makecell[c]{AWE}  & \makecell[c]{AWE < 0.1\\AWE > 0.15, AWE < 0.18\\AWE > 0.225} & \makecell[c]{6 seconds\\4.5 seconds\\3.5 seconds} \\
+
+        \makecell[l]{Global Special\\Atk. Cooldown} & \makecell[c]{AtkAvoidanceEff} & \makecell[c]{AAE}  & \makecell[c]{AAE < 0.3\\AAE > 0.3, AAE < 0.45\\AAE > 0.6} & \makecell[c]{11 seconds\\9 seconds\\7.5 seconds} \\
+
+        \midrule
+
+        \makecell[l]{Game Speed} & \makecell[c]{AtkAvoidanceEff} & \makecell[c]{AAE}  & \makecell[c]{AAE < 0.15\\AAE < 0.25\\AAE > 0.25} & \makecell[c]{0.85x\\0.925x\\1.0x} \\
+
+        \makecell[l]{Attack\\Visual Cues} & \makecell[c]{AtkAvoidanceEff} & \makecell[c]{AAE}  & \makecell[c]{AAE < 0.2\\AAE > 0.2, AAE < 0.6\\AAE > 0.6} & \makecell[c]{Red Highlight\\Normal\\Ambiguous} \\
+
+        \midrule
+
+        \makecell[l]{Archer Enemy\\Placement} & \makecell[c]{AvgArcherLife} & \makecell[c]{AAL} & \makecell[c]{AAL > 40s\\AAL > 25s\\AAL < 10s} & \makecell[c]{Frontline\\Rearguard\\Long-Range} \\
+
+        \makecell[l]{Basic Enemies\\Occurence} & \makecell[c]{AvgEnemyLife} & \makecell[c]{AEL}  & \makecell[c]{AEL > 30s\\AEL < 25s} & \makecell[c]{Normal\\Additional} \\
+
+        \makecell[l]{Warrior Enemies\\Occurence} & \makecell[c]{AvgNonWarriorLife} & \makecell[c]{ANWL}  & \makecell[c]{ANWL > 30s\\ANWL < 25s} & \makecell[c]{Normal\\Additional} \\
+
+        \makecell[l]{Knight Enemies\\Occurence} & \makecell[c]{AvgHealthLostEnc\\AtkWindowEff} & \makecell[c]{AHLE\\AWE} & \makecell[c]{AHLE > 40, AWE < 0.15\\AHLE < 40, AWE > 0.15} & \makecell[c]{Normal\\Additional} \\
+
+        \midrule
+
+        \makecell[l]{Combat Area\\Openness} & \makecell[c]{ObstacleAvoidance} & \makecell[c]{OA} & \makecell[c]{OA < 0.7\\OA > 0.7, OA < 0.8\\OA > 0.8} & \makecell[c]{Wide Open\\Mid-Sized\\Constricted} \\
+
+        \makecell[l]{Checkpoint\\Placement} & \makecell[c]{AvgLevelDur\\AvgDeathsLevel} & \makecell[c]{ALD\\ADPL}  & \makecell[c]{ALD > 5min, ADPL > 7\\ALD > 4min, ADPL > 5\\ALD < 4min, ADPL < 5} & \makecell[c]{Per Encounter\\Mid Level\\Single} \\
+
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}

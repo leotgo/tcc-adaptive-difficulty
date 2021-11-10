@@ -3,18 +3,18 @@
       \caption{A list of the \emph{performance metrics} implemented to perform adjustments related to the efficiency and results of player actions.}
       \label{tab:performance-metrics}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ >{\small}w{l}{4.5em} >{\small}w{c}{7em} >{\small}m{16.5em} } % alignments and column size
+      \begin{tabular}{ >{\small}w{l}{6em} >{\small}w{c}{10em} >{\small}m{16.5em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
         \bf Name & \bf Related Events & \bf Description \\
         \midrule
 
-        \makecell[l]{Level\\Duration} & \makecell[c]{LevelStart\\LevelEnd} & The time it takes for the player to clear a level. \\
+        \makecell[l]{Level Duration} & \makecell[c]{LevelStart,LevelEnd} & The time it takes for the player to clear a level. \\
 
         \makecell[l]{Encounter\\Duration} & \makecell[c]{EncounterStart\\EncounterEnd} & The time it takes for the player to eliminate all enemies in an encounter. \\
 
-        \makecell[l]{Session\\Duration} & \makecell[c]{SessionStart\\SessionEnd} & The time it takes for the player to complete all levels in a game session. \\
+        \makecell[l]{Session Duration} & \makecell[c]{SessionStart,SessionEnd} & The time it takes for the player to complete all levels in a game session. \\
 
         \midrule
 
@@ -24,9 +24,9 @@
 
         \makecell[l]{Avoid\\Efficiency} & \makecell[c]{SuccessfulAvoid\\FailedAvoid} & The rate of attacks successfully avoided without blocking or dodging. \\
 
-        \makecell[l]{Attack\\Avoidance\\Efficiency} & \makecell[c]{Successful\\and Failed Blocks,\\Dodges,Avoids} & The rate of attacks that are successfully blocked, dodged or avoided in comparison to attacks that hit the player. \\
+        \makecell[l]{Attack Avoidance\\Efficiency} & \makecell[c]{Successful \&\\Failed Blocks,\\Dodges,Avoids} & The rate of attacks that are successfully blocked, dodged or avoided in comparison to attacks that hit the player. \\
 
-        \makecell[l]{Obstacle\\Avoidance} & \makecell[c]{Available\\Dodge Area} & The average percentage of the dodge area that is occupied by walls and obstacles over the course of a Level. \\
+        \makecell[l]{Obstacle Avoidance} & \makecell[c]{AvailableDodgeArea} & The avg. percentage of the dodge area occupied by walls and obstacles over a Level. \\
 
         \midrule
 
@@ -38,13 +38,13 @@
 
         \makecell[l]{Number of\\Deaths} & \makecell[c]{EncounterStart\\LevelStart,Death} & The number of times the player died over the curse of an Encounter or a Level. \\
 
-        \makecell[l]{Average\\Deaths} & \makecell[c]{LevelStart\\Death} & The average number of times the player died over the course of a Session. \\
+        \makecell[l]{Average Deaths} & \makecell[c]{LevelStart,Death} & Avg. number of times player died over a Session. \\
 
         \midrule
 
-        \makecell[l]{Avg. Time\\To Kill} & \makecell[c]{AttackStart\\Death} & The average time for the player to kill an enemy type since the first attack hits. \\
+        \makecell[l]{Avg. Time To Kill} & \makecell[c]{AttackStart, Death} & The average time for the player to kill an enemy type since the first attack hits. \\
 
-        \makecell[l]{Atk. Window\\Efficiency} & \makecell[c]{CooldownStart\\HitEntity\\CooldownEnd} & The average damage dealt by the player during an attack window opportunity where an enemy is in cooldown. \\
+        \makecell[l]{Atk. Window\\Efficiency} & \makecell[c]{CooldownStart\\HitEntity,CooldownEnd} & The average damage dealt by the player during an attack window opportunity where an enemy is in cooldown. \\
 
         \bottomrule
       \end{tabular}

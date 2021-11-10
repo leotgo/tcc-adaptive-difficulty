@@ -2,7 +2,7 @@
 
 \begin{table}[!ht]
     \begin{center}
-      \caption{A list of the \emph{performance metrics} implemented to perform adjustments related to the efficiency and results of player actions.}
+      \caption{A list of the \emph{adjustments} that were implemented in our application to define game difficulty as an N-dimensional set of parameters.}
       \label{tab:adjustments}
       \rowcolors{2}{}{gray!25} % Alternate row colors
       \begin{tabular}{ >{\small}w{l}{5.5em} >{\small}w{c}{7em} >{\small}m{20em} } % alignments and column size
@@ -12,17 +12,17 @@
         \bf Name & \bf Related Metrics & \bf Description \\
         \midrule
 
-        \makecell[l]{Pierce Attack\\Chance} & \makecell[c]{Block Efficiency\\Block Frequency} & The modifier for the chance of an enemy performing a \emph{Pierce} attack. \\
+        \makecell[l]{Pierce Attack\\Chance Mod.} & \makecell[c]{Block Efficiency\\Block Frequency} & The modifier for the chance of an enemy performing a \emph{Pierce} attack. \\
 
-        \makecell[l]{Sweep Attack\\Chance} & \makecell[c]{Dodge Efficiency\\Dodge Frequency} & The modifier for the chance of an enemy performing a \emph{Sweep} attack. \\
+        \makecell[l]{Sweep Attack\\Chance Mod.} & \makecell[c]{Dodge Efficiency\\Dodge Frequency} & The modifier for the chance of an enemy performing a \emph{Sweep} attack. \\
 
-        \makecell[l]{Charge Attack\\Chance} & \makecell[c]{Avoid Efficiency\\Avoid Frequency} & The modifier for the chance of an enemy performing a \emph{Charge} attack when the player is out of attack range. \\
+        \makecell[l]{Charge Attack\\Chance Mod.} & \makecell[c]{Avoid Efficiency\\Avoid Frequency} & The modifier for the chance of an enemy performing a \emph{Charge} attack when the player is out of attack range. \\
 
         \midrule
 
-        \makecell[l]{Near Target\\Number} & \makecell[c]{Attack Avoidance\\Efficiency\\Avg. Stamina Level} & The number of enemies that can be in close quarters (near the player) in an encounter. \\
+        \makecell[l]{Near Target\\Max. Number} & \makecell[c]{Attack Avoidance\\Efficiency\\Avg. Stamina Level} & The number of enemies that can be in close quarters (near the player) in an encounter. \\
 
-        \makecell[l]{Simultaneous\\Attacks} & \makecell[c]{Attack Window\\Efficiency\\Avg. Health Lost\\Per Encounter} & The number of enemies that can simultaneously attack the player in an encounter. \\
+        \makecell[l]{Simultaneous\\Max. Attacks} & \makecell[c]{Attack Window\\Efficiency\\Avg. Health Lost\\Per Encounter} & The number of enemies that can simultaneously attack the player in an encounter. \\
 
         \makecell[l]{Global Atk.\\Cooldown} & \makecell[c]{Attack Window\\Efficiency} & The global cool-down timer for all enemy agents after an attack is performed by any agent. The number of simultaneous attacks defines the number of separate timers. \\
 

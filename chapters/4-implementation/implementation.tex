@@ -697,9 +697,13 @@ In the same sense, we check if the player is blocking and use a threshold relate
 % ============================================================================
 % ============================================================================
 
-\section{Telemetry and Performance Tracking (WIP)}
+\section{Telemetry and Performance Tracking}
 
 To perform difficulty adjustments that satisfy the skill level and knowledge of a player regarding our implementation, we need to capture data regarding to how the game is being played. We then must use the data to reconstruct an order of events and analyze the patterns and outcomes of player actions, to determine if the player is being overtly successful or failing to meet the requirements of the challenged that was imposed by the current difficulty.
+
+We use the previously discussed definition of player \emph{profile} and \emph{performance} to implement various metrics which represent the outcomes of actions performed by the player during a play session. Then, we use such metrics as an input to a comparison with predefined thresholds, which serve as discrete delimiters to predefined parametrized adjustments to difficulty. To provide an overview of the implementation of the adjustments system as a whole, including the generation of gameplay events, calculation of player metrics, comparison of thresholds to player metrics and application of dynamic adjustments to parametrized difficulty configurations, figure \ref{fig:adjustments-execution-flow} shows the event flow and interactions for the systems involved in our adjustments system.
+
+\input{figures/fig_adjustments_execution_flow}
 
 We can start to define player \emph{profile} and \emph{performance} by implementing a pipeline of data acquisition, manipulation and analysis using a log of \emph{Events} raised during a play session. To do this, we implement a set of components that observe the actions performed by in-game entities to raise parametrized events while also gathering variable elements of contextual data as input.
 
@@ -776,18 +780,42 @@ Some examples of adjustments performed using performance metrics include the num
 \section{Difficulty Adjustments}
 \label{sec:adjustments}
 
-In our implementation, we treat difficulty as an N-dimensional set of parameters that are adjusted according to player profile and performance. Each difficulty parameter is adjusted based on a subset of the metrics we defined previously. Therefore, each metric can be mapped to one or more adjustments, and consequently each adjustment is influenced by one or more metrics.
+% Difficulty as an N-dimensional set of parameters
+% Parameters are adjusted using one or more metrics
+In our implementation, we treat difficulty as an N-dimensional set of parameters that are adjusted according to player profile and performance. Each difficulty parameter is adjusted based on a subset of the metrics we defined previously. Therefore, each metric can be mapped to one or more adjustments, and conversely each adjustment is influenced by one or more metrics.
 
-We define discrete values to each parameter, which are switched between based on thresholds applied over player metrics metrics. The thresholds were gathered by performing play sessions with players from multiple skill levels and analyzing the data for the metrics over different types of players and different difficulty levels. We attempted to cluster the values gathered from metrics manually, where we separated users by their reported previous experience with games, and specifically with Souls-like entries. Details on how thresholds for adjustments were gathered are further specified in section \ref{sec:experiment-methodology}.
+% We chose the statistical model approach because it can better represent the process of game development in the video game industry, where values and thresholds for difficulty adjustments can be tested and adjusted through iterative play-testing sessions.
+The purpose of our experiment is to compare N-dimensional difficulty to the definition of difficulty as multiple preset configurations of all adjustment parameters. Therefore, we found that representing adjustments through a probabilistic model, as explored in section \ref{sec:statistical-adjustments} is best suited to represent the nature of the game development process in the video game industry. During the game development process, game designers perform iterative play-testing sessions, where users are monitored to identify flaws in game design or adjustable properties that might better represent the desired outcome of in-game systems. Through the same philosophy, we can incorporate the probabilistic model in the game design process, where values and thresholds for difficulty adjustments can be tested and adjusted through the iterative play-testing sessions to better represent the desired learning and challenge curve adjustment for the game.
 
+% Discrete values for parameters, switched between by thresholds
+% Thresholds gathered with iterative play sessions
+% Metrics were clustered manually to create thresholds
+We define discrete values to each parameter, which are switched between based on thresholds applied over player metrics. The thresholds were gathered by performing iterative play sessions with players from multiple skill levels and analyzing the data for the metrics over different types of players and different difficulty levels. We attempted to cluster the values gathered from metrics manually, where we separated users by their reported previous experience with games, and specifically with Souls-like entries. Details on how thresholds for adjustments were gathered are further specified in section \ref{sec:experiment-methodology}.
+
+% Adjustments occur in multiple subsystems
+% Adjustments created by analyzing the aspects and difficulty of Dark Souls
 The adjustments in our implementation are scoped within multiple game subsystems, and were elected based in the considerations discussed in section \ref{sec:pain-points-dark-souls}. Each parameter is adjusted within a progressive set of values, where at least one of the values would be best suited to an inexperienced player and another would be designed for a veteran of the Souls-like genre. Table \ref{tab:adjustments} lists the adjustments included in our implementation, including their name, the metrics that are related to them and a brief description of their purpose.
 
 % * Table - Adjustments
 \input{tables/tab_adjustments}
 
-- We use three difficulty presets as a base to perform adjustments on. Each preset defines values for all adjustable parameters.
+% We use three difficulty presets as a base to perform adjustments on.
+% Each preset defines values for all adjustable parameters.
+As a base guideline to define the discrete values for parametrized adjustments, and to define the thresholds that are compared to metrics to perform such adjustments, we attempt to define three base difficulty presets which contain value definitions for all adjustments parameters based on classification of player profile and skill levels. The base presets for adjustment values are assigned at the beginning of a session, and the preset is initially assigned to a player based on a \emph{Player Classification Survey}, which is further detailed at section \ref{sec:experiment-methodology}.
 
-- Figure \ref{fig:dynamic-adjustments-flow} shows the event flow and interactions for the systems involving the adjustments system.
+% Base presets define difficulty as a one dimensional configuration
+% As session progresses, parameters start to diverge
+Through the base presets, we are initially defining game difficulty as a one dimensional configuration of multiple parameters. However, as a session progresses and we capture in-game events and calculate performance and profile metrics, we can begin to compare such metrics to a set of thresholds that were previously defined, and certain parameters will begin to be adjusted independently and diverge, effectively transforming game difficulty into an N-dimensional set of parameters.
+
+% The thresholds are not a continuous set of values, meaning that the conditions for each threshold are not always valid
+% If the conditions are not met, the adjustment parameter is kept the same
+% This works because of the initial parameters defined by player classification survey
+It is important to note that the thresholds defined for each parameter value do not represent a continuous group of validation conditions, meaning that it is not guaranteed that the metrics captured from the player will be necessarily validated against any of the threshold conditions for a parameter. This is done by design so that if the conditions for all thresholds of a parameter are not met, the adjustment parameter is kept the same. Therefore, the transition conditions for a lower parameter value to be adjusted into a higher value can not be symmetrically inverted as to adjust the higher value into the lower value, which generates a tendency for the player to be kept in the same difficulty level unless their performance or profile metrics relevantly deviate from the intended user group.
+
+% Table detailing thresholds and values for adjustments
+In table \ref{tab:adjustment-thresholds} we attempt to organize  and specify the values that parametrized adjustments can be assigned to and their associated metrics, along with the threshold values for each metric. Some of the adjustment parameters have restricted value ranges with the purpose of making the game more difficult or easier than the proposed core experience of our game, and will present a default value as a minimum or maximum limit which represents the standard experience for an average skilled player. For this purpose, we attempt to visually separate adjustments in regions that describe their target player profile stereotype.
+
+\input{tables/tab_adjustment_thresholds}
 
 % ============================================================================
 % ============================================================================
