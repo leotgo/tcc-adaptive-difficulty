@@ -1,4 +1,4 @@
-\chapter{INTRODUCTION (WIP)}
+\chapter{INTRODUCTION}
 
 \sepfootnotecontent{fn:path-of-exile}{Path of Exile (Grinding Gear Games, 2013). Computer Game. Microsoft Windows.}
 
@@ -12,15 +12,17 @@
 
 \sepfootnotecontent{fn:boss-fights}{Footnote: What are boss fights}
 
-\sepfootnotecontent{fn:mario-kart}{Footnote: What is Mario Kart}
+\sepfootnotecontent{fn:mario-kart}{Super Mario Kart 8 Deluxe (Nintendo, 2017). Video Game. Nintendo Switch.}
 
-\sepfootnotecontent{fn:half-life}{Footnote: What is Half-Life}
+\sepfootnotecontent{fn:half-life-2}{Half-Life 2 (Valve Software, 2004). Computer Game. Microsoft Windows.}
 
-\sepfootnotecontent{fn:resident-evil-4}{Footnote: What is Resident Evil 4}
+\sepfootnotecontent{fn:resident-evil-4}{Resident Evil 4 (Capcom, 2004). Video Game. PlayStation 2.}
 
-\sepfootnotecontent{fn:god-hand}{Footnote: What is God Hand}
+\sepfootnotecontent{fn:god-hand}{God Hand (Capcom, 2006). Video Game. PlayStation 2.}
 
-\sepfootnotecontent{fn:speedrunners}{Footnote: What are speedrunners}
+\sepfootnotecontent{fn:half-life}{Half-Life 2 (Valve Software, 2004). Computer Game. Microsoft Windows.}
+
+\sepfootnotecontent{fn:speedrunners}{Speedrunners are players which attempt to complete games in the least amount of time possible, and often compete in online leaderboards for ranking themselves among the fastest completion times. There are many online speedrunning communities which enforce a set of rules to ensure the validity of a run, including video proof and the absence of cheats.}
 
 % ==========================================================
 % About the PROBLEM
@@ -167,13 +169,21 @@ To compare the effectiveness of implementing difficulty as an N-dimensional set 
 \section{Structure of This Work}
 
 % Related work
+We begin in chapter \ref{ch:related-work} by reviewing research focused on player experience and game difficulty to understand which aspects should be considered the most relevant contributors to the frustration experienced by players when the challenge proposed by designers does not meet the skill level of the player. We explore the concept of learning curves, where game designers attempt to conceptualize and organize challenges for players to learn the mechanics of a game without being too frustrated by difficulty.
+
+We also review previous research on dynamic difficulty systems in games, where we classify the methods for monitoring player performance and execution of adjustments in \emph{probabilistic}, \emph{affect-based} and \emph{learning-based} methods. We compare DDA (Dynamic Difficulty Adjustment) systems in research literature to the implementations in commercial games, and identify issues and potential improvements that can be addressed in our implementation.
 
 % Analysis of Object of Study
+We proceed in chapter \ref{ch:analysis-object-study} by performing an analysis of Dark Souls, which is our object of study and the base reference for the game implemented in the scope of this work. We analyze the core aspect of Dark Souls in terms of game mechanics, systems, design and aesthetics, and attempt to identify the elements that most relevantly contribute to the level of challenge proposed by game designers.
 
 % Implementation and Design
+In chapter \ref{ch:implementation-design}, we specify the architecture, implementation and design of the systems in the application developed for this work. We justify the tools and frameworks used in our implementation, as well as the assets that were selected to best represent the aesthetics of Dark Souls. We provide a detailed explanation of the architecture for each subsystem, while also relating implementation decisions to the design of our object of study. We also specify the metrics and parameters used for the implementation of our difficulty adjustment system.
 
-% Experiment Methodology and Results
+% Methodology and Results
+In chapter \ref{ch:methodology-results}, we specify the experimentation model used to compare the implementation of difficulty as N-dimensional parametric adjustments to the commonly used implementation of difficulty as a limited set of parameter configuration groups. We perform play sessions with users of multiple groups categorized by player skill levels, where each player experiences our game implementation with pre-defined difficulty configurations and with N-dimensional parametric difficulty adjustments. We provide details on the characteristics of each user group used in our experiments, and compare the performance results of each group to a \emph{post session survey} which attempts to document the perception of the difficulty in both variations of our application.
 
 % Discussion
+Summary of chapter \ref{ch:discussion}.
 
 % Conclusion
+Summary of chapter \ref{ch:conclusion}.
