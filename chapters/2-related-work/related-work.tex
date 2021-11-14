@@ -320,73 +320,139 @@ While this solution is an interesting and creative effort that makes matches bet
 
 \sepfootnotecontent{fn:skill-ceiling}{Foonote: What is Skill Ceiling}
 
+%   - In RE4 Level layouts, AI behavior and item distribution are affected by player performance 
+Another interesting approach to adaptivity is seen in \emph{Resident Evil 4}\sepfootnote{fn:re4-gameplay-description}, where item distribution, AI behavior and enemy encounters are affected by different sets of information regarding player context and performance. Each system is affected by a different set of contextual metrics, and may enable or disable certain gameplay aspects independently based on the values presented by such metrics.
+
+\subsubsection{Dynamic Item Distribution}
+
 % ============================
 % How the Dynamic Item Distribution System works
 % ============================
-
-%   - In RE4 Level layouts, AI behavior and item distribution are affected by player performance 
 %   - Dynamic Item Distribution Affects RNG systems by modifying loot tables based on player needs at a given context
-Another interesting approach to adaptivity is seen in \emph{Resident Evil 4}\sepfootnote{fn:re4-gameplay-description}, where item distribution, AI behavior and enemy encounters are affected by different sets of information regarding player context and performance. The Dynamic Item distribution System affects RNG (Random Number Generation) systems by modifying the chances of items being spawned when a player interacts with containers or defeats an enemy. The values that are modified depend on the current status and context of the player such as their health and the items in their inventory.
-
 %   - When player has low health, item distribution prioritizes health items
 %   - If player has surplus ammo & health, prioritizes gold coins
 %   - Veteran players control the use of resources 
-For instance, if the player has a low amount of health and no health recovery items in their inventory, the Dynamic Item Distribution System modifies the chances of health recovery items being distributed. If the player has a stabilized amount of health but lacks a specific ammunition type, the game prioritizes the distribution of such ammunition type for the player. If the player is not in a dangerous situation and has surplus ammunition, the game prioritizes gold coins, which can be used to purchase powerful weapons and weapon upgrades. 
+The \emph{Dynamic Item distribution} System affects RNG (Random Number Generation) systems by modifying the chances of items being spawned when a player interacts with containers or defeats an enemy. The values that are modified depend on the current status and context of the player such as their health and the items in their inventory.
 
-% Veteran players that are aware of this system attempt to maintain their resources at a controlled level, so that they prioritize the use of their inventories to important weapons and items, and ensure that important resources are distributed at critical points in the game such as before an encounter with a large group of enemies.
+For instance, if the player has a low amount of health and no health recovery items in their inventory, the Dynamic Item Distribution system modifies the chances of health recovery items being distributed. If the player has a stabilized amount of health but lacks a specific ammunition type, the game prioritizes the distribution of such ammunition type for the player. If the player is not in a dangerous situation and has surplus ammunition, the game prioritizes gold coins, which can be used to purchase powerful weapons and weapon upgrades. 
 
 % Benefits of Dynamic Item Distribution
 % ============================
 
-% - One of the most prevalent types of systems due to their ease of abstraction
+% - One of the most prevalent types of systems due to:
+%   - Easy to implement, as it just modifies chances
+%   - Easy to understand by game designers
+%   - Ease of abstraction
 %    - On a first playthrough, hard to perceive RNG
 %    - On RNG systems, hard to tell what factors can influence the loot table
-% - Highly skilled players are rewarded for their performance
-
-% - Easy to implement, as it just modifies chances
-% - Easy to understand by game designers
 % - Can be integrated into the iterative game design process
 % - Balancing values can be replicated throughout game sections 
+In the landscape of commercial games as a whole, Dynamic Item Distribution Systems are one of the most prevalent types of adaptive systems employed due to:
+\begin{itemize} 
+    \item{Their ease of implementation, which involves monitoring of contextual values for player status and performance and simple modification of statistical values;}
+    \item{Their straightforward process of adjustment, in which the values can be easily understood and tailored by game designers between playtests;}
+    \item{The possibility to integrate them in the iterative nature of the game development process, where values can easily be adjusted between multiple play sessions;}
+    \item{The fact that the balancement of item distribution can be replicated througout multiple sections of a game;}
+    \item{The fact that they are abstract in nature, meaning that players have difficulty recognizing their existence or the complete extent of the modifications they perform.}
+    \item{Their relation with RNG item distribution chance tables, where the factors that influence the chances for each element are ambiguous even for veteran players.}
+\end{itemize}
+
+% Examples of other successful games that use dynamic item distribution
+%   - Half Life 2
+%   - Left 4 Dead
+%   - Diablo
+Examples of other successful games that also use Dynamic Item Distribution Systems include \emph{Half-Life 2}, where resources are spawned in containers such as destructible boxes based on player health and ammunition; \emph{Left 4 Dead}, where the spawn points of weapons, ammunition and health kits are toggled in fixed spots based on how well the team is performing throughout a level; and \emph{Diablo}, where the rarity of items dropped by defeated enemies depends on the level, modifiers and rarity of the enemy.
+
+% - Can help beginner players 
+% - Highly skilled players are rewarded for their performance
+In the specific case of Resident Evil 4, Dynamic Item Distribution may benefit beginner players by providing a steady supply of health and ammunition resources during sections of the game with intense combat encounters. The system always prioritizes the most important necessity for the player at a given moment, and as players are able to defeat enemies during a combat encounter, they are be supplied with ammunition and recovery items to be able to continue through a battle. For higher skilled players which are able to maintain a steady level of resources at their disposal, the game rewards performance with gold coins, which enables weapon upgrades that increase the efficiency at which the player is able to dispose of enemies. 
 
 % Problems with Dynamic Item Distribution
 % ============================
 
 % - Beginner players could benefit from item hoarding
 % - Important resources may not be distributed at critical sections of the game
+
+% In harder sections of the game, beginner players generally need a high amount of resources due to the large amount of enemies being spawned and the lack of knowledge on how to deal with enemies
+% As the player defeats enemies, loses health and spends ammunition, resources are constantly depleted from their inventory
+Some of the problems involving the implementation of Dynamic Item Distribution in Resident Evil 4 can be analyzed through the perspective of beginner players when facing challenging sections of the game. In such sections, beginner players generally need to spend a higher amount of resources due to the large amount of enemies and their lack of knowledge on how to dispose of multiple enemies. As the player progresses through the combat encounter, they will likely lose significant amounts of health and ammunition. Therefore, resources will be constantly depleted from the player inventory, which is an expected result from the perspective of the Dynamic Distribution System. 
+
+% At an initial point of a combat encounter, enemies would most likely drop less necessary resources such as gold coins
+% Player may start to run out of resources at a critical point in the encounter, such when as when facing tougher enemies that are harder to dispose of
+However, the main problem with resource distribution becomes evident when considering the flow of events in challenging combat encounters. Generally, at an initial point of the encounter the easiest enemies are spawned, and will most likely drop less necessary resources such as gold coins when defeated. After multiple waves of enemies the player may start to run out of resources, and at the same time progresses closer to the critical points in the encounter, such as facing special enemies that are harder to dispose of.
+
+Since resource distribution is limited to the events of destroying containers and defeating enemies, beginner players that are unaware of the resource distribution system might destroy all containers at the beginning of an encounter, which causes the only resource distribution source to be the defeated enemies. At that point, tougher enemies which cause the player to generally lose more health and spend more ammunition might drain the player of all their resources before they are defeated.
+
+% In conclusion, beginner players could benefit from the possibility of item hoarding for such encounters, which is harder to achieve due to the way dynamic item distribution is implemented
+In such situations, a beginner player would benefit from the ability to perform \emph{item hoarding}, where the player accumulates resources over easier sections of a game to be spent on the more challenging levels. Because of the way item distribution is implemented in Resident Evil 4, item hoarding becomes harder to perform, since as the player accumulates health or ammunition resources the game will prioritize low necessity items such as gold coins.
+
 % - Players may choose to not loot resource items purposefully
 %   - Force the system to generate resource items only at critical sections of the game
 %       - Maximize inventory space for weapons
 %       - Maximize the money gained for upgrades
+Additionally, a player that is aware of an adaptive distribution system might exploit the game by choosing to not loot items purposefully. By maintaining their resources at a controlled level, veteran players can prioritize the use of their inventories for important weapons and items, and force the system to distribute important resources at critical points in the game such as before an encounter with a large group of enemies. However, it can be argued that this characteristic can also be a benefit to highly skilled players, where good management of resources throughout the game can lead to rewards in terms of combat performance, as the player will possess better weapons and upgrades at their disposal.
+
+\subsubsection{Dynamic AI Behaviors}
 
 % ============================
 % How the Dynamic AI Behavior System works
 % ============================
+
 %    - Affects the actions performed by AI agents
 %    - Based on player performance and habits
-%    - If player constantly headshots, enemies start to dodge & defend head
-The Dynamic AI Behavior System affects the actions performed by AI-controlled entities based on player performance and habits. If a player is able to defeat enemies easily by shooting their heads or without spending significant resources such as ammunition and health recovery items, enemies will start to perform new actions such as attempting to dodge or even using their hands to block bullets. Although the new actions can prove to be an obstacle for player effectiveness, they are not overwhelmingly difficult to handle. An experienced player can still be effective and shoot enemy heads with precision if they are able to predict enemy movement or quickly react to the new character animations. Therefore, the Dynamic AI Behavior System causes the game to increase its skill ceiling\sepfootnote{fn:skill-ceiling} and enables interesting situations in enemy encounters that can provide variety and challenge for experienced and highly skilled players. 
+The \emph{Dynamic AI Behaviors} system affects the actions performed by AI-controlled entities based on player performance and habits. In Resident Evil 4, players are able to increase their damage output and cause enemies to become staggered and unable to attack by shooting at their heads. When staggered, the player can also perform a \emph{kick attack}, which causes enemies to fall into the ground for a significant amount of time. 
+
+%    - If player constantly headshots, enemies start to dodge, defend head & equip armor
+If a player is constantly able to defeat enemies easily by shooting their heads or without spending significant resources such as ammunition and health recovery items, enemies will start to perform new actions such as attempting to dodge or even using their hands to block bullets. Additionally, enemies in later stages of the game will also equip protective apparel such as helmets and shields depending on player accuracy, which hinders the ability of the player to deal damage and cause staggers.
+
+% - Experienced player can still be effective even with AI changes
+Although the new actions and equipment presented by enemies can become an obstacle for effectiveness, they are not overwhelmingly difficult to handle. An experienced player can still be effective and shoot enemy heads with precision if they are able to predict enemy movement, react to character animations and use the proper weapons for each equipment.
 
 % Benefits of Dynamic AI Behaviors
 % ============================
+
+% - Instead of making game super difficult, focuses on increasing skill ceiling
+Therefore, instead of simply increasing the difficulty to an overwhelmingly high level of challenge, the implementation of Dynamic AI Behavior System in Resident Evil 4 causes the game to increase its skill ceiling\sepfootnote{fn:skill-ceiling} in an interesting way, enabling interesting situations in enemy encounters that can provide variety and challenge for experienced and highly skilled players.
+
+% - The new actions performed by enemies are in-world elements that contribute to the believability of enemy behaviors, giving the sense that they become more intelligent to deal with the player over time and improves immersion
+Additionally, the new actions performed by enemies after Dynamic Behavior adjustments are in-world elements that contribute to the believability of enemy behaviors, since they aesthetically portray the intent that enemies are trying to protect vulnerable body parts from player firearms. Therefore, instead of the player perceiving the new actions as part of a system, they are given the information that enemies are progressively becoming more intelligent to be able to deal with the player, which improves immersion.
+
+% - The armor pieces that are equipped by enemies at later sections of the game presents harmony with the thematic difference in comparison to earlier sections
+% - In earlier sections, enemies are farmers, which are less likely to wield any type of armor
+% - In the middle sections, player is in a castle and enemies start wearing shields and helmets, but not full body armors
+% - In the later sections, enemies are rebel soldiers which use proper protective equipment against heavy firearms
+In regards to the adaptivity of armor pieces wielded by enemies, the equipment used in later sections of the game presents harmony with the thematic aspects of the environment in comparison to preceding sections. In the early sections of Resident Evil 4, the player traverses through small villages in a rural environment where most enemies are farmers, and thus less likely to wield any type of armor. The second segment of the game is located within a castle, where enemies are more likely to wield specific armor pieces such as shields and helmets, which protects them from attacks targeted at their body and head, respectively. In the final segments of the game, the player faces enemies that represent rebel soldiers, which wield protection that is effective against heavy firearms. Therefore, the adaptivity in enemy equipment can easily be abstracted by the player given the thematic context of each game segment.
 
 % Problems with Dynamic AI Behaviors
 % ============================
 
 % - Use of Game Rank
+% - Metrics of Game Rank are displayed after level is finished
+% - The exposure of metrics can expose the adaptivity to players
+% TODO RE4_JP_StrategyGuide: Pages 23-26
+To implement the Dynamic AI Behavior System, Resident Evil 4 uses a skill rating system called \emph{Game Rank}, which is increased or decreased according to aim precision and level completion time \cite{RE4_JP_StrategyGuide}. The metrics that constitute Game Rank are exposed to the player after the completion of each level, and aggregated to a final rating score. The fact that the existence of such metrics is explicit to players can be a detrimental factor when combined with the gameplay aspect of new actions performed by enemies when players achieve a highly positive performance.
+
+% - The intent of enemy animations is easily perceivable by players when trying to aim at their heads
+% - The combination of these factors caused the system to be quickly perceived by players
+While protective enemy animations can be considered in-world elements that contribute to player immersion, it can be argued that since they purposefully communicate their intent to players, there is an increase in the chance of the player being able to recognize and correlate the existence of new enemy actions with the metrics exposed after the completion of levels.
+
 % - Veterans & Speedrunners exploit game rank by missing on purpose
 % - Game then constrains enemy behaviors to predictable movement
-% - This is another example of "gaming" adaptivity
-% TODO RE4_JP_StrategyGuide: Pages 23-26
-To implement the Dynamic AI Behavior System, Resident Evil 4 uses a skill rating system called \emph{Game Rank}, which is increased or decreased according to aim precision and level completion time \cite{RE4_JP_StrategyGuide}. Veteran players and \emph{speedrunners} are able to exploit this rating value by missing shots on purpose, artificially lowering their precision value and Game Rank. This causes the game to constrain enemy behavior to predictable movement patterns, where shooting enemy heads is easier than in a standard play through. This is another example of meta-game strategies in adaptive solutions, where players that are knowledgeable of the adaptive systems attempt to explore it to constrain the behavioral patterns of AI agents.
+% - This is another example of players exploiting adaptivity
+Veteran players and \emph{speedrunners} often exploit Game Rank by missing shots on purpose, artificially lowering their precision value. This causes the game to constrain enemy behavior to predictable movement patterns, where shooting enemy heads is easier than in a standard play through. This is another example of meta-game strategies in adaptive solutions, where players that are knowledgeable of the adaptive systems attempt to exploit it to constrain the behavioral patterns of AI agents.
+
+\subsubsection{Dynamic Encounters}
 
 % ============================
 % How the Dynamic Encounters System works
 % ============================
 
+\sepfootnotecontent{fn:joystick-controllers}{Footnote: What are joystick controllers}
+
 % - Modifies placement of enemies
 % - Triggered by repeated deaths at certain sections of the game
 % - Enemy spawns are enabled or disabled according to performance
-The Dynamic Encounters System modifies the placement of enemies in levels, affecting the difficulty of specific encounters. If the player repeatedly dies in specific sections of the game, certain enemies spawns are disabled, making the encounter much less frustrating. In general, long range enemies such as crossbow wielders which are hard to reach or take a longer amount of time and resources to eliminate are the first to be disabled since there is no direct or easy method for the player to avoid them. Also, since the game was originally planned for exclusive console release, it is only natural that long-range enemies require more input precision to be dealt with, due to the nature of Joystick controllers[Footnote: What are joystick controllers].
+The \emph{Dynamic Encounters} system modifies the placement of enemies in levels, affecting the difficulty of specific encounters. If the player repeatedly dies in specific sections of the game, certain enemies spawns are disabled, making the encounter much less frustrating. In general, long range enemies such as crossbow wielders which are hard to reach or take a longer amount of time and resources to eliminate are the first to be disabled since there is no direct or easy method for the player to avoid them. Also, since the game was originally planned for exclusive console release, it is only natural that long-range enemies require more input precision to be dealt with, due to the nature of Joystick controllers\sepfootnote{fn:joystick-controllers}.
 
 % - Ambush enemies that are spawned outside player FOV
 % - If player is doing well, higher chance for them to spawn
