@@ -299,6 +299,7 @@ Several commercial games have attempted to create Dynamic Difficulty systems whi
 % =======================================================
 
 \subsection{Rubber-banding in Mario Kart}
+\label{sec:rubber-banding-mario-kart}
 
 Perhaps the most popular approach to Adaptive Difficulty is found in games which present \emph{rubber banding}. This technique is most commonly seen in racing games that have artificial intelligence agents as opponents to the player. If the player performs exceptionally well in a race and is far ahead of every AI opponent, the opponents will receive a significant speed boost that often surpasses the standard speed limits of the game. In case the player performs poorly, the AI is slowed down below their base speed so that the player is able to catch up. The term \emph{rubber banding} derives from the analogy that the players and their opponents are held together by a rubber band, so that they are never too far apart from their opponents.
 
@@ -332,7 +333,7 @@ Another interesting approach to adaptivity is seen in \emph{Resident Evil 4}\sep
 %   - When player has low health, item distribution prioritizes health items
 %   - If player has surplus ammo & health, prioritizes gold coins
 %   - Veteran players control the use of resources 
-The \emph{Dynamic Item distribution} System affects RNG (Random Number Generation) systems by modifying the chances of items being spawned when a player interacts with containers or defeats an enemy. The values that are modified depend on the current status and context of the player such as their health and the items in their inventory.
+The \emph{Dynamic Item distribution} System affects RNG (Random Number Generation) systems by modifying the chances of certain items being distributed when a player interacts with containers or defeats an enemy. The list of items which have their spawn chances modified depends on the current status and context of the player such as their health and the items in their inventory.
 
 For instance, if the player has a low amount of health and no health recovery items in their inventory, the Dynamic Item Distribution system modifies the chances of health recovery items being distributed. If the player has a stabilized amount of health but lacks a specific ammunition type, the game prioritizes the distribution of such ammunition type for the player. If the player is not in a dangerous situation and has surplus ammunition, the game prioritizes gold coins, which can be used to purchase powerful weapons and weapon upgrades. 
 
@@ -347,7 +348,7 @@ For instance, if the player has a low amount of health and no health recovery it
 %    - On RNG systems, hard to tell what factors can influence the loot table
 % - Can be integrated into the iterative game design process
 % - Balancing values can be replicated throughout game sections 
-In the landscape of commercial games as a whole, Dynamic Item Distribution Systems are one of the most prevalent types of adaptive systems employed due to:
+In the landscape of commercial games, Dynamic Item Distribution Systems are one of the most prevalent adaptive systems types, due to:
 \begin{itemize} 
     \item{Their ease of implementation, which involves monitoring of contextual values for player status and performance and simple modification of statistical values;}
     \item{Their straightforward process of adjustment, in which the values can be easily understood and tailored by game designers between playtests;}
@@ -356,6 +357,9 @@ In the landscape of commercial games as a whole, Dynamic Item Distribution Syste
     \item{The fact that they are abstract in nature, meaning that players have difficulty recognizing their existence or the complete extent of the modifications they perform.}
     \item{Their relation with RNG item distribution chance tables, where the factors that influence the chances for each element are ambiguous even for veteran players.}
 \end{itemize}
+
+% Examples of Dynamic Item Distribution in Other Games
+% ============================
 
 % Examples of other successful games that use dynamic item distribution
 %   - Half Life 2
@@ -384,7 +388,7 @@ However, the main problem with resource distribution becomes evident when consid
 Since resource distribution is limited to the events of destroying containers and defeating enemies, beginner players that are unaware of the resource distribution system might destroy all containers at the beginning of an encounter, which causes the only resource distribution source to be the defeated enemies. At that point, tougher enemies which cause the player to generally lose more health and spend more ammunition might drain the player of all their resources before they are defeated.
 
 % In conclusion, beginner players could benefit from the possibility of item hoarding for such encounters, which is harder to achieve due to the way dynamic item distribution is implemented
-In such situations, a beginner player would benefit from the ability to perform \emph{item hoarding}, where the player accumulates resources over easier sections of a game to be spent on the more challenging levels. Because of the way item distribution is implemented in Resident Evil 4, item hoarding becomes harder to perform, since as the player accumulates health or ammunition resources the game will prioritize low necessity items such as gold coins.
+In such situations, a beginner player would benefit from the ability to perform \emph{item hoarding}, where the player accumulates resources over easier sections of a game to be spent on the more challenging levels. Because of the way item distribution is implemented in Resident Evil 4, item hoarding becomes harder to perform, since as the player accumulates health or ammunition resources the game will prioritize distributing low necessity items such as gold coins.
 
 % - Players may choose to not loot resource items purposefully
 %   - Force the system to generate resource items only at critical sections of the game
@@ -407,6 +411,11 @@ If a player is constantly able to defeat enemies easily by shooting their heads 
 
 % - Experienced player can still be effective even with AI changes
 Although the new actions and equipment presented by enemies can become an obstacle for effectiveness, they are not overwhelmingly difficult to handle. An experienced player can still be effective and shoot enemy heads with precision if they are able to predict enemy movement, react to character animations and use the proper weapons for each equipment.
+
+% TODO Examples of Dynamic AI Behaviors In Other Games
+% ============================
+
+
 
 % Benefits of Dynamic AI Behaviors
 % ============================
@@ -434,12 +443,12 @@ To implement the Dynamic AI Behavior System, Resident Evil 4 uses a skill rating
 
 % - The intent of enemy animations is easily perceivable by players when trying to aim at their heads
 % - The combination of these factors caused the system to be quickly perceived by players
-While protective enemy animations can be considered in-world elements that contribute to player immersion, it can be argued that since they purposefully communicate their intent to players, there is an increase in the chance of the player being able to recognize and correlate the existence of new enemy actions with the metrics exposed after the completion of levels.
-
 % - Veterans & Speedrunners exploit game rank by missing on purpose
 % - Game then constrains enemy behaviors to predictable movement
+While protective enemy animations can be considered in-world elements that contribute to player immersion, it can be argued that since they purposefully communicate their intent to players, there is an increase in the chance of the player being able to recognize and correlate the existence of new enemy actions with the metrics exposed after the completion of levels. Veteran players and \emph{speedrunners} often exploit Game Rank by missing shots on purpose, artificially lowering their precision value. This causes the game to constrain enemy behavior to predictable movement patterns, where shooting enemy heads is easier than in a standard play through.
+
 % - This is another example of players exploiting adaptivity
-Veteran players and \emph{speedrunners} often exploit Game Rank by missing shots on purpose, artificially lowering their precision value. This causes the game to constrain enemy behavior to predictable movement patterns, where shooting enemy heads is easier than in a standard play through. This is another example of meta-game strategies in adaptive solutions, where players that are knowledgeable of the adaptive systems attempt to exploit it to constrain the behavioral patterns of AI agents.
+This is another example of meta-game strategies in adaptive solutions, where players that are knowledgeable of the adaptive systems attempt to exploit it to constrain the behavioral patterns of AI agents. In comparison to the example discussed about the distribution of power-ups in Mario Kart in section \ref{sec:rubber-banding-mario-kart}, exploitability in Dynamic AI Behavior Systems have a less relevant collateral effect since such systems are commonly restricted to \emph{single-player} games, where the decisions of a player do not affect the outcomes of actions for another player. However, players that have knowledge of Dynamic AI Behaviors might still be able to modify their playing style to manually adjust the challenge level and make certain segments of the game easier, which goes in disagreement with the level of challenge proposed by game designers and causes the player to break their own immersion.
 
 \subsubsection{Dynamic Encounters}
 
@@ -452,17 +461,33 @@ Veteran players and \emph{speedrunners} often exploit Game Rank by missing shots
 % - Modifies placement of enemies
 % - Triggered by repeated deaths at certain sections of the game
 % - Enemy spawns are enabled or disabled according to performance
-The \emph{Dynamic Encounters} system modifies the placement of enemies in levels, affecting the difficulty of specific encounters. If the player repeatedly dies in specific sections of the game, certain enemies spawns are disabled, making the encounter much less frustrating. In general, long range enemies such as crossbow wielders which are hard to reach or take a longer amount of time and resources to eliminate are the first to be disabled since there is no direct or easy method for the player to avoid them. Also, since the game was originally planned for exclusive console release, it is only natural that long-range enemies require more input precision to be dealt with, due to the nature of Joystick controllers\sepfootnote{fn:joystick-controllers}.
+The \emph{Dynamic Encounters} System modifies the placement of enemies in levels, affecting the difficulty of encounters by enabling or disabling the instantiation of certain enemies in game sections where the player engages a combat situation. If the player repeatedly dies in a specific combat encounter certain enemies spawns are disabled, making the encounter much less frustrating. 
+
+% - Long range enemies are the hardest to deal with, since generally require sniper rifles
+% - Sniper rifles are slower and harder to aim with, melee enemies can close the distance
+In general, long range enemies such as crossbow wielders which are hard to reach or take a longer amount of time and resources to eliminate are the first to be disabled since there is no direct or easy method for the player to avoid them. Additionally, the best weapon type to deal with enemies at a long distance would be the \emph{sniper rifles}, which are bound to long aiming animations and slow crosshair movement. Since the player is unable to perform movement while aiming in Resident Evil 4, enemies wielding melee weapons are able to close their distance to the player during the time where the player attempts to aim at a long range target.
 
 % - Ambush enemies that are spawned outside player FOV
 % - If player is doing well, higher chance for them to spawn
-Another instance of the Dynamic Encounters System changing level layout is seen in with ambush-type enemies, which will only spawn outside of player field-of-view. Since these enemies are harder to perceive, they will often be harder to react to and force the player into quick decision-making. If the player is performing well and accumulates a significant amount of health resources, ambush-type enemy spawns are enabled to cause the perception that even though the player is skilled enough to deal with enemies in direct combat, there are still traps and surprising situations that might cause the player to be defeated.
+% - Make challenge higher instead of easier
+% - Hard to react to
+The second type of adjustment performed by the Dynamic Encounters System involves the appearance of ambush-type enemies, which only spawn outside of player field-of-view. If the player is performing well and accumulates a significant amount of health resources, ambush-type enemy spawns are enabled to cause the perception that even though the player is skilled enough to deal with enemies in direct combat, there are still traps and surprising situations that might cause the player to be defeated. Contrary to the removal of long range enemies when the player repeatedly dies, ambush-type enemies are designed to drain the player of resources and increase the tension throughout levels. Since these enemies are harder to perceive, they will often be harder to react to and cause the player to perform incorrect actions or input.
 
 % Benefits of Dynamic Encounters
 % ============================
 
+% - Dynamic Encounters are one of the best solutions for cases where the player requires some sort of assistance in the form of immediate adaptation, such as when a player is repeatedly failing a level. Changes in the placement or number of enemies can greatly affect the level of challenge of a combat encounter, and the entities that cause the most impact can be directly removed, which significantly helps players to overcome specific sections
+
+% - 
+
 % Problems with Dynamic Encounters
 % ============================
+
+% - Modifications in encounters based on the number of deaths in that specific encounter are the easiest to perceive, as when repeatedly playing through a same section the player is able to memorize enemy positions and movement patterns
+% - Players might feel frustrated with the fact the the game forcefully lowers the difficulty without their consent, meaning that the game implicitly classifies the player as unable to deal with an encounter
+
+% - Dynamic Encounters are one of the adaptive systems most sensitive to modifications, since small changes in the placement or number of enemies can greatly magnify the increase or decrease of difficulty caused by other game elements which are difficulty factors, such as AI Behaviors, or the damage dealt by an enemy type 
+% - Due to being sensitive to modifications, Dynamic Encounters are one of the hardest adaptivity methods to balance, since they require per-encounter play testing and iteration through multiple contexts to appropriately increase or decrease the level of difficulty based on player performance 
 
 % Unused yet
 % ============================
