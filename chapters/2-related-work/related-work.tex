@@ -1,11 +1,19 @@
 \chapter{RELATED WORK}
 \label{ch:related-work}
 
+% * =======================================================
+% *  FOOTNOTES
+% * =======================================================
 \sepfootnotecontent{fn:speedrun-com-re4-guides}{Footnote: Speedrun.com Resident Evil 4 Guides}
 
 \sepfootnotecontent{fn:beat-em-up}{Footnote: What are beat 'em up games}
 
 \section{Overview}
+% * ======================================================================
+% * ======================================================================
+% *  OVERVIEW
+% * ======================================================================
+% * ======================================================================
 
 In this chapter, we perform a review of previous research and literature related to adaptive systems and dynamic difficulty. We begin by reviewing literature regarding player experience and the concepts that define game difficulty to understand the impact of difficulty in player experience. We attempt to understand how difficulty can be detrimental or a support tool for players to learn, understand and improve upon the use of game mechanics and systems. We identify the problems with fixed difficulty curves, where the game provides a limited set of options for players to define their expected challenge level within the experience of a game. 
 
@@ -15,13 +23,12 @@ We review some of the pioneering research on AGS (Adaptive Game Systems) \cite{A
 
 We also evaluate some of the efforts in adaptivity in commercial games, analyzing their positive and negative effects. We attempt to understand the impact of solutions implemented in some of the most successful commercial games in the last decades, specifying how the discovery of such adaptive systems affected the way that players form strategies and execute actions in such games. We attempt to identify some of the most representative examples in each dynamic adaptation category, and verify the shortcomings of each adaptation method.
 
-% ================================================================================
-% ================================================================================
-% PLAYER EXPERIENCE AND DIFFICULTY
-% ================================================================================
-% ================================================================================
-
 \section{Domain Context and Terminology}
+% * ======================================================================
+% * ======================================================================
+% *  DOMAIN CONTEXT AND TERMINOLOGY
+% * ======================================================================
+% * ======================================================================
 
 The objective of this work is to create a reliable system that is able to improve experience for any player, regardless of their skill level and expected challenge towards a game. To understand how to improve player experience, we must first define what constitutes it. In this section, we identify the components that constitute player experience based on previous research in usability applied to the specific context of games. 
 
@@ -192,24 +199,22 @@ The concept of player models is used as a basis for dynamic adjustments in the f
 
 The discussion in \cite{ARTICLE_DynamicPlayerModelling} emphasizes the necessity of remodelling player types after measuring the effectiveness of adaptation. This means that a DDA system should be able to gather some type of player feedback regarding the effectiveness of the dynamic adjustments that were performed during play, and recreate the player profile based on this feedback. Some methods for gathering such feedback include inferring the player's affective state, such as with physiological sensors or from a camera or an analysis of statistical data retrieved from in-game attributes, such as player performance or their action history.
 
-% ================================================================================
-% ================================================================================
-% ADAPTIVITY IN RESEARCH
-% ================================================================================
-% ================================================================================
+Mechanisms for adaptive adjustments should describe what elements of the game are going to be monitored, and what variables should be adjusted accordingly. Therefore, the functionality of a DDA system can be summarized as a relation between observation and adjustment. Since video games are so diverse in design and functionality, the mapping between observation parameters and adjustment variables has yet not been efficiently described as an universal and generic approach \cite{PHD_DynamicDifficultyAdjustment}. Rather, the game developer should decide what variables should be observed and adjusted in a per-game basis.
 
-\section{Adaptive System Implementations In Research}
+\section{Adaptive Systems In Research}
+% * ======================================================================
+% * ======================================================================
+% *  ADAPTIVE SYSTEMS IN RESEARCH
+% * ======================================================================
+% * ======================================================================
 
-Mechanisms for DDA should describe what elements of the game are going to be monitored, and what variables should be adjusted accordingly. Therefore, the functionality of a DDA system can be summarized as a relation between observation and adjustment. Since video games are so diverse in design and functionality, the mapping between observation parameters and adjustment variables has yet not been efficiently described as an universal and generic approach \cite{PHD_DynamicDifficultyAdjustment}. Rather, the game developer should decide what variables should be observed and adjusted in a per-game basis.
-
-In contrast to the implementations of DDA portrayed in commercial games, prior academic work encompassed a multitude of probabilistic models and data-driven approaches that could prove to be interesting if applied to a commercial solution. In the scope of this work, we use the literary review in \cite{article_ddareview} as a reference to categorize a subset of DDA algorithm variants implemented in previous academic work, as well as to select and perform an analysis on a single relevant representation for each of the proposed solutions.
-
-% =======================================================
-% PROBABILISTIC DDA
-% =======================================================
+Previous academic work regarding adaptive system implementations encompass a multitude of novelty approaches that innovate through interesting metric domains, adjustment policies and adjustment scopes that affect a variety of systems or mechanics. In this section, we use the literary review in \cite{article_ddareview} as a reference to categorize a subset of DDA algorithm variants implemented in previous academic work, as well as to select and perform an analysis on a single relevant representation for each of the proposed solutions.
 
 \subsection{Probabilistic DDA Systems}
 \label{sec:statistical-adjustments}
+% * =======================================================
+% *  PROBABILISTIC DDA
+% * =======================================================
 
 One of the first and most relevant implementations of the probabilistic model approach for DDA systems is the Hamlet system seen in \cite{article_casefordynamicdifficulty}. Hamlet is a probability-based predictive system that is able to perform reactive and proactive adjustments to the distribution of items throughout levels of customized Half-Life \footnote{Half-Life (Valve Software, 1998). Computer Game. Microsoft Windows.} map \cite{article_casefordynamicdifficulty}. The system works by defining a finite set of possible game world states, and performing adjustments with the objective of avoiding game state "loops", where a player would perform the same set of actions repeatedly.
 
@@ -223,11 +228,10 @@ The study concluded that adjustment algorithms can include the performance of a 
 
 Therefore, the Hamlet system proposed by \citet{article_casefordynamicdifficulty} addresses the possibility of predicting gameplay outcomes given a game world state, and performing \emph{reactive} or \emph{proactive} adjustments for a more immediate resolution when compared to other solutions. We argue that while this might be an interesting approach for a supportive or secondary DDA system, this type of solution might be hard to tailor from a game designer's perspective since it is impossible to predict results functionally.
 
-% =======================================================
-% AFFECT-BASED DDA
-% =======================================================
-
 \subsection{Affect-based DDA Systems}
+% * =======================================================
+% *  AFFECT-BASED DDA
+% * =======================================================
 
 Most implementations of DDA systems use as adjustment policies metrics that would represent player performance. However, the affective state experienced by players could also play a key role in the gaming experience, and thus could be a useful metric for adjustment policies in DDA systems. This is the theme of the work presented in \cite{article_affectivedda}, where physiological signals were tracked to infer the anxiety level of players, and then used as a metric to perform dynamic adjustments.
 
@@ -256,11 +260,10 @@ We argue that, while the results of the experiment portrayed in \cite{article_af
 
 Furthermore, the game implementation used for the experiment is a simplistic game with limited audiovisual feedback. Therefore, a similar experiment could be performed in a modern game with high audiovisual fidelity to evaluate results, as modern games are often able to evoke a multitude affective reactions by immersing the player in a \emph{cutscene}\footnote{A \emph{cutscene} is a special in-game event where the player is unable to input control into the game, and audiovisual feedback is a result of an automatic, predefined sequence of events determined by the game developers. Cutscenes can be seen as parts of a game that are similar to a movie, where the game is not interactive and instead focuses on telling a part of the story.} or a series of chaotic events.
 
-% =======================================================
-% LEARNING-BASED DDA
-% =======================================================
-
 \subsection{Reinforcement Learning in DDA Systems}
+% * =======================================================
+% *  LEARNING-BASED DDA
+% * =======================================================
 
 Another approach to adaptive difficulty involves the adaptation of AI (Artificial Intelligence) agent behaviors through reinforcement learning, as exemplified in \cite{article_adaptivebehaviorai}. Their implementation defines AI agents in a simple car simulation race game, where each player has the objective of passing through the maximum number of \emph{waypoints}\footnote{A \emph{waypoint} is a special position in a game world where an in-game event is toggled when the player is within interaction range. Waypoints are commonly used in games when the player has to take a specific path to a goal, with the game assigning several intermediary positions the player has to pass through to validate that the correct path was taken. In the context used for the implementation presented in \cite{article_adaptivebehaviorai}, waypoints are simply game world positions the cars must reach to score points. Each time one of these positions is occupied by a car, the waypoint is destroyed and a new random position is assigned elsewhere in the game world as the next waypoint.} in a given amount of time. Multiple waypoints are displayed on the screen at any given time, and a waypoint disappears when any of the players is within interaction range.
 
@@ -286,22 +289,20 @@ As a conclusion to the experiment, the authors expressed that while the AUC algo
 
 The work presented in \cite{article_adaptivebehaviorai} introduces the novelty approach of online learning without predefined data sets to the scenario of DDA solutions. It could be argued that the adjustment policies are also part of the reinforcement learning approach, since the decision of a behavioral component being activated or not relies on the algorithm being applied. This is an especially interesting solution since it lessens the responsibility of a game designer tailoring the boundaries of the adjustment system in advance of play. However, we argue that this experiment has yet to be applied in the context of real players using an implementation that would better replicate a commercial video game product.
 
-% ================================================================================
-% ================================================================================
-% ADAPTIVITY IN COMMERCIAL GAMES
-% ================================================================================
-% ================================================================================
-
-\section{Adaptive System Implementations In Commercial Games}
+\section{Adaptive Systems In Commercial Games}
+% * ======================================================================
+% * ======================================================================
+% *  ADAPTIVE SYSTEMS IN COMMERCIAL GAMES
+% * ======================================================================
+% * ======================================================================
 
 Several commercial games have attempted to create Dynamic Difficulty systems which embrace varying degrees of player skill, such as \emph{Mario Kart}\sepfootnote{fn:mario-kart}, \emph{Half-Life 2}\sepfootnote{fn:half-life-2}, \emph{Resident Evil 4}\sepfootnote{fn:resident-evil-4} and \emph{God Hand}\sepfootnote{fn:god-hand}. In this section, we look at examples of Adaptive Systems in some of the most popular games developed by the video game industry in the last decades. We categorize the solutions based on the genre of games where they are generally implemented in and the game mechanics and systems they affect. Additionally, we discuss some of the positive and negative aspects of each system, relating them with their variations and less popular implementations.
 
-% =======================================================
-% RUBBER BANDING ADAPTIVITY
-% =======================================================
-
 \subsection{Rubber Banding in Racing Games}
 \label{sec:rubber-banding-mario-kart}
+% * =======================================================
+% *  RUBBER BANDING ADAPTIVITY
+% * =======================================================
 
 \sepfootnotecontent{fn:single-player-game}{A single player game is a video game where the input processed by the game is received from only one human user (player) during the course of a game session. All entities the player interacts within the game world are non-player entities.}
 
@@ -438,11 +439,10 @@ While rubber banding is an interesting and creative effort that increases the co
 % Might turn off hardcore racing games players
 Because of the popularity of rubber banding implementations in racing games and the longevity of the existence of such methods, their existence is widely known throughout a significant portion of intermediate and veteran audiences. In consequence, the knowledge of their existence might reduce the interest of competitive players in relation to arcade racing titles, since rubber banding solutions might create a sense that a highly skilled player has their performance affected for the benefit of beginner players.
 
-% =======================================================
-% ENEMY BEHAVIOR & ITEM DISTRIBUTION ADAPTIVITY
-% =======================================================
-
 \subsection{Multiple Adaptivity Layers in Resident Evil 4}
+% * =======================================================
+% *  ENEMY BEHAVIOR & ITEM DISTRIBUTION ADAPTIVITY
+% * =======================================================
 
 \sepfootnotecontent{fn:re4-gameplay-description}{Footnote: What is Resident Evil 4 in terms of gameplay}
 
@@ -626,11 +626,10 @@ Dynamic encounters also present issues related to the difficulty of being abstra
 % ============================
 While Resident Evil 4 received mass critical praise for its outstanding game design and successful adaptive approach, it is noteworthy that a community of dedicated \emph{speedrunners} has been able to accurately reverse engineer and exploit its DDA systems \sepfootnote{fn:speedrun-com-re4-guides}. It can be argued that given enough dedication, there is no DDA system which is completely unknown to players. However, since the reverse engineering process requires extensive experimentation on behalf of players, we can assume that the system will remain mostly obfuscated to novice players experiencing their first play through, which is critical to maintain immersion and player engagement.
 
-% =======================================================
-% EXPLICIT ADAPTIVITY
-% =======================================================
-
 \subsection{Explicit Adaptivity in God Hand}
+% * =======================================================
+% *  EXPLICIT ADAPTIVITY
+% * =======================================================
 
 \sepfootnotecontent{fn:god-hand-gameplay-description}{Footnote: What is God Hand in terms of gameplay}
 
@@ -685,6 +684,11 @@ During the last sections of a level, it is common for game designers to employ s
 However, if the player performs exceedingly well as the level progresses, they may find themselves in a situation where the natural increase of challenge caused by common level design practices is magnified by the increase from the adaptive difficulty system, and thus a section of a level with significantly higher difficulty than its earlier sections may become an insurmountable challenge for a highly skilled player. Therefore, a positive performance from the player in earlier sections may hinder their progress in later sections of a level, which may cause the player to purposefully perform worse in earlier sections to adjust the difficulty of later sections of a level.
 
 \section{Conclusions (TO DO)}
+% * ======================================================================
+% * ======================================================================
+% *  CONCLUSIONS
+% * ======================================================================
+% * ======================================================================
 
 % This section is supposed to be a wrap up of all the sections in this chapter.
 
