@@ -5,6 +5,8 @@
 
 \sepfootnotecontent{fn:beat-em-up}{Footnote: What are beat 'em up games}
 
+\section{Overview}
+
 In this chapter, we perform a review of previous research and literature related to adaptive systems and dynamic difficulty. We begin by reviewing literature regarding player experience and the concepts that define game difficulty to understand the impact of difficulty in player experience. We attempt to understand how difficulty can be detrimental or a support tool for players to learn, understand and improve upon the use of game mechanics and systems. We identify the problems with fixed difficulty curves, where the game provides a limited set of options for players to define their expected challenge level within the experience of a game. 
 
 We proceed by studying some of the previous solutions that were develop to address the issue of player skill that is not properly represented by a limited set of difficulty curves and challenge levels. First, we understand the concept of player models, where player behavior is monitored and used as a tool to identify game design issues and improvements that directly affect player engagement. We compare that to the recent increase in research towards game analytics, where data from large user bases is aggregated to identify trends, problems and improvement opportunities in regards to game design.
@@ -19,7 +21,7 @@ We also evaluate some of the efforts in adaptivity in commercial games, analyzin
 % ================================================================================
 % ================================================================================
 
-\section{Research on Player Experience and Difficulty}
+\section{Domain Context and Terminology}
 
 The objective of this work is to create a reliable system that is able to improve experience for any player, regardless of their skill level and expected challenge towards a game. To understand how to improve player experience, we must first define what constitutes it. In this section, we identify the components that constitute player experience based on previous research in usability applied to the specific context of games. 
 
@@ -131,25 +133,13 @@ We argue that Adaptive Game Technologies can also have an impact on the learning
 
 Thus, the learning curve should not be static, but customized to the needs of each player. If the player has already mastered the base concepts of a game, they should be encouraged to using their knowledge to the fullest. Tailoring the learning experience to each player could balance the challenges faced by the player to a more appropriate, which could possibly increase the sense of enjoyment and immersion as seen in \autoref{sec:challenge-flow}.
 
-% ================================================================================
-% ================================================================================
-% ADAPTIVITY IN RESEARCH
-% ================================================================================
-% ================================================================================
-
-\section{Adaptive Systems In Research}
-
-Mechanisms for DDA should describe what elements of the game are going to be monitored, and what variables should be adjusted accordingly. Therefore, the functionality of a DDA system can be summarized as a relation between observation and adjustment. Since video games are so diverse in design and functionality, the mapping between observation parameters and adjustment variables has yet not been efficiently described as an universal and generic approach \cite{PHD_DynamicDifficultyAdjustment}. Rather, the game developer should decide what variables should be observed and adjusted in a per-game basis.
-
-In contrast to the implementations of DDA portrayed in commercial games, prior academic work encompassed a multitude of probabilistic models and data-driven approaches that could prove to be interesting if applied to a commercial solution. In the scope of this work, we use the literary review in \cite{article_ddareview} as a reference to categorize a subset of DDA algorithm variants implemented in previous academic work, as well as to select and perform an analysis on a single relevant representation for each of the proposed solutions.
-
 % =======================================================
 % PLAYER MODELING
 % =======================================================
 
-\subsection{Player Modeling and Profiling}
+\subsection{Player Modelling}
 
-The concept of adaptivity in games relates to how a game is able to adapt its content based on the \emph{profile} and \emph{preferences} of a player, which constitute \emph{player models} obtained from a multitude of \emph{Player Modeling} techniques. Player Modeling allows the creation, collection and processing of \emph{player models}, real-time collected data sets that can be classified into reality-based player types \cite{ARTICLE_DynamicPlayerModelling}. Knowledge about player types allows dynamic adjustment in the sense of content customization, where a game designer might dynamically assign what should be presented to each type of player.
+The concept of adaptivity in games relates to how a game is able to adapt its content based on the \emph{profile} and \emph{preferences} of a player, which constitute \emph{player models} obtained from a multitude of \emph{Player Modelling} techniques. Player Modelling allows the creation, collection and processing of \emph{player models}, real-time collected data sets that can be classified into reality-based player types \cite{ARTICLE_DynamicPlayerModelling}. Knowledge about player types allows dynamic adjustment in the sense of content customization, where a game designer might dynamically assign what should be presented to each type of player.
 
 In a DDA system, \emph{Player Models} refer to collections of data gathered to be used as a metric for adjustment policies \cite{PHD_DynamicDifficultyAdjustment}. Player Model data might be gathered during a play session as a trace of the player's actions and events in a game, or as static data collected from surveys or through the use of a gaming platform such as \emph{Steam}.
 
@@ -189,18 +179,30 @@ float UpdateAttribute(Attribute att, float value) {
 
 Attributes in this implementation consist of values between 0 and 1, indicating the probability of a player performing an action. In Listing \ref{lst:PlayerModellingExample}, this can be seen in the definitions of Boolean attributes (prefix 'b'). However, it is also possible to use the same approach to approximate statistical values, such as the damage a player inflicts per round. The value for each attribute represents the game's current best guess. Each sample collected contributes to the estimate weighted by LEARNING\_RATE. Therefore, for lower LEARNING\_RATE values more samples are required to sufficiently approximate an attribute. In most cases, values between 0.1 and 0.3 are used \cite{BOOK_PlayerModeling}.
 
-Another perspective brought to the concept of player models is seen in \cite{ARTICLE_DynamicPlayerModelling}, where the authors describe a Player Modeling framework that takes \emph{concept drift} into consideration, which is the possibility of players adapting or changing behaviors and play styles according to their evolution or progress in a game. The framework relies on two sources of player-related data: information of player preferences inputted by a player prior to application use and tracking player performance in-game. Figure \ref{fig:dynamic-player-model} exemplifies the dynamic player model framework.
-
-The discussion in \cite{ARTICLE_DynamicPlayerModelling} emphasizes the necessity of remodeling player types after measuring the effectiveness of adaptation. This means that a DDA system should be able to gather some type of player feedback regarding the effectiveness of the dynamic adjustments that were performed during play, and recreate the player profile based on this feedback. Some methods for gathering such feedback include inferring the player's affective state, such as with physiological sensors or from a camera or an analysis of statistical data retrieved from in-game attributes, such as player performance or their action history.
+The concept of player models is used as a basis for dynamic adjustments in the framework described in \cite{ARTICLE_DynamicPlayerModelling}. The authors describe a methodology for the conception of player models that considers the existence of \emph{concept drift}, which is the possibility of players adapting or changing behaviors and play styles according to their evolution or progress in a game. The framework relies on two sources of data related to players: information of player preferences inputted by a player prior to application use and tracking player performance in-game. Figure \ref{fig:dynamic-player-model} exemplifies the dynamic player model framework.
 
 \begin{figure}[!ht]
-    \caption{A representation of the dynamic player modeling framework discussed in \cite{ARTICLE_DynamicPlayerModelling}.}
+    \caption{A representation of the dynamic player modelling framework discussed in \cite{ARTICLE_DynamicPlayerModelling}.}
     \begin{center}
         \includegraphics[width=26em]{figures/fig-dynamic-player-model.png}
     \end{center}
     \legend{Source: Diagram assembled by the authors based on visual representations in \cite{ARTICLE_DynamicPlayerModelling}.}
     \label{fig:dynamic-player-model}
 \end{figure}
+
+The discussion in \cite{ARTICLE_DynamicPlayerModelling} emphasizes the necessity of remodelling player types after measuring the effectiveness of adaptation. This means that a DDA system should be able to gather some type of player feedback regarding the effectiveness of the dynamic adjustments that were performed during play, and recreate the player profile based on this feedback. Some methods for gathering such feedback include inferring the player's affective state, such as with physiological sensors or from a camera or an analysis of statistical data retrieved from in-game attributes, such as player performance or their action history.
+
+% ================================================================================
+% ================================================================================
+% ADAPTIVITY IN RESEARCH
+% ================================================================================
+% ================================================================================
+
+\section{Adaptive System Implementations In Research}
+
+Mechanisms for DDA should describe what elements of the game are going to be monitored, and what variables should be adjusted accordingly. Therefore, the functionality of a DDA system can be summarized as a relation between observation and adjustment. Since video games are so diverse in design and functionality, the mapping between observation parameters and adjustment variables has yet not been efficiently described as an universal and generic approach \cite{PHD_DynamicDifficultyAdjustment}. Rather, the game developer should decide what variables should be observed and adjusted in a per-game basis.
+
+In contrast to the implementations of DDA portrayed in commercial games, prior academic work encompassed a multitude of probabilistic models and data-driven approaches that could prove to be interesting if applied to a commercial solution. In the scope of this work, we use the literary review in \cite{article_ddareview} as a reference to categorize a subset of DDA algorithm variants implemented in previous academic work, as well as to select and perform an analysis on a single relevant representation for each of the proposed solutions.
 
 % =======================================================
 % PROBABILISTIC DDA
@@ -290,24 +292,131 @@ The work presented in \cite{article_adaptivebehaviorai} introduces the novelty a
 % ================================================================================
 % ================================================================================
 
-\section{Adaptive Systems In Commercial Games}
+\section{Adaptive System Implementations In Commercial Games}
 
-Several commercial games have attempted to create Dynamic Difficulty systems which embrace varying degrees of player skill, such as \emph{Mario Kart} \sepfootnote{fn:mario-kart}, \emph{Half-Life 2} \sepfootnote{fn:half-life-2}, \emph{Resident Evil 4} \sepfootnote{fn:resident-evil-4} and \emph{God Hand} \sepfootnote{fn:god-hand}. In this section, we look at examples of Adaptive Systems in some of the most popular games developed by the video game industry in the last decades. We categorize the solutions based on which game systems they affect, and discuss some of the caveats of each system.
+Several commercial games have attempted to create Dynamic Difficulty systems which embrace varying degrees of player skill, such as \emph{Mario Kart}\sepfootnote{fn:mario-kart}, \emph{Half-Life 2}\sepfootnote{fn:half-life-2}, \emph{Resident Evil 4}\sepfootnote{fn:resident-evil-4} and \emph{God Hand}\sepfootnote{fn:god-hand}. In this section, we look at examples of Adaptive Systems in some of the most popular games developed by the video game industry in the last decades. We categorize the solutions based on which game systems they affect, and discuss some of the caveats of each system.
 
 % =======================================================
 % RUBBER BANDING ADAPTIVITY
 % =======================================================
 
-\subsection{Rubber-banding in Mario Kart}
+\subsection{Rubber banding in Racing Games}
 \label{sec:rubber-banding-mario-kart}
 
-Perhaps the most popular approach to Adaptive Difficulty is found in games which present \emph{rubber banding}. This technique is most commonly seen in racing games that have artificial intelligence agents as opponents to the player. If the player performs exceptionally well in a race and is far ahead of every AI opponent, the opponents will receive a significant speed boost that often surpasses the standard speed limits of the game. In case the player performs poorly, the AI is slowed down below their base speed so that the player is able to catch up. The term \emph{rubber banding} derives from the analogy that the players and their opponents are held together by a rubber band, so that they are never too far apart from their opponents.
+\sepfootnotecontent{fn:single-player-game}{A single player game is a video game where the input processed by the game is received from only one human user (player) during the course of a game session. All entities the player interacts within the game world are non-player entities.}
 
-Rubber banding is employed to cause the impression that the outcome of the race is never clearly defined, enabling the perception that mistakes by the competitor that is ahead can greatly affect their chances of winning. The existence of the rubber banding system, along with the perception caused by it, results in the increase of tension and focus by the player. Rubber banding is not limited to the Racing games genre, and it does necessarily happen only between players and AI. However, it does imply that the game has some sort of competition system, even if the game is a single-player \footnote{A single player game is a video game where the input processed by the game is received from only one human user (player) during the course of a game session. All entities the player interacts within the game world are non-player entities.} or cooperative \footnote{Cooperative games are games in which the input is received from multiple human users (players), with each player controlling a different in-game entity. The players share a common objective, and must cooperate by combining their available commands and actions to achieve the winning condition.} experience.
+\sepfootnotecontent{fn:cooperative-game}{Cooperative games are games in which the input is received from multiple human users (players), with each player controlling a different in-game entity. The players share a common objective, and must cooperate by combining their available commands and actions to achieve the winning condition.}
 
-Mario Kart applies rubber banding through two different methods, affecting both players and computer-controlled opponents \cite{website_rubberbandingmariokart}. The first type of rubber banding compares the performance of players to AI opponents: if a player is too far behind the computer-controlled opponents, the AI slows down by lowering their maximum speed. If a player is too far ahead, the AI receives a significant speed boost to their base speed. While being a simplistic solution common to many games in the racing genre, it attenuates the skill discrepancy between players and AI. 
+\sepfootnotecontent{fn:need-for-speed}{Footnote: What is Need for Speed?}
 
-The second solution in Mario Kart is presented through the power-up system, and targets the issue of skill discrepancy between players. Throughout the race, players are provided with multiple randomly-generated power-ups, which can be used to speed-up, attack or defend against opponents. Speed-up pickups are favored to players who are far behind others, whereas attack and defense power-ups are favored to players who are closer to attaining the first position. Players in the first position are generally provided the worse pickups. This provides better opportunities for players who are lower-skilled, as the access to speed power-ups is limited to the competitors who are far behind, and effectively serves as a catching-up mechanic.
+\sepfootnotecontent{fn:forza-horizon}{Footnote: What is Forza Horizon?}
+
+\sepfootnotecontent{fn:horizon-chase-turbo}{Footnote: What is Horizon Chase Turbo?}
+
+\sepfootnotecontent{fn:wipeout}{Footnote: What is Wipeout?}
+
+\sepfootnotecontent{fn:crash-team-racing}{Footnote: What is Crash Team Racing?}
+
+\sepfootnotecontent{sonic-all-stars-racing}{Footnote: What is Sonic All Stars Racing?}
+
+\sepfootnotecontent{fn:split-second-game}{Footnote: What is the Split/Second racing game?}
+
+\sepfootnotecontent{fn:final-fantasy-xiv}{Footnote: What is Final Fantasy XIV?}
+
+\sepfootnotecontent{fn:csgo}{Footnote: What is Counter-Strike Global Offensive?}
+
+\sepfootnotecontent{fn:catch-up-mechanics}{Footnote: What are catch-up mechanics?}
+
+\sepfootnotecontent{fn:runaway-leader-problem}{Footnote: What is the runaway leader problem?}
+
+% How the system works
+% ============================
+
+% - One of the most popular adaptive systems is rubber-banding
+% - Creates opportunities for players that are behind
+% - Players can always surpass opponents
+% - Mistakes by players that are ahead are magnified
+% - Rubber banding causes the impression that the outcome of a race is never defined
+One of the most popular approaches to Adaptive Difficulty is found in games which implement \emph{rubber banding}. This technique is most commonly seen in racing games that have artificial intelligence agents as opponents to the player. Rubber banding creates opportunities for players that are behind their opponents, where through the game mechanics and systems, a player is always in a position where it is possible to surpass their opponents when considering their possibility of achieving the win condition. Simultaneously, mistakes committed by a player that is ahead are magnified, which greatly affects their chances of winning.
+
+The existence of the rubber banding system in a game along with the perception it causes in players results in an increase of tension and focus, as the system creates the impression that the outcomes of a race (or any other form of competition) are never clearly defined. The term \emph{rubber banding} derives from the analogy that entities are held together by a rubber band, so that they are never too far apart from each other when considering their chances to win.
+
+\subsubsection{Implementation and Design In Mario Kart}
+
+One of the most widely known examples of rubber banding can be seen in the \emph{Mario Kart} series of racing games. Mario Kart implements rubber banding through two different methods, affecting both players and AI opponents \cite{website_rubberbandingmariokart}. The first method compares the performance of players to AI agents in relation to their completion stage of a race, and only modifies the speed of AI-controlled opponents. The second method attempts to attenuate the discrepancy of skill between players, providing opportunities for less skilled players to close their distance to players which are ahead.
+
+In the rubber banding implementation which involves the adaptation of AI agents, if the player performs exceptionally well in a race and is far ahead of every AI opponent, the AI receives a significant speed boost that often surpasses the standard speed limits of the game. Through the \emph{minimap} element in the user interface, the player is able to assess their distance to opponents at any time during a race. By being able to evaluate their position relative to enemies, players are constantly aware that any mistake may cause them to be surpassed by opponents, which increases their focus and creates tensions when traversing through difficult segments of a race track. In case the player performs poorly the AI is slowed down below their base speed, which causes the player to always be maintained within a reasonable distance to their opponents. In this case, the minimap serves as an estimation of the speed at which the player reduces their distance to opponents -- which can motivate them to perform better.
+
+The second type of rubber banding implementation in Mario Kart is presented through the power-up system, and attempts to attenuate the issue of skill discrepancy between players. Throughout the race, players are provided with multiple randomly-generated power-ups which can be used to speed-up, attack or defend against opponents. Speed-up pickups are favored to players who are far behind others, attack power-ups are prioritized to players in the middle positions, and defense power-ups are favored to players who are closer to attaining the first position. Players in the first position are generally provided the pickups which are most difficult to use effectively, such as traps which can be thrown backwards. This approach provides better opportunities for players who are lower-skilled, as the access to the most relevant distance reducing power-ups is limited to the competitors who are far behind -- which effectively serves as a catch-up mechanic.
+
+% Examples of Rubber-Banding In Other Games
+% ============================
+
+% - Rubber banding systems are prevalent in arcade racing games which target casual players that are not preoccupied with realistic physics or challenging races
+% The adjustment of minimum and maximum speed for AI opponents is the most commonly seen implementation of rubber banding
+%   - Need for Speed
+%   - Forza Horizon
+%   - Horizon Chase Turbo
+The adjustment of the minimum and maximum speed for AI opponents is a commonly used implementation of rubber banding, and are prevalent in \emph{arcade racing} games which target casual audiences that are not preoccupied with realistic physics or even challenging races. Rubber banding systems can be observed in installments of some of the most popular racing games series such as \emph{Need for Speed}\sepfootnote{fn:need-for-speed}, \emph{Forza Horizon}\sepfootnote{fn:forza-horizon} or even recent releases such as \emph{Horizon Chase Turbo}\sepfootnote{fn:horizon-chase-turbo}.
+
+% - Adaptive power-up system is widely replicated in the category of combat racing games
+%   - Wipeout
+%   - Crash Tag Team Racing
+%   - Sonic Racing All Stars
+Additionally, the success of Mario Kart resulted in the popularization of power-up based rubber banding, becoming a widely replicated method for adaptivity in the genre of \emph{combat racing} games, such as \emph{Wipeout}\sepfootnote{fn:wipeout}, \emph{Crash Team Racing}\sepfootnote{fn:crash-team-racing} and \emph{Sonic All Stars Racing Transformed}\sepfootnote{sonic-all-stars-racing}. This is caused by the necessity of implementing catch-up mechanics that provides opportunities to lower skilled players in multi-player games, and the natural integration of performance-oriented resource distribution with the RNG-based nature of power-up acquisition in combat racing games.  
+
+% Alternative Methods of Rubber-Banding
+% ============================
+
+\subsubsection{Alternative Implementations}
+
+% - Split/Second: Destructible environments
+% - Interesting because promotes strategy, and may benefit players that have slower reaction times or motor coordination
+An interesting variation of rubber banding in racing games can be seen in the \emph{Split/Second}\sepfootnote{fn:split-second-game} racing game, which provides players with the opportunity to destroy specific objects in environments that surround race tracks, which may affect the performance of opponents that are ahead. This approach is interesting in the sense that it promotes the strategic use of environmental elements to the detriment of opponents. If a player is performing poorly in terms of reaction times or motor coordination, they might still be able to surpass opponents through a strategic approach.
+
+% - Rubber banding is not limited to racing games
+%   - Arms race game mode in Counter-Strike Global Offensive
+% - Arms Race in CSGO
+%   - Deathmatch mode where the game provides equipment to players based on their number of kills
+%   - As players kill enemies, they progress through different weapons
+%   - Weapons in higher levels are harder to kill enemies with, either because of their low damage or a general difficulty to be used. This causes players in the beginning levels to be able to slowly catch-up with players which progressed further.
+Rubber banding is not limited to the racing games genre, and is not necessarily restricted to interactions between players and AI. The \emph{Arms Race} game mode in \emph{Counter-Strike: Global Offensive}\sepfootnote{fn:csgo}, a free-for-all mode where the game provides equipment to players based on their number of kills. As players kill enemies, they progress by being supplied with different weapons. Weapons in the later stages are harder to kill enemies with, either because of a lower amount of damage or a general difficulty to be used. This causes players in the beginning levels to be able to slowly catch-up with player that have progressed further.
+
+%   - The final stage involves performing kill with a knife, which the player to reach melee range before being able to deal damage. This is hard to perform in a shooter game, as enemies are likely to perceive and eliminate a knife wielding enemy before they are able to deal damage. 
+The first player to complete the final stage in Arms Race wins the match, which involves eliminating an enemy with a knife. This requires the player to reach melee range before being able to deal damage, which is hard to perform in a first-person shooter game as enemies are likely to perceive and eliminate the player before they are to close the distance.
+
+%   - MMORPGs: Final Fantasy XIV with bonus to experience points to lower level players when leveling
+% - Rubber banding is not restricted to competitive games
+% - Can be used to reduce progression disparity
+% - Final Fantasy XIV: players below level 60 receive double XP
+%   - Alleviate the amount of time needed to catch-up to the rest of the player base
+%   - Promotes incentives for higher level players to join lower level players in dungeons and raids
+%   - This causes the game to always have a steady progression curve for players of all levels, while also keeping an active player base that supports beginner players
+Rubber banding is also not restricted to strictly competitive systems, as it can also be used to reduce progression disparity between players or AI. In the MMORPG (Massively Multiplayer Online RPG) \emph{Final Fantasy XIV}\sepfootnote{fn:final-fantasy-xiv}, players below the maximum level are awarded bonuses in experience points received when defeating enemies, completing missions or finishing instanced content such as \emph{dungeons} and \emph{raids}. Additionally, the game promotes incentives for higher level players to join lower level players in the completion of instanced content by rewarding a lower but significant amount of bonus experience points and in-game currency. This causes the game to always provide a steady progression curve for players of all levels, while also keeping an active player base that is encouraged to provide assistance to beginner players.
+
+% Rubber banding solutions can be considered the equivalent of \emph{catch-up mechanics} in tabletop games, which are commonly used to attenuate the \emph{runaway leader} problem. 
+As can be evidenced by the examples presented in this section, the existence of rubber banding implies that the game has some sort of progression disparity between players or AI agents, even if the game is a single-player\sepfootnote{fn:single-player-game} or cooperative\sepfootnote{fn:cooperative-game} experience. Rubber banding solutions can be considered the equivalent of \emph{catch-up mechanics}\sepfootnote{fn:catch-up-mechanics} from board (or "tabletop") games, which are commonly used to attenuate the \emph{runaway leader}\sepfootnote{fn:runaway-leader-problem} problem.
+
+% Benefits of the system
+% ============================
+
+\subsubsection{Analysis of Positive and Negative Aspects}
+
+% - Can be easy to implement, as it might involve simple adjustments to individual in-game parameters such as minimum or maximum speed
+% - Can be easily integrated into the game development process, as it can be iteratively adjusted through multiple play sessions
+% - Can be easily understood and adjusted by game designers
+% - Can provide customization options on a per-level basis
+% - Parameters can also be replicated throughout multiple levels without designers performing additional manual adjustments, which is good for the scalability of game content
+
+% - Provides a possible solution to competitive multi-player games, where lower skilled players are provided more opportunities to close the gap to higher skilled players
+% - Improves the competitivity of matches, inducing focus and tension to highly skilled players when competing with beginners, as it enforces the reduction of mistakes and risks taken in decision-making 
+
+% Problems with the system
+% ============================
+
+% - Because of the popularity of rubber banding systems in racing games, they are widely known by now
+
+% - In the case of power-up based systems, players might purposefully choose to stay at the middle or last positions throughout a race to be able to attain more relevant power-ups which can be used in the later sections of the race
 
 While this solution is an interesting and creative effort that makes matches between players of varying skill levels more competitive, players that become aware of this system might avoid the first position to retain the best power-ups until the last moments of a race. This situation elicits the problem of meta-gaming in adaptive systems: when the adaptive systems are well-known by the users, exploits become a part of player strategy.
 
@@ -315,7 +424,7 @@ While this solution is an interesting and creative effort that makes matches bet
 % ENEMY BEHAVIOR & ITEM DISTRIBUTION ADAPTIVITY
 % =======================================================
 
-\subsection{Dynamic Items, Behaviors and Levels in Resident Evil 4}
+\subsection{Multiple Adaptivity Layers in Resident Evil 4}
 
 \sepfootnotecontent{fn:re4-gameplay-description}{Footnote: What is Resident Evil 4 in terms of gameplay}
 
@@ -471,27 +580,33 @@ In general, long range enemies such as crossbow wielders which are hard to reach
 % - If player is doing well, higher chance for them to spawn
 % - Make challenge higher instead of easier
 % - Hard to react to
-The second type of adjustment performed by the Dynamic Encounters System involves the appearance of ambush-type enemies, which only spawn outside of player field-of-view. If the player is performing well and accumulates a significant amount of health resources, ambush-type enemy spawns are enabled to cause the perception that even though the player is skilled enough to deal with enemies in direct combat, there are still traps and surprising situations that might cause the player to be defeated. Contrary to the removal of long range enemies when the player repeatedly dies, ambush-type enemies are designed to drain the player of resources and increase the tension throughout levels. Since these enemies are harder to perceive, they will often be harder to react to and cause the player to perform incorrect actions or input.
+The second type of adjustment performed by the Dynamic Encounters System involves the enabling or disabling of ambush-type enemies, which are only instantiated outside of the player field-of-view. If the player is performing well and accumulates a significant amount of health resources, ambush-type enemies are enabled to cause the perception that even though the player is skilled enough to deal with direct combat encounters, there are still traps and surprising situations that might cause the player to be defeated. Contrary to the removal of long range enemies when the player repeatedly dies, ambush-type enemies are designed to drain the player of resources and increase the tension throughout levels. Since these enemies are harder to perceive, they will often be harder to react to and cause the player to perform incorrect actions or input.
+
+% TODO Examples of Dynamic Encounters In Other Games
+% ============================
+
 
 % Benefits of Dynamic Encounters
 % ============================
 
-% - Dynamic Encounters are one of the best solutions for cases where the player requires some sort of assistance in the form of immediate adaptation, such as when a player is repeatedly failing a level. Changes in the placement or number of enemies can greatly affect the level of challenge of a combat encounter, and the entities that cause the most impact can be directly removed, which significantly helps players to overcome specific sections
+% Dynamic Encounters are good for when the player needs immediate adaptation
+% Problems are directly removed, replaced or repositioned
+Dynamic Encounters are one of the best solutions for situations where the player is unable to surpass a specific encounter or challenge even with alternative forms of adaptation, thus requiring some sort of assistance in the form of immediate adaptation. One example for such situations is when a player is fails a level multiple times, which is an especially frustrating defeat scenario since the player is repeatedly traversing through the same environments, and attempting to defeat the same enemies. Changes in the placement or number of enemies can greatly affect the level of challenge of a combat encounter, and the entities that cause the most impact can be directly removed, replaced or repositioned -- which can significantly improve player performance under specific game sections.
 
-% - 
+% Dynamic encounters encourage replayability
+% Same sections have new combat encounters
+Dynamic Encounters also encourage replayability due to the fact that it can generate different combat encounters in the same level or section. A player that becomes accustomed to mechanics and systems over the course of a game will likely perform better during a second playthrough. Since the metrics that generally affect dynamic encounters are related to player performs, in a second playthrough it is likely that the player faces new combat encounters, where the same sections that the player previously traversed will present more challenging enemies or even modifications in the environmental layout.
 
 % Problems with Dynamic Encounters
 % ============================
 
-% - Modifications in encounters based on the number of deaths in that specific encounter are the easiest to perceive, as when repeatedly playing through a same section the player is able to memorize enemy positions and movement patterns
-% - Players might feel frustrated with the fact the the game forcefully lowers the difficulty without their consent, meaning that the game implicitly classifies the player as unable to deal with an encounter
+Dynamic Encounters are one of the adaptive systems which are most sensitive to modifications, since small changes in the placement or number of enemies can greatly increase or decrease the difficulty of an encounter. Additionally, they can also significantly magnify the difficulty levels from other adaptive systems such as Dynamic AI Behaviors or dynamically adjusted enemy damage. Because of this sensibility to modifications, Dynamic Encounters are one of the hardest adaptivity methods to balance, since they require per-encounter play testing and iteration through multiple player skill levels to appropriately validate that the increase or decrease from altering an encounter appropriately reflects the proposed challenge level for a player.
 
-% - Dynamic Encounters are one of the adaptive systems most sensitive to modifications, since small changes in the placement or number of enemies can greatly magnify the increase or decrease of difficulty caused by other game elements which are difficulty factors, such as AI Behaviors, or the damage dealt by an enemy type 
-% - Due to being sensitive to modifications, Dynamic Encounters are one of the hardest adaptivity methods to balance, since they require per-encounter play testing and iteration through multiple contexts to appropriately increase or decrease the level of difficulty based on player performance 
+Dynamic encounters also present issues related to the difficulty of being abstracted to players.Modifications that involve disabling, replacing or repositioning entities are some of the easiest types of adaptivity to perceive, as when repeatedly playing through the same game section the player is able to memorize enemy positions, movement patterns and even plan strategies that consider the existence of specific enemies. Consequently, players might feel frustrated with the fact that the game forcefully lowers the difficulty by modifying encounters without their consent, with the implicit classification of the player as not skilled enough to overcome the challenge level.
 
-% Unused yet
+% Conclusion? (I don't not what this is, really)
 % ============================
-% While Resident Evil 4 received mass critical praise for its outstanding game design and successful adaptive approach, it is noteworthy that a community of dedicated \emph{speedrunners} has been able to accurately reverse engineer and exploit its DDA systems \sepfootnote{fn:speedrun-com-re4-guides}. It can be argued that given enough dedication, there is no DDA system which is completely unknown to players. However, since the reverse engineering process requires extensive experimentation on behalf of players, we can assume that the system will remain mostly obfuscated to novice players experiencing their first play through, which is critical to maintain immersion and player engagement.
+While Resident Evil 4 received mass critical praise for its outstanding game design and successful adaptive approach, it is noteworthy that a community of dedicated \emph{speedrunners} has been able to accurately reverse engineer and exploit its DDA systems \sepfootnote{fn:speedrun-com-re4-guides}. It can be argued that given enough dedication, there is no DDA system which is completely unknown to players. However, since the reverse engineering process requires extensive experimentation on behalf of players, we can assume that the system will remain mostly obfuscated to novice players experiencing their first play through, which is critical to maintain immersion and player engagement.
 
 % =======================================================
 % EXPLICIT ADAPTIVITY
@@ -514,6 +629,9 @@ In \emph{God Hand}\sepfootnote{fn:god-hand-gameplay-description}, the developers
 % - When player beats enemy, they are rewarded with points based on difficulty level
 % - Points can unlock attacks, combos, upgrades, features
 When the difficulty level is maxed out, enemies perform their attacks faster than the player character is able to dodge. Thus, to beat the highest level of difficulty the player must devise a strategy that does not rely entirely on their own reflexes or motor skills, and must execute such strategy accordingly. Whenever the player beats an enemy, they are rewarded with an amount of points and coins based on the current difficulty level, which can be used to purchase new attacks, \emph{special moves} or upgrades to their attributes.
+
+% TODO Examples of Explicit Adaptivity In Other Games
+% ============================
 
 % Benefits of the system
 % ============================
