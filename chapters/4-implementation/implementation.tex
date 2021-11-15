@@ -3,9 +3,9 @@
 
 \input{footnotes}
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% * =======================================================================
+% * =======================================================================
+% * =======================================================================
 
 \section{Overview (TO DO)}
 
@@ -19,9 +19,13 @@ We specify the design and implementation of the gameplay mechanics and systems i
 % Brief description of all subsections: Tools and Frameworks, Game Assets and Aesthetics, Gameplay Mechanics and Systems, Artificial Intelligence, Telemetry and Performance Tracking, Dynamic Adjustments
 
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% * =======================================================================
+% * =======================================================================
+% * =======================================================================
+
+\section{Concept and Design}
+
+% TODO Section Concept and Design, specifying the general flow of the system and the problems it attempts to solve 
 
 \section{Tools and Frameworks}
 
@@ -698,7 +702,7 @@ In the same sense, we check if the player is blocking and use a threshold relate
 % ============================================================================
 % ============================================================================
 
-\section{Telemetry and Performance Tracking}
+\section{Event Tracking and Metrics}
 
 To perform difficulty adjustments that satisfy the skill level and knowledge of a player regarding our implementation, we need to capture data regarding to how the game is being played. We then must use the data to reconstruct an order of events and analyze the patterns and outcomes of player actions, to determine if the player is being overtly successful or failing to meet the requirements of the challenged that was imposed by the current difficulty.
 
@@ -778,7 +782,7 @@ Some examples of adjustments performed using performance metrics include the num
 % ============================================================================
 % ============================================================================
 
-\section{Difficulty Adjustments}
+\section{Adjustment Policies}
 \label{sec:adjustments}
 
 % Difficulty as an N-dimensional set of parameters

@@ -1,9 +1,6 @@
 \chapter{RELATED WORK}
 \label{ch:related-work}
 
-% * =======================================================
-% *  FOOTNOTES
-% * =======================================================
 \sepfootnotecontent{fn:speedrun-com-re4-guides}{Footnote: Speedrun.com Resident Evil 4 Guides}
 
 \sepfootnotecontent{fn:beat-em-up}{Footnote: What are beat 'em up games}
@@ -15,13 +12,47 @@
 % * ======================================================================
 % * ======================================================================
 
-In this chapter, we perform a review of previous research and literature related to adaptive systems and dynamic difficulty. We begin by reviewing literature regarding player experience and the concepts that define game difficulty to understand the impact of difficulty in player experience. We attempt to understand how difficulty can be detrimental or a support tool for players to learn, understand and improve upon the use of game mechanics and systems. We identify the problems with fixed difficulty curves, where the game provides a limited set of options for players to define their expected challenge level within the experience of a game. 
+% Review of previous research on adaptive systems and DDA
+% Summary: Player Experience, Challenge, Learning Curve
+% -----------------------------
+% Understand the impact of difficulty in player experience
+% How difficulty can be a detrimental factor or assist player improvement
+% Identify problems with fixed difficulty curves
+In this chapter, we perform a review of previous research and literature related to adaptive systems and dynamic difficulty. We begin by exploring literature regarding player experience and the concepts that define game difficulty, to understand the impact of difficulty in player experience. We attempt to understand how difficulty can be a detrimental factor or used as a support tool for players to learn, understand and improve upon the use of game mechanics and systems. We identify the problems with fixed difficulty curves, where the game provides a limited set of options for players to define their expected challenge level within the experience of a game. 
 
-We proceed by studying some of the previous solutions that were develop to address the issue of player skill that is not properly represented by a limited set of difficulty curves and challenge levels. First, we understand the concept of player models, where player behavior is monitored and used as a tool to identify game design issues and improvements that directly affect player engagement. We compare that to the recent increase in research towards game analytics, where data from large user bases is aggregated to identify trends, problems and improvement opportunities in regards to game design.
+% Summary: Player Modelling
+% -----------------------------
+% Early models, concepts and terminology for dynamic adaptation
+% Concepts: player models, profile, performance and preferences
+% Metrics and adjustments
+We proceed by studying the early models developed to address the issue of dynamically adapting a game to different players, as well as the concepts and terminology for the implementation of such models. First, we understand the concept of player models, where player behavior is monitored to create data sets that can represent player \emph{profile}, \emph{performance} and \emph{preferences}. We relate player models to the concepts of \emph{metrics} and \emph{adjustments}, where player models are used as input for dynamic adaptation game content to satisfy contextual player needs.
 
-We review some of the pioneering research on AGS (Adaptive Game Systems) \cite{ARTICLE_PlayerCentredGameDesign}, the category of solutions that propose to enhance user experience based on player profile and preferences. We attempt to understand how AGS can be used to alleviate the steep learning curve of highly challenging games, accommodating the skill level of beginner players to the level of challenge proposed by game developers in challenging video games. We review multiple dynamic difficulty implementation methods, such as \emph{probability-based}, \emph{affect-based} and \emph{learning-based} adjustments. We identify the problems with such methods in regards to how these methods can be adapted to commercial solutions, where changes, short deadlines and fast iterations are prevalent.
+% Summary: Adaptive Systems in Research
+% -----------------------------
+% Review of AGS methods
+% Understand how AGS can be used to alleviate steep learning curve
+% Accommodate beginner players to challenge in difficult video games 
+We proceed by reviewing previous implementations for AGS (Adaptive Game Systems), which propose to enhance player experience based on player profile, performance and preferences. We attempt to understand how AGS can be used to alleviate the steep learning curve of highly challenging games, accommodating the skill level of beginner players to the level of challenge proposed by game designers in difficult video games.
 
-We also evaluate some of the efforts in adaptivity in commercial games, analyzing their positive and negative effects. We attempt to understand the impact of solutions implemented in some of the most successful commercial games in the last decades, specifying how the discovery of such adaptive systems affected the way that players form strategies and execute actions in such games. We attempt to identify some of the most representative examples in each dynamic adaptation category, and verify the shortcomings of each adaptation method.
+% DDA implementations: probability-based, affect-based, learning-based
+% Identify positive and negative aspects of each implementation
+% Focus on impact on player experience and feasibility in game development
+We review multiple DDA (Dynamic Difficulty Adjustment) implementation methods, such as \emph{probability-based}, \emph{affect-based} and \emph{learning-based} adjustments. We identify the positive and negative aspects with each method regarding their impact on player experience, as well as how they can be adapted to the development of commercial games.
+
+% Summary: Adaptive Systems in Commercial Games
+% -------------------------------
+% Evaluate adaptive systems in commercial games
+% Understand impact of solutions in most successful games
+% Explain solutions in detail, verifying positive & negative aspects
+We also evaluate some of the efforts in adaptivity in commercial games, analyzing their positive and negative effects. We attempt to understand the impact of solutions implemented in some of the most successful commercial games in the last decades. We analyze representative examples for the implementation of each dynamic adaptation method in detail, verifying the positive and negative aspects of each proposed solution.
+
+% Summary: Conclusions
+% -----------------------------
+% Comparative tables for adaptive concepts
+% Analyze general positive and negative aspects
+% Synthesize general guidelines on what should be pursued or avoided
+% Understand what can be improved or explored 
+We conclude by summarizing the terminology and concepts that relate to adaptive systems, and relating such concepts to the analyzed examples in research and commercial solutions.  We analyze the general positive and negative aspects that involve each type of dynamic adjustment, and synthesize general guidelines on what should be pursued or avoided in adaptive systems.
 
 \section{Domain Context and Terminology}
 % * ======================================================================
@@ -199,6 +230,8 @@ The concept of player models is used as a basis for dynamic adjustments in the f
 
 The discussion in \cite{ARTICLE_DynamicPlayerModelling} emphasizes the necessity of remodelling player types after measuring the effectiveness of adaptation. This means that a DDA system should be able to gather some type of player feedback regarding the effectiveness of the dynamic adjustments that were performed during play, and recreate the player profile based on this feedback. Some methods for gathering such feedback include inferring the player's affective state, such as with physiological sensors or from a camera or an analysis of statistical data retrieved from in-game attributes, such as player performance or their action history.
 
+\subsection{Dynamic Adjustments}
+
 Mechanisms for adaptive adjustments should describe what elements of the game are going to be monitored, and what variables should be adjusted accordingly. Therefore, the functionality of a DDA system can be summarized as a relation between observation and adjustment. Since video games are so diverse in design and functionality, the mapping between observation parameters and adjustment variables has yet not been efficiently described as an universal and generic approach \cite{PHD_DynamicDifficultyAdjustment}. Rather, the game developer should decide what variables should be observed and adjusted in a per-game basis.
 
 \section{Adaptive Systems In Research}
@@ -208,7 +241,7 @@ Mechanisms for adaptive adjustments should describe what elements of the game ar
 % * ======================================================================
 % * ======================================================================
 
-Previous academic work regarding adaptive system implementations encompass a multitude of novelty approaches that innovate through interesting metric domains, adjustment policies and adjustment scopes that affect a variety of systems or mechanics. In this section, we use the literary review in \cite{article_ddareview} as a reference to categorize a subset of DDA algorithm variants implemented in previous academic work, as well as to select and perform an analysis on a single relevant representation for each of the proposed solutions.
+Previous academic work regarding adaptive system implementations include  novelty approaches with interesting metrics and adjustment policies that affect a variety of systems or mechanics. In this section, we use the literary review in \cite{article_ddareview} as a reference to classify DDA algorithms implemented in previous academic work, as well as to select analyze the most relevant implementations for each of the proposed methods.
 
 \subsection{Probabilistic DDA Systems}
 \label{sec:statistical-adjustments}
@@ -216,17 +249,74 @@ Previous academic work regarding adaptive system implementations encompass a mul
 % *  PROBABILISTIC DDA
 % * =======================================================
 
-One of the first and most relevant implementations of the probabilistic model approach for DDA systems is the Hamlet system seen in \cite{article_casefordynamicdifficulty}. Hamlet is a probability-based predictive system that is able to perform reactive and proactive adjustments to the distribution of items throughout levels of customized Half-Life \footnote{Half-Life (Valve Software, 1998). Computer Game. Microsoft Windows.} map \cite{article_casefordynamicdifficulty}. The system works by defining a finite set of possible game world states, and performing adjustments with the objective of avoiding game state "loops", where a player would perform the same set of actions repeatedly.
+% * Footnotes
+% * ================
 
-First, Hamlet establishes the probabilistic distribution of damage done to the player using a series of measurements taken over time. By doing this for each of the enemy classes, the probability of the player dying during an encounter can be estimated. Then, if the probability of death for an encounter is above 40\%, the system intervenes by distributing \emph{healing items}\footnote{Healing items in games are consumable resources that restore a percentage of the maximum health points of a player. An example for this are the health stations in the Half-Life franchise, where the player heals up to 80\% of their maximum health points upon interaction, but the resource is permanently depleted after use.} throughout the level before an encounter takes place. This is an example of \emph{proactive adjustment}, which occurs before an in-game event takes place. The author of the article argues that the effectiveness of proactive adjustments is harder to measure than \emph{reactive} adjustments, and thus this type of adjustment should be performed based on predefined constraints determined by the game designer.
+\sepfootnotecontent{fn:half-life-1}{Half-Life (Valve Software, 1998). Computer Game. Microsoft Windows.}
 
-Hamlet is also able to perform \emph{reactive} adjustments that occur during combat encounters, such as adjusting the maximum hit points for an enemy class or modifying the accuracy of enemy shots. The objective of any adjustment is to decrease the amount of player deaths for each level independently of player skill, and to achieve a mean health percentage of 60 with a standard deviation of 15 points at any given point.
+\sepfootnotecontent{fn:healing-items}{Healing items in games are consumable resources that restore a percentage of the maximum health points of a player. An example for this are the health stations in the Half-Life franchise, where the player heals up to 80\% of their maximum health points upon interaction, but the resource is permanently depleted after use.}
 
-Results of the experiment using the Hamlet system showed that most players were unable to recognize when the system was performing adjustments, or characteristics of the game were modified when adjustments were performed. Some players suggested that the system performed adjustments that were not there, and several players suggested that the system did not perform any adjustments based on their skill level. During the post evaluation interviews, there was a slight correlation between the adjustment policies and player enjoyment when considering players with expert skill level, although players with novice skill level did not report any perceivable change.
+% * Overview of the Hamlet system
+% * ================
 
-The study concluded that adjustment algorithms can include the performance of a player while retaining the player's sense of agency and control. When performed with accordance to the game's core design, adjustments can be nearly imperceptible, and slightly increase the sense of enjoyment of a player without diverging from the proposed experience.
+One of the pioneer implementations of adaptive systems in research is the probabilistic model approach in the Hamlet system, as seen in \cite{article_casefordynamicdifficulty}. Hamlet is a probability-based predictive system that is able to perform reactive and proactive adjustments to the distribution of items throughout levels of customized Half-Life \sepfootnote{fn:half-life-1} map. The general methodology proposed by the system involves defining a finite set of possible gameplay states based on contextual information of player status, and performing adjustments based on policies defined by such metrics. The objective of the system is to avoid "game state loops", where a player would perform the same set of actions repeatedly when failing through a specific segment of the game.
 
-Therefore, the Hamlet system proposed by \citet{article_casefordynamicdifficulty} addresses the possibility of predicting gameplay outcomes given a game world state, and performing \emph{reactive} or \emph{proactive} adjustments for a more immediate resolution when compared to other solutions. We argue that while this might be an interesting approach for a supportive or secondary DDA system, this type of solution might be hard to tailor from a game designer's perspective since it is impossible to predict results functionally.
+\subsubsection{Methodology and Results} 
+% * How the Hamlet system works
+% * ================
+
+% Hamlet establishes probabilistic distribution of damage done to player
+% Probability of death can be estimated when relating damage with enemy types
+% Probability of death is a composite metric based on player performance
+First, the system establishes the probabilistic distribution of damage done to the player by registering changes to the value of player health over time, as well as the source factor for each change. By relating change occurrences in the health attribute with each of the enemy classes, the probability of the player dying during an encounter can be estimated, given that the enemy types that will be presented in a future encounter are known. The probability of player death is the metric used as input for adjustment policies in the Hamlet system, and is calculated from statistical data regarding \emph{player performance} during previous combat encounters.
+
+% If probability of death > 40%, system distributes healing items
+% This is an example of proactive adjustment, before game events
+If the probability of death for an encounter is above 40\%, the system intervenes by distributing \emph{healing items}\sepfootnote{fn:healing-items} throughout the level before an encounter takes place. The distribution of healing items before combat encounters based on probabilistic metrics can be classified as a \emph{proactive adjustment}, as it occurs before an undesired in-game event such as player death.
+
+The Hamlet System also implements \emph{reactive adjustment} policies which occur during combat encounters, such as adjusting the maximum hit points for an enemy type or modifying the accuracy of shots fired by enemies. The objective of these adjustments is to decrease the amount of health lost by players during combat encounters and reducing repeated death occurrences, achieving a mean health percentage of 60 with a standard deviation of 15 points at most segments of the game.
+
+% * Results of the Hamlet System
+% * ================
+
+% Results showed that most players were unable to recognize adjustments
+% Some players suggested adjustments that did not exist
+% Several players suggested that the system did not perform any adjustments
+Results of experimentation using the Hamlet system showed that most players were unable to recognize when the system was performing adjustments, or characteristics of the game were modified when adjustments were performed. Some players suggested that the system performed adjustments that were not there, and several players suggested that the system did not perform any adjustments based on their skill level.
+
+% Proactive adjustments are harder to measure in comparison to reactive
+% Variations in skill level might not be considered
+% Requires predefined constraints to provide proper level of challenge
+The authors argue that the cause for incorrect perceptions of users regarding the adaptive system is related to the fact that the effects of proactive adjustments are harder to measure in comparison to \emph{reactive adjustments}. Variations in the performance of a player caused by an increase of the skill level might not be considered as an input to the adjustment policies. Therefore, this type of adjustment should be performed with predefined constraints determined by the game designer in order to properly reflect the intended level of challenge.
+
+% Slight correlation between adjustments and enjoyment for expert players
+% Player performance is increased without players understanding why
+% However, novice players do not perceive changes
+During the post evaluation interviews, the authors noticed a slight correlation between the adjustment policies and player enjoyment when considering players with an expert skill level, where adjustment policies positively affected player performance without the players being able to identify which aspects of the game were modified. However, novice players with a lower level of skill did not report any perceivable change.
+
+% Adjustments can improve performance without affecting sense of agency
+% When in harmony with game design, adjustments can be imperceptible
+The study concluded that adjustment algorithms can improve the performance of a player while retaining the player's sense of agency and control. When performed with accordance to the game's core design adjustments can be nearly imperceptible, slightly increasing the sense of enjoyment of a player without diverging from the proposed experience.
+
+\subsubsection{Analysis of Positive and Negative Aspects}
+% * Positive Aspects of Hamlet System
+% * ================
+
+% Predictive solution which can reduce frustration before undesired in-game events occur
+
+Therefore, the Hamlet system proposed by \citet{article_casefordynamicdifficulty} addresses the possibility of predicting gameplay outcomes given a game world state, and performing \emph{reactive} or \emph{proactive} adjustments for a more immediate resolution when compared to other solutions.
+
+% * Negative Aspects of Hamlet System
+% * ================
+
+% Probability estimations will generally be unable to consider immediate variations in player performance caused by a change of strategy or better mechanical execution by the player
+
+We argue that while this might be an interesting approach for a supportive or secondary DDA system, this type of solution might be hard to tailor from a game designer's perspective since it is impossible to predict results functionally.
+
+\subsubsection{Alternative Implementations} 
+
+% * Examples of Other Probability-based systems in Research
+% * ================
 
 \subsection{Affect-based DDA Systems}
 % * =======================================================
@@ -234,6 +324,8 @@ Therefore, the Hamlet system proposed by \citet{article_casefordynamicdifficulty
 % * =======================================================
 
 Most implementations of DDA systems use as adjustment policies metrics that would represent player performance. However, the affective state experienced by players could also play a key role in the gaming experience, and thus could be a useful metric for adjustment policies in DDA systems. This is the theme of the work presented in \cite{article_affectivedda}, where physiological signals were tracked to infer the anxiety level of players, and then used as a metric to perform dynamic adjustments.
+
+\subsubsection{Methodology and Results}
 
 The work of \citet{article_affectivedda} cites previous research indicating that electrodermal and cardiovascular activities had a relation to anxiety levels. An increase in skin conductance may be caused by anxiety. A decrease of parasympathetic activity and increase in sympathetic activity in the heart also may suggest anxiety \cite{article_affectivedda}.
 
@@ -256,9 +348,13 @@ Three difficulty levels were implemented in total, which would be assigned depen
 
 The results of the experiment showed that the performance of most players improved during the affect-based DDA session in relation to the performance-based DDA session. Players also perceived the affect-based DDA version to be more challenging than performance-based DDA, and reported that the affective version was more satisfying.
 
+\subsubsection{Analysis of Positive and Negative Aspects}
+
 We argue that, while the results of the experiment portrayed in \cite{article_affectivedda} showed mostly positive results in comparison to performance-tracking DDA, employing this type of solution in a commercial video game is not feasible, as current hardware is unable to track physiological signals in a significant way. 
 
 Furthermore, the game implementation used for the experiment is a simplistic game with limited audiovisual feedback. Therefore, a similar experiment could be performed in a modern game with high audiovisual fidelity to evaluate results, as modern games are often able to evoke a multitude affective reactions by immersing the player in a \emph{cutscene}\footnote{A \emph{cutscene} is a special in-game event where the player is unable to input control into the game, and audiovisual feedback is a result of an automatic, predefined sequence of events determined by the game developers. Cutscenes can be seen as parts of a game that are similar to a movie, where the game is not interactive and instead focuses on telling a part of the story.} or a series of chaotic events.
+
+\subsubsection{Alternative Implementations}
 
 \subsection{Reinforcement Learning in DDA Systems}
 % * =======================================================
