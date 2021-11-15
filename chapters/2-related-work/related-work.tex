@@ -294,13 +294,13 @@ The work presented in \cite{article_adaptivebehaviorai} introduces the novelty a
 
 \section{Adaptive System Implementations In Commercial Games}
 
-Several commercial games have attempted to create Dynamic Difficulty systems which embrace varying degrees of player skill, such as \emph{Mario Kart}\sepfootnote{fn:mario-kart}, \emph{Half-Life 2}\sepfootnote{fn:half-life-2}, \emph{Resident Evil 4}\sepfootnote{fn:resident-evil-4} and \emph{God Hand}\sepfootnote{fn:god-hand}. In this section, we look at examples of Adaptive Systems in some of the most popular games developed by the video game industry in the last decades. We categorize the solutions based on which game systems they affect, and discuss some of the caveats of each system.
+Several commercial games have attempted to create Dynamic Difficulty systems which embrace varying degrees of player skill, such as \emph{Mario Kart}\sepfootnote{fn:mario-kart}, \emph{Half-Life 2}\sepfootnote{fn:half-life-2}, \emph{Resident Evil 4}\sepfootnote{fn:resident-evil-4} and \emph{God Hand}\sepfootnote{fn:god-hand}. In this section, we look at examples of Adaptive Systems in some of the most popular games developed by the video game industry in the last decades. We categorize the solutions based on the genre of games where they are generally implemented in and the game mechanics and systems they affect. Additionally, we discuss some of the positive and negative aspects of each system, relating them with their variations and less popular implementations.
 
 % =======================================================
 % RUBBER BANDING ADAPTIVITY
 % =======================================================
 
-\subsection{Rubber banding in Racing Games}
+\subsection{Rubber Banding in Racing Games}
 \label{sec:rubber-banding-mario-kart}
 
 \sepfootnotecontent{fn:single-player-game}{A single player game is a video game where the input processed by the game is received from only one human user (player) during the course of a game session. All entities the player interacts within the game world are non-player entities.}
@@ -369,6 +369,7 @@ Additionally, the success of Mario Kart resulted in the popularization of power-
 % ============================
 
 \subsubsection{Alternative Implementations}
+\label{sec:alternative-rubber-banding}
 
 % - Split/Second: Destructible environments
 % - Interesting because promotes strategy, and may benefit players that have slower reaction times or motor coordination
@@ -382,7 +383,9 @@ An interesting variation of rubber banding in racing games can be seen in the \e
 %   - Weapons in higher levels are harder to kill enemies with, either because of their low damage or a general difficulty to be used. This causes players in the beginning levels to be able to slowly catch-up with players which progressed further.
 Rubber banding is not limited to the racing games genre, and is not necessarily restricted to interactions between players and AI. The \emph{Arms Race} game mode in \emph{Counter-Strike: Global Offensive}\sepfootnote{fn:csgo}, a free-for-all mode where the game provides equipment to players based on their number of kills. As players kill enemies, they progress by being supplied with different weapons. Weapons in the later stages are harder to kill enemies with, either because of a lower amount of damage or a general difficulty to be used. This causes players in the beginning levels to be able to slowly catch-up with player that have progressed further.
 
-%   - The final stage involves performing kill with a knife, which the player to reach melee range before being able to deal damage. This is hard to perform in a shooter game, as enemies are likely to perceive and eliminate a knife wielding enemy before they are able to deal damage. 
+% - The final stage is knife kill
+% - Player has to reach melee range 
+% - Hard to perform in a shooter game, enemies are likely to kill player 
 The first player to complete the final stage in Arms Race wins the match, which involves eliminating an enemy with a knife. This requires the player to reach melee range before being able to deal damage, which is hard to perform in a first-person shooter game as enemies are likely to perceive and eliminate the player before they are to close the distance.
 
 %   - MMORPGs: Final Fantasy XIV with bonus to experience points to lower level players when leveling
@@ -402,23 +405,38 @@ As can be evidenced by the examples presented in this section, the existence of 
 
 \subsubsection{Analysis of Positive and Negative Aspects}
 
-% - Can be easy to implement, as it might involve simple adjustments to individual in-game parameters such as minimum or maximum speed
-% - Can be easily integrated into the game development process, as it can be iteratively adjusted through multiple play sessions
-% - Can be easily understood and adjusted by game designers
-% - Can provide customization options on a per-level basis
-% - Parameters can also be replicated throughout multiple levels without designers performing additional manual adjustments, which is good for the scalability of game content
+% Possible solution to skill discrepancy between players
+% Improves competitivity of matches
+% Induces focus & tension, veteran players want to make less mistakes
+Rubber banding provides a possible solution to attenuate skill discrepancy between players in multi-player games, where beginner players which perform poorly are provided more opportunities to close the gap to higher skilled players.  Therefore, it improves the competitivity of matches, inducing focus and tension to veteran players when competing with beginners as it enforces the reduction of mistakes and risks taken in decision-making.
 
-% - Provides a possible solution to competitive multi-player games, where lower skilled players are provided more opportunities to close the gap to higher skilled players
-% - Improves the competitivity of matches, inducing focus and tension to highly skilled players when competing with beginners, as it enforces the reduction of mistakes and risks taken in decision-making 
+% Implementations are not limited to racing games
+% Can be used to solve the "runaway leader" problem
+% Catch-up mechanics are important when win condition involves incremental progression
+% Players that are behind are motivated to continue playing 
+%   - Possibility of surpassing player that is ahead
+Implementations of rubber banding methods are not limited to racing games, as discussed in section \ref{sec:alternative-rubber-banding}. Instead, they attempt to solve or attenuate the \emph{runaway leader} problem, where a player attains such a significant lead that the actions performed by their competitors would not change the outcomes of the match. In this situation, the opponents of a runaway leader would have no reason to continue playing, thus the game would not present an interesting experience. Therefore, it becomes evident that \emph{catch-up mechanics} are essential when the achievement of the win condition for a game involves some type of incremental progression, such as traversing through a race track, accumulating resources or achieving a certain number of eliminations. 
+
+% Can be easy to implement, as it generally involves simple adjustments to individual in-game parameters such as minimum or maximum speed
+% Can be easily integrated into the game development process, as it can be iteratively adjusted through multiple play sessions
+% Can be easily understood and adjusted by game designers
+The complexity of a rubber banding implementation depends on the complexity of the game mechanics and systems it affects. For instance, in racing games rubber banding will typically involve simple adjustments to individual in-game parameters such as minimum or maximum speed. Because of the simplicity of the adjustments performed in such game genres, rubber banding implementations can be easily integrated into the iterative nature of the game development process, as game designers are quickly able to understand and adjust the values for parameters that are modified, and perform play-testing sessions to understand and correct possible issues.
+
+% Can provide customization options on a per-level basis
+% Parameters can also be replicated throughout multiple levels without designers performing additional manual adjustments, which is good for the scalability of game content
+Adjustment methods that involve simple modifications to parametric values can be customized with ease, as individual values can be defined depending on the scope that game designers propose to affect: per-level, per-session, per-user or even per-agent. In another perspective, the same parameters can also be replicated throughout multiple levels without game designers performing additional manual adjustments, which is a positive aspect considering the scalability of the production of new game content.
 
 % Problems with the system
 % ============================
 
-% - Because of the popularity of rubber banding systems in racing games, they are widely known by now
+% Player knowledge of rubber banding might induce meta-strategies
+% Players might purposefully stay behind to get better power-ups
+% When the system is known, exploits become a part of player strategy
+While rubber banding is an interesting and creative effort that increases the competitivity in matches between players of varying skill levels, player knowledge about the existence of such an algorithm might induce the creation of meta-game strategies. In a combat racing game, players that become aware of a rubber banding system might purposefully avoid the first positions to retain the best power-ups until the last moments of a race, in order to have access to mechanisms which have a higher chance of changing the outcome of a race in their favor at a critical point. This situation elicits the problem of meta-gaming in adaptive systems: when the adaptive systems are well-known by the users, exploits become a part of player strategy.
 
-% - In the case of power-up based systems, players might purposefully choose to stay at the middle or last positions throughout a race to be able to attain more relevant power-ups which can be used in the later sections of the race
-
-While this solution is an interesting and creative effort that makes matches between players of varying skill levels more competitive, players that become aware of this system might avoid the first position to retain the best power-ups until the last moments of a race. This situation elicits the problem of meta-gaming in adaptive systems: when the adaptive systems are well-known by the users, exploits become a part of player strategy.
+% Because of the popularity of rubber banding systems in racing games, their existence is widely known by racing game players
+% Might turn off hardcore racing games players
+Because of the popularity of rubber banding implementations in racing games and the longevity of the existence of such methods, their existence is widely known throughout a significant portion of intermediate and veteran audiences. In consequence, the knowledge of their existence might reduce the interest of competitive players in relation to arcade racing titles, since rubber banding solutions might create a sense that a highly skilled player has their performance affected for the benefit of beginner players.
 
 % =======================================================
 % ENEMY BEHAVIOR & ITEM DISTRIBUTION ADAPTIVITY
@@ -430,23 +448,23 @@ While this solution is an interesting and creative effort that makes matches bet
 
 \sepfootnotecontent{fn:skill-ceiling}{Foonote: What is Skill Ceiling}
 
-%   - In RE4 Level layouts, AI behavior and item distribution are affected by player performance 
-Another interesting approach to adaptivity is seen in \emph{Resident Evil 4}\sepfootnote{fn:re4-gameplay-description}, where item distribution, AI behavior and enemy encounters are affected by different sets of information regarding player context and performance. Each system is affected by a different set of contextual metrics, and may enable or disable certain gameplay aspects independently based on the values presented by such metrics.
+%   - In RE4 Level layouts, AI behavior and resource distribution are affected by player performance 
+Another interesting approach to adaptivity is seen in \emph{Resident Evil 4}\sepfootnote{fn:re4-gameplay-description}, where resource distribution, AI behavior and enemy encounters are affected by different sets of information regarding player context and performance. Each system is affected by a different set of contextual metrics, and may enable or disable certain gameplay aspects independently based on the values presented by such metrics.
 
-\subsubsection{Dynamic Item Distribution}
+\subsubsection{Dynamic Resource Distribution}
 
 % ============================
-% How the Dynamic Item Distribution System works
+% How the Dynamic Resource Distribution System works
 % ============================
-%   - Dynamic Item Distribution Affects RNG systems by modifying loot tables based on player needs at a given context
-%   - When player has low health, item distribution prioritizes health items
+%   - Dynamic Resource Distribution Affects RNG systems by modifying loot tables based on player needs at a given context
+%   - When player has low health, resource distribution prioritizes health items
 %   - If player has surplus ammo & health, prioritizes gold coins
 %   - Veteran players control the use of resources 
-The \emph{Dynamic Item distribution} System affects RNG (Random Number Generation) systems by modifying the chances of certain items being distributed when a player interacts with containers or defeats an enemy. The list of items which have their spawn chances modified depends on the current status and context of the player such as their health and the items in their inventory.
+The \emph{Dynamic Resource Distribution} System affects RNG (Random Number Generation) systems by modifying the chances of certain items being distributed when a player interacts with containers or defeats an enemy. The list of items which have their spawn chances modified depends on the current status and context of the player such as their health and the items in their inventory.
 
-For instance, if the player has a low amount of health and no health recovery items in their inventory, the Dynamic Item Distribution system modifies the chances of health recovery items being distributed. If the player has a stabilized amount of health but lacks a specific ammunition type, the game prioritizes the distribution of such ammunition type for the player. If the player is not in a dangerous situation and has surplus ammunition, the game prioritizes gold coins, which can be used to purchase powerful weapons and weapon upgrades. 
+For instance, if the player has a low amount of health and no health recovery items in their inventory, the Dynamic Resource Distribution system modifies the chances of health recovery items being distributed. If the player has a stabilized amount of health but lacks a specific ammunition type, the game prioritizes the distribution of such ammunition type for the player. If the player is not in a dangerous situation and has surplus ammunition, the game prioritizes gold coins, which can be used to purchase powerful weapons and weapon upgrades. 
 
-% Benefits of Dynamic Item Distribution
+% Benefits of Dynamic Resource Distribution
 % ============================
 
 % - One of the most prevalent types of systems due to:
@@ -457,30 +475,30 @@ For instance, if the player has a low amount of health and no health recovery it
 %    - On RNG systems, hard to tell what factors can influence the loot table
 % - Can be integrated into the iterative game design process
 % - Balancing values can be replicated throughout game sections 
-In the landscape of commercial games, Dynamic Item Distribution Systems are one of the most prevalent adaptive systems types, due to:
+In the landscape of commercial games, Dynamic Resource Distribution Systems are one of the most prevalent adaptive systems types, due to:
 \begin{itemize} 
     \item{Their ease of implementation, which involves monitoring of contextual values for player status and performance and simple modification of statistical values;}
     \item{Their straightforward process of adjustment, in which the values can be easily understood and tailored by game designers between playtests;}
     \item{The possibility to integrate them in the iterative nature of the game development process, where values can easily be adjusted between multiple play sessions;}
-    \item{The fact that the balancement of item distribution can be replicated througout multiple sections of a game;}
+    \item{The fact that the balancement of resource distribution can be replicated througout multiple sections of a game;}
     \item{The fact that they are abstract in nature, meaning that players have difficulty recognizing their existence or the complete extent of the modifications they perform.}
     \item{Their relation with RNG item distribution chance tables, where the factors that influence the chances for each element are ambiguous even for veteran players.}
 \end{itemize}
 
-% Examples of Dynamic Item Distribution in Other Games
+% Examples of Dynamic Resource Distribution in Other Games
 % ============================
 
-% Examples of other successful games that use dynamic item distribution
+% Examples of other successful games that use dynamic resource distribution
 %   - Half Life 2
 %   - Left 4 Dead
 %   - Diablo
-Examples of other successful games that also use Dynamic Item Distribution Systems include \emph{Half-Life 2}, where resources are spawned in containers such as destructible boxes based on player health and ammunition; \emph{Left 4 Dead}, where the spawn points of weapons, ammunition and health kits are toggled in fixed spots based on how well the team is performing throughout a level; and \emph{Diablo}, where the rarity of items dropped by defeated enemies depends on the level, modifiers and rarity of the enemy.
+Examples of other successful games that also use Dynamic Resource Distribution Systems include \emph{Half-Life 2}, where resources are spawned in containers such as destructible boxes based on player health and ammunition; \emph{Left 4 Dead}, where the spawn points of weapons, ammunition and health kits are toggled in fixed spots based on how well the team is performing throughout a level; and \emph{Diablo}, where the rarity of items dropped by defeated enemies depends on the level, modifiers and rarity of the enemy.
 
 % - Can help beginner players 
 % - Highly skilled players are rewarded for their performance
-In the specific case of Resident Evil 4, Dynamic Item Distribution may benefit beginner players by providing a steady supply of health and ammunition resources during sections of the game with intense combat encounters. The system always prioritizes the most important necessity for the player at a given moment, and as players are able to defeat enemies during a combat encounter, they are be supplied with ammunition and recovery items to be able to continue through a battle. For higher skilled players which are able to maintain a steady level of resources at their disposal, the game rewards performance with gold coins, which enables weapon upgrades that increase the efficiency at which the player is able to dispose of enemies. 
+In the specific case of Resident Evil 4, Dynamic Resource Distribution may benefit beginner players by providing a steady supply of health and ammunition resources during sections of the game with intense combat encounters. The system always prioritizes the most important necessity for the player at a given moment, and as players are able to defeat enemies during a combat encounter, they are be supplied with ammunition and recovery items to be able to continue through a battle. For higher skilled players which are able to maintain a steady level of resources at their disposal, the game rewards performance with gold coins, which enables weapon upgrades that increase the efficiency at which the player is able to dispose of enemies. 
 
-% Problems with Dynamic Item Distribution
+% Problems with Dynamic Resource Distribution
 % ============================
 
 % - Beginner players could benefit from item hoarding
@@ -488,7 +506,7 @@ In the specific case of Resident Evil 4, Dynamic Item Distribution may benefit b
 
 % In harder sections of the game, beginner players generally need a high amount of resources due to the large amount of enemies being spawned and the lack of knowledge on how to deal with enemies
 % As the player defeats enemies, loses health and spends ammunition, resources are constantly depleted from their inventory
-Some of the problems involving the implementation of Dynamic Item Distribution in Resident Evil 4 can be analyzed through the perspective of beginner players when facing challenging sections of the game. In such sections, beginner players generally need to spend a higher amount of resources due to the large amount of enemies and their lack of knowledge on how to dispose of multiple enemies. As the player progresses through the combat encounter, they will likely lose significant amounts of health and ammunition. Therefore, resources will be constantly depleted from the player inventory, which is an expected result from the perspective of the Dynamic Distribution System. 
+Some of the problems involving the implementation of Dynamic Resource Distribution in Resident Evil 4 can be analyzed through the perspective of beginner players when facing challenging sections of the game. In such sections, beginner players generally need to spend a higher amount of resources due to the large amount of enemies and their lack of knowledge on how to dispose of multiple enemies. As the player progresses through the combat encounter, they will likely lose significant amounts of health and ammunition. Therefore, resources will be constantly depleted from the player inventory, which is an expected result from the perspective of the Dynamic Distribution System. 
 
 % At an initial point of a combat encounter, enemies would most likely drop less necessary resources such as gold coins
 % Player may start to run out of resources at a critical point in the encounter, such when as when facing tougher enemies that are harder to dispose of
@@ -496,8 +514,8 @@ However, the main problem with resource distribution becomes evident when consid
 
 Since resource distribution is limited to the events of destroying containers and defeating enemies, beginner players that are unaware of the resource distribution system might destroy all containers at the beginning of an encounter, which causes the only resource distribution source to be the defeated enemies. At that point, tougher enemies which cause the player to generally lose more health and spend more ammunition might drain the player of all their resources before they are defeated.
 
-% In conclusion, beginner players could benefit from the possibility of item hoarding for such encounters, which is harder to achieve due to the way dynamic item distribution is implemented
-In such situations, a beginner player would benefit from the ability to perform \emph{item hoarding}, where the player accumulates resources over easier sections of a game to be spent on the more challenging levels. Because of the way item distribution is implemented in Resident Evil 4, item hoarding becomes harder to perform, since as the player accumulates health or ammunition resources the game will prioritize distributing low necessity items such as gold coins.
+% In conclusion, beginner players could benefit from the possibility of item hoarding for such encounters, which is harder to achieve due to the way dynamic resource distribution is implemented
+In such situations, a beginner player would benefit from the ability to perform \emph{item hoarding}, where the player accumulates resources over easier sections of a game to be spent on the more challenging levels. Because of the way resource distribution is implemented in Resident Evil 4, item hoarding becomes harder to perform, since as the player accumulates health or ammunition resources the game will prioritize distributing low necessity items such as gold coins.
 
 % - Players may choose to not loot resource items purposefully
 %   - Force the system to generate resource items only at critical sections of the game
@@ -655,7 +673,7 @@ However, this approach presents collateral issues when considering the resources
 There are certain items distributed throughout levels in God Hand that are able to recover a percentage of player Health. These items can be found by destroying static objects such as barrels and boxes, interacting with objects such as doors and chests, or by defeating enemies. The distribution of items is dynamically adjusted based on the necessity of a player for such resources. When the player is low on health, the game prioritizes distributing health recovery items, whereas when with a high amount of health the game will prioritize the distribution of items that can increase their in-game currency. The difficulty level does not influence which items are distributed to the players, which means the amount of the Health resource which is distributed to the player does not depend on the difficulty level of combat encounters, instead depending only on the current value the player possesses for the attribute. 
 
 %   - Player might end up losing because they "did too well" in the majority of the level
-Therefore, a conflict occurs due to the nature of the adaptive difficulty system and the adaptive item distribution system: in higher difficulties, a player will most likely spend a higher amount of the Health resource. Since the higher difficulties do not modify the distribution of health recovery items, a player that is doing well and achieves the higher difficulty levels is likely to require a higher amount of recovery items, which can be harder to attain at combat situations where enemies are faster, smarter an deal more damage. In such combat situations, it is likely that the player is unable to gather health recovery items before an enemy successfully deals a lethal attack. In a sense, it can be considered that skilled players might be punished for a highly positive performance, whereas an average player that is unable to achieve the higher levels of difficulty has a less frustrating experience during combat encounters, as enemies are less likely to successfully land lethal attacks to the player before they are able to find health recovery items.
+Therefore, a conflict occurs due to the nature of the adaptive difficulty system and the adaptive resource distribution system: in higher difficulties, a player will most likely spend a higher amount of the Health resource. Since the higher difficulties do not modify the distribution of health recovery items, a player that is doing well and achieves the higher difficulty levels is likely to require a higher amount of recovery items, which can be harder to attain at combat situations where enemies are faster, smarter an deal more damage. In such combat situations, it is likely that the player is unable to gather health recovery items before an enemy successfully deals a lethal attack. In a sense, it can be considered that skilled players might be punished for a highly positive performance, whereas an average player that is unable to achieve the higher levels of difficulty has a less frustrating experience during combat encounters, as enemies are less likely to successfully land lethal attacks to the player before they are able to find health recovery items.
 
 % Problems with layers of difficulty
 % - Game has a layer of difficulty defined by enemy behavior, another by level design, and another by the adaptive system

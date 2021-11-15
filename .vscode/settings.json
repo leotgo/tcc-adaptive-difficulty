@@ -9,6 +9,7 @@
         "Interactable",
         "Longsword",
         "Mecanim",
+        "replayability",
         "Scriptable",
         "Skyrim",
         "Tarkov"
@@ -20,5 +21,9 @@
         "Tetris",
         "playthrough",
         "speedrunners"
-    ]
+    ],
+    "editor.fontFamily": "Century",
+    "editor.fontSize": 18,
+    "editor.wordWrap": "on",
+    "editor.autoClosingBrackets": "never"
 }
