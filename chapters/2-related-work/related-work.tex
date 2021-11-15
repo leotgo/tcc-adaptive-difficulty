@@ -274,7 +274,10 @@ First, the system establishes the probabilistic distribution of damage done to t
 % This is an example of proactive adjustment, before game events
 If the probability of death for an encounter is above 40\%, the system intervenes by distributing \emph{healing items}\sepfootnote{fn:healing-items} throughout the level before an encounter takes place. The distribution of healing items before combat encounters based on probabilistic metrics can be classified as a \emph{proactive adjustment}, as it occurs before an undesired in-game event such as player death.
 
-The Hamlet System also implements \emph{reactive adjustment} policies which occur during combat encounters, such as adjusting the maximum hit points for an enemy type or modifying the accuracy of shots fired by enemies. The objective of these adjustments is to decrease the amount of health lost by players during combat encounters and reducing repeated death occurrences, achieving a mean health percentage of 60 with a standard deviation of 15 points at most segments of the game.
+% Reactive Adjustments: maximum enemy HP, enemy accuracy
+% Objective is to decrease of health lost, reducing repeated deaths
+% Target value for mean health is 60%, with 15% standard deviation
+The Hamlet System also implements \emph{reactive adjustment} policies which occur during combat encounters, such as adjusting the maximum hit points for an enemy type or modifying the accuracy of shots fired by enemies. The objective of these adjustments is to decrease the amount of health lost by players during combat encounters, consequently reducing repeated death occurrences.The target value for the mean health percentage is 60\%, with a standard deviation of 15\% at most segments of the game.
 
 % * Results of the Hamlet System
 % * ================
@@ -302,20 +305,29 @@ The study concluded that adjustment algorithms can improve the performance of a 
 % * Positive Aspects of Hamlet System
 % * ================
 
-% Predictive solution which can reduce frustration before undesired in-game events occur
+% Can be integrated in the game development process during or after development to modify already existing difficulty parameters, as evidenced by the fact that the approach was applied by modifying the original Half-Life Game
+One of the positive aspects of probabilistic approaches that use player performance metrics as input is regarding to their feasibility of implementation in already existing games, as evidenced by the fact that the methodology implemented in \cite{article_casefordynamicdifficulty} was applied by modifying the original Half-Life game. Therefore, the necessity for such adjustment algorithms can be considered and evaluated during or after the process of the original design iterations, and can be discarded if considered unnecessary.
 
-Therefore, the Hamlet system proposed by \citet{article_casefordynamicdifficulty} addresses the possibility of predicting gameplay outcomes given a game world state, and performing \emph{reactive} or \emph{proactive} adjustments for a more immediate resolution when compared to other solutions.
+% Predictive solution which can reduce frustration before undesired in-game events occur
+% Combined with reactive adjustments can provide immediate real time solution to discrepancy between player skill and proposed challenge level
+Another positive characteristic relates to the nature of predictive adjustments, where undesired in-game events can be prevented before a first occurrence, which might have a positive result in reducing player frustration. Combined with reactive adjustments, this methodology can provide immediate and real-time solutions to the discrepancy between player skill and the proposed challenge level of a segment in the game before and during first traversal by the player.
 
 % * Negative Aspects of Hamlet System
 % * ================
 
-% Probability estimations will generally be unable to consider immediate variations in player performance caused by a change of strategy or better mechanical execution by the player
+% While it can alleviate difficulty curve, might be hard to adjust
+% Becomes difficult for game designer to understand results
+%    - Adjustments are performed before or during first traversal by the player
+However, we argue that while probabilistic systems this might be  interesting as a supportive DDA implementations that can alleviate the difficulty curve of a challenging game, they might prove to be hard to adjust and customize from the perspective of game designers. It becomes difficult for a game designer to predict or understand the results of the integration and modifications of such an approach when the adjustments are performed before or during the first traversal of the player through game segments.
 
-We argue that while this might be an interesting approach for a supportive or secondary DDA system, this type of solution might be hard to tailor from a game designer's perspective since it is impossible to predict results functionally.
+% Probability estimations don't consider player improvements
+% System modifies encounters before player has a chance to improve
+% May be good to reduce frustration for novices, but slows learning process
+Additionally, probability estimations are generally ignorant to immediate variations in player performance caused by a change of strategy or even an increase in the quality of mechanical execution performed by the player. It can be argued that the system attempts to modify the outcomes of in-game events before the player has a chance to fail, and consequently attempt to improve their strategies and execution to succeed in a combat encounter. Therefore, while this approach may reduce frustration for cases where a player is unable to handle the level of challenge, it may also hinder or slow player progress in regards to their skill.
 
 \subsubsection{Alternative Implementations} 
 
-% * Examples of Other Probability-based systems in Research
+% TODO * Examples of Other Probability-based systems in Research
 % * ================
 
 \subsection{Affect-based DDA Systems}
@@ -323,9 +335,19 @@ We argue that while this might be an interesting approach for a supportive or se
 % *  AFFECT-BASED DDA
 % * =======================================================
 
+% * Footnotes
+% * ================
+
+\sepfootnotecontent{fn:cutscene}{A \emph{cutscene} is a special in-game event where the player is unable to input control into the game, and audiovisual feedback is a result of an automatic, predefined sequence of events determined by the game developers. Cutscenes can be seen as parts of a game that are similar to a movie, where the game is not interactive and instead focuses on telling a part of the story.}
+
+% * Overview of the Affect-Based systems
+% * ================
+
 Most implementations of DDA systems use as adjustment policies metrics that would represent player performance. However, the affective state experienced by players could also play a key role in the gaming experience, and thus could be a useful metric for adjustment policies in DDA systems. This is the theme of the work presented in \cite{article_affectivedda}, where physiological signals were tracked to infer the anxiety level of players, and then used as a metric to perform dynamic adjustments.
 
 \subsubsection{Methodology and Results}
+% * How affect-based systems work
+% * ================
 
 The work of \citet{article_affectivedda} cites previous research indicating that electrodermal and cardiovascular activities had a relation to anxiety levels. An increase in skin conductance may be caused by anxiety. A decrease of parasympathetic activity and increase in sympathetic activity in the heart also may suggest anxiety \cite{article_affectivedda}.
 
@@ -346,24 +368,45 @@ Three difficulty levels were implemented in total, which would be assigned depen
     \label{fig:affective-adaptation}
 \end{figure}
 
+% * Results of Affect-based System
+% * ================
+
 The results of the experiment showed that the performance of most players improved during the affect-based DDA session in relation to the performance-based DDA session. Players also perceived the affect-based DDA version to be more challenging than performance-based DDA, and reported that the affective version was more satisfying.
 
 \subsubsection{Analysis of Positive and Negative Aspects}
+% * Positive and Negative Aspects of Affect-based systems
+% * ================
 
 We argue that, while the results of the experiment portrayed in \cite{article_affectivedda} showed mostly positive results in comparison to performance-tracking DDA, employing this type of solution in a commercial video game is not feasible, as current hardware is unable to track physiological signals in a significant way. 
 
-Furthermore, the game implementation used for the experiment is a simplistic game with limited audiovisual feedback. Therefore, a similar experiment could be performed in a modern game with high audiovisual fidelity to evaluate results, as modern games are often able to evoke a multitude affective reactions by immersing the player in a \emph{cutscene}\footnote{A \emph{cutscene} is a special in-game event where the player is unable to input control into the game, and audiovisual feedback is a result of an automatic, predefined sequence of events determined by the game developers. Cutscenes can be seen as parts of a game that are similar to a movie, where the game is not interactive and instead focuses on telling a part of the story.} or a series of chaotic events.
+Furthermore, the game implementation used for the experiment is a simplistic game with limited audiovisual feedback. Therefore, a similar experiment could be performed in a modern game with high audiovisual fidelity to evaluate results, as modern games are often able to evoke a multitude affective reactions by immersing the player in a \emph{cutscene} \sepfootnote{fn:cutscene} or a series of chaotic events.
 
 \subsubsection{Alternative Implementations}
+% * Other Implementations of Affect-based systems in research
+% * ================
 
 \subsection{Reinforcement Learning in DDA Systems}
 % * =======================================================
 % *  LEARNING-BASED DDA
 % * =======================================================
 
-Another approach to adaptive difficulty involves the adaptation of AI (Artificial Intelligence) agent behaviors through reinforcement learning, as exemplified in \cite{article_adaptivebehaviorai}. Their implementation defines AI agents in a simple car simulation race game, where each player has the objective of passing through the maximum number of \emph{waypoints}\footnote{A \emph{waypoint} is a special position in a game world where an in-game event is toggled when the player is within interaction range. Waypoints are commonly used in games when the player has to take a specific path to a goal, with the game assigning several intermediary positions the player has to pass through to validate that the correct path was taken. In the context used for the implementation presented in \cite{article_adaptivebehaviorai}, waypoints are simply game world positions the cars must reach to score points. Each time one of these positions is occupied by a car, the waypoint is destroyed and a new random position is assigned elsewhere in the game world as the next waypoint.} in a given amount of time. Multiple waypoints are displayed on the screen at any given time, and a waypoint disappears when any of the players is within interaction range.
+% * Footnotes
+% * ================
 
-The AI agents implemented in \cite{article_adaptivebehaviorai} define two layers of behavioral AI components. The first layer contains components associated with driving functionality, with the objective of improving driving performance of the controller. The second layer is associated with tactical behavior components that seek to outplay the opponent in the game.
+\sepfootnotecontent{fn:waypoints}{A \emph{waypoint} is a special position in a game world where an in-game event is toggled when the player is within interaction range. Waypoints are commonly used in games when the player has to take a specific path to a goal, with the game assigning several intermediary positions the player has to pass through to validate that the correct path was taken. In the context used for the implementation presented in \cite{article_adaptivebehaviorai}, waypoints are simply game world positions the cars must reach to score points. Each time one of these positions is occupied by a car, the waypoint is destroyed and a new random position is assigned elsewhere in the game world as the next waypoint.}
+
+% * Overview of Learning-Based DDA
+% * ================
+
+Another approach to adaptive difficulty involves the adaptation of AI (Artificial Intelligence) agent behaviors through reinforcement learning, as exemplified in \cite{article_adaptivebehaviorai}. 
+
+\subsubsection{Methodology and Results}
+% * How Learning-Based DDA works
+% * ================
+
+The implementation of learning-based DDA in \cite{article_adaptivebehaviorai} defines AI agents in a simple car simulation race game, where each player has the objective of passing through the maximum number of \emph{waypoints}\sepfootnote{fn:waypoints} in a given amount of time. Multiple waypoints are displayed on the screen at any given time, and a waypoint disappears when any of the players is within interaction range.
+
+The AI agents implemented define two layers of behavioral AI components. The first layer contains components associated with driving functionality, with the objective of improving driving performance of the controller. The second layer is associated with tactical behavior components that seek to outplay the opponent in the game.
 
 Driving behavior components ignore the existence of the opponent, leading to inferior performance in the game. Tactical behavior components help the AI controller decide which waypoint to head to, or if the controller should not head to a waypoint at all. In more general perspective, the Driving Behavior components can be seen as the mechanical input of AI agents in the game, whereas the Tactical Behavior components could be considered the high-level decision making components of the AI.
 
@@ -381,9 +424,20 @@ In the third step, the authors evaluate the use of the AUC algorithm. The expect
 
 In the final step of the experiment, the use of the ADC algorithm is evaluated, with the same idea of varying the Learning and Mutation Rates. For the ADC algorithm, no trends were perceived in association with varying Learning rates. This would likely have been caused by the reduction of the frequency of update opportunities for each chromosome. In the ADC algorithm, only one of two chromosomes is updated each time a waypoint is passed. This means that on average each chromosome is updated half as frequently as chromosomes in the AUC variant. As for the Mutation rate, the results of the ADC controller improved greatly as mutation was introduced, possibly because the mutation operation offered more opportunities for the chromosome values to adapt.
 
+% * Results of Learning-Based DDA
+% * ================
+
 As a conclusion to the experiment, the authors expressed that while the AUC algorithm had lower memory footprint, the ADC algorithm was able to better minimize the number of drawn games, which would possibly reduce player frustration. It was also noted that both the AUC and ADC algorithms were able to generate specific patterns of behavioral component distribution for each of the static controller stereotypes, meaning that the Reinforcement Learning technique would be able to adapt to different styles of play. The general intent of both algorithms was not to maximize the number of wins, but to maintain a fair and close challenge to the opponent by minimizing the score difference as well as the difference between number of wins and losses.
 
+\subsubsection{Analysis of Positive and Negative Aspects}
+% * Positive and Negative Aspects of Learning-Based DDA
+% * ================
+
 The work presented in \cite{article_adaptivebehaviorai} introduces the novelty approach of online learning without predefined data sets to the scenario of DDA solutions. It could be argued that the adjustment policies are also part of the reinforcement learning approach, since the decision of a behavioral component being activated or not relies on the algorithm being applied. This is an especially interesting solution since it lessens the responsibility of a game designer tailoring the boundaries of the adjustment system in advance of play. However, we argue that this experiment has yet to be applied in the context of real players using an implementation that would better replicate a commercial video game product.
+
+\subsubsection{Alternative Implementations}
+% TODO * Other Implementations of Learning-Based DDA in Research
+% * ================
 
 \section{Adaptive Systems In Commercial Games}
 % * ======================================================================
