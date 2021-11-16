@@ -6,6 +6,7 @@
         "Cuphead",
         "Gameplay",
         "Genshin",
+        "inexistence",
         "Interactable",
         "Longsword",
         "Mecanim",
@@ -20,9 +21,11 @@
         "Forza",
         "MMORPG",
         "Tetris",
+        "eastus",
         "playthrough",
         "playthroughs",
-        "speedrunners"
+        "speedrunners",
+        "unblockable"
     ],
     "editor.fontFamily": "Century",
     "editor.fontSize": 18,
