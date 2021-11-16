@@ -988,18 +988,41 @@ In \cite{PHD_DynamicDifficultyAdjustment} adaptive systems are further explored 
 
 It is argued that the general methodologies used in Adaptive Systems can be applied in the form of Dynamic Difficulty Adjustments, which can be used to accommodate the skill level of a player to the challenge level proposed by game designers, alleviate steep learning curves, reduce frustration and anxiety and even provide a competitive level of challenge to veteran or highly skilled players.
 
-\subsection{Characteristics of DDA Systems in Research}
+\subsection{Evaluation of DDA Systems in Research}
 
 % * General positives & negatives of research solutions
 % * =======================
 
+Through the analysis of the results and the positive and negative aspects of commercial solutions for DDA systems, we can observe general positive and negative trends that can be leveraged or avoided when performing the conception of a new difficulty-based adaptive systems.
+
 % + Experimental approaches which were more innovative
+The analyzed research work presented experimental approaches which targeted a more innovative use of the capture of metrics or classification of player types, as well as more impactful adjustments to the challenge level presented by a game when compared to commercial solutions.
+
+This can be justified by the fact that negative results in research are useful for verification of incorrect approaches, and thus also present value to the overall landscape of adaptivity. However, commercial games in which adaptive solutions present negative results have significant financial impact to development studios, and might specifically affect game designers and developers that embraced a certain methodology. This causes commercial solutions concept less innovative approaches, instead relying on already proven methodologies or less impactful modifications.
+
 % + Metrics can be agnostic to game genre
+In the case of Affect-based DDA approaches, it was proven that metrics can be agnostic to the specific characteristics of a game genre. However, with the use of external metrics such as affective state game designers  have to understand the conditions and consequences of each affective state, and correctly define adjustment policies which present harmony with the desired affective state at each game segment.
+
+% Affective metrics can not be applied to commercial games today
+Additionally, the use affective state as an adjustment metric can be considered an unfeasible approach in the current state of the industry, as the technology of the hardware and input devices which are currently used is unable to provide significant physiological data that could be used to accurately assess the affective state. 
+
 % + Adjustments were mostly abstracted to players
+One of the most positive aspects of DDA system implementations in research is related to the abstraction of adjustment targets and policies to players. In the experimentation results of all of the reviewed methodologies, players either were unable to perceive the existence of adjustment methods, or were unable to identify the adjustment targets and policies involved with the adaptive systems. However, this could be due to the fact that the experiments performed involved sessions with limited time, which could be considered not enough for players to recognize patterns and perform reverse engineering of adjustment systems.
 
 % - Major adjustments: Complex algorithms
-% - Hard to integrate in game development process
-% - Can be hard to tailor by game designers
+% Long processing time or high amounts of data in some cases
+Most of the adjustment systems observed in the scope of this work employed complex algorithms for the capture of metrics, classification of player types or for the definition of adjustment policies. A particular trend seems to be the interest in learning-based methods, which impose constraints on long processing times or large amounts of input data to be effective in most cases.
+
+We argue that the application of online or supervised learning-based methods is of improbable application to the context of commercial games, as these approaches present issues when considering the iterative process of balancing and play-testing in game development, and the fact that games are often modified after release to encourage replayability, since changes in game attributes create the possibility of new meta-game strategies. In the case of offline based approaches, some applications such as learning-based AI agents can still be considered, as the processing and data load involved with the training of such agents can be constrained to the domain of game providers.
+
+% - Complex implementations can also be hard to tailor by game designers
+The complex implementations of DDA observed in research can also create friction when considering the necessity of customization or configuration by game designers. Adjustments to such approaches often require significant knowledge of the concepts or theoretical basis of the domain they operate in, which might be a detrimental factor when game designers simply desire to change a specific adjustment policy or target value.
+
+% - The only observed trend regarding DDA systems in research relates to the interest in the use of 
+% - However there is in general no justification of adjustment policies or validation of the parametric values used for adjustment targets
+To classify the implementations of DDA systems in the research work analyzed for our evaluation, we attempted to identify the domain of the metrics that were used as input for the adjustment policies implemented, as well as the adjustment targets used for each implementation. We observed that in general, research in adaptive systems did not provide a justification to the adjustment policies implemented, or a proper validation to the use of specific parametric values when modifying adjustment targets.
+
+We also observed a general interest in the implementation of learning-based methodologies, as such approaches would represent an automation in the definition of adjustment policies and parametric difficulty values, which would lessen the responsibility and necessity of balancing from game designers. Table \ref{tab:adaptive-systems-research} provides a consolidated list which classifies and compares the most relevant methodologies implemented in the research works explored.
 
 % * Comparative table of research solutions
 % * =======================
@@ -1026,27 +1049,38 @@ It is argued that the general methodologies used in Adaptive Systems can be appl
     \end{center}
 \end{table}
 
-\subsection{Characteristics of DDA Systems in Commercial Games}
+\subsection{Evaluation of DDA Systems in Commercial Games}
 
 % * General positives and negatives of commercial solutions
 % * =======================
 
-% + Provided positive results for beginner players
-% + Most players do not perceive systems in first playthrough
+% + Provided performance improvements for beginner players
+Through the reception and popularity of the most successful commercial games that employed DDA systems, we can infer that the solutions implemented proved to be mostly beneficent contributors to the overall player experience. To justify this claim and identify the contributing factors we can verify the previously discussed positive aspects, where adaptive systems in commercial solutions generally caused performance improvements for beginner players -- such as in Mario Kart where lower skilled players were provided opportunities to close the distance to runaway leaders.
+
+% + Maintained or increase challenge for skilled players
+% + Most players did not perceive systems in first playthrough
+As observed in Resident Evil 4 and God Hand, adaptive systems could also be used to maintain a competitive challenge or even increase the difficulty for highly skilled players, by employing new enemy behaviors and combat encounters, or by modifying the attributes of AI opponents. Additionally, most players did not perceive the existence of such systems in a first playthrough, with most of the reverse engineering of such systems being performed in online communities of dedicated players such as \emph{speedrunners}.
 
 % + Minor adjustments: Ease of implementation
 % + Ease of balancing by game designers
 % + Integrate well with game development process
+Implementations of DDA systems in commercial games also focused on performing minor adjustments due to: their ease of implementation, where a limited set of metrics and adjustment policies are involved in the modification of difficulty parameters; and the possibility of integration with the game development process, where changes in adjustments could be tested in iterative deployments of game versions, which satisfies the necessities of the iterative play-testing and balancing process in game design.
 
-% - Difficulty of being abstracted to players
+% - Difficulty of being abstracted to veteran players
+However, most approaches in commercial solutions showed a difficulty of being abstracted to veteran players, due to the possibility of recognition of patterns over multiple playthroughs and the advent of online communities which are dedicated to identifying and describing the use of game exploits. The solutions that presented the highest resilience in terms of players acknowledgment were the approaches which involved ambiguous systems that players are not able to easily assess or interact with, such as RNG-based resource distribution.
+
+% - Can be easily exploited
+% - Might break immersion
+Upon discovery and understanding of such systems, players were able to easily exploit the adaptivity in favor of their own performance -- which could cause detrimental effects regarding player immersion as players are not focused in executing the actions in the game world, but rather in the way that the system evaluates the actions they perform. In the context of multiplayer games this became an especially significant issue, as veteran players are able to exploit adaptivity in detriment of beginner players that might not have knowledge about the existence of such a system.
+
 % - A few prevalent solutions which became widespread
 %     - Rubber banding: runaway leader problem
 %     - Dynamic Resource distribution
 %      -Dynamic AI Behaviors
 %     - Dynamic Encounters
 %     - Explicit
-% - Can be easily exploited
-% - Might break immersion
+% Most metrics were restricted to the domain of player performance
+We also identified a few prevalent solutions which became widespread in implementations of DDA in commercial games, such as rubber banding, dynamic resource distribution, dynamic AI behaviors, dynamic encounters and the less pervasive approach of explicit adaptivity. The metrics used as input for adjustment policies in most implementations were restricted to the domain of player performance, which could be considered a possible exploration point in the future. Table \ref{tab:adaptive-systems-commercial-games} provides a consolidated list of the DDA approaches in commercial games evaluated in the scope of this work, as well as a classification of the metric domains, adjustment methods and a specification of the adjustment targets used.
 
 % * Comparative table of commercial solutions
 % * =======================
