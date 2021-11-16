@@ -958,7 +958,7 @@ However, if the player performs exceedingly well as the level progresses, they m
 % - Understand what can be improved or explored 
 In this section, we summarize the concepts relating to adaptive systems which were explored in previous research. We evaluate the general aspects of adaptive system implementations in research and commercial games, and provide a comparison of the general characteristics of each solution. We synthesize a set of guidelines for the conception and implementation of DDA systems, and conclude by analyzing the possibilities for improvement or exploration of new solutions on DDA. 
 
-\subsection{Motivation and Concepts Explored}
+\subsection{Summary of Explored Concepts}
 % * Summarization of concepts
 % * =======================
 
@@ -988,7 +988,7 @@ In \cite{PHD_DynamicDifficultyAdjustment} adaptive systems are further explored 
 
 It is argued that the general methodologies used in Adaptive Systems can be applied in the form of Dynamic Difficulty Adjustments, which can be used to accommodate the skill level of a player to the challenge level proposed by game designers, alleviate steep learning curves, reduce frustration and anxiety and even provide a competitive level of challenge to veteran or highly skilled players.
 
-\subsection{Characteristics of Adaptivity in Research}
+\subsection{Characteristics of DDA Systems in Research}
 
 % * General positives & negatives of research solutions
 % * =======================
@@ -1026,14 +1026,16 @@ It is argued that the general methodologies used in Adaptive Systems can be appl
     \end{center}
 \end{table}
 
-\subsection{Adaptive Systems in Commercial Games}
+\subsection{Characteristics of DDA Systems in Commercial Games}
 
 % * General positives and negatives of commercial solutions
 % * =======================
 
+% + Provided positive results for beginner players
+% + Most players do not perceive systems in first playthrough
+
 % + Minor adjustments: Ease of implementation
 % + Ease of balancing by game designers
-% + Provided positive results for beginner players
 % + Integrate well with game development process
 
 % - Difficulty of being abstracted to players
@@ -1090,17 +1092,72 @@ It is argued that the general methodologies used in Adaptive Systems can be appl
 % * Guidelines
 % * =======================
 
-%   - Should be abstracted to the player
+% Regarding the capture of metrics:
+%   - Should reflect the design aspects of the game genre
+%   - Requires to be able to be updated in real-time
+Based on the observations of analyzed adaptive system implementations in research and commercial games, we can infer guidelines regarding the desired aspects to pursue and avoid when implementing commercial games with dynamic difficulty adjustment systems. Regarding the capture or calculation of metrics that are used as input to adjustment policies, we define the following guidelines:
+\begin{itemize}
+    \item{The information gathered by metrics should be bound to the domain concepts and design aspects of a specific game genre;}
+    \item{The metrics being captured should appropriately reflect the level of skill, habits or preferences of a player towards a specific game;}
+    \item{The data used for the calculation of metrics is required to be captured in real-time under the hardware restrictions of target platforms.}
+\end{itemize}
 
-% > Regarding integration of system with the game development process:
-%    - Should be easy to be tailored by game designers
-%    - Should avoid requiring technical knowledge to configure
-%    - Balancing & adjustments should be fast to perform
+% Regarding the definition of adjustment policies
+%   - Thresholds or quantization factors should appropriately reflect the classification and categorization of player models
+%   - Metrics used should encompass all significant factors target adjustment
+%   - The set of thresholds used for a specific adjustment should not contain ambiguity or overlap, as thresholds should clearly define the performance, profile or preferences of each target adjustment group
+Regarding the definition of adjustment policies that are used as thresholds, quantifiers and delimiters to adjustments, we define the following guidelines:
+\begin{itemize}
+    \item{The thresholds or quantization factors being used should reflect the classification and categorization of player models;}
+    \item{The set of thresholds used should not create ambiguity or overlap, as thresholds should clearly define the performance, profile or preferences of each target adjustment group;}
+    \item{The metrics used as input for adjustment policies should encompass all significant factors target adjustment.}
+\end{itemize}
+
+% Regarding the objectives of adjustments:
+%   - Should prioritize the increase of immersion through challenge
+%   - Should solve inherent problems such as runaway leaders
+%   - Could be used to create variations in gameplay for veterans
+Regarding the objectives behind the choices of adjustment targets in the specific context of DDA implementations, we define the following guidelines:
+\begin{itemize}
+    \item{The choices of adjustment targets should focus on prioritizing the increase of immersion through challenge to induce the State of Flow;}
+    \item{Changes in adjustment targets should solve or attenuate inherent problems of the domain of the game genre, such as \emph{runaway leaders};}
+    \item{The set of parametric values that are applied to adjustment values should be designed considering the possibility to create challenge and variations in gameplay for veterans and highly skilled players.}
+\end{itemize}
+
+% Regarding their exploitability:
+%   - Should be abstracted to the player
+%   - Should incentivize performance improvement rather than manipulation
+Regarding on providing solutions or attenuating the inherent issue of exploitability in the design of adaptive systems, we define following guidelines:
+\begin{itemize}
+    \item{The adaptive system should prioritize being abstracted to beginner players by being integrated in systems that are ambiguous or not directly understandable upon interaction;}
+    \item{The adaptive system should incentivize performance improvement rather than manipulation, where players should not feel punished by performing better than their competitors.}
+\end{itemize}
+
+% Regarding their feasibility in the game development process:
+%   - Should be easy to be tailored by game designers
+%   - Should avoid requiring technical knowledge to configure
+%   - Balancing & adjustments should be fast to perform
+Regarding the feasibility of the implementation of a DDA system and its ease of integration into the iterative nature of the game development process, we define the following guidelines:
+\begin{itemize}
+    \item{The system should be easy to perform adjustments on, so that game designers can customize and iterate over different values;}
+    \item{The system should avoid exposing concepts which require technical knowledge of specific algorithms to configure;}
+    \item{Balancing and adjustments on parametric values of the adaptive system should be fast to perform, so that the system is able to be thoroughly tested throught play-testing iterations.}
+\end{itemize}
 
 \subsection{Improvement and Exploration Opportunities}
 % * What can be improved or explored
 % * =======================
 
+Based on the guidelines that were defined and the characteristics of previous research and commercial solutions, we can begin to identify improvement opportunities on how novelty and sophisticated approaches developed in research can be integrated in the industry, while also eliciting the unexplored domains of adaptivity in research.
+
 % - Experimentation with research approaches in commercial games
-% - Implementations in live games
+First, we identify that there is a lack of research approaches which apply adaptation methods to the design of sophisticated modern games. Most of the research in DDA systems included implementations of simplistic games, which is natural since the focus of such works is validating the efficiency of metrics or adjustment policies and the perception of players over the changes that were applied. Therefore, we define the first objective of the implementation proposed in this work: the experimentation of methodologies based on previous research in the context of a commercial game.
+
 % - Implement in games that are challenging by nature
+We also identify that the design of the games used as objects of study  in research, as well as most of the observed examples of commercial games that implement adaptive systems, is not purposed to be difficult by nature. Therefore, there is an unexplored opportunity regarding the use of DDA systems to alleviate the steep learning curve of challenging video games, which defines the second objective of our implementation in this work: to evaluate the use of adaptive systems as a tool to alleviate the steep learning curve of challenging games. The motivation of choice for our object of study, as well as the game design aspects that contribute to its challenge are further explained in chapter \ref{ch:analysis-object-study}.
+
+% - Understand the characteristics of objects of study
+Another opportunity of improvement can be noticed regarding the understanding of research about the characteristics of the objects of study. Previous research on DDA systems focused on the validation of metrics and classification of players, but provided no justification regarding the motivation of choice for the object of study, the correlation between metrics, adjustments and the aspects of game design or the game systems involved in the capture of each metric. Therefore, we establish the third objective of our implementation in this work: to provide a consolidated analysis of the object of study that can justify the motivation of its use, the choice of metrics and adjustment policies and the correlation between such metrics and the systems the involve.
+
+% - Focus in adjustments rather than capture of metrics or classification of player types
+It can also be noticed through the evaluation of results and discussions promoted by authors in previous adaptivity research that there is a tendency to focus on the validation of the capture of metrics and classification of players, as opposed to a validation of the adjustment policies and the adjustment values in relation to the classification of player types. Therefore, we define the fourth and final objective of our implementation: to focus on the validation of the adjustment policies rather than the capture of metrics or classification of player types.
