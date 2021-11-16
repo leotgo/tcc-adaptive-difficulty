@@ -241,9 +241,9 @@ Mechanisms for adaptive adjustments should describe what elements of the game ar
 % * ======================================================================
 % * ======================================================================
 
-Previous academic work regarding adaptive system implementations include  novelty approaches with interesting metrics and adjustment policies that affect a variety of systems or mechanics. In this section, we use the literary review in \cite{article_ddareview} as a reference to classify DDA algorithms implemented in previous academic work, as well as to select analyze the most relevant implementations for each of the proposed methods.
+Previous academic work regarding adaptive system implementations include novelty approaches with innovative metrics and adjustment policies that affect a variety of systems or mechanics. In this section, we use the literary review in \cite{article_ddareview} as a reference to classify DDA algorithms implemented in previous academic work, as well as to select analyze the most relevant implementations for each of the proposed methods.
 
-\subsection{Probabilistic DDA Systems}
+\subsection{Probability-based DDA Systems}
 \label{sec:statistical-adjustments}
 % * =======================================================
 % *  PROBABILISTIC DDA
@@ -325,8 +325,7 @@ However, we argue that while probabilistic systems this might be  interesting as
 % May be good to reduce frustration for novices, but slows learning process
 Additionally, probability estimations are generally ignorant to immediate variations in player performance caused by a change of strategy or even an increase in the quality of mechanical execution performed by the player. It can be argued that the system attempts to modify the outcomes of in-game events before the player has a chance to fail, and consequently attempt to improve their strategies and execution to succeed in a combat encounter. Therefore, while this approach may reduce frustration for cases where a player is unable to handle the level of challenge, it may also hinder or slow player progress in regards to their skill.
 
-\subsubsection{Alternative Implementations} 
-
+% \subsubsection{Alternative Implementations} 
 % TODO * Examples of Other Probability-based systems in Research
 % * ================
 
@@ -343,22 +342,42 @@ Additionally, probability estimations are generally ignorant to immediate variat
 % * Overview of the Affect-Based systems
 % * ================
 
-Most implementations of DDA systems use as adjustment policies metrics that would represent player performance. However, the affective state experienced by players could also play a key role in the gaming experience, and thus could be a useful metric for adjustment policies in DDA systems. This is the theme of the work presented in \cite{article_affectivedda}, where physiological signals were tracked to infer the anxiety level of players, and then used as a metric to perform dynamic adjustments.
+% Most DDA methods use profile or performance
+% Work in affectivedda uses affective state
+% In affectivedda, body signals are metrics to adjustment policies
+% Ultimately anxiety level increases or decreases difficulty
+Most implementations of DDA systems analyzed in the scope of this work use metrics that represent player profile or performance as input to the adjustment policies. However, a different approach can be taken when using player emotional state as both an input and a feedback mechanism when modifying difficulty. This is the theme of the work presented in \cite{article_affectivedda}, where physiological signals were tracked to infer the anxiety level of players, and then used as a metric to perform difficulty adjustments which cause a reduced or increased feeling of tension throughout the game.
 
 \subsubsection{Methodology and Results}
 % * How affect-based systems work
 % * ================
 
-The work of \citet{article_affectivedda} cites previous research indicating that electrodermal and cardiovascular activities had a relation to anxiety levels. An increase in skin conductance may be caused by anxiety. A decrease of parasympathetic activity and increase in sympathetic activity in the heart also may suggest anxiety \cite{article_affectivedda}.
+% Unused
+% ========================================
+% Electrodermal and cardiovascular activity are related to anxiety
+% Increase in skin conductance can be caused by anxiety
+% Decrease of parasympathetic activity may also suggest anxiety
+% The research performed in \citet{article_affectivedda} cites previous literature to understand which physiological signals can be used to infer the anxiety levels of a user. It is observed that \emph{electrodermal} and \emph{cardiovascular} activities have a relation to anxiety levels, as well as increases in skin conductance levels. A decrease of parasympathetic activity and increase in sympathetic activity in the heart also presented relation to anxiety.
 
-Blood pulse volume measured at fingers were also shown to be subject to stress manipulation, and presents a correlation with self-reported anxiety \cite{article_affectivedda}. Measures of EMG (Electromyography) activity of specific muscles (such as Corrugator Supercilii) were also shown to be strong indicators of anxiety.
+% Unused
+% ========================================
+% Blood pulse volume measured at fingers were also shown to be subject to stress manipulation, and presents a correlation with self-reported anxiety \cite{article_affectivedda}. Measures of EMG (Electromyography) activity of specific muscles (such as Corrugator Supercilii) were also shown to be strong indicators of anxiety.
 
-Therefore, the work presented in \cite{article_affectivedda} used features of cardiovascular activity, such as interbeat interval, relative pulse volume, pulse transit time and heart sound; electrodermal activity (tonic and phasic response to skin conductance) and EMG activity (from Corrugator Supercilii, Zygomaticus and upper Trapezius muscles) as input measures to a Regression Tree (RT) technique which classifies the physiological signals into affective states that categorize anxiety levels.
+% Adaptive syste, uses cardiovascular, electrodermal and EMG activity as input
+% RT technique classifies physiological signals into affective states of anxiety levels
+The adaptive system implementation presented in \cite{article_affectivedda} uses features of cardiovascular activity (inter-beat interval, relative pulse volume, pulse transit time and heart sound), electrodermal activity (tonic and phasic response to skin conductance) and EMG activity (from Corrugator Supercilii, Zygomaticus and upper Trapezius muscles) as input data to a Regression Tree (RT) technique, which classifies the physiological signals into affective states that categorize anxiety levels.
 
-A Pong-based game was implemented for the study, with two variations in difficulty adjustment algorithm: one where the difficulty would be adapted based on player performance (a relationship between points scored against or in favor of the player), and another where the anxiety level of the player is used as input to alter difficulty.
+% Object of study was a pong-based games
+% Two variations: adjustments based on performance and based on affective state
+A \emph{Pong}-based game was implemented for the study, with two variations in difficulty adjustment algorithm: one where the difficulty would be adapted based on player performance (a relationship between points scored against or in favor of the player), and another where the anxiety level of the player is used as input to alter difficulty.
 
+% Three difficulty levels
+% Performance: Excellent, Poor performance causes difficulty changes
+% Anxiety: High and Low anxiety causes difficulty changes
 Three difficulty levels were implemented in total, which would be assigned depending on performance or anxiety levels: if the player's performance is classified as "Excellent", the player would progress into the next difficulty level. If the performance is classified as "Poor", the difficulty level would be decreased. The affect-based variant utilizes an analogue solution, where the difficulty is increased if the anxiety level is classified as "Low", and the difficulty is decreased if the anxiety level is classified as "High". Figure \ref{fig:affective-adaptation} displays state-flow diagrams representing the difficulty levels and their transition conditions.
 
+% * Figure: Performance-based and anxiety based adaptation
+% * ================
 \begin{figure}[!h]
     \caption{A state-flow diagram representation of the performance-based and anxiety-based adaptation variants in \cite{article_affectivedda}.}
     \begin{center}
@@ -371,21 +390,65 @@ Three difficulty levels were implemented in total, which would be assigned depen
 % * Results of Affect-based System
 % * ================
 
-The results of the experiment showed that the performance of most players improved during the affect-based DDA session in relation to the performance-based DDA session. Players also perceived the affect-based DDA version to be more challenging than performance-based DDA, and reported that the affective version was more satisfying.
+% Regarding performance, most players showed improvement in affective over performance metrics
+% Could be justified as Pong becomes more difficult over time, increasing tension
+Regarding the impact of affect-based adaptation on player performance, results of the experiment showed that the performance of most players showed significant improvement in the adjustment method which used affect-based metrics as an input, in comparison to the method which used performance metrics.  This could be justified by the fact that in a Pong-based game, the game becomes progressively more difficult over time with an increase of the speed of the ball, causing feelings of tension as either the player or an AI-controlled opponent are closer to scoring a point.
+
+% Increase of tension causes variation in anxiety levels, changing difficulty in real-time
+% Change of difficulty in this case is a proactive adjustment
+% Goes in contrast with performance-based reactive adjustments
+The increase of tension causes variations in physiological signals that classify as increases in the anxiety level, and thus the difficulty adjustment might be performed before the player or an AI agent is able to score. This could be argued to classify as another example of \emph{proactive adjustment}, which goes in contrast to performance-based adjustments which are \emph{reactive adjustments} by definition as the only metric used as input are outcomes of in-game events. 
+
+% Players perceived affect-based version to be more challenging
+%   - Could also be justified by real-time proactive adjustments
+%   - Players have little time to relax before difficulty increases again
+% Players reported that the affect-based version was more satisfying
+%   - What is the justification for this?
+Players also perceived that the DDA implementation which used affect-based metrics for adjustments was more challenging than the performance-based DDA version. This could also be justified by the nature of the real-time adjustments that were implemented. Instead of being based on the outcomes of in-game events (which in this case involves player and AI opponent scores), the difficulty is directly mapped to the level of anxiety of the player.
+
+When the player is able to score and attain a lead over the AI opponent, they might feel a sense of relaxation which decreases the anxiety level. Consequently, the system detects the change in the affective state and increases the difficulty accordingly. However, the most crucial difference to the performance-based implementation could be attributed to the fact that the difference in anxiety level when the player achieves a small numeric lead might be much more significant than estimation of performance from the score difference in the performance-based solution, when considering the same scores for player and AI. This could cause the match to become much more competitive in the affect-based version, as the AI opponent would present a much higher difficulty even when the player attains small leads.
+
+Additionally, players reported that the affective version was more satisfying. In the same sense that a real-time anxiety based metric can adjust the difficulty based on an increase of the tension level, it could also be able to identify moments where players feel more relaxed, an affective state which can cause boredom if maintained over a prolonged duration, as discussed in the earlier sections of this chapter. Combining this with the earlier discussed fact that a match can become much more competitive due to the discrepancy between anxiety levels and performance statistics, the player might feel a higher sense of reward when achieving victory over an opponent which is perceived as more challenging.
 
 \subsubsection{Analysis of Positive and Negative Aspects}
-% * Positive and Negative Aspects of Affect-based systems
+% * Positive Aspects of Affect-based systems
 % * ================
 
-We argue that, while the results of the experiment portrayed in \cite{article_affectivedda} showed mostly positive results in comparison to performance-tracking DDA, employing this type of solution in a commercial video game is not feasible, as current hardware is unable to track physiological signals in a significant way. 
+Considering the results of the affect-based DDA implementation in comparison to the traditional approach of performance-based metrics, we can begin to identify some of the advantages of using real-time tracking of physiological signals and affective state classification in regards to the restrictions that are inherent to event-based capturing of gameplay data.
 
-Furthermore, the game implementation used for the experiment is a simplistic game with limited audiovisual feedback. Therefore, a similar experiment could be performed in a modern game with high audiovisual fidelity to evaluate results, as modern games are often able to evoke a multitude affective reactions by immersing the player in a \emph{cutscene} \sepfootnote{fn:cutscene} or a series of chaotic events.
+ % Affective-based metrics might not require the same amount of data or time to perform adjustments as performance-based metrics, as they are not bound to the rules of a game
+We can begin by arguing that affect-based metrics might not require the same amount of data or time to be used as input by adjustment policies in comparison to performance-based metrics, as they are not bound to the rules or domain of a specific game. The gathering of physiological signals and classification of affective state is agnostic to the object of study in itself, as it simply involves the external use of sensors and a classification methodology to output an estimate of the player affective state.
 
-\subsubsection{Alternative Implementations}
-% * Other Implementations of Affect-based systems in research
+The use of the information on such affective state must then be considered by game designers to determine which systems it might affect. In the work described in \cite{article_affectivedda}, the affective state was used as input to adjust the difficulty of an AI opponent, but affective metrics are not restricted to being employed on difficulty adjustment systems.
+
+ % In contrast to other methods, the input for metrics is directly mapped to the proposed feedback
+ % As discussed earlier, affective state is one of the main constituents of player experience
+ In contrast to traditional DDA implementations which involve metrics that are limited to the events of a game, the input in affect-based DDA approaches can be directly mapped to the desired changes in the affective state of a player. As discussed earlier in this chapter, the affective state of a player is one of the main constituents of player experience, which makes this approach especially interesting considering the objective of maintaining a challenging difficulty level to the player but at the same time avoiding frustrating situations.  
+
+ % Affective-based adjustments are performed in real time
+ % Adjustments might occur in anticipation of in-game events, which is a proactive approach
+ The implementation in \cite{article_affectivedda} involved real-time classification and validation of adjustment policies, which meant that the adjustments might occur in anticipation of undesired in-game events that can cause frustration. Therefore, it can be argued that this implementation defines a proactive adjustment methodology which might provide an immediate or preventive solution to possible frustrating events, when being compared to traditional performance-based adjustments.
+
+% * Negative Aspects of Affect-based systems
 % * ================
 
-\subsection{Reinforcement Learning in DDA Systems}
+% Implementation is not feasible in commercial games in the present
+% Current hardware does not track relevant physiological signals
+While the research on affect-based DDA showed mostly positive results in comparison to performance-based metrics, it could be argued that employing this type of solution in a commercial video game is not feasible, as current hardware used in modern video-game consoles does not include or support sensors capable of tracking significant physiological signals that can be used to determine affective state.
+
+% If hardware in home consoles evolves to be able to track physiological signals, there is still the problem of appropriately integrating affect-based adjustments in the game development process
+% During playtesting, affective state has to be monitored and compared to the experience proposed by game designers, which creates restrictions and possible slowdowns in iterative development
+If improvements in hardware used in video-game consoles evolve in the direction of including sensors that are able to track relevant physiological signals that can determine affective state, there is still the problem of appropriately integrating affect-based adjustments in the game development process. During play-testing sessions, the affective state has to be monitored and compared to the values that are expected by game designers, which creates restrictions and possible slowdowns in the iterative process of game design balancing and refinement.
+
+% Methodology was applied to a simplistic game implementation
+% Experiment should be performed in a modern game which can promote more affective states
+Furthermore, the game implementation used for the experiment is a simplistic game with limited audiovisual feedback. As discussed earlier, audiovisual feedback is one of the factors that can contribute to player experience, and consequently to the affective state of the player. Therefore, research with affect-based DDA systems should be continued as to perform similar experiments in modern games with high audiovisual fidelity. Modern games are often able to evoke a multitude affective reactions by immersing the player with more recent technology, features or systems such as \emph{cutscenes} \sepfootnote{fn:cutscene} or visual and audio effects, and the integration of affect-based adjustments in modern games can prove to be a challenging task, as it might not involve simple adjustments in difficulty parameters.
+
+% \subsubsection{Alternative Implementations}
+% TODO * Other Implementations of Affect-based systems in research
+% * ================
+
+\subsection{Learning-based DDA Systems}
 % * =======================================================
 % *  LEARNING-BASED DDA
 % * =======================================================
@@ -398,44 +461,92 @@ Furthermore, the game implementation used for the experiment is a simplistic gam
 % * Overview of Learning-Based DDA
 % * ================
 
-Another approach to adaptive difficulty involves the adaptation of AI (Artificial Intelligence) agent behaviors through reinforcement learning, as exemplified in \cite{article_adaptivebehaviorai}. 
+Another approach to adaptive difficulty involves the adaptation of AI (Artificial Intelligence) agent behaviors through reinforcement learning. 
 
 \subsubsection{Methodology and Results}
 % * How Learning-Based DDA works
 % * ================
 
-The implementation of learning-based DDA in \cite{article_adaptivebehaviorai} defines AI agents in a simple car simulation race game, where each player has the objective of passing through the maximum number of \emph{waypoints}\sepfootnote{fn:waypoints} in a given amount of time. Multiple waypoints are displayed on the screen at any given time, and a waypoint disappears when any of the players is within interaction range.
+% Modifies behavior of AI agents in car race game
+% Objective in game is to pass max. number of waypoints in limited time
+% Multiple waypoints at screen in any given time
+% Waypoints disappear when passed through
+The implementation of learning-based DDA in \cite{article_adaptivebehaviorai} adjusts the behavior of AI agents in a simple car simulation race game, where each player has the objective of passing through the maximum number of \emph{waypoints}\sepfootnote{fn:waypoints} in a given amount of time. Multiple waypoints are displayed on the screen at all times, and a waypoint disappears when any of the players approaches close enough for interaction range.
 
-The AI agents implemented define two layers of behavioral AI components. The first layer contains components associated with driving functionality, with the objective of improving driving performance of the controller. The second layer is associated with tactical behavior components that seek to outplay the opponent in the game.
+% Two types of behavior AI Components
+% First layer is driving functionality, motor controls
+% Second layer is tactical behavior, outplay opponent
+The AI agents implemented define two types of behavioral AI components. The first type is defined by components associated with driving functionality, with the objective of improving driving performance of the controller. The second type is associated with behavioral components that affect the tactical decisions of an AI agent, and have the purpose of performing actions that outplay their opponent.
 
-Driving behavior components ignore the existence of the opponent, leading to inferior performance in the game. Tactical behavior components help the AI controller decide which waypoint to head to, or if the controller should not head to a waypoint at all. In more general perspective, the Driving Behavior components can be seen as the mechanical input of AI agents in the game, whereas the Tactical Behavior components could be considered the high-level decision making components of the AI.
+% Driving components focus on car controlling
+% Tactical behavior components decide which waypoint to head to
+% Driving components can be seen as mechanical input
+% Tactical behavior components influence high-level decision making
+Driving behavior components ignore the existence of the opponent, instead focusing on simply performing actions required to drive the car. Tactical behavior components help the AI controller decide which waypoint to head to, or if the controller should not head to a waypoint at all. In a more general perspective, the Driving Behavior components can be seen as the mechanical input of AI agents in the game, whereas the Tactical Behavior components influence the high-level decision making process of the AI agent. 
 
-To evaluate the performance of adaptive AI agent controllers, two evolutionary computation algorithms are implemented: the adaptive uni-chromosome controller (AUC) and the adaptive duo-chromosome controller (ADC). The advantage of using such algorithms is that the training and adaptation process occurs in real time during the course of a game session.
+% 7 components implemented, 3 driving and 4 tactical
+% Each component does not override the others
+% It is possible to have all 7 components activated at the same time
+In total, 7 components were implemented, with 3 being driving behavior components and 4 being tactical behavior components. Each component is restricted to executing a set of actions that does not conflict or override actions of other components, which means it is possible to define an AI agent that uses all the behavior components implemented for the application.
 
-Each chromosome in said algorithms stores seven real numbers representing the probability of activating a behavioral component whenever a waypoint is passed. Two metrics are used as an input for the adaptation algorithm: first, a minimization of the winning percentage difference (|W - L|, where W represents the wins and L represents the losses) and second, a minimization of the mean score difference (|s1-s2| where s1 and s2 represent the scores of player 1 and player 2).
+% Two evolutionary computation algorithms: AUC and ADC
+% Advantage of such training methods is being performed online
+To evaluate the performance of each component, two evolutionary computation algorithms are implemented: the adaptive uni-chromosome controller (AUC) and the adaptive duo-chromosome controller (ADC). The advantage of using such algorithms is that the training and adaptation process can be performed online and in real time, over the course of a game session.
 
-To evaluate the efficiency of the proposed algorithms, the authors first compared the strongest AI agent that the adaptive system would possibly generate (defined by enabling all behavioral components simultaneously and permanently) against five static AI controllers based on various traits that would simulate various styles of play, such as heuristic controllers, reverse-enabled controllers, predictive fast controllers, and neural network controllers.
+% Each chromosome stores seven real numbers
+% Each number defines probability of activating a component
+% Two metrics for input:
+%   - Minimization of the winning percentage difference
+%   - Minimization of the mean score difference
+Each chromosome in the AUC and ADC algorithms stores seven real numbers representing the probability of activating a behavioral component whenever a waypoint is passed. Two metrics are used as an input for the adaptation algorithm: first, a minimization of the winning percentage difference (|W - L|, where W represents the wins and L represents the losses) and second, a minimization of the mean score difference (|s1-s2| where s1 and s2 represent the scores of player 1 and player 2).
+
+% Evaluate efficiency of adjustments by enabling all components
+% Against 5 static AI components with random traits
+To evaluate the efficiency of the adaptation algorithms, the authors first compared the strongest AI agent that the adaptive system would possibly generate (which would be defined by enabling all behavioral components simultaneously and permanently) against five static AI controllers based on various traits that would simulate various styles of play, such as heuristic controllers, reverse-enabled controllers, predictive fast controllers, and neural network controllers.
 
 Sets of \emph{n = 5000} games were played for each opponent in each step of the experiment. Through the first step of the experiment, the authors validated that a fully-enabled adaptive AI controller (having all the behavioral components activated at all times) was a competent opponent with positive median score differences against all static AI controllers.
 
-In the second step, the behaviors were activated randomly whenever a waypoint was crossed to demonstrate that an effective adaptation algorithm is necessary for different types of opponents. Results showed that the random behavior selection algorithm had negative median score differences against all five static controllers.
-
-In the third step, the authors evaluate the use of the AUC algorithm. The expected behavior set encoded by a chromosome as a result of the algorithm should represent a "winning" strategy. Effects of varying \emph{Learning Rate} and \emph{Mutation Rate} were documented for the experiment, showing that the general trend of increasing learning rate is a gentle increase in the mean score difference, since a large learning rate quickly saturates chromosome values to either 0 or 1. Higher mutation rates tend to produce larger differences in mean score and winning percentage by producing large fluctuations in chromosome values. In general, high mutation rates led to poorer results, and the optimal value of 0.1 was stated for the AUC algorithm variant.
-
-In the final step of the experiment, the use of the ADC algorithm is evaluated, with the same idea of varying the Learning and Mutation Rates. For the ADC algorithm, no trends were perceived in association with varying Learning rates. This would likely have been caused by the reduction of the frequency of update opportunities for each chromosome. In the ADC algorithm, only one of two chromosomes is updated each time a waypoint is passed. This means that on average each chromosome is updated half as frequently as chromosomes in the AUC variant. As for the Mutation rate, the results of the ADC controller improved greatly as mutation was introduced, possibly because the mutation operation offered more opportunities for the chromosome values to adapt.
+In sequence, the authors conceptualized AI agents where behavioral components were activated randomly whenever a waypoint was crossed. The objective of this approach was to demonstrate that some sort of adjustment algorithm that considers opponent strategies is necessary for different types of opponents, as randomly assigned behaviors are not able to present consistent results against a fixed strategy. Results showed that the random behavior selection algorithm had negative median score differences against all five static controllers.
 
 % * Results of Learning-Based DDA
 % * ================
 
+In the third step of the experiment, the authors evaluated the use of the AUC algorithm. The expected behavior set encoded by a chromosome as a result of the algorithm should represent a "winning" strategy. Effects of varying \emph{Learning Rate} and \emph{Mutation Rate} were documented for the experiment, showing that the general trend of increasing learning rate is a gentle increase in the mean score difference, since a large learning rate quickly saturates chromosome values. Higher mutation rates tend to produce larger differences in mean score and winning percentage by producing large fluctuations in chromosome values. In general, high mutation rates led to poorer results.
+
+In the final step of the experiment, the use of the ADC algorithm was evaluated, with the same idea of varying the Learning and Mutation Rates. For the ADC algorithm, no trends were perceived in association with varying Learning rates. This would likely have been caused by the reduction of the frequency of update opportunities for each chromosome. In the ADC algorithm, only one of two chromosomes is updated each time a waypoint is passed. This means that on average each chromosome is updated half as frequently as chromosomes in the AUC variant. As for the Mutation rate, the results of the ADC controller improved greatly as mutation was introduced, possibly because the mutation operation offered more opportunities for the chromosome values to adapt.
+
 As a conclusion to the experiment, the authors expressed that while the AUC algorithm had lower memory footprint, the ADC algorithm was able to better minimize the number of drawn games, which would possibly reduce player frustration. It was also noted that both the AUC and ADC algorithms were able to generate specific patterns of behavioral component distribution for each of the static controller stereotypes, meaning that the Reinforcement Learning technique would be able to adapt to different styles of play. The general intent of both algorithms was not to maximize the number of wins, but to maintain a fair and close challenge to the opponent by minimizing the score difference as well as the difference between number of wins and losses.
 
 \subsubsection{Analysis of Positive and Negative Aspects}
-% * Positive and Negative Aspects of Learning-Based DDA
+% * Positive Aspects of Learning-Based DDA
 % * ================
 
-The work presented in \cite{article_adaptivebehaviorai} introduces the novelty approach of online learning without predefined data sets to the scenario of DDA solutions. It could be argued that the adjustment policies are also part of the reinforcement learning approach, since the decision of a behavioral component being activated or not relies on the algorithm being applied. This is an especially interesting solution since it lessens the responsibility of a game designer tailoring the boundaries of the adjustment system in advance of play. However, we argue that this experiment has yet to be applied in the context of real players using an implementation that would better replicate a commercial video game product.
+% Novelty approach: unsupervised online learning
+% Lessens responsibility of game designer tailoring adjustments
+The work presented in \cite{article_adaptivebehaviorai} introduces the novelty approach of online learning without predefined data sets to the scenario of DDA solutions. It could be argued that the adjustment policies are also part of the reinforcement learning approach, since the decision of a behavioral component being activated or not relies on the algorithm being applied. This is an especially interesting solution since it lessens the responsibility of a game designer tailoring the boundaries of the adjustment system in advance of play.
 
-\subsubsection{Alternative Implementations}
+% Could be applied to create AI agents that replicate player behavior in online games, where massive data sets can be gathered from large audiences
+One interesting application to methods which implement online learning without predefined data sets would be highly popular online multi-player games, where data from thousands of matches can be gathered each day, which provides a massive amount of input for training algorithms. This can be used to speed up the process of training AI agents to perform the most appropriate actions given a situation, which in turn will provide a more competitive challenge to players.
+
+% * Negative Aspects of Learning-Based DDA
+% * ================
+
+% Experiment was not performed using real players
+% Long time to train agents means long time for opponents provide a fair challenge, which can cause frustration to players
+However, we argue that this experiment has yet to be applied in the context of real players using an implementation that would better replicate a commercial video game product. Learning algorithms might require a long time to train agents to the point of providing a fair challenge to players, which might cause frustration and negative bias in player perception regarding the AI design.
+
+% Simplistic game implementation, modern games present many more components regarding AI, which would mean much more time to train
+Additionally, the work implemented in \cite{article_adaptivebehaviorai} uses a simplistic game implementation as an object of study, where the objectives and available actions are restricted to few options which simplifies the implementation of behavioral components and in consequence reduces the amount of data, processing and time to train agents.
+
+In modern video games which present sophisticated AI solutions, the amount of information regarding game state and actions that a player or AI agent can perform can be dramatically higher in comparison, which means that the amount of behavioral components would be much higher, and consequently result in an exponential increase in the amount of data, processing power and training time -- to the point of becoming unfeasible to integrate in a project, as modern games commonly allocate most processing power of hardware to the execution of its rendering and gameplay systems.
+
+% Unsupervised learning might cause game designer to lose control over the balancing of AI opponents
+% Adjustments are based on keeping the challenge at a fair and competitive level, but game designers might purposefully want to design a section of the game with a significant increase in challenge level to increase tension or cause specific affective reactions
+Another problem surfaces when considering balancing and adjustments of AI opponents by game designers under the iterative nature of the game development process. In the specific case of the implementation in \cite{article_adaptivebehaviorai}, as in-game parameters such car speed and handling are modified, the data which defined the training sets for AI agents might have to be discarded, as actions that would previously define a winning strategy could become obsolete by the changes in car physics. 
+
+Therefore, simple adjustments to the balancing of a game might cause the learning-based AI to have to be re-trained. Since the balancing of a game is also dependant on the difficulty of AI opponents, which in this case is defined by data accumulated from multiple matches, integrating such a process in iterative game development becomes unfeasible, as small changes to the game would cause all AI opponents to become unbalanced.
+
+% \subsubsection{Alternative Implementations}
 % TODO * Other Implementations of Learning-Based DDA in Research
 % * ================
 
@@ -833,41 +944,89 @@ During the last sections of a level, it is common for game designers to employ s
 % - Parts of the game that are naturally more challenging because of the game systems and level design can have their difficulty potentialized by the adaptive layer
 However, if the player performs exceedingly well as the level progresses, they may find themselves in a situation where the natural increase of challenge caused by common level design practices is magnified by the increase from the adaptive difficulty system, and thus a section of a level with significantly higher difficulty than its earlier sections may become an insurmountable challenge for a highly skilled player. Therefore, a positive performance from the player in earlier sections may hinder their progress in later sections of a level, which may cause the player to purposefully perform worse in earlier sections to adjust the difficulty of later sections of a level.
 
-\section{Conclusions (TO DO)}
+\section{Conclusions}
 % * ======================================================================
 % * ======================================================================
 % *  CONCLUSIONS
 % * ======================================================================
 % * ======================================================================
 
-% This section is supposed to be a wrap up of all the sections in this chapter.
+% This section is supposed to be a wrap up, including:
+% - Comparative tables for adaptive concepts
+% - Analyze general positive and negative aspects
+% - Synthesize general guidelines on what should be pursued or avoided
+% - Understand what can be improved or explored 
 
-% How experience is affected by difficulty
-%   - What is player experience
+\subsection{Motivation and Concepts Explored}
+% * Summarization of concepts
+% * =======================
 
-% What is an adaptive system
+% Player experience
+%   - Challenge and Flow
+%   - Difficulty curve
+%   - Learning curve
+
+% Adaptive systems:
+%   - Player models: profile, performance, preferences
+%   - Metrics, adjustment policies, adjustments
+
+% Adaptive Systems
 %   - Definitions of parameters & data that constitute a player model
 %       - Monitoring of player actions & results
-%       - Creation of metrics that can represent play style, performance and preferences
-%   - Adaptation & modification of the player model as the player learns to play a game and creates new strategies
-%   - Performing adjustments to the system to tailor the game for a player based on their player model
+%       - Metrics on profile, performance and preferences
+%   - Adaptation & modification of the player model over course of play
+%   - Dynamic adjustments to the system to tailor the game for a player
 
-% Characteristics of adaptive systems in Research
-%   - Experimental approaches which were more innovative
+\subsection{Characteristics of Adaptive Systems in Research}
+% * Comparative table of research solutions
+% * =======================
 
-% Problems with adaptive systems in research
-%   - Difficult to be tailored by game designers
-%       - May require technical knowledge of specific algorithms
-%       - Balancing may be too slow to work with the iterative nature of game development
-%       - Learning-based approaches may not work well with the rapidly-changing nature of live games
-%   - Hard to apply on commercial solutions
+% * General positives & negatives of research solutions
+% * =======================
 
-% Characteristics of adaptive systems in commercial solutions
-%  - Mostly minor changes with simple algorithms due to the ease of balancing by game designers
-%  - Resource distribution is a prevalent approach due to their ease of abstraction with RNG systems
+% + Major adjustments
+% + Experimental approaches which were more innovative
+% + Metrics can be agnostic to game genre
+% + Adjustments were mostly abstracted to players
+
+% - Complex algorithms
+% - Hard to integrate in game development process
+% - Can be hard to tailor by game designers
+
+\subsection{Characteristics of Adaptive Systems in Commercial Games}
+% * Comparative table of commercial solutions
+% * =======================
+
+% * General positives and negatives of commercial solutions
+% * =======================
+
+% + Ease of balancing by game designers
+% + Ease of implementation
+
+% - Minor adjustments 
+% - A few prevalent solutions which became widespread
+%     - Rubber banding: runaway leader problem
+%     - Resource distribution: abstraction on integration with RNG
+% - Difficulty of being abstracted to players
+
+% * Guidelines
+% * =======================
+
+%   - Should be abstracted to the player
+
+% > Regarding integration of system with the game development process:
+%    - Should be easy to be tailored by game designers
+%    - Should avoid requiring technical knowledge to configure
+%    - Balancing & adjustments should be fast to perform
+
+% * What can be improved or explored
+% * =======================
+
+% - Experimentation with research approaches in commercial games
+% - Implementations in live games
+% - Implement in games that are challenging by nature
 
 % Problems with adaptive systems in commercial solutions 
-%   - Better if it is abstracted to the player
 %       - Can be exploited once known, which is bad for multiplayer
 %       - Player might break their own immersion or modify their decision making to "game" the system
 %       - If the difficulty created by the adaptive layer is not balanced correctly with the underlying layers, the player might be punished for "doing too well"
