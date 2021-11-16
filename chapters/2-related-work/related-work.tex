@@ -956,59 +956,137 @@ However, if the player performs exceedingly well as the level progresses, they m
 % - Analyze general positive and negative aspects
 % - Synthesize general guidelines on what should be pursued or avoided
 % - Understand what can be improved or explored 
+In this section, we summarize the concepts relating to adaptive systems which were explored in previous research. We evaluate the general aspects of adaptive system implementations in research and commercial games, and provide a comparison of the general characteristics of each solution. We synthesize a set of guidelines for the conception and implementation of DDA systems, and conclude by analyzing the possibilities for improvement or exploration of new solutions on DDA. 
 
 \subsection{Motivation and Concepts Explored}
 % * Summarization of concepts
 % * =======================
 
 % Player experience
-%   - Challenge and Flow
-%   - Difficulty curve
-%   - Learning curve
+% Difficulty and skill discrepancy
+We explored the definition of player experience using analogies to the concept of \emph{User Experience}. We discovered the recently explored concept of \emph{Playability}, where player experience can be affected by several factors such as emotion, motivation, immersion, difficulty, learnability and satisfaction. We specifically analyzed the impact of difficulty on player experience by understanding that failure has consequences in player emotion, as punishment mechanics can be the source of anxiety and demotivation, which is added to the frustration of repeatedly trying and failing. We also analyzed the case where the player skill level is above the challenge presented by a game, which causes boredom.
+
+% State of flow
+We related these observations to the widely studied concept of \emph{Flow}, where the existence of a state of intense focus is described, which causes enjoyment and fulfillment. We learned that for a player to achieve the State of Flow, the challenge level proposed by a game has to be in general accordance with the skill level of the player.
+
+% Learning Curve
+As a consequence of the desire to induce player into the State of Flow, we learned about the concept of \emph{learning curve}, where the challenge level of a game is tailored for game designers to provide players with the opportunity to incrementally learn and improve upon the use of game mechanics and systems, thus attempting to maintain the level of challenge of the game bound to the knowledge of the player.
+
+% Difficulty and Learning curves can be balanced with Adaptive Systems
+We evidenced the fact that the balancing the difficulty and learning curves for a game is a complex problem which is generally solved by targeting player stereotypes, but this solution often does not accommodate specific characteristics of players. We argued that specific player needs can be addressed through the use of Adaptive Game Systems.
 
 % Adaptive systems:
 %   - Player models: profile, performance, preferences
-%   - Metrics, adjustment policies, adjustments
+%   - Monitoring of player actions & results
+%   - Metrics on profile, performance and preferences
+The work described in \cite{ARTICLE_PlayerCentredGameDesign} conceptualized a standard design for the development of adaptive systems, by defining the concept of dynamic player models which consist of data regarding the characteristics of a player. The model can be generated through data that is acquired outside of the execution of an application, or through the monitoring of player actions and in-game events. Over the course of play sessions, models are updated to represent the current characteristics of a player.
 
-% Adaptive Systems
-%   - Definitions of parameters & data that constitute a player model
-%       - Monitoring of player actions & results
-%       - Metrics on profile, performance and preferences
 %   - Adaptation & modification of the player model over course of play
 %   - Dynamic adjustments to the system to tailor the game for a player
+%   - Metrics, adjustment policies, adjustments
+In \cite{PHD_DynamicDifficultyAdjustment} adaptive systems are further explored with the concepts of metrics and adjustment policies. The data that consists a player model can generate metrics in the domains of player profile, performance or preferences. Such metrics can be used as input to adjustment policies, which serve as thresholds or quantifiers to the adjustment of in-game parameters that adapt the contents of a game to the necessities of a player.
 
-\subsection{Characteristics of Adaptive Systems in Research}
-% * Comparative table of research solutions
-% * =======================
+It is argued that the general methodologies used in Adaptive Systems can be applied in the form of Dynamic Difficulty Adjustments, which can be used to accommodate the skill level of a player to the challenge level proposed by game designers, alleviate steep learning curves, reduce frustration and anxiety and even provide a competitive level of challenge to veteran or highly skilled players.
+
+\subsection{Characteristics of Adaptivity in Research}
 
 % * General positives & negatives of research solutions
 % * =======================
 
-% + Major adjustments
 % + Experimental approaches which were more innovative
 % + Metrics can be agnostic to game genre
 % + Adjustments were mostly abstracted to players
 
-% - Complex algorithms
+% - Major adjustments: Complex algorithms
 % - Hard to integrate in game development process
 % - Can be hard to tailor by game designers
 
-\subsection{Characteristics of Adaptive Systems in Commercial Games}
-% * Comparative table of commercial solutions
+% * Comparative table of research solutions
 % * =======================
+\begin{table}[!ht]
+    \begin{center}
+      \caption{Dynamic Difficulty Systems in Research.}
+      \label{tab:adaptive-systems-research}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{7em} >{\small}w{c}{2em} >{\small}w{c}{6em} >{\small}w{c}{7em} >{\small}w{c}{8em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Name & \bf Year & \bf Authors & \bf Metrics Domain  & \bf Adjustments \\
+        \midrule
+
+        Hamlet System & \citeyear{article_casefordda} & \citeauthor{article_casefordda} & Player Performance & \makecell{Resource Distribution\\AI Attributes} \\
+
+        Affect-Based DDA & \citeyear{article_affectivedda} & \citeauthor{article_affectivedda} & Player Affective State & \makecell{Game Speed\\Player Attributes} \\
+
+        \makecell[l]{Reinforcement\\Learning DDA} & \citeyear{article_adaptivebehaviorai} & \citeauthor{article_adaptivebehaviorai} & \makecell[c]{Player Profile\\Player Performance} & \makecell{AI Behaviors} \\
+
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
+
+\subsection{Adaptive Systems in Commercial Games}
 
 % * General positives and negatives of commercial solutions
 % * =======================
 
+% + Minor adjustments: Ease of implementation
 % + Ease of balancing by game designers
-% + Ease of implementation
+% + Provided positive results for beginner players
+% + Integrate well with game development process
 
-% - Minor adjustments 
+% - Difficulty of being abstracted to players
 % - A few prevalent solutions which became widespread
 %     - Rubber banding: runaway leader problem
-%     - Resource distribution: abstraction on integration with RNG
-% - Difficulty of being abstracted to players
+%     - Dynamic Resource distribution
+%      -Dynamic AI Behaviors
+%     - Dynamic Encounters
+%     - Explicit
+% - Can be easily exploited
+% - Might break immersion
 
+% * Comparative table of commercial solutions
+% * =======================
+
+\begin{table}[!ht]
+    \begin{center}
+      \caption{Adaptive System Implementations in Commercial Games.}
+      \label{tab:adaptive-systems-commercial-games}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ >{\small}w{l}{6em} >{\small}w{c}{2em} >{\small}w{c}{7em} >{\small}w{c}{6.5em} >{\small}w{c}{8em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Title & \bf Year & \bf Metrics Domain  & \bf Adjustment Method & \bf Adjustment Targets \\
+        \midrule
+
+        \makecell[l]{Half-Life 2} & 2004 & \makecell{Player Performance} & \makecell{RNG-based} & \makecell{Resource Distribution} \\
+
+        \makecell[l]{Resident Evil 4} & 2004 & \makecell{Player Performance\\Player Profile} & \makecell{Multiple Layers} & \makecell{Resource Distribution\\AI Behavior\\Combat Encounters} \\
+
+        \makecell[l]{God Hand} & 2005 & Player Performance & \makecell{Explicit} & \makecell{AI Behavior\\Enemy Speed\\Enemy Damage} \\
+
+        \makecell[l]{Left 4 Dead} & 2008 & \makecell{Player Performance} & \makecell{RNG-based} & \makecell{Resource Distribution} \\
+
+        \makecell[l]{Counter-Strike\\Global Offensive} & 2012 & Player Performance & Rubber Banding & \makecell{Arms Race\\Weapon Distribution} \\
+
+        \makecell[l]{Diablo 3} & 2012 & Player Performance & RNG-based & \makecell{Item Distribution} \\
+
+        \makecell[l]{Final Fantasy\\XIV} & 2013 & Player Performance & Rubber Banding & \makecell{Experience Points} \\
+
+        \makecell[l]{Mario Kart™ 8\\Deluxe} & 2014 & Player Performance & Rubber Banding & \makecell{AI Speed\\Power-ups} \\
+
+        \makecell[l]{Undertale} & 2015 & Player Preferences & Explicit & \makecell{Combat Encounters} \\
+
+        \makecell[l]{Horizon Chase\\Turbo} & 2018 & Player Performance & Rubber Banding & \makecell{AI Speed} \\
+        
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
+
+\subsection{Guidelines for Adaptive Systems}
 % * Guidelines
 % * =======================
 
@@ -1019,18 +1097,10 @@ However, if the player performs exceedingly well as the level progresses, they m
 %    - Should avoid requiring technical knowledge to configure
 %    - Balancing & adjustments should be fast to perform
 
+\subsection{Improvement and Exploration Opportunities}
 % * What can be improved or explored
 % * =======================
 
 % - Experimentation with research approaches in commercial games
 % - Implementations in live games
 % - Implement in games that are challenging by nature
-
-% Problems with adaptive systems in commercial solutions 
-%       - Can be exploited once known, which is bad for multiplayer
-%       - Player might break their own immersion or modify their decision making to "game" the system
-%       - If the difficulty created by the adaptive layer is not balanced correctly with the underlying layers, the player might be punished for "doing too well"
-
-% TODO \subsection{A Timeline of Adaptive Game Systems (ADDITIONAL)}
-
-% TODO \subsection{A Comparative Table of Research in Adaptive Game Systems (ADDITIONAL)}
