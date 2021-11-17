@@ -2,7 +2,9 @@
 \label{ch:analysis-object-study}
 \label{sec:analysis-dark-souls}
 
-In this section, we analyze the Game Design of our object of study to define the essential aspects required to implement a replica of its core elements and experience. We argue that understanding the Game Design of \emph{Dark Souls} is crucial to the interpretation of difficulty in games. While \emph{Dark Souls} presents a wide variety of mechanics and interactions, only the basic rules required for the implementation of the combat system will be described.
+In this section, we justify the motivation behind the choice of Dark Souls as our object of study. We perform an overview of the most relevant combat mechanics to identify the subset of features that should be implemented in our simplified version. We identify the core aspects of the implementation of AI agents in Dark Souls, defining a set of guidelines to aim for when attempting to replicate the behavior of enemies in our implementation.
+
+We perform a generalized analysis of the philosophy applied in level design, to understand which methodologies were applied and which of its aspects are difficulty factors to players. We identify the difficulty factors in Dark Souls, attempting to understand the inherent issues with its design decisions and systems. We conclude by summarizing the observations and analysis performed in this section to define the aspects that our simplified implementation should attempt to replicate, as well as pointing out the issues regarding difficulty and approachability that can be addressed through an adaptive solution.
 
 % ========================================================================
 % ========================================================================
@@ -14,9 +16,7 @@ Dark Souls has successfully pushed the extents of challenge in Action RPGs to th
 
 The player does not fail in \emph{Dark Souls} by dying, but by giving up on finishing the game. The game design creates a cycle of experimenting, dying, learning, adapting and only then progressing through the levels. Therefore death is not considered failure, but simply the price paid for knowledge. Because of this type of punishing yet rewarding design, the special edition of the first title in the \emph{Dark Souls} series yields the subtitle "Prepare to Die Edition".
 
-While the average action game might reward the player for beating entire armies of enemies on his own, \emph{Dark Souls} can be a rewarding experience for the player even when basic encounters are surpassed, such as surviving a battle with a single enemy. When adventuring through the tight corridors of a dungeon or dark underground caves, the player faces unknown dangers and must fight their way out. Even the weakest enemies can surprise and kill an unsuspecting player. When facing the strong opponents, dealing the finishing blow in an intense fight means the player overcame a challenge.
-
-Understanding the design of Dark Souls is, therefore, a key component to understanding the relationship of challenge and reward.
+While the average action game might reward the player for beating entire armies of enemies on his own, \emph{Dark Souls} can be a rewarding experience for the player even when basic encounters are surpassed, such as surviving a battle with a single enemy. When adventuring through the tight corridors of a dungeon or dark underground caves, the player faces unknown dangers and must fight their way out. Even the weakest enemies can surprise and kill an unsuspecting player. When facing the strong opponents, dealing the finishing blow in an intense fight means the player overcame a challenge. Understanding the design of Dark Souls is, therefore, a key component to understanding the relationship of challenge and reward.
 
 % ============================================================================
 % ============================================================================
@@ -229,7 +229,7 @@ Therefore, the player has less chances to devise strategies and adapt to the cha
 % \cite{YT_HowChallengingIsDarkSouls}
 We also explore some of the observations, perceptions and opinions of the Dark Souls player base to understand the general consensus of players regarding the difficulty of beginner players to feel motivated to continue playing the game. To this objective, we perform an analysis of online videos created by members of the Dark Souls player base which promote the discussion of aspects of the level design, mechanics and systems employed in Dark Souls that contribute to the overall impression of Dark Souls as a difficult and challenging game.
 
-In the discussion promoted by \cite{YT_HowChallengingIsDarkSouls}, we observe that one of the main aspects that can contribute to the impression of difficulty is related to the fact that the game does not provide in-game interface elements or systems which explicitly inform the player of which path should be traversed at any given point in the game. Therefore, beginner players will often be required to infer their objectives through an experimentation process where they explore multiple possible paths, and assess which paths can be successfully traversed given their current equipment, level and attributes.
+In the discussion promoted by the YouTube user "\citeauthor{YT_HowChallengingIsDarkSouls}" in \citeyear{YT_HowChallengingIsDarkSouls}, we observe that one of the main aspects that can contribute to the impression of difficulty is related to the fact that the game does not provide in-game interface elements or systems which explicitly inform the player of which path should be traversed at any given point in the game. Therefore, beginner players will often be required to infer their objectives through an experimentation process where they explore multiple possible paths, and assess which paths can be successfully traversed given their current equipment, level and attributes.
 
 This can result in beginner players continuously attempting to traverse paths with difficult or no possibilities of progression given their current attributes and the state of the game world, and in result cause frustration and demotivation. One of the most prevalent examples for this in Dark Souls can be observed when players reach the bonfire for a game location named "Firelink Shrine", where players can either achieve progress through an easier path through the "Undead Burg" or incorrectly attempt to progress through the "Catacombs", which presents stronger enemies and will not provide progression of game story elements.
 
@@ -265,17 +265,65 @@ Therefore, the level design in Dark Souls creates an incentive for players to ca
 
 \section{Conclusions}
 
-\subsection{Importance}
+We conclude our analysis of Dark Souls by synthesizing a summary of the importance of its choice as an object of study, the game design characteristics which can be used as a reference for the implementation of a simplified version of the game, and the inherent issues with difficulty caused by design choices. We also propose solutions to the inherent problems of game design in Dark Souls, which are used as a basis to the choice of our adjustment policies and targets in section \ref{sec:adjustments}.
 
-\subsection{Considerations on Game Design}
+\subsection{Relevance}
 
-% Aesthetics
+% - Source of controversial discussions on difficulty & accessibility
+As discussed earlier in this chapter, Dark Souls has been one of the most influential games when considering the discussion regarding difficulty, challenge and accessibility in games, as seen in \cite{ONLINE_GettingWrongDarkSouls}. Dark Souls was the source of many controversial innovations and design approaches involving level design, combat systems, and punishment of failure \cite{ONLINE_ToughLoveDarkSoulsDifficulty}. Over the last decade, Dark Souls was also the protagonist in the discussion of the newly popularized concept of approachability to beginner players, as seen in \cite{ONLINE_ApproachabilityFixDarkSouls}. Therefore, we argue that the use of Dark Souls as an object of study can be used as a platform to improve our understanding of the impact of difficulty in player experience.
+
+% - Failure as part of learning process
+Dark Souls was also one of the first games which addressed the use of failure as a part of the learning process by players, where the cycle of exploration, experimentation and adaptation created a methodology of iterative improvements to the player learning process. However, this methodology also proved to be a controversial approach, as many players report feeling frustrated and decide to give up on the game, resulting in a completion rate of approximately 26\% of the player base \cite{ONLINE_ApproachabilityFixDarkSouls}. Therefore, the use of Dark Souls as an object of study also provides us with opportunities to validate the use of adaptive systems to alleviate the learning process of beginner players, which in turn would reduce frustration and possibly reduce churn rates.
+
+% - Approachability issues
+As evidenced by our analysis of its difficulty factors, Dark Souls presents many issues regarding its approachability, which are a consequence of the inherent issues of its design decisions and a biased perception of players regarding its challenge level. Therefore, Dark Souls also provides us with many possibilities regarding adjustments of systems which have inherent approachability issues. In consequence, it is possible to use Dark Souls as a platform to N-dimensional dynamic difficulty approaches, where the difficulty of specific game elements can be adjusted considering isolated metrics of the player model.
+
+\subsection{Core Design Aspects}
+
+In this section, we provide a brief summary of the core game design aspects that were discussed earlier in this chapter, with the objective of identifying the minimum set of features and systems from the original game which can characterize a simplified version. The simplified version can then be used as a target object to the implementation of adaptive systems, with metrics and adjustments that consider the difficulty factors and inherent game design issues of Dark Souls to beginner players.
 
 % Game mechanics
+%   - Camera types: Orbital & Lock-On Cameras
+Regarding the aspects involving camera implementations, we identified that Dark Souls employs the use of Third-Person perspective cameras through \emph{Orbital} and \emph{Lock-On} cameras. Orbital cameras perform rotational movement using the player character as a pivot, and are restricted to a fixed distance radius. Lock-On cameras are used to automatically frame the player and a target enemy, and to simplify the movement of the player character in relation to their enemy. Upon collision with the environment geometry, both camera types are brought closer to the player character.
+
+%   - Attributes: Health, Stamina, Poise
+%   - Regenerating stamina
+%   - Stagger
+Dark Souls implements three core resource attributes regarding the statuses of entities in combat: \emph{Health}, \emph{Stamina} and \emph{Poise}. Health is tied to the condition of failure, which is the death of the player character. Stamina is the resource used as a limiter to performing combat actions repeatedly such as attacking, dodging, blocking and parrying. Stamina is automatically regenerated, and the regeneration is briefly halted when any action results in a change of its value. Poise determines the resistance of the player to the \emph{Stagger} status, where the player might become briefly animation-locked after getting hit by one or multiple attacks.
+
+%   - Actions: Attack
+%   - Recovery time
+During combat, the player can perform a looping sequence of \emph{attacks} which is only limited by their amount of stamina. Each attack has an attached \emph{stamina cost}, and if the player has no stamina they are unable to attack. Attack animations also have a specific timing window where they are able to \emph{register a hit}, and each attack has a specific \emph{hitbox} collider which is used for the detection of hits. At end of an attack sequence, attack animations force the player character into the \emph{recovery time} state, where the player is \emph{animation-locked} to the end of the attack animation and unable to perform any actions. Attack animations are defined by the weapons being used, where lighter weapons use faster animations and heavier weapons use slower and longer animations.
+
+%   - Actions: Block
+%   - Actions: Parry
+The player can also hold their weapon or shield to \emph{block} attacks, which reduces the rate of stamina regeneration by half. Blocking an attack has a stamina cost, and if the player has no stamina when performing a block they are automatically staggered. Each attack has a different stamina cost to block, with some enemies performing \emph{special attacks} that dramatically reduce player stamina. Additionally, players might also attempt to parry an attack, which completely negates the effects of player attacks and also staggers the target enemy if accurately executed. To correctly execute a parry, players must perform the action at a moment in which the \emph{parry timing window} matches the hit registering window of enemy attacks. If the player incorrectly performs the parry, they are left vulnerable and will suffer the full effects of the attack. Parry also has an attached stamina cost, and can not be performed if the player has no stamina left. 
+
+%   - Actions: Dodge
+Players can also attempt to dodge attacks, which serves as both an attack avoidance and a repositioning mechanic. To be able to dodge, the player is required to use a significant amount of stamina. If the player has no stamina, they are unable to perform a dodge. During a brief timing window at the beginning of the dodge animation the player is considered invincible to attacks, meaning that the effects of attacks from enemies that would register a hit are completely negated. The game presents different dodging animations depending on the armor type being used by the player, and each animation has a specific invincibility window.
+
+% Artificial Intelligence
+%   - Simplistic behaviors
+%   - Stand idle or patrol until sensors detect player
+%   - Attack patterns which encourage pattern recognition
+%   - Attributes stronger than player
+Regarding the implementation of AI agents in Dark Souls, most enemies present simplistic behaviors that perform a limited set of actions without considering many contextual aspects of combat. By default, most of the enemies will stand idle at a specific position or walk through a small set of waypoints until their sensors detect the presence of the player, at which point enemies will chase the player until close enough to attack. The exception is with the "archer" type of enemies, which simply attack the player from a distance while standing idle after detecting their presence. Enemies perform a limited set of attack sequences that encourage memorization and pattern recognition by the player to appropriately avoid. Most of the enemies present a fair challenge when considering the strength of their attributes in comparison to that of the player character, but some enemy types can present much higher health points or damage dealt to the player, which increases the level of challenge and encourages players to take less risks in combat.
 
 % Level design
+%   - Encourages memorization
+%   - Open or constricted environments
+%   - Placement of enemies & traps outside of player FOV
+%   - Archer enemies that might be difficult to reach
+Regarding the level design in Dark Souls, a variety of environments are presented with different characteristics. Open environments are more prevalent in areas where \emph{boss fights} take place, while most of the game occurs in constricted environments where player movement is limited. The game also performs heavy employment of enemies and traps in strategical positions that can be outside of the player field of view, which might catch an unsuspecting player off-guard and result in their death. Therefore, the game encourages memorization of the environments and the minimization of risks through a careful approach. In combat encounters, the game often positions ranged enemies in strategical advantage points which are difficult to reach, so the player has to traverse through long sections of the environment to be able to eliminate such enemies.  
 
-\subsection{Summary of Difficulty Factors}
+% Aesthetics
+%   - Dark fantasy setting
+%   - Undead enemies
+%   - Realistic, slow attack animations
+%   - Feeling of unease
+Regarding the aesthetics of Dark Souls, the game presents an environment in a \emph{Dark Fantasy} setting, where most enemies are undead or supernatural entities. The visual elements and audio design cause a general feeling of unease, which goes in accordance with the narrative aspects and the overlying theme of loneliness of a lost soul traversing through a ruined world. The animations for the player character and most humanoid entities are slow and heavy, providing a sense of weight and realism in combat.
+
+\subsection{Difficulty Issues \& Proposed Solutions}
 
 % DARK SOULS DIFFICULTY FACTORS
 % ================================
