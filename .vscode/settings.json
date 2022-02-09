@@ -30,7 +30,7 @@
         "unblockable"
     ],
     "editor.fontFamily": "Century",
-    "editor.fontSize": 18,
+    "editor.fontSize": 16,
     "editor.wordWrap": "on",
     "editor.autoClosingBrackets": "never"
 }
