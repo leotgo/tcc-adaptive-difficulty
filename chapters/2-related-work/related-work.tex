@@ -1,9 +1,37 @@
 \chapter{RELATED WORK}
 \label{ch:related-work}
 
-\sepfootnotecontent{fn:speedrun-com-re4-guides}{Footnote: Speedrun.com Resident Evil 4 Guides}
+\sepfootnotecontent{fn:speedrun-com-re4-guides}{Speedrun.com Resident Evil 4 (Console) Guides. Rank and Difficulty Adjustment Anaylsis (https://www.speedrun.com/re4console/guide/3sahj)}
 
-\sepfootnotecontent{fn:beat-em-up}{Footnote: What are beat 'em up games}
+\sepfootnotecontent{fn:beat-em-up}{Beat 'em up games is a subgenre of action video games which traditionally involves melee-range combat between the player and multiple groups of oponents, which are spread out in \emph{level sections}. Traditional beat 'em up games involve two-dimensional movement in horizontally scrolling levels, often with a two-player cooperative multiplayer mode.}
+
+\sepfootnotecontent{fn:xp-points}{Experience Points are resources acquired by the player upon defeating enemies with the purpose of serving as a currency for purchasing upgrades for the player character. Such upgrades can improve the efficiency of the player in combat, or enable the player to use better equipment. In the Dark Souls game series, the Experience Points, also known as "Souls", can also be used for trading with \emph{NPCs} (Non-Player Characters) for purchasing various items which assist the player when progressing.}
+
+\sepfootnotecontent{fn:cod-mw1}{Call of Duty: Modern Warfare (Infinity Ward, 2007). Computer Game. Microsoft Windows.}
+
+\sepfootnotecontent{fn:smb-original}{Super Mario Bros (Nintendo, 1985). Video Game. Nintendo Entertainment System.}
+
+\sepfootnotecontent{fn:cod-bops4}{Call of Duty: Black Ops 4 (Treyarch, 2018). Computer Game. Microsoft Windows.}
+
+\sepfootnotecontent{fn:bf5}{Battlefield 5 (DICE, 2018). Computer Game. Microsoft Windows.}
+
+\sepfootnotecontent{fn:need-for-speed}{Need for Speed: Most Wanted (Criterion Software, 2012). Video Game. PlayStation 3, Xbox 360, PlayStation Vita, Wii U.}
+
+\sepfootnotecontent{fn:forza-horizon}{Forza Horizon 4 (Playground Games, 2018). Video Game. Xbox One, Xbox Series X and Series S, Microsoft Windows.}
+
+\sepfootnotecontent{fn:horizon-chase-turbo}{Horizon Chase Turbo (Aquiris Game Studio, 2018). Video Game. Nintendo Switch, PlayStation 4, Xbox One, Microsoft Windows, Linux, Macintosh.}
+
+\sepfootnotecontent{fn:wipeout}{Wipeout HD (Psygnosis, 2008). Video Game. PlayStation 3.}
+
+\sepfootnotecontent{fn:crash-team-racing}{Crash Team Racing Nitro-Fueled (Beenox, 2019). Video Game. PlayStation 4, Nintendo Switch, Xbox One.}
+
+\sepfootnotecontent{sonic-all-stars-racing}{Sonic \& All-Stars Racing Transformed (Sumo Digital, 2012). Video Game. Xbox One, Wii U, Xbox 360, PlayStation Vita, PlayStation 3, Nintendo 3DS.}
+
+\sepfootnotecontent{fn:split-second-game}{Split/Second (Black Rock Studio, 2010). Video Game. Xbox 360, PlayStation 3.}
+
+\sepfootnotecontent{fn:final-fantasy-xiv}{Final Fantasy XIV: A Realm Reborn (Square Enix, 2013). Computer Game. Microsoft Windows, PlayStation 3, PlayStation 4, Xbox One, PlayStation 5.}
+
+\sepfootnotecontent{fn:csgo}{Counter-Strike: Global Offensive (Valve Software, 2012). Computer Game. Microsoft Windows, macOS, Linux.}
 
 \section{Overview}
 % * ======================================================================
@@ -18,7 +46,7 @@
 % Understand the impact of difficulty in player experience
 % How difficulty can be a detrimental factor or assist player improvement
 % Identify problems with fixed difficulty curves
-In this chapter, we perform a review of previous research and literature related to adaptive systems and dynamic difficulty. We begin by exploring literature regarding player experience and the concepts that define game difficulty, to understand the impact of difficulty in player experience. We attempt to understand how difficulty can be a detrimental factor or used as a support tool for players to learn, understand and improve upon the use of game mechanics and systems. We identify the problems with fixed difficulty curves, where the game provides a limited set of options for players to define their expected challenge level within the experience of a game. 
+In this chapter, we perform a review of previous research and literature related to adaptive systems and dynamic difficulty. We begin by exploring literature regarding player experience and the concepts that define game difficulty, to understand the impact of difficulty in player experience. We attempt to understand how difficulty can be a detrimental factor or used as a support tool for players to learn, understand and improve upon the use of game mechanics and systems. We identify the problems with fixed difficulty curves, where the game provides a limited set of options for players to define their expected challenge level within the experience of a game.
 
 % Summary: Player Modelling
 % -----------------------------
@@ -69,7 +97,7 @@ We attempt to extract concrete, functional features from the subjective term \em
 
 Computer software is commonly developed with the objective of allowing an user to execute a set of tasks, determined by a clear objective and in a specific context \cite{ARTICLE_FromUsabilityToPlayability}. One of the early endeavors in the field of HCI (Human-Computer Interaction) was the efficiency of performing the \emph{task} to ensure a product's instrumental value \cite{ARTICLE_UserExperienceAResearchAgenda}. In this line of thought, users of an application should ideally perform tasks without thinking about the application. 
 
-Research on the interaction between people and systems in the field of HCI led to the concept of \emph{usability}, defined by \cite{ISO_ISO92411} as:
+Research on the interaction between people and systems in the field of HCI led to the concept of \emph{usability} \cite{ISO_ISO92411}:
 
 \begin{quotation}
 "The extent to which a system, product or service can be used by specified users to achieve specified goals with effectiveness, efficiency and satisfaction in a specified context of use."
@@ -77,11 +105,11 @@ Research on the interaction between people and systems in the field of HCI led t
 
 This definition specifies the three qualities of a usable product: \emph{effectiveness}, \emph{efficiency} and \emph{satisfaction}. We argue that while effectiveness and efficiency can be related to productivity,  satisfaction may not be fulfilled solely by productivity. For instance, an user might feel dissatisfied with the audiovisual components of an application such as its interface, even though the application perfectly satisfies the purpose of assisting in the completion of tasks efficiently.
 
-In \citep{ARTICLE_UserExperienceAResearchAgenda}, we learn that early works on usability expressed that productivity is not primary, but only a contributor to \emph{User Experience}. The term "user experience" does not have a standard definition, but can be seen as how people interact with products and the resulting experience and emotions \cite{ARTICLE_UnderstandingExperience}. The experience is therefore a consequence of: the user's state, such as their emotions and needs; the characteristics of the product, such as usability and audiovisual aspects and the context of use, such as the environment and date.
+In the work of \citet{ARTICLE_UserExperienceAResearchAgenda}, we learn that early research on usability expressed that productivity is not primary, but only a contributor to \emph{User Experience}. The term "user experience" does not have a standard definition, but can be seen as how people interact with products and the resulting experience and emotions \cite{ARTICLE_UnderstandingExperience}. The experience is therefore a consequence of: the user's state, such as their emotions and needs; the characteristics of the product, such as usability and audiovisual aspects and the context of use, such as the environment and date.
 
-According to \cite{ARTICLE_FromUsabilityToPlayability}, the concept of \emph{usability} is not sufficient to fully describe UX (User Experience) in relation to Video Games. The authors argue that video games are a specific type of interactive system used for leisure purposes. Thus, when evaluating quality not only instrumental values should be considered, but also non-instrumental values such as storytelling, visuals and character design. The author also introduces the concept of \emph{Player Experience}, a specialization of UX that emphasizes the specific properties of experience in games.
+According to \citet{ARTICLE_FromUsabilityToPlayability}, the concept of \emph{usability} is not sufficient to fully describe UX (User Experience) in relation to Video Games. The authors argue that video games are a specific type of interactive system used for leisure purposes. Thus, when evaluating quality not only instrumental values should be considered, but also non-instrumental values such as storytelling, visuals and character design. The author also introduces the concept of \emph{Player Experience}, a specialization of UX that emphasizes the specific properties of experience in games.
 
-The author explains that Player Experience is characterized by \emph{Playability}, a concept based on Usability but with different meanings in the video game context. The proposed definition of \emph{Playability} by \cite{ARTICLE_FromUsabilityToPlayability} resembles the original Usability definition, but emphasizes the user-centric perspective and the satisfaction property:
+The author explains that Player Experience is characterized by \emph{Playability}, a concept based on Usability but with different meanings in the video game context. The proposed definition of \emph{Playability} by \citet{ARTICLE_FromUsabilityToPlayability} resembles the original Usability definition, but emphasizes the user-centric perspective and the satisfaction property:
 
 \begin{quotation}
 "Playability represents the degree to which specified users can achieve specified goals with effectiveness, efficiency and specially satisfaction and fun in a playable context of use."
@@ -114,13 +142,13 @@ Failure can be described when a player is unsuccessful in the completion of an i
 
 The perceptible change in failure outcomes suggests that punishment could be detrimental on the enjoyment of a game, depending on its gravity. The controversy of player failure and punishment requires the clarification of its purpose in games. If the only possible outcome of losing was a negative experience, the very existence of this system would be questionable.
 
-According to \cite{ARTICLE_FearOfFailure}, failure serves the function of making players readjust their perception of a game. When a player fails performing a task, they realize the strategy that was performed is not the correct or optimal solution to a problem. The player then reevaluates the situation, analyzes what caused the failure and attempts a new strategy. This cycle provides the player an opportunity to deepen their knowledge, and encourages the creativity of new solutions.
+According to \citet{ARTICLE_FearOfFailure}, failure serves the function of making players readjust their perception of a game. When a player fails performing a task, they realize the strategy that was performed is not the correct or optimal solution to a problem. The player then reevaluates the situation, analyzes what caused the failure and attempts a new strategy. This cycle provides the player an opportunity to deepen their knowledge, and encourages the creativity of new solutions.
 
 We argue that punishment in games serves the purpose of establishing the contrast between consequences of player actions. In a simple perspective, punishment explains the rules of a game, and how a player is supposed to play it. In the game \emph{Super Mario Bros} (1985), the player has a predetermined number of lives upon starting the game, which is decreased with each death. Upon dying, the player is punished by replaying the current level. If all lives are lost, the player replays the entire game from the beginning.
 
 The aversion to losing the progress made in a game serves as encouragement for the player to learn how to avoid defeat. In \emph{Super Mario Bros}, the player quickly learns that enemies should be avoided or beaten, and lava or bottomless pits should be evaded. If punishment mechanics did not exist, the player would simply progress by running to the right until reaching the end of a level without taking part in the proposed gameplay mechanics.
 
-In the case of Dark Souls, punishment is used as a tool to create tension and increase player awareness. With each death, the player loses all their experience points\footnote{Experience Points are resources acquired by the player upon defeating enemies with the purpose of serving as a currency for purchasing upgrades for the player character. Such upgrades can improve the efficiency of the player in combat, or enable the player to use better equipment. In the Dark Souls game series, the Experience Points, also known as "Souls", can also be used for trading with \emph{NPCs} (Non-Player Characters) for purchasing various items which assist the player when progressing.}. If a player wishes to recover them, they must retrieve them from the same position where they were defeated. Dying again means the experience points are lost permanently. In other words, the player is forced to beat the challenges they previously failed to avoid progression loss. Death in Dark Souls can be an extremely frustrating experience, and arguably be considered as overly punishing.
+In the case of Dark Souls, punishment is used as a tool to create tension and increase player awareness. With each death, the player loses all their experience points\sepfootnote{fn:xp-points}. If a player wishes to recover them, they must retrieve them from the same position where they were defeated. Dying again means the experience points are lost permanently. In other words, the player is forced to beat the challenges they previously failed to avoid progression loss. Death in Dark Souls can be an extremely frustrating experience, and arguably be considered as overly punishing.
 
 Since the experience points are used to evolve the character and directly affect the outcome of future encounters, the player is encouraged to survive by any means after accumulating a reasonable amount. Upon reaching a checkpoint, the player can then spend their experience points to attain permanent attribute bonuses. Therefore, the fear of losing character progress before reaching a checkpoint reinforces the necessity of careful and strategical decision making.
 
@@ -128,7 +156,7 @@ While the philosophy of punishment as a tool is powerful as means of encouraging
 
 In the context of video games, challenge is an abstract concept commonly referred as the player's perception of difficulty \cite{ARTICLE_RoleOfChallenge}. If a game is considered challenging by the general public, the majority of players would agree that the game requires a high skill level to complete. Nonetheless, a game that is considered easy by the public can still be challenging to a smaller audience with less technique or experience.
 
-The difference between the level of challenge and skill directly affects the quality of player experience. If a game is too easy to the skill level of a player, they will not feel any sense of accomplishment upon completion and will experience boredom. If a game is too hard, the player might feel overwhelmed and experience anxiety. This is supported by the Theory of Flow, proposed by \cite{BOOK_Flow}.
+The difference between the level of challenge and skill directly affects the quality of player experience. If a game is too easy to the skill level of a player, they will not feel any sense of accomplishment upon completion and will experience boredom. If a game is too hard, the player might feel overwhelmed and experience anxiety. This is supported by the Theory of Flow, proposed by \citet{BOOK_Flow}.
 
 The Theory of Flow indicates the existence of a state of complete focus in an activity, with a high level of energy, enjoyment and fulfillment. In this state, people lose track of time and external problems. Flow is considered to be state where optimal experience takes place. The level of focus achieved in being such a state maximizes the pleasure and performance of an activity.
 
@@ -137,11 +165,11 @@ According to the Theory of Flow, the main components of Flow are a challenging a
 The Theory of Flow also states that to maintain the state of Flow, the challenge of an activity must be balanced to the abilities of the person performing it. This concept is known as \emph{Flow Channel} or \emph{Flow Zone}. This can be translated directly to the concepts of Difficulty and player Skill Level in gaming. Different players will present different Flow Channels. Hardcore players will prefer more aggressive challenge scaling in comparison to their skill, whereas Casual or Novice players will prefer a more subtle introduction to the game's complexity \cite{ARTICLE_FlowInGames}. Figure \ref{fig:flow-channel} exemplifies the \emph{Flow Channel}, where a balance of difficulty and player skill denotes the optimal conditions for player immersion and focus.
 
 \begin{figure}
-    \caption{A visual representation of the concept of \emph{Flow Channel} or \emph{Flow Zone} discussed in \cite{BOOK_Flow}.}
+    \caption{A visual representation of the concept of \emph{Flow Channel} or \emph{Flow Zone} discussed by \citet{BOOK_Flow}.}
     \begin{center}
         \includegraphics[width=26em]{figures/fig-flow-channel.png}
     \end{center}
-    \legend{Source: Diagram assembled by the authors based on the concepts defined by \cite{BOOK_Flow}.}
+    \legend{Source: Diagram assembled by the authors based on the concepts defined by \citet{BOOK_Flow}.}
     \label{fig:flow-channel}
 \end{figure}
 
@@ -161,9 +189,9 @@ Another interesting concept in games is the \emph{learning curve} \cite{article_
     \label{fig:difficulty-curves}
 \end{figure}
 
-Perhaps the most notable example in teaching game mechanics through a concise learning curve is seen the famous game \emph{Super Mario Bros} \footnote{Super Mario Bros (Nintendo, 1985). Video Game. Nintendo Entertainment System.} in World 1-1, as addressed in \cite{video_extracreditsmario11}. In the first thirty seconds of gameplay, the player is able to learn that they must progress going to the right, that enemies must be avoided or eliminated by jumping in their heads and that special blocks hide valuable rewards such as additional lives. All the mechanics are taught without a single line of text or on-screen dialog box. Instead, the game teaches them by simply using the player's curiosity with an ingenious placement of game entities.
+Perhaps the most notable example in teaching game mechanics through a concise learning curve is seen the famous game \emph{Super Mario Bros} \sepfootnote{fn:smb-original} in World 1-1, as addressed by \citet{video_extracreditsmario11}. In the first thirty seconds of gameplay, the player is able to learn that they must progress going to the right, that enemies must be avoided or eliminated by jumping in their heads and that special blocks hide valuable rewards such as additional lives. All the mechanics are taught without a single line of text or on-screen dialog box. Instead, the game teaches them by simply using the player's curiosity with an ingenious placement of game entities.
 
-Some genres of games with consolidated and well-known mechanics share multiple similarities. The mechanics in such genres are proven to be one of the core constituents in their type of gameplay, and are expected by any non-novice player. One example would be the FPS (First Person Shooter) mechanics of \emph{Call of Duty: Modern Warfare}\footnote{Call of Duty: Modern Warfare (Infinity Ward, 2007). Computer Game. Microsoft Windows.}. The running, sprinting, strafing, vaulting, proning and iron-sighting mechanics were so exceptionally well done that they still remain in the most recent title of the series, \emph{Call of Duty: Black Ops 4}\footnote{Call of Duty: Black Ops 4 (Treyarch, 2018). Computer Game. Microsoft Windows.}. Other entries in the FPS genre such as \emph{Battlefield}\footnote{Battlefield 5 (DICE, 2018). Computer Game. Microsoft Windows.} also employ the same set of mechanics, which has since then become almost a requirement for the non-tactical Arcade Shooter style.
+Some genres of games with consolidated and well-known mechanics share multiple similarities. The mechanics in such genres are proven to be one of the core constituents in their type of gameplay, and are expected by any non-novice player. One example would be the FPS (First Person Shooter) mechanics of \emph{Call of Duty: Modern Warfare}\sepfootnote{fn:cod-mw1}. The running, sprinting, strafing, vaulting, proning and iron-sighting mechanics were so exceptionally well done that they still remain in the most recent title of the series, \emph{Call of Duty: Black Ops 4}\sepfootnote{fn:cod-bops4}. Other entries in the FPS genre such as \emph{Battlefield}\sepfootnote{fn:bf5} also employ the same set of mechanics, which has since then become almost a requirement for the non-tactical Arcade Shooter style.
 
 Arguably, games with the mechanics of a consolidated genre have a faster initial learning curve to any player that has played a similar game before. These games take advantage of that, and throw the player straight into the action. Within the first few minutes of playing a \emph{Call of Duty} game, the player will have faced and beaten an impressive amount of enemies. They will also confirm their proficiency by choosing exactly the difficulty level that appeals to their skill. Therefore, the veteran player of such a genre knows what to expect of the game and its standard difficulty level. They tailor their game experience to the optimal experience in the act of leisure.
 
@@ -181,7 +209,7 @@ The concept of adaptivity in games relates to how a game is able to adapt its co
 
 In a DDA system, \emph{Player Models} refer to collections of data gathered to be used as a metric for adjustment policies \cite{PHD_DynamicDifficultyAdjustment}. Player Model data might be gathered during a play session as a trace of the player's actions and events in a game, or as static data collected from surveys or through the use of a gaming platform such as \emph{Steam}.
 
-One possible implementation of a \emph{Player Model} consists of defining a collection of numerical attributes that describe the playing style of an individual player, as seen in \cite{BOOK_PlayerModeling}. Each attribute defines an aspect of the player's behavior, which is generally associated with their strategy or mechanical skill. A typical example of Player Model in a Shooter game can be seen in Listing \ref{lst:PlayerModellingExample}.
+One possible implementation of a \emph{Player Model} consists of defining a collection of numerical attributes that describe the playing style of an individual player, as seen in the work of \citet{BOOK_PlayerModeling}. Each attribute defines an aspect of the player's behavior, which is generally associated with their strategy or mechanical skill. A typical example of Player Model in a Shooter game can be seen in Listing \ref{lst:PlayerModellingExample}.
 
 \begin{lstlisting}[caption={Example of a Player Model for a shooter game.},label={lst:PlayerModellingExample}]
 class PlayerModel {
@@ -217,18 +245,18 @@ float UpdateAttribute(Attribute att, float value) {
 
 Attributes in this implementation consist of values between 0 and 1, indicating the probability of a player performing an action. In Listing \ref{lst:PlayerModellingExample}, this can be seen in the definitions of Boolean attributes (prefix 'b'). However, it is also possible to use the same approach to approximate statistical values, such as the damage a player inflicts per round. The value for each attribute represents the game's current best guess. Each sample collected contributes to the estimate weighted by LEARNING\_RATE. Therefore, for lower LEARNING\_RATE values more samples are required to sufficiently approximate an attribute. In most cases, values between 0.1 and 0.3 are used \cite{BOOK_PlayerModeling}.
 
-The concept of player models is used as a basis for dynamic adjustments in the framework described in \cite{ARTICLE_DynamicPlayerModelling}. The authors describe a methodology for the conception of player models that considers the existence of \emph{concept drift}, which is the possibility of players adapting or changing behaviors and play styles according to their evolution or progress in a game. The framework relies on two sources of data related to players: information of player preferences inputted by a player prior to application use and tracking player performance in-game. Figure \ref{fig:dynamic-player-model} exemplifies the dynamic player model framework.
+The concept of player models is used as a basis for dynamic adjustments in the framework described in \citet{ARTICLE_DynamicPlayerModelling}. The authors describe a methodology for the conception of player models that considers the existence of \emph{concept drift}, which is the possibility of players adapting or changing behaviors and play styles according to their evolution or progress in a game. The framework relies on two sources of data related to players: information of player preferences inputted by a player prior to application use and tracking player performance in-game. Figure \ref{fig:dynamic-player-model} exemplifies the dynamic player model framework.
 
 \begin{figure}[!ht]
-    \caption{A representation of the dynamic player modelling framework discussed in \cite{ARTICLE_DynamicPlayerModelling}.}
+    \caption{A representation of the dynamic player modelling framework discussed in \citet{ARTICLE_DynamicPlayerModelling}.}
     \begin{center}
         \includegraphics[width=26em]{figures/fig-dynamic-player-model.png}
     \end{center}
-    \legend{Source: Diagram assembled by the authors based on visual representations in \cite{ARTICLE_DynamicPlayerModelling}.}
+    \legend{Source: Diagram assembled by the authors based on visual representations in \citet{ARTICLE_DynamicPlayerModelling}.}
     \label{fig:dynamic-player-model}
 \end{figure}
 
-The discussion in \cite{ARTICLE_DynamicPlayerModelling} emphasizes the necessity of remodelling player types after measuring the effectiveness of adaptation. This means that a DDA system should be able to gather some type of player feedback regarding the effectiveness of the dynamic adjustments that were performed during play, and recreate the player profile based on this feedback. Some methods for gathering such feedback include inferring the player's affective state, such as with physiological sensors or from a camera or an analysis of statistical data retrieved from in-game attributes, such as player performance or their action history.
+The discussion in \citet{ARTICLE_DynamicPlayerModelling} emphasizes the necessity of remodelling player types after measuring the effectiveness of adaptation. This means that a DDA system should be able to gather some type of player feedback regarding the effectiveness of the dynamic adjustments that were performed during play, and recreate the player profile based on this feedback. Some methods for gathering such feedback include inferring the player's affective state, such as with physiological sensors or from a camera or an analysis of statistical data retrieved from in-game attributes, such as player performance or their action history.
 
 \subsection{Dynamic Adjustments}
 
@@ -259,7 +287,7 @@ Previous academic work regarding adaptive system implementations include novelty
 % * Overview of the Hamlet system
 % * ================
 
-One of the pioneer implementations of adaptive systems in research is the probabilistic model approach in the Hamlet system, as seen in \cite{article_casefordynamicdifficulty}. Hamlet is a probability-based predictive system that is able to perform reactive and proactive adjustments to the distribution of items throughout levels of customized Half-Life \sepfootnote{fn:half-life-1} map. The general methodology proposed by the system involves defining a finite set of possible gameplay states based on contextual information of player status, and performing adjustments based on policies defined by such metrics. The objective of the system is to avoid "game state loops", where a player would perform the same set of actions repeatedly when failing through a specific segment of the game.
+One of the pioneer implementations of adaptive systems in research is the probabilistic model approach in the Hamlet system, as seen in \citet{article_casefordynamicdifficulty}. Hamlet is a probability-based predictive system that is able to perform reactive and proactive adjustments to the distribution of items throughout levels of customized Half-Life \sepfootnote{fn:half-life-1} map. The general methodology proposed by the system involves defining a finite set of possible gameplay states based on contextual information of player status, and performing adjustments based on policies defined by such metrics. The objective of the system is to avoid "game state loops", where a player would perform the same set of actions repeatedly when failing through a specific segment of the game.
 
 \subsubsection{Methodology and Results} 
 % * How the Hamlet system works
@@ -306,7 +334,7 @@ The study concluded that adjustment algorithms can improve the performance of a 
 % * ================
 
 % Can be integrated in the game development process during or after development to modify already existing difficulty parameters, as evidenced by the fact that the approach was applied by modifying the original Half-Life Game
-One of the positive aspects of probabilistic approaches that use player performance metrics as input is regarding to their feasibility of implementation in already existing games, as evidenced by the fact that the methodology implemented in \cite{article_casefordynamicdifficulty} was applied by modifying the original Half-Life game. Therefore, the necessity for such adjustment algorithms can be considered and evaluated during or after the process of the original design iterations, and can be discarded if considered unnecessary.
+One of the positive aspects of probabilistic approaches that use player performance metrics as input is regarding to their feasibility of implementation in already existing games, as evidenced by the fact that the methodology implemented in \citet{article_casefordynamicdifficulty} was applied by modifying the original Half-Life game. Therefore, the necessity for such adjustment algorithms can be considered and evaluated during or after the process of the original design iterations, and can be discarded if considered unnecessary.
 
 % Predictive solution which can reduce frustration before undesired in-game events occur
 % Combined with reactive adjustments can provide immediate real time solution to discrepancy between player skill and proposed challenge level
@@ -346,7 +374,7 @@ Additionally, probability estimations are generally ignorant to immediate variat
 % Work in affectivedda uses affective state
 % In affectivedda, body signals are metrics to adjustment policies
 % Ultimately anxiety level increases or decreases difficulty
-Most implementations of DDA systems analyzed in the scope of this work use metrics that represent player profile or performance as input to the adjustment policies. However, a different approach can be taken when using player emotional state as both an input and a feedback mechanism when modifying difficulty. This is the theme of the work presented in \cite{article_affectivedda}, where physiological signals were tracked to infer the anxiety level of players, and then used as a metric to perform difficulty adjustments which cause a reduced or increased feeling of tension throughout the game.
+Most implementations of DDA systems analyzed in the scope of this work use metrics that represent player profile or performance as input to the adjustment policies. However, a different approach can be taken when using player emotional state as both an input and a feedback mechanism when modifying difficulty. This is the theme of the work presented by \citet{article_affectivedda}, where physiological signals were tracked to infer the anxiety level of players, and then used as a metric to perform difficulty adjustments which cause a reduced or increased feeling of tension throughout the game.
 
 \subsubsection{Methodology and Results}
 % * How affect-based systems work
@@ -365,7 +393,7 @@ Most implementations of DDA systems analyzed in the scope of this work use metri
 
 % Adaptive syste, uses cardiovascular, electrodermal and EMG activity as input
 % RT technique classifies physiological signals into affective states of anxiety levels
-The adaptive system implementation presented in \cite{article_affectivedda} uses features of cardiovascular activity (inter-beat interval, relative pulse volume, pulse transit time and heart sound), electrodermal activity (tonic and phasic response to skin conductance) and EMG activity (from Corrugator Supercilii, Zygomaticus and upper Trapezius muscles) as input data to a Regression Tree (RT) technique, which classifies the physiological signals into affective states that categorize anxiety levels.
+The adaptive system implementation presented in the work of \citet{article_affectivedda} uses features of cardiovascular activity (inter-beat interval, relative pulse volume, pulse transit time and heart sound), electrodermal activity (tonic and phasic response to skin conductance) and EMG activity (from Corrugator Supercilii, Zygomaticus and upper Trapezius muscles) as input data to a Regression Tree (RT) technique, which classifies the physiological signals into affective states that categorize anxiety levels.
 
 % Object of study was a pong-based games
 % Two variations: adjustments based on performance and based on affective state
@@ -379,11 +407,11 @@ Three difficulty levels were implemented in total, which would be assigned depen
 % * Figure: Performance-based and anxiety based adaptation
 % * ================
 \begin{figure}[!h]
-    \caption{A state-flow diagram representation of the performance-based and anxiety-based adaptation variants in \cite{article_affectivedda}.}
+    \caption{A state-flow diagram representation of the performance-based and anxiety-based adaptation variants in \citet{article_affectivedda}.}
     \begin{center}
         \includegraphics[width=26em]{figures/fig-affective-adaptation.png}
     \end{center}
-    \legend{Source: Diagram assembled by the authors based on visual representations in \cite{article_affectivedda}.}
+    \legend{Source: Diagram assembled by the authors based on visual representations in \citet{article_affectivedda}.}
     \label{fig:affective-adaptation}
 \end{figure}
 
@@ -419,7 +447,7 @@ Considering the results of the affect-based DDA implementation in comparison to 
  % Affective-based metrics might not require the same amount of data or time to perform adjustments as performance-based metrics, as they are not bound to the rules of a game
 We can begin by arguing that affect-based metrics might not require the same amount of data or time to be used as input by adjustment policies in comparison to performance-based metrics, as they are not bound to the rules or domain of a specific game. The gathering of physiological signals and classification of affective state is agnostic to the object of study in itself, as it simply involves the external use of sensors and a classification methodology to output an estimate of the player affective state.
 
-The use of the information on such affective state must then be considered by game designers to determine which systems it might affect. In the work described in \cite{article_affectivedda}, the affective state was used as input to adjust the difficulty of an AI opponent, but affective metrics are not restricted to being employed on difficulty adjustment systems.
+The use of the information on such affective state must then be considered by game designers to determine which systems it might affect. In the work described by \citet{article_affectivedda}, the affective state was used as input to adjust the difficulty of an AI opponent, but affective metrics are not restricted to being employed on difficulty adjustment systems.
 
  % In contrast to other methods, the input for metrics is directly mapped to the proposed feedback
  % As discussed earlier, affective state is one of the main constituents of player experience
@@ -427,7 +455,7 @@ The use of the information on such affective state must then be considered by ga
 
  % Affective-based adjustments are performed in real time
  % Adjustments might occur in anticipation of in-game events, which is a proactive approach
- The implementation in \cite{article_affectivedda} involved real-time classification and validation of adjustment policies, which meant that the adjustments might occur in anticipation of undesired in-game events that can cause frustration. Therefore, it can be argued that this implementation defines a proactive adjustment methodology which might provide an immediate or preventive solution to possible frustrating events, when being compared to traditional performance-based adjustments.
+ The implementation in \citet{article_affectivedda} involved real-time classification and validation of adjustment policies, which meant that the adjustments might occur in anticipation of undesired in-game events that can cause frustration. Therefore, it can be argued that this implementation defines a proactive adjustment methodology which might provide an immediate or preventive solution to possible frustrating events, when being compared to traditional performance-based adjustments.
 
 % * Negative Aspects of Affect-based systems
 % * ================
@@ -456,7 +484,7 @@ Furthermore, the game implementation used for the experiment is a simplistic gam
 % * Footnotes
 % * ================
 
-\sepfootnotecontent{fn:waypoints}{A \emph{waypoint} is a special position in a game world where an in-game event is toggled when the player is within interaction range. Waypoints are commonly used in games when the player has to take a specific path to a goal, with the game assigning several intermediary positions the player has to pass through to validate that the correct path was taken. In the context used for the implementation presented in \cite{article_adaptivebehaviorai}, waypoints are simply game world positions the cars must reach to score points. Each time one of these positions is occupied by a car, the waypoint is destroyed and a new random position is assigned elsewhere in the game world as the next waypoint.}
+\sepfootnotecontent{fn:waypoints}{A \emph{waypoint} is a special position in a game world where an in-game event is toggled when the player is within interaction range. Waypoints are commonly used in games when the player has to take a specific path to a goal, with the game assigning several intermediary positions the player has to pass through to validate that the correct path was taken. In the context used for the implementation presented in \citet{article_adaptivebehaviorai}, waypoints are simply game world positions the cars must reach to score points. Each time one of these positions is occupied by a car, the waypoint is destroyed and a new random position is assigned elsewhere in the game world as the next waypoint.}
 
 % * Overview of Learning-Based DDA
 % * ================
@@ -471,7 +499,7 @@ Another approach to adaptive difficulty involves the adaptation of AI (Artificia
 % Objective in game is to pass max. number of waypoints in limited time
 % Multiple waypoints at screen in any given time
 % Waypoints disappear when passed through
-The implementation of learning-based DDA in \cite{article_adaptivebehaviorai} adjusts the behavior of AI agents in a simple car simulation race game, where each player has the objective of passing through the maximum number of \emph{waypoints}\sepfootnote{fn:waypoints} in a given amount of time. Multiple waypoints are displayed on the screen at all times, and a waypoint disappears when any of the players approaches close enough for interaction range.
+The implementation of learning-based DDA by \citet{article_adaptivebehaviorai} adjusts the behavior of AI agents in a simple car simulation race game, where each player has the objective of passing through the maximum number of \emph{waypoints}\sepfootnote{fn:waypoints} in a given amount of time. Multiple waypoints are displayed on the screen at all times, and a waypoint disappears when any of the players approaches close enough for interaction range.
 
 % Two types of behavior AI Components
 % First layer is driving functionality, motor controls
@@ -523,7 +551,7 @@ As a conclusion to the experiment, the authors expressed that while the AUC algo
 
 % Novelty approach: unsupervised online learning
 % Lessens responsibility of game designer tailoring adjustments
-The work presented in \cite{article_adaptivebehaviorai} introduces the novelty approach of online learning without predefined data sets to the scenario of DDA solutions. It could be argued that the adjustment policies are also part of the reinforcement learning approach, since the decision of a behavioral component being activated or not relies on the algorithm being applied. This is an especially interesting solution since it lessens the responsibility of a game designer tailoring the boundaries of the adjustment system in advance of play.
+The work presented by \citet{article_adaptivebehaviorai} introduces the novelty approach of online learning without predefined data sets to the scenario of DDA solutions. It could be argued that the adjustment policies are also part of the reinforcement learning approach, since the decision of a behavioral component being activated or not relies on the algorithm being applied. This is an especially interesting solution since it lessens the responsibility of a game designer tailoring the boundaries of the adjustment system in advance of play.
 
 % Could be applied to create AI agents that replicate player behavior in online games, where massive data sets can be gathered from large audiences
 One interesting application to methods which implement online learning without predefined data sets would be highly popular online multi-player games, where data from thousands of matches can be gathered each day, which provides a massive amount of input for training algorithms. This can be used to speed up the process of training AI agents to perform the most appropriate actions given a situation, which in turn will provide a more competitive challenge to players.
@@ -536,13 +564,13 @@ One interesting application to methods which implement online learning without p
 However, we argue that this experiment has yet to be applied in the context of real players using an implementation that would better replicate a commercial video game product. Learning algorithms might require a long time to train agents to the point of providing a fair challenge to players, which might cause frustration and negative bias in player perception regarding the AI design.
 
 % Simplistic game implementation, modern games present many more components regarding AI, which would mean much more time to train
-Additionally, the work implemented in \cite{article_adaptivebehaviorai} uses a simplistic game implementation as an object of study, where the objectives and available actions are restricted to few options which simplifies the implementation of behavioral components and in consequence reduces the amount of data, processing and time to train agents.
+Additionally, the work implemented by \citet{article_adaptivebehaviorai} uses a simplistic game implementation as an object of study, where the objectives and available actions are restricted to few options which simplifies the implementation of behavioral components and in consequence reduces the amount of data, processing and time to train agents.
 
 In modern video games which present sophisticated AI solutions, the amount of information regarding game state and actions that a player or AI agent can perform can be dramatically higher in comparison, which means that the amount of behavioral components would be much higher, and consequently result in an exponential increase in the amount of data, processing power and training time -- to the point of becoming unfeasible to integrate in a project, as modern games commonly allocate most processing power of hardware to the execution of its rendering and gameplay systems.
 
 % Unsupervised learning might cause game designer to lose control over the balancing of AI opponents
 % Adjustments are based on keeping the challenge at a fair and competitive level, but game designers might purposefully want to design a section of the game with a significant increase in challenge level to increase tension or cause specific affective reactions
-Another problem surfaces when considering balancing and adjustments of AI opponents by game designers under the iterative nature of the game development process. In the specific case of the implementation in \cite{article_adaptivebehaviorai}, as in-game parameters such car speed and handling are modified, the data which defined the training sets for AI agents might have to be discarded, as actions that would previously define a winning strategy could become obsolete by the changes in car physics. 
+Another problem surfaces when considering balancing and adjustments of AI opponents by game designers under the iterative nature of the game development process. In the specific case of the implementation by \citet{article_adaptivebehaviorai}, as in-game parameters such car speed and handling are modified, the data which defined the training sets for AI agents might have to be discarded, as actions that would previously define a winning strategy could become obsolete by the changes in car physics. 
 
 Therefore, simple adjustments to the balancing of a game might cause the learning-based AI to have to be re-trained. Since the balancing of a game is also dependant on the difficulty of AI opponents, which in this case is defined by data accumulated from multiple matches, integrating such a process in iterative game development becomes unfeasible, as small changes to the game would cause all AI opponents to become unbalanced.
 
@@ -569,27 +597,9 @@ Several commercial games have attempted to create Dynamic Difficulty systems whi
 
 \sepfootnotecontent{fn:cooperative-game}{Cooperative games are games in which the input is received from multiple human users (players), with each player controlling a different in-game entity. The players share a common objective, and must cooperate by combining their available commands and actions to achieve the winning condition.}
 
-\sepfootnotecontent{fn:need-for-speed}{Footnote: What is Need for Speed?}
+\sepfootnotecontent{fn:catch-up-mechanics}{Catch-up mechanics are game systems or rules designed to reduce the discrepancy in the closeness to the winning condition between the leader of a match (the player who is closest to achieving the winning condition) and the rest of the players. One example of a catch-up mechanic are speed-boosting items in racing games such as Mario Kart, given to players at the last positions to reduce the distance to other opponents.}
 
-\sepfootnotecontent{fn:forza-horizon}{Footnote: What is Forza Horizon?}
-
-\sepfootnotecontent{fn:horizon-chase-turbo}{Footnote: What is Horizon Chase Turbo?}
-
-\sepfootnotecontent{fn:wipeout}{Footnote: What is Wipeout?}
-
-\sepfootnotecontent{fn:crash-team-racing}{Footnote: What is Crash Team Racing?}
-
-\sepfootnotecontent{sonic-all-stars-racing}{Footnote: What is Sonic All Stars Racing?}
-
-\sepfootnotecontent{fn:split-second-game}{Footnote: What is the Split/Second racing game?}
-
-\sepfootnotecontent{fn:final-fantasy-xiv}{Footnote: What is Final Fantasy XIV?}
-
-\sepfootnotecontent{fn:csgo}{Footnote: What is Counter-Strike Global Offensive?}
-
-\sepfootnotecontent{fn:catch-up-mechanics}{Footnote: What are catch-up mechanics?}
-
-\sepfootnotecontent{fn:runaway-leader-problem}{Footnote: What is the runaway leader problem?}
+\sepfootnotecontent{fn:runaway-leader-problem}{The runaway leader problem is a common issue in multiplayer games where the leader of a match becomes uncontrollably faster in progressing towards the winning condition in comparison to other players. In this state of a match, unless an appropriate catch-up mechanic is put in place, players are unable to surpass the leader of a match as an outcome of their own decisions, and thus the game outcome is determined before the end.}
 
 % How the system works
 % ============================
@@ -705,12 +715,10 @@ Because of the popularity of rubber banding implementations in racing games and 
 % *  ENEMY BEHAVIOR & ITEM DISTRIBUTION ADAPTIVITY
 % * =======================================================
 
-\sepfootnotecontent{fn:re4-gameplay-description}{Footnote: What is Resident Evil 4 in terms of gameplay}
-
-\sepfootnotecontent{fn:skill-ceiling}{Foonote: What is Skill Ceiling}
+\sepfootnotecontent{fn:skill-ceiling}{The \emph{skill ceiling} refers to the hardest level of difficulty the game presents to the player in any specific level. In games which involve combat, the skill ceiling is tipically defined by \emph{boss fights} or combat encounters in the later stages of the game.}
 
 %   - In RE4 Level layouts, AI behavior and resource distribution are affected by player performance 
-Another interesting approach to adaptivity is seen in \emph{Resident Evil 4}\sepfootnote{fn:re4-gameplay-description}, where resource distribution, AI behavior and enemy encounters are affected by different sets of information regarding player context and performance. Each system is affected by a different set of contextual metrics, and may enable or disable certain gameplay aspects independently based on the values presented by such metrics.
+Another interesting approach to adaptivity is seen in \emph{Resident Evil 4}, where resource distribution, AI behavior and enemy encounters are affected by different sets of information regarding player context and performance. Each system is affected by a different set of contextual metrics, and may enable or disable certain gameplay aspects independently based on the values presented by such metrics.
 
 \subsubsection{Dynamic Resource Distribution}
 
@@ -883,7 +891,7 @@ Dynamic Encounters are one of the adaptive systems which are most sensitive to m
 
 Dynamic encounters also present issues related to the difficulty of being abstracted to players.Modifications that involve disabling, replacing or repositioning entities are some of the easiest types of adaptivity to perceive, as when repeatedly playing through the same game section the player is able to memorize enemy positions, movement patterns and even plan strategies that consider the existence of specific enemies. Consequently, players might feel frustrated with the fact that the game forcefully lowers the difficulty by modifying encounters without their consent, with the implicit classification of the player as not skilled enough to overcome the challenge level.
 
-% Conclusion? (I don't not what this is, really)
+% Conclusion? (I don't know what this is, really)
 % ============================
 While Resident Evil 4 received mass critical praise for its outstanding game design and successful adaptive approach, it is noteworthy that a community of dedicated \emph{speedrunners} has been able to accurately reverse engineer and exploit its DDA systems \sepfootnote{fn:speedrun-com-re4-guides}. It can be argued that given enough dedication, there is no DDA system which is completely unknown to players. However, since the reverse engineering process requires extensive experimentation on behalf of players, we can assume that the system will remain mostly obfuscated to novice players experiencing their first play through, which is critical to maintain immersion and player engagement.
 
@@ -892,8 +900,6 @@ While Resident Evil 4 received mass critical praise for its outstanding game des
 % *  EXPLICIT ADAPTIVITY
 % * =======================================================
 
-\sepfootnotecontent{fn:god-hand-gameplay-description}{Footnote: What is God Hand in terms of gameplay}
-
 % How the system works
 % ============================
 
@@ -901,7 +907,7 @@ While Resident Evil 4 received mass critical praise for its outstanding game des
 % - Difficulty meter in UI with 3 difficulty levels
 % - Higher difficulty levels introduce new behaviors, faster enemies, more damage received
 % - Difficulty decreases when the player is hit
-In \emph{God Hand}\sepfootnote{fn:god-hand-gameplay-description}, the developers approached the difficulty issue explicitly by making the player constantly aware of the current challenge level \cite{article_subjectivedifficulty}. A difficulty meter is presented to the players as an User Interface element containing 3 difficulty levels. Whenever the player hits an enemy, the meter slightly increases. When the meter is full, the difficulty level is incremented and enemies become faster, introduce new behaviors and deal more damage. When the player takes damage, the difficulty meter is quickly decreased and will often reduce the current difficulty level.
+In \emph{God Hand}, the developers approached the difficulty issue explicitly by making the player constantly aware of the current challenge level \cite{article_subjectivedifficulty}. A difficulty meter is presented to the players as an User Interface element containing 3 difficulty levels. Whenever the player hits an enemy, the meter slightly increases. When the meter is full, the difficulty level is incremented and enemies become faster, introduce new behaviors and deal more damage. When the player takes damage, the difficulty meter is quickly decreased and will often reduce the current difficulty level.
 
 % - In max difficulty, enemies hit faster than player can dodge
 % - When player beats enemy, they are rewarded with points based on difficulty level
@@ -979,12 +985,12 @@ We evidenced the fact that the balancing the difficulty and learning curves for 
 %   - Player models: profile, performance, preferences
 %   - Monitoring of player actions & results
 %   - Metrics on profile, performance and preferences
-The work described in \cite{ARTICLE_PlayerCentredGameDesign} conceptualized a standard design for the development of adaptive systems, by defining the concept of dynamic player models which consist of data regarding the characteristics of a player. The model can be generated through data that is acquired outside of the execution of an application, or through the monitoring of player actions and in-game events. Over the course of play sessions, models are updated to represent the current characteristics of a player.
+The work described by \citet{ARTICLE_PlayerCentredGameDesign} conceptualized a standard design for the development of adaptive systems, by defining the concept of dynamic player models which consist of data regarding the characteristics of a player. The model can be generated through data that is acquired outside of the execution of an application, or through the monitoring of player actions and in-game events. Over the course of play sessions, models are updated to represent the current characteristics of a player.
 
 %   - Adaptation & modification of the player model over course of play
 %   - Dynamic adjustments to the system to tailor the game for a player
 %   - Metrics, adjustment policies, adjustments
-In \cite{PHD_DynamicDifficultyAdjustment} adaptive systems are further explored with the concepts of metrics and adjustment policies. The data that consists a player model can generate metrics in the domains of player profile, performance or preferences. Such metrics can be used as input to adjustment policies, which serve as thresholds or quantifiers to the adjustment of in-game parameters that adapt the contents of a game to the necessities of a player.
+In the work of \citet{PHD_DynamicDifficultyAdjustment} adaptive systems are further explored with the concepts of metrics and adjustment policies. The data that consists a player model can generate metrics in the domains of player profile, performance or preferences. Such metrics can be used as input to adjustment policies, which serve as thresholds or quantifiers to the adjustment of in-game parameters that adapt the contents of a game to the necessities of a player.
 
 It is argued that the general methodologies used in Adaptive Systems can be applied in the form of Dynamic Difficulty Adjustments, which can be used to accommodate the skill level of a player to the challenge level proposed by game designers, alleviate steep learning curves, reduce frustration and anxiety and even provide a competitive level of challenge to veteran or highly skilled players.
 

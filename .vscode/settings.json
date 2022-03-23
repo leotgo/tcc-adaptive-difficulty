@@ -32,5 +32,7 @@
     "editor.fontFamily": "Century",
     "editor.fontSize": 16,
     "editor.wordWrap": "on",
-    "editor.autoClosingBrackets": "never"
+    "editor.autoClosingBrackets": "never",
+    "editor.occurrencesHighlight": false,
+    "gitlens.hovers.enabled": false
 }
