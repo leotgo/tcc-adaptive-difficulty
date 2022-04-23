@@ -3,9 +3,9 @@
 
 \input{footnotes}
 
-% * =======================================================================
-% * =======================================================================
-% * =======================================================================
+% * ===================================================================
+% * ===================================================================
+% * ===================================================================
 
 % About our implementation of Dark Souls "Core"
 In this chapter, we specify each of the major decisions taken to implement a minimalistic "Souls-like" game based on the original Dark Souls, with an additional adaptive system that dynamically adjusts game difficulty to the profile of players. We provide a detailed list of the requirements of our implementation, along with the motivation for the choice of each technology.
@@ -15,20 +15,11 @@ In this chapter, we specify each of the major decisions taken to implement a min
 We formulate our criteria for the use of third-party dependencies, including visual and audio assets which greatly improved the development speed of our application. We also specify the technical design and implementation of all major gameplay systems in our implementation, and explain the inherent limitations of the scope of this work, along with the consequential differences to the original game. 
 
 % About our implementation of DDA
-We detail our implementation for an event tracking system which monitors actions performed by in-game entities, and address how it is used as infrastructure for our DDA system. We specify the in-game events which are captured by the event tracking system, and how such events are converted to metrics that serve as input for our adjustment policies. We elicit the in-game modifications that each adjustment performs, and how such modifications can affect a gameplay session. 
+We detail our implementation for an event tracking system which monitors actions performed by in-game entities, and address how it is used as infrastructure for our DDA system. We specify the in-game events which are captured by the event tracking system, and how such events are converted to metrics that serve as input for our adjustment policies. We elicit the in-game modifications that each adjustment performs, and how such modifications can affect a gameplay session.
 
-% * =======================================================================
-% * =======================================================================
-% * =======================================================================
-
-% TODO \section{Overview}
-
-% Specify the game systems that were implemented
-% Specify the general flow of the DDA system and the problems it attempts to solve 
-
-% * =======================================================================
-% * =======================================================================
-% * =======================================================================
+% * ===================================================================
+% * ===================================================================
+% * ===================================================================
 
 \section{Tools and Frameworks}
 
@@ -52,9 +43,9 @@ Another key factor for the choice of Unity was the possibility to import assets 
 % - Authors had previous familiarity with the engine from personal and professional experience;
 The final deciding factor for the choice of Unity as a development platform was the previous experience of the authors with the engine, having implemented a wide variety of 2D and 3D Games, VR Serious Games and data visualization tools under the Unity engine. The familiarity with the provided APIs, along with the knowledge of how to achieve a steady and concise workflow permitted the authors to plan a moderately robust architecture and select the appropriate tools to implement the core features of Dark Souls with an acceptable quality.
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ========================================================================
+% ========================================================================
+% ========================================================================
 
 \section{Game Assets and Aesthetics}
 
@@ -118,15 +109,16 @@ In conclusion, we specify our chosen assets, plugins and frameworks in table \re
 % Table: List of game assets
 \input{tables/tab_game_assets}
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ========================================================================
+% ========================================================================
+% ========================================================================
 
-% TODO \section{Gameplay Mechanics and Systems}
+\section{Gameplay Mechanics and Systems}
 
 % Overview of all gameplay subsystems
 % - Here we talk about the subsystems that involve the player-controlled character in our implementation and how it interacts with non-playable entities
-% - Figure: Player components and class diagram
+In this section, we detail our implementation regarding the subsystems that involve player input and its resulting actions on the player-controlled character and camera. We also specify how such actions might interact with the environment, interactable objects and AI agents in our simulation.
+
 % - Movement mechanics with collision handling for walls and obstacles, detection of slope thresholds and handling of gravity and fall damage
 % - A character animation systems that reacts to actions performed by the player and any events that might affect the status of the player, such as hits taken, staggering and death
 % - A third person camera that allows the player to orbit the viewport around the game character, while also constraining its position and viewport contents to the boundaries of a playable environment
@@ -135,57 +127,10 @@ In conclusion, we specify our chosen assets, plugins and frameworks in table \re
 % - An attributes system that can be containerized into components for game entities, is able to serialize value data types, broadcasts events when its values are changed, and can be used by other gameplay subsystems to determine the status of a game entity
 % - A character status system that accounts for Invincibility Frames (IFrames) when dodging and the inability of performing actions when staggered or dead
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ========================================================================
+% ========================================================================
+% ========================================================================
 
-% Movement mechanics and physics
-\subsection{Movement mechanics and physics}
-
-% - CharacterController for wall and obstacle collision and running over slopes
-
-Traditionally, the movement for player-controlled characters in games is not designed to be physically realistic. Characters will often move at abnormally high speeds, are able to stop almost immediately and can turn their movement direction with ease. This is done so that character movement is highly responsive to raw player input and becomes easier to manipulate in comparison to physics-based controls. If player characters in video games were to be physically accurate, they would take significant time to accelerate to their maximum movement speed and decelerate until stopped, while also having difficulty turning sharp angles at high speeds.
-
-For gameplay purposes, characters implemented with physical accuracy feel heavy and difficult to control, forcing the player to consider  physical properties of their characters and the geometry of the environment. This causes a significant amount of overhead for the player to obtain proficiency with motion controls. In general, character movement should be a streamlined, trivial mechanic that can be quickly learned by the player. Learning motorial controls in a game should not be a significant part of the core gameplay loop\sepfootnote{fn:core-gameplay-loop} unless movement is itself a part of the inherent challenge, such as in \emph{Death Stranding}\sepfootnote{fn:death-stranding}.
-
-Considering the need for responsive movement that can be easily mastered, we use the implementation of a \emph{CharacterController}\sepfootnote{fn:character-controller} component that is natively built-in as part of \textsc{Unity}'s base functionality. CharacterControllers are not affected by Unity's physics system, are able to slide along walls when moving against them over a non-orthogonal angle, can detect and move over small vertical offsets in ground geometry such as steps and ledges and handle movement constraints in slopes.
-
-The movement input from a player will generate different motion types depending on camera state. In the default state of a Third-Person Orbital Camera, movement input will cause the player character's body to rotate and face a direction relative to the camera's viewport, while also causing the body to move forward according to its current rotation. The Movement System broadcasts the signal that the player is always moving forward, which is received and handled by the Animation System. In this camera state, motion itself is handled by the animations so that the movement speed perfectly matches the animation being played and avoiding \emph{movement drifting}\sepfootnote{fn:movement-drifting} issues.
-
-While this setup of the Movement System handling body rotation and the Animation System handling motion itself does cause the player to correctly move in the direction defined by their input, this also requires a \emph{maximum rotation speed} to be taken into consideration as to create a minimal sense of character weight to the player. A character should be unable to immediately turn to the opposing movement direction, and thus the \emph{maximum rotation speed} attribute constrains the speed at which a player is able to turn.
-
-In the state where the player performs a \emph{Lock-On}\sepfootnote{fn:lock-on} targeting an enemy character, movement input causes the player to move at a direction without changing their body rotation. In this state, body rotation is handled by the camera system, where the player character always faces their target. The Animation System will use movement input to blend between multiple movement animations such as forward movement, side steps and back steps. Movement motion in this state is still relative to viewport direction, but the viewport in itself is automatically defined by the position of the player and their target. Camera positioning for \emph{Locked-On Cameras} is further explained in subsection \ref{sec:lock-on-camera}.
-
-Another state that should be considered for our movement physics is when the player is not touching the ground. In this state the Capsule-shaped \emph{collider}\sepfootnote{fn:colliders} defined by the player's CharacterController does not \emph{overlap}\sepfootnote{fn:collider-overlapping} with ground geometry. In this situation the player character should be considered "On-Air", and movement input should have less of an influence in motion and body rotation or no influence at all, as being able to accelerate, decelerate and quickly turn without ground friction can be considered implausible by players and could possibly break immersion. When the player is not on ground, we constantly accelerate our CharacterController velocity by a gravity vector on fixed time steps defined by the \emph{FixedUpdate}\sepfootnote{fn:fixed-update} event of the \emph{MonoBehaviour}\sepfootnote{fn:monobehaviour}.
-
-% - Gravity and grounded state detection
-
-To detect a collision overlap between the player and the ground geometry, we make use of \emph{Unity's} built-in \emph{SphereCast} operation, which iterates by performing multiple overlaps of a sphere with a radius slightly higher than the radius of our CharacterController with the ground geometry, along a direction defined by a \emph{Ray}\sepfootnote{fn:rays}. The ray originates from the center of the body of the player-controlled character, and extends along the direction of the gravity vector in a length of three quarters of the vertical size of the CharacterController capsule collider. 
-
-With the use of rays for collision detection, vertical collisions can be detected ahead of time when the player is falling at high speeds. This circumvents the common problem in video game physics where when the player's vertical speed is too high, they could become stuck inside ground geometry if the collision detection algorithm does not take into account the game's update rate. % TODO add footnote for this
-
-\input{listings/lst_ground_detection}
-
-Another advantage of using \emph{Raycast-type}\sepfootnote{fn:raycasts} operations is precisely detecting the points where a collider starts overlapping with the ray along a fixed length. This enables us to pinpoint which parts of our collider interact with ground geometry, and the exact moment of collision. Therefore, Raycast-type collision detection is the optimal solution for moving objects with variable speed.
-
-In contrast to using a regular Raycast, the SphereCast operation is able to detect overlaps in a volume, which means that complex collider setups which overlap in the borders of our CharacterController will still be detected. A common situation in games where platforms and gravity can affect the player is that players might find themselves over one or multiple ledges, where a single Raycast operation would not be able to handle colliders that are in the edges of a CharacterController.
-
-% Figure: Example showing visual difference of Raycast vs SphereCast
-
-In games where grounded-state detection is not handled appropriately, Character controller components will often accumulate vertical velocity indefinitely, since while being impossible to move downwards due to the character controller constraining movement against colliders, the 'grounded' state is never detected. What commonly happens after this is that when the player steps away from the ledge sufficiently, they will instantly fall to the ground instantly because of the accumulated speed. If the game is programmed to apply fall damage in this situation, this might mean instant death even though the player did not fall from a considerable height.
-
-Finally, in the frame where a character that was previously considered not groun\hyp{}ded detects ground collision, we invoke the \textsc{OnHitGround} event, and proceed to perform fall damage calculation. In our implementation, fall damage is calculated by considering fall speed multiplied by a parametrized speed-to-health-point conversion factor, named 'FallDamageMultiplier'.
-
-Figure \ref{fig:movement-class-diagram} shows an overview of the class architecture for our implementation of the movement system. We have a top-level \textsc{Player} class which holds the components for all gameplay-related subsystems. The \textsc{PlayerMotor} component is an implementation of the \textsc{ICharacterMotor} abstraction, and is responsible for implementing the movement and physics logic of our motion controls.
-
-When input is received from the user, the \textsc{PlayerMotor} component filters the input, calculates movement direction based on viewport orientation, and redirects the actual transform position changing to \textsc{Player.Move()}. The \textsc{Player} class in turn calls \textsc{CharacterController.Move()} that considers collisions and other physics-related constraints, and broadcasts movement signals that will be consumed by the \textsc{PlayerBody} class, which is responsible for handling character animation.
-
-% Figure: Player Movement Class Diagram for Bright Souls
-\input{figures/fig_movement_class_diagram}
-
-% ============================================================================
-% ============================================================================
-% ============================================================================
 
 \subsection{Camera System}
 \label{sec:lock-on-camera}
@@ -193,37 +138,39 @@ When input is received from the user, the \textsc{PlayerMotor} component filters
 % In this implementation, we design and implement two separate camera modes
 %   - Orbital Third Person Camera
 %       > Commonly used for third person hack n' slash or platforming games
-In our implementation, we use our analysis of \emph{Dark Souls} in section \ref{sec:analysis-dark-souls} to design two separate camera modes with complementary functionality that can be used as tools for the player to achieve optimal performance in and out of combat. First we implement an \emph{Orbital Third Person Camera}, which is commonly used in third person \emph{Hack and Slash} and \emph{Platforming} games where the player has to evaluate the properties of the environment they are in and quickly assess dangers that might cause their defeat to devise a plan of action.
+In our implementation, we use our analysis of \emph{Dark Souls} in section \ref{sec:analysis-dark-souls} to design two separate camera modes with complementary functionality be used by the player for exploration and combat. First we implement an \emph{Orbital Camera}, which is commonly used in third person \emph{Hack and Slash} and \emph{Platforming} games. Orbital Cameras can be used by the player to evaluate the properties of the environment, quickly assess dangers and devise a plan of action.
+
+%       > In our game, it is the default camera mode, used for traversal around the map
+%       > Free control over framing enables player to scout for enemies, avoid pitfalls
+The Orbital mode is the default camera state in our implementation, and is mainly designed for traversal around the three-dimensional environment. Control over the positioning and framing of the camera which is independent to character movement enables the player to scout the environment for dangerous entities before performing movement. Additionally, the distance from the player character enables the possibility to view enemies behind wall corners, with the player out the sight. Thus, orbital cameras are optimal in out-of-combat situations, as players can gather information safely and devise a plan-of-action.
 
 %       > Camera positions itself in the perimeter of an ellipsoid that is centered on the player
 %       > Input from the player generates movement along the perimeter, causing the camera to orbit around the player
 %       > Attempts to frame both the player and the environment by using a position above the player as pivot
-An Orbital Third Person Camera positions itself in the perimeter of a three dimensional ellipsoid that is centered on the player, where input from the player generates movement along this perimeter. This type of camera attempts to frame both the player and the environment at the same time, having the player on a central position in the screen and using a position above the player as a rotation pivot. The rotations from player input along with the framing algorithm causes the camera to perform an orbital movement.
-
-%       > In our game, it is the default camera mode, used for traversal around the map
-%       > Free control over framing enables player to scout for enemies, avoid pitfalls
-In our game, Orbital Third Person Cameras are the default camera mode, and are mainly designed for traversal around the three-dimensional environment. The fact that the player has control over the positioning and framing of the camera enables the player with the possibility to scout the environment for pitfalls and enemies before performing movement. This is the perfect type of camera to be used in out-of-combat situations in third person games, as players can gather information safely and use it to devise a plan-of-action.
+An Orbital Third Person Camera is always positioned in the perimeter of a three dimensional ellipsoid centered on the player. Input from the player generates movement along such perimeter. The camera attempts to frame both the player and the environment at the same time, targeting a pivot slightly above the player character's head as a rotation center. Rotations around such pivot result in an orbital movement.
 
 %   - Lock-On camera
 %       > Mostly used in action third person hack n' slash games that have melee combat, although some RPGs also use it
 %       > Camera positions itself behind the player and attempts to frame both the player and a target character
-The second type of camera in our implementation is the \emph{Lock-On Camera}, which is mostly used in action third-person \emph{Hack and Slash} games that have melee combat. This type of camera positions itself behind the player character, and attempts to frame both the player and a target -- most commonly an enemy character. Whenever the target character moves, the camera adjusts its position and framing to maintain a fixed relative positioning between the player character and their target.
+The second camera mode in our implementation is the \emph{Lock-On} state, which is commonly seen in \emph{Hack and Slash} with melee combat. This type of camera positions itself behind the player character, and attempts to frame both the player and a target -- most commonly an enemy character. Whenever the target character moves, the camera adjusts its position and framing to maintain a fixed relative position between the player and their target.
 
 %       > Camera positioning and framing creates fixed "dimensions of movement" of the player relative to a target,
 %         making it easier for a player to avoid attacks from that target and find the optimal spacing to land their
 %         own attacks
-The relative positioning and framing of a Lock-On Camera creates fixed axes of movement between the player character and their target where if a player moves horizontally, they will move in a circle around the target character. Moving forward and backwards adjusts the distance between the player and their target. The purpose of this mechanism is for the player to have better control of spacing during combat, making it easier for the player to avoid attacks and find the optimal distance to land their own attacks.
+A Lock-On Camera creates fixed axes of movement between the player and their target. If the player's movement input is horizontal, their character moves in a circle around the target. Moving forward and backwards adjusts the distance between the player and their target. The purpose of this mechanism is for the player to have better control of spacing during combat, easing avoidance of attacks and optimization of distance to succesfully strike opponents.
 
 %       > Useful for the player to be able to track and attack a single target with ease without missing,
 %         instead of having to specify a "direction" for the attack, the player can simply press the attack button
 %         and the character will already be facing the enemy and perform the attack in the correct direction
-The fact that a Lock-On Camera is always facing a single target character removes the necessity for players to specify a direction for their attacks through input. Instead, players can simply press the attack button when their characters are within attack range. Since the character is constantly facing the enemy, the direction of their attack is guaranteed to be correct. Another positive effect caused by this behavior is that the framing helps the player to focus on the actions being performed by the enemy character, helping to understand when an enemy is attacking and which kind of attack an enemy is performing.
+In the Lock-On Camera State, players do not specify an input direction for attacks. Instead, simply pressing the attack button guarantees a correct attack direction, as the player character constantly faces the enemy. Such simplicity helps the player to focus on enemy actions, to perceive when an enemy is attacking and to identify which kind of attack is being executed.
 
 %       > Has issues in environments in constrained spaces, where the enemy is too close to the player or the player
 %         is too close to a wall. Framing becomes an issue in this case
-However, Lock-On camera implementations face issues when the target character is too close to the player character, or when they are operating in environments with constrained space. When the player character is too close to their target, it is common for Lock-On cameras to not adjust their vertical offset, meaning that the framing direction must be angled downwards and into the ground. This causes the player to have limited geometric information about the surroundings of both characters, making it harder to efficiently navigate the environment during combat. Furthermore, if a player is moving horizontally when close to their target, the perimeter of the circle of movement has a significantly reduced radius, making the camera rotate at high speeds and causing motion sickness\sepfootnote{fn:motion-sickness} in some instances.
+In gaming culture, Lock-On cameras are commonly known for poor framing in specific situations. When the player is too close to their target, camera orientation is often angled towards an unsatisfactory direction. This causes the player to have limited information about their surroundings, hindering the ability to efficiently dodge enemy attacks, or even to navigate the environment. Furthermore, if a player is moving horizontally when overtly close to their target, the perimeter of the circle of movement has a reduced radius in comparison to higher distances. This causes the camera rotate at high speeds and might cause motion sickness\sepfootnote{fn:motion-sickness} in some players.
 
-When Lock-On cameras operate in constrained space, it is common for the default offset position to be located outside the playable space (e.g. inside walls), and thus a position resolution algorithm is required to guarantee that the camera is always in a valid position. The most common algorithm is the pull-forward approach, where if the camera would be located outside the playable space the target position is recalculated so that the camera is brought closer to the player. While this solution works until a certain point, if the player positions their character too close to a wall it might create a situation where it is impossible for the camera to frame both the player and their target, with either the player character occluding the target or the camera focusing solely on the target by being positioned above the player character. In addition, a similar problem to that of players being to close to targets occurs, where in this case the camera might reposition too quickly due to the resolution algorithm.
+In constrained spaces, it is common for the default offset of a Lock-On camera to target a position outside the playable space \footnote{An example of position outside the playable space would be inside walls, or below the ground geometry.}. Thus, a position resolution algorithm is required to guarantee that the camera always has a valid placement. The most common approach is the pull-forward algorithm, where the target position is recalculated to bring the camera closer to the player until inside the playable space.
+
+While the pull-forward algorithm provides resolution to most cases, there are still caveats. If the player is overtly close to a wall, it might be impossible for the camera to frame both the player and their target. In such situation, either the player character occludes view of the target; or the camera focuses solely on the target by being positioned above the player.
 
 Figure \ref{fig:camera-types} shows a comparative diagram of both camera types implemented in this work, where four screen captures are used for the Orbital Third Person Camera to illustrate multiple framing angles that can be achieved from player controlled rotations.
 
@@ -234,61 +181,130 @@ Figure \ref{fig:camera-types} shows a comparative diagram of both camera types i
 % - Use of Cinemachine
 %     - Ready-to use implementation of orbital rotation with parametric spline curve for vertical axis
 %     - Smooth transition between virtual cameras which was useful for Orbital Camera and Lock-on modes
-Regarding the implementation of the Orbital Camera, we chose to use the \emph{Cinemachine} Unity Package due to its comprehensive API and functionality for multiple types of cameras, including specific algorithms to manipulate Orbital Cameras. Another useful trait is that the APIs provided by Cinemachine enable defining parametric curves for positioning, which increases the expressive power of game designers.
+Regarding the implementation of the Orbital Camera, we chose to use the \emph{Cinemachine} Unity Package due to its comprehensive API and rich functionality. Cinemachine contains pre-defined implementations for multiple types of cameras, including specific algorithms to manipulate Orbital Cameras. Another useful trait is that the APIs provided by Cinemachine enable defining parametric curves for camera positioning, which reduced development iteration time.
 
 %     - Algorithmic motion that can simulate cinematic behavior with camera shake effect and framing corrections
-Cinemachine can also manage, compose and blend multiple cameras, which is useful to perform shot transitions triggered by a signal system that resembles the \emph{Observer} pattern\sepfootnote{fn:observer-pattern}. Cinemachine also includes algorithms for procedural motion generation, which is used to create screen shake effects with high fidelity when the player is attacked by an enemy, or to properly adjust framing when the camera needs to track movement of high velocity targets.
+Cinemachine can also manage, compose and blend between camera shots. We configured camera transitions which were triggered by a signal system, resembling the commonly used \emph{Observer design pattern}\sepfootnote{fn:observer-pattern}. Cinemachine also includes algorithms for procedural motion generation, which were used to generate screen shake effects when the player is attacked by an enemy, and to properly adjust framing when the camera needs to track movement of high velocity targets.
+
+\sepfootnotecontent{fn:cinemachine-brain}{The \textsc{CinemachineBrain} component is responsible for defining the current active camera, camera transitions and the signals that trigger each transition.}
+
+\sepfootnotecontent{fn:unity-main-camera}{The Main Camera is a special \textsc{GameObject} with a \textsc{Camera} component which is responsible for rendering the final output of our camera management system.}
 
 % Prefab GameObject hierarchy with CinemachineBrain at root 
 % MainCamera object as a child of the CinemachineBrain
-We start by creating a \textsc{Prefab}\sepfootnote{fn:unity-prefabs} hierarchy of \textsc{GameObjects}\sepfootnote{fn:unity-gameobjects} where we include a \textsc{CinemachineBrain} component in the root level, and multiple \textsc{VirtualCameras} as child objects. The \textsc{CinemachineBrain} component is responsible for defining the current active camera, camera transitions and the signals that trigger each transition. The \textsc{CinemachineBrain} brain component requires a reference to a \emph{Main Camera}, a special \textsc{GameObject} with a \textsc{Camera} component responsible for rendering the final output of our camera management system. We add the \emph{MainCamera} object as a child of the root.
+To configure Cinemachine for use in our application, we created a \textsc{Prefab}\sepfootnote{fn:unity-prefabs} with a \textsc{CinemachineBrain}\sepfootnote{fn:cinemachine-brain} component at the root  \textsc{GameObject}\sepfootnote{fn:unity-gameobjects}, and multiple \textsc{VirtualCameras} as child objects. The \textsc{CinemachineBrain} brain component  referenced a \emph{Main Camera}\sepfootnote{fn:unity-main-camera}, which was added the \emph{MainCamera} object as a child of the root.
+
+\sepfootnotecontent{fn:cinemachine-virtual-cameras}{VirtualCameras are Cinemachine abstractions that define the physical properties of a camera along with transposing and composing strategies}
 
 % VirtualCamera child objects that contain definitions for transposing and composing strategies
-As child GameObjects of the hierarchy root, we include a set of \textsc{VirtualCameras} for each of the camera modes in our implementation. In this case, we simply add a VirtualCamera for the Orbital Camera and another for the Lock-On Camera. VirtualCameras are Cinemachine abstractions that define the physical properties of a camera along with transposing and composing strategies\sepfootnote{fn:transposing-and-composing}. In this case, we use a VirtualCamera with an Orbital transposing strategy and a single LookAt target aiming at a pivot position above the player character. For the Lock-On camera, we use a simple Follow strategy for transposing and a Group Composition strategy to frame both the player character and their target enemy.
+We also included a set of \textsc{VirtualCameras}\sepfootnote{fn:cinemachine-virtual-cameras} as child GameObjects of the Prefab root. Each VirtualCamera in the hierarchy represents one of the camera modes in our implementation. To implement the position and framing of the Orbital Camera, we set the \emph{Transposing Strategy} property value to Orbital, and we assigned a a pivot point above the player as a LookAt target. For the Lock-On camera, we used the Follow transposing strategy and the Group Composition strategy to frame both the player character and their target enemy.
 
 % PlayerCameraDirector component, which is responsible for receiving signals from player and translating them into signals for the CinemachineBrain and activating and deactivating PlayerCameraBehaviours
-We also add a \textsc{GameObject} containing a \textsc{PlayerCameraDirector} component, which is responsible for receiving signals from the \emph{Player} component and translating them into signals for the \textsc{CinemachineBrain}. The signals are then used to switch and transition between shots. The \textsc{PlayerCameraDirector} is also responsible for enabling and disabling \textsc{PlayerCameraBehaviour} components, which receive player input, manage camera framing targets and initialize camera states.
+We also added a \textsc{GameObject} containing a \textsc{PlayerCameraDirector} component, which is responsible for receiving signals from the \emph{Player} component and translating them into signals for the \textsc{CinemachineBrain}. The signals are then used to switch and transition between shots. The \textsc{PlayerCameraDirector} is also responsible for enabling and disabling \textsc{PlayerCameraBehaviour} components, which receive player input, manage camera framing targets and initialize camera states.
 
-The \textsc{VirtualCamera} components are tasked with receiving player input and performing the appropriate actions given the input. For instance, the \textsc{OrbitalCamera} receives a two-dimensional vector as input, which is translated into vertical rotation and translation for the Y axis and horizontal for the X axis. In the Lock-On camera, the horizontal axis of the vector input is used to switch Lock-On targets. Figure \ref{fig:camera-class-diagram} shows an overview of the class relationship in our camera system implementation, as well as the signals that are being sent and listened to.
+The \textsc{VirtualCamera} components receive player input and process such input into positional or state change actions. For instance, the \textsc{OrbitalCamera} receives a two-dimensional vector as input, which is translated into rotations and translations over the X and Y axes. In the Lock-On camera, the horizontal axis of the vector input is used to switch Lock-On targets. Figure \ref{fig:camera-class-diagram} shows an overview of the class relationship in our camera system implementation, as well as the signals that are being sent and listened to.
 
 % * Figure:  Camera system class diagram
 \input{figures/fig_camera_system_diagram}
 
 %     - Simplified collision geometry enables using a pull-forward collision resolution
-For position resolution, we created a simplified and invisible collision map to define the constraints of where a camera can be positioned in a game level. This is done to both improve the performance of raycasts and to avoid jittery movement when using pull-forward collision resolution on thin objects. This collision map is limited to interact with camera algorithms, and does not affect player movement or any other physics entities in any way.
+To constrain cameras inside the playable space, we used invisible collider objects which define positional boundaries for cameras. Such colliders represent a simplified version of the environmental geometry, using mostly Axis-Aligned Bounding Boxes as intersection validation targets. We use such method to improve the performance of intersection-checking raycasts and to avoid jittery movement when using pull-forward camera collision resolution on thin objects. The invisible colliders are limited to interact with camera algorithms, and do not interact with player movement or any physics entities.
 
 % Lock-On camera and targeting system
 % - Possible Lock-on targets must be located in an intersection of the camera viewport with a collision sphere centered at player character
 % - Lock-On target prioritization is higher for targets that are closer to the player and to the center of the screen
-To detect Lock-On eligible targets, we use a spheric collider in a radius around the player collider and intersect any detected entities with those present in the viewport, to constrain selection to entities being visualized. Eligible targets are collected into a list ordered by distance to the player character, which is updated every second. This is done because targets that are closer to the player are considered a higher threat, as they are more likely to hit the player when attacking.
+To detect entities which are eligible to be targets for the Lock-On camera, we use a spheric collider in a radius around the player and check for intersections inside its area. Detected entities inside the spheric collider are intersected with the group of entities which can be seen in the camera's viewport, to constrain Lock-On selection to entities which can be seen by the player. Eligible targets are collected into a list ordered by distance to the player character, which is updated every second. This is done because targets that are closer to the player are considered a higher threat, as they are more likely to hit the player when attacking.
 
 % - Use of horizontal input axis from Orbital Camera to switch between targets
-Horizontal input from the player is used to switch between targets, where moving the input axis to the left switch to the closest target at the left of the current Locked-On target, using coordinates relative to viewport space. Therefore, the position of the next target is selected using a comparison of the position of the entity in the X-axis when converting their coordinates to a viewport space.
+Horizontal player input is used to switch between targets in the Lock-On camera. Moving the input axis to the left switches to the closest target at the left of the current Locked-On target, using coordinates relative to the camera's viewport space. Similarly, moving the input axis to the right will select an entity to the right of the current target. Therefore, the position of the next target is selected by comparing the X axis of entities when converting their coordinates to a camera's viewport space.
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ========================================================================
+% ========================================================================
+% ========================================================================
+
+
+% Movement mechanics and physics
+\subsection{Movement mechanics and physics}
+
+% Movement in games is not realistic for responsiveness
+Traditionally, the movement for player-controlled characters in games is not designed to be physically realistic. Characters will often move at abnormally high speeds, are able to stop almost immediately and can turn their movement direction with ease. This is done so that character movement is highly responsive to raw player input and becomes easier to manipulate in comparison to physics-based controls. If player characters in video games were to be physically accurate, they would take significant time to accelerate to their maximum movement speed and decelerate until stopped, while also having difficulty turning sharp angles at high speeds.
+
+% Characters with physics controls are difficult to control
+% Movement physics should be simplified for learn ease
+When considering gameplay aspects, characters implemented with physical accuracy feel heavy and difficult to control, forcing the player to calculate the physical properties of their characters and virtual environment. This causes a significant amount of overhead for players desiring to achieve proficiency with motion controls. Therefore, character movement should be a streamlined and trivial mechanic that can be quickly mastered, unless movement itself is a purposefully designed game challenge, such as in \emph{Death Stranding}\sepfootnote{fn:death-stranding}.
+
+% CharacterController for wall and obstacle collision and running over slopes
+Considering the need for responsive movement that can be easily mastered, we use the \emph{CharacterController}\sepfootnote{fn:character-controller} component that is natively built-in as part of \textsc{Unity}'s base functionality. CharacterControllers are not affected by native physics systems, and implement common gameplay-related functionality such as the ability to slide along walls when moving in a non-orthogonal angle, detecting and stepping over small vertical offsets in ground geometry such as steps and ledges and handling movement constraints in ramps.
+
+\subsubsection{Camera-Based Movement}
+
+% We define movement direction based on camera orientation
+In our implementation, movement input generates different motion types depending on camera state. In the \emph{Orbital Camera}, input causes the player to rotate and move towards a direction which is relative to the camera's orientation. To animate the player's character model in such state, the movement system signalizes a continuous frontal movement to the Animation System. Positional transforms are handled by the Animation System, with the objective of matching movement speed with animation keyframes -- which circumvents \emph{movement drifting}\sepfootnote{fn:movement-drifting} issues.
+
+% We constrain rotation speed for minimal fidelity
+A character with minimal physics fidelity should be unable to immediately turn to the opposing movement direction after fully accelerating. However, player controls should still provide some level of responsiveness regarding character rotation changes. Therefore, handling body rotation through player input requires imposing constraints, as it is necessary to create a minimal sense of weight to a character while maintaining an acceptable input response. Thus, the \emph{maximum rotation speed} attribute is implemented to constrain the speed at which a player is able to turn.
+
+% In Lock-On player moves in a circle around enemy
+In the \emph{Lock-On}\sepfootnote{fn:lock-on} camera, player input causes their character to move without changing body rotation. In this state, the player character always faces their target. As for the movement direction, the Animation System uses player input to blend movement between three states: forward movement, side steps and back steps. Since the viewport is automatically defined by the positions of the player and their target without considering player input, the player always performs circular movements around their target in the Lock-On state. Camera positioning for \emph{Locked-On Cameras} is further explained in subsection \ref{sec:lock-on-camera}.
+
+\subsubsection{Grounded State Detection}
+
+% Players are unable to accelerate on air
+% Gravity vector force applied every fixed step when on air
+Another state that was considered in our movement implementation is when the player is not touching the ground, such as when falling from a ledge. In this state, the Capsule-shaped \emph{collider}\sepfootnote{fn:colliders} defined by the player's CharacterController does not \emph{overlap}\sepfootnote{fn:collider-overlapping} with ground geometry. In such situation, the player character should be considered "On-Air", and movement input should have less influence in motion. Should the player's character be able to accelerate, decelerate or turn while airborne, players might experience a break in the immersion. In our implementation, we constantly accelerate our CharacterController velocity by a gravity vector on fixed time steps when the player is not on ground.
+
+% Gravity and grounded state detection: use of SphereCast
+To detect if the player is airborne, we perform a collider intersection check between the player and ground geometry. We make use of \emph{Unity's} built-in \emph{SphereCast} operation, which  performs multiple sequential intersection checks of a sphere envelope (a spheric collider with a radius slightly higher than the player's character model radius) with ground colliders. The intersection checks are performed along a \emph{Ray}\sepfootnote{fn:rays}, which originates from the center of the player's character model and extends along the gravity vector. We use a length of three quarters of the player's collider size as a distance limit to detect the ground. 
+
+% High vertical speed, stuck in geometry
+With the use of rays for collision detection, vertical collisions can be detected ahead of time when the player is falling at high speeds. This circumvents the common problem in video game physics where when the player's vertical speed is too high, they could become stuck inside ground geometry if the collision detection algorithm does not take into account the game's update rate. Another advantage of using \emph{Raycast-type}\sepfootnote{fn:raycasts} operations is precisely detecting the points where a collider intersects with a ray. This enables precise definition of which parts of a collider interact with ground geometry. Listing \ref{lst:grounded-detection} shows our implementation for detecting ground collision. % TODO add footnote for this
+
+\input{listings/lst_ground_detection}
+\label{lst:ground-detection}
+
+ In contrast to Ray Intersections, the SphereCast operation used in our algorithm is able to detect overlaps in a volume, which means that complex collider setups which intersect in the borders of a Capsule are detected. A common situation in games where platforms and gravity can affect the player is that players might find themselves above multiple close but separated ledges. Raycast operations are unable to handle this situation, as the rays might not intersect with any of the ledges.
+
+% TODO Figure: Example showing visual difference of Raycast vs SphereCast
+
+If grounded-state detection is not handled appropriately, components which handle entity acceleration might accumulate vertical velocity indefinitely. If the player is colliding with ground geometry but the logical systems consider the player On-Air, player velocity constantly accumulates the gravity force. In such cases, after player steps away from a ledge, their character instantly falls to the ground in abnormal speed. If the game is programmed to apply fall damage, this often results in instant death, even though the player did not fall from a considerable height.
+
+In the frame where a character that is On-Air detects ground collision, we invoke the \textsc{OnHitGround} event, and proceed to perform fall damage calculation. In our implementation, fall damage is calculated by considering fall speed multiplied by a parametrized speed-to-health-point conversion factor, named 'FallDamageMultiplier'.
+
+\subsubsection{Movement System Design}
+
+Figure \ref{fig:movement-class-diagram} shows an overview of the class architecture for our implementation of the movement system. We implement top-level \textsc{Player} class which contains the components for all gameplay-related subsystems. The \textsc{PlayerMotor} component is an implementation of the \textsc{ICharacterMotor} interface, and is responsible for implementing the movement and physics logic of our motion controls.
+
+When input is received from the user, the \textsc{PlayerMotor} component filters the input, calculates a target movement direction based on viewport orientation, and delegates position changing to the \textsc{Player.Move()} method. The \textsc{Player} class calls the \textsc{CharacterController.Move()} method from Unity's API, which considers collisions and other physics-related constraints. The \text{Player.Move()} method also broadcasts animation-related signals that are consumed by the \textsc{PlayerBody} class, which in turn communicates with Unity's \textsc{Animator}.
+
+% Figure: Player Movement Class Diagram for Bright Souls
+\input{figures/fig_movement_class_diagram}
+
+% ========================================================================
+% ========================================================================
+% ========================================================================
 
 \subsection{Attributes System}
 
 % Attributes system
-Attributes are our abstraction for runtime data that represents the current state of a gameplay entity, such as the Player Character, an Enemy Character or even an interactable object in a level such as a door. Attributes can be initialized, serialized and monitored by external components and are used by a multitude of gameplay related systems. In our implementation, attributes are mostly used to represent combat related variables such as Health, Stamina and Poise, and thus are affected by events triggered by the combat system, such as Stamina being used when the player attempts to attack an enemy, or the Health lost when an enemy succesfully hits the player.
+In our implementation, we define an abstraction layer for runtime variables that represent the state of game entities, and can be serialized through saving and loading. Attributes are used to represent status for the Player and enemies -- with variables representing health, stamina, poise, damage, speed and others. We also use attributes to define the state of interactable objects such as doors and levers -- with boolean variables such as \textsc{isOpen} or \textsc{isToggled}. Attributes can be initialized, serialized and monitored by external systems, such as the native dependency injection in Unity's \textsc{Inspector} and our data persistence system which serializes runtime data through scenes.
 
 % Based on Generics: Attributes can be generated for any primitive type, such as int, float, double, string.
 %   - Serialized into binary gameplay data files for game designers to define the default and maximum values for character health, stamina and poise
 %   - Initialized by persistent data managers to maintain player status when transitioning between levels
-Attributes are based on \textsc{C\#} \emph{Generics}, and can be generated for any value type such as integers, floating point variables, strings and enumerations. This limitation is imposed in our architecture so that attributes can be easily serialized into binary data files that can be used to define the default and maximum values for each attribute holder. This constraint also facilitates Attribute initialization, which is useful to support persistent data such as maintaining attributes between levels  or loading the state of an entity from a file in a savegame system. 
+Attributes are based on \textsc{C\#} \emph{Generics}, and can be generated for any value type such as integers, floating point variables, strings and enumerations. This limitation is imposed in our architecture so that attributes can be easily serialized into binary data files that can be used to define the default and maximum values for each attribute holder. This constraint also facilitates Attribute initialization, which is useful to support persistent data such as maintaining attributes between levels  or loading the state of an entity from a file in a savegame system.
+
+\sepfootnotecontent{fn:ui-health-bars}{Health bars show the current player health and also provide a good estimation of health lost when getting attacked by an enemy using a secondary, trailing health bar.}
 
 %   - Monitored by UI systems to display relevant data about the status of the player, for instance a Health Bar that display the current health of the player and shows health lost when getting attacked.
-All Attribute types implement the \textsc{IAttribute} interface, which exposes acessors for data manipulation and events for value changes. This facilitates the use of attributes by separate, independent systems in our architecture. For instance, Attributes are monitored by UI (User Interface) systems to display relevant data about gameplay entities, such as the status of the player. Health bars show the current player health and also provide a good estimation of health lost when getting attacked by an enemy using a secondary, trailing health bar.
+Attribute specializations implement the \textsc{IAttribute} interface, which exposes acessors for data manipulation and events for value changes. Events facilitate the use of attributes by external components, decoupling independent systems in our architecture. An example can be observed in our UI (User Interface) elements, which subscribe to value change events in player status attributes such as Health, and update Health bars\sepfootnote{fn:ui-health-bars} whenever the health attribute publishes a change.
 
-The advantage of creating of an event monitoring system between Attributes external systems is that upon initial conception of the architecture, we do not exactly know how many components will require communication with each gameplay entity. For instance, when implementing the UI for the player character we can initially propose a single health bar that would simply read the value of runtime variables from the \textsc{Player} class, but if we iteratively add new elements such as floating text, combat messages and visual effects, each of these systems should have direct access to the components that hold data regarding player state, which enforces component coupling in our architecture. With an event system, we can simply subscribe to signals being sent by attributes, constraining the exposed data and methods and facilitating component decoupling.
+Another advantage of using event systems is the flexibility to add and remove subscribers as required. As an example, when implementing the UI for the player character we can initially propose a single health bar to monitor player health. If requirements for our application change, we can iteratively add new elements such as floating text, combat messages and visual effects without prior knowledge of which systems will be required in the final release. 
 
 % - AttributesContainers
 %     - Containerization of attributes to allow for entities with different attribute configurations without defining static types
 %     - Possibility to dynamically assign attributes during the course of a session, which can be useful for a telemetry system
 % - Definition of interfaces that expose attributes to any of the classes that might require it
-Attribute owners will often contain different sets of attributes to satisfy the requirements of the systems they interact with. As such, characters that can partake into combat encounters will present different attributes in relation to interactable objects such as doors. To provide a standardized interface for the access of attributes over different entity types, we containerize attributes into \emph{Attribute Containers}, which provide a public interface for dynamic access and manipulation of statically typed attributes contained within an entity. Figure \ref{fig:attributes-diagram} shows an overview of the class relationships in the Attributes System, along with examples of how attributes signalize changes to external components such as UI Elements.
+To decouple attributes from their owners and the systems which modify them, we created a standardized interface for containerizing and accessing them under different entities. We implement \emph{Attribute Containers}, which provide a public interface for instantiation, access and manipulation of statically typed attributes for an entity. Attribute Containers can be queried by external systems for type-based compatibility. By using this access layer, we can provide polymorphic attribute mutability based on compatibility. Figure \ref{fig:attributes-diagram} shows an overview of the class relationships in the Attributes System, along with examples of how attributes signalize changes to external components such as UI Elements.
 
 % * Figure: Attributes system class diagram
 \input{figures/fig_attributes_diagram}
@@ -304,7 +320,7 @@ Attribute owners will often contain different sets of attributes to satisfy the 
 % - Being able to detect when the weapon of the attacker collides with a target
 % - Being able to detect when the target was able to block or dodge an attack
 % - Applying combat effects when the target is hit
-To implement combat mechanics in a \emph{Souls-like} game, we need a set of functionality components that are able to:
+To implement the combat mechanics in our \emph{Souls-like} implementation, we defined a list of requirements for combat-related components:
 \begin{itemize}
     \item{Manage attack animations and logical states for the player character;}
     \item{A \emph{Hit Detection System} which is able to detect when the weapon of the attacker overlaps with the \emph{Hitbox} of a target to validate a \emph{Succesful Hit};}
@@ -312,56 +328,57 @@ To implement combat mechanics in a \emph{Souls-like} game, we need a set of func
     \item{Apply \emph{Combat Effects} when a target is hit, such as a \emph{Health Damage} effect;}
     \item{Modify character state according to the effects that are applied.}
 \end{itemize}
-By combining the functionality aforementioned with AI agents that also make use of the same components, we can create a credible Combat System that provides appropriate feedback to player actions and decisions. In figure \ref{fig:combat-system-overview}, we provide an overview of the subsystems and classes regarding to our implementation of a Combat System.
+By invoking the aforementioned functionality with player input and AI agent actions, we created a satisfactory combat system that provides appropriate feedback to player actions and decisions. In figure \ref{fig:combat-system-overview}, we provide an overview of the subsystems and classes regarding to our implementation of a Combat System.
 
 % * Figure: Combat System Overview Diagram
 \input{figures/fig_combat_system_overview}
 
+\sepfootnotecontent{fn:command-pattern}{\emph{Command} is a commonly used code design pattern to encapsulate data and actions related to an event into an object. In games, the Command pattern is commonly used as a layer of separation between the Input system and the response triggered by input in in-game entities.}
+
+\sepfootnotecontent{fn:current-player-state}{The current state of the player is defined by a composition of boolean variables that reflect by the Animation being played on their character model.}
+
 % Attacking and combo system
 %  - Continuously check for Attack input
-We begin by listening to input from the player to determine when an \emph{Attack Command} should be issued. If the button mapped to the \emph{Attack Command} is pressed, we proceed to verify the current state of the player character to determine if an attack can be performed. The current state of the player is defined by a composition of boolean variables that reflect by the Animation being played on their character model.
+The entry point for our combat system is invoking, either through player input or AI issued commands, of combat-related \emph{Commands}\sepfootnote{fn:command-pattern}. We defined a dictionary-based data structure to map input button codes to player character commands. The keys to our dictionary are queried for at every frame, and if a key press is detected we execute the command which represents its respective value. For instance, if the button mapped to the \emph{Attack Command} is pressed, we proceed to verify the current state\sepfootnote{fn:current-player-state} of the player to determine if an attack can be performed.
 
 % - Player/character is unable to perform attack if on Animation Lock
 % - Attacks cost Stamina
-If the character model is in the \emph{Dead}, \emph{Staggered}, \emph{AttackEnding}, \emph{On-Air}, \emph{Landing}, \emph{Dodging} or \emph{Blocking} animation states, the player is unable to perform an attack. This is commonly referred as \emph{Animation Locking} in games, and is an important aspect to potentially punish the player when taking strategically negative decisions. Attack Commands also have a resource cost for the player, where each attack depletes an amount of \emph{Stamina}. If the player Stamina resource has a value of zero, the player is unable to perform an attack. If the player has any Stamina value above zero, they are able to perform the attack.
+For each Command, we define a set of restrictions which block the player from executing such command if their validation condition returns false. For instance, in our implementation the player is unable to attack if they are executing an action which would render their character unable to use their sword. Therefore, if the player is in the \emph{Dead}, \emph{Staggered}, \emph{AttackEnding}, \emph{On-Air}, \emph{Landing}, \emph{Dodging} or \emph{Blocking} states, they are considered unable to perform an attack, and thus the validation for the \textsc{IsNotBlockedByAnimation} restriction fails. This is commonly referred to as \emph{Animation Locking} in games, and is considered a crucial feature used to balance game difficulty. Attack Commands also have a resource cost for the player, where each attack depletes an amount of \emph{Stamina}. If the player Stamina resource has a value of zero, the player is unable to perform an attack. Therefore, we also define the \textsc{HasStamina} restriction, requiring the value of the player's \emph{Stamina} attribute to be higher than zero.
 
 %  - When sending attack command, enter a "combo" state and "Attack animation state machine"
 %  - "OnCombo" state:
 %    - Preemptively read player input before current attack animation ends. If player successfully sent attack input, continue the combo.
 %    - If no attack input command is read within animation time frame, escape the Attack animation state machine
-After an Attack Command is successfully validated, player state is set to \emph{Attacking} and the player enters an \emph{Attack State Machine} where Attack Commands are preemptively verified during attack animations. If an Attack Command is successfully executed before an attack animation ends an \emph{Attack Chain} is toggled, meaning that another attack animation is queued and transitioned to when the current attack animation ends. This behavior is commonly referred to as a \emph{Combo} in video games. Figure \ref{fig:player-anim-state-machine} shows the state machine definition that we use to implement the aforementioned behavior.
-
-%     - Alternating between attack animations to create the impression of a seamless combo that is only limited by the stamina resource
-This replicates how attacking works in Dark Souls, where the player can continuously enqueue attack commands until their \emph{Stamina} resource is depleted. If no Attack Command is successfully executed within the time frame of an attack animation, the player exits the \emph{Attack State Machine} and is locked to a short \emph{AttackEnding} animation state, where the player character model transitions from attacking to an idle state.
+After an Attack Command is successfully validated, the player's state is set to \emph{Attacking}. An \emph{Attack State Machine} is initiated, where Attack Commands are preemptively checked for during attack animations. If an Attack Command is successfully executed before an attack animation ends, an \emph{Attack Chain} is toggled, causing the next attack animation to be queued and triggered when the current animation ends. This behavior is commonly referred to as a \emph{Combo} in video games. If no Attack Command is successfully executed within the \emph{Attack Chain} time frame, the player exits the \emph{Attack State Machine} and is locked to a short \emph{AttackEnding} animation state. Figure \ref{fig:player-anim-state-machine} shows the state machine used to implement the aforementioned behavior.
 
 % Figure: Player Animation state machine
 \input{figures/fig_player_anim_state_machine}
 
-%   > Hit detection toggled when receiving an event signal from the Attack animation
-During Attack animations, the Animation System broadcasts event signals that toggle the activation and deactivation of the \emph{Hit Detection System}, which has the purpose of determining whether an attack successfully hit an enemy. At a certain point during the attack animation, we broadcast the \textsc{AttackCollisionStartEvent} which signalizes that attack collisions must be checked on each frame until an \textsc{AttackCollisionEndEvent} is signalized.
+\sepfootnotecontent{fn:attack-collision-end}{The \textsc{AttackCollisionEndEvent} is required to be signalized after the \textsc{AttackCollisionStartEvent} and before the attack animation ends so that attacks appropriately reflect what the attacking character performs.}
 
-The \textsc{AttackCollisionEndEvent} is required to be signalized after the \textsc{AttackCollisionStartEvent} and before the attack animation ends so that attacks appropriately reflect what the attacking character performs. Generally, the point in time at which \textsc{AttackCollisionStartEvent} and \textsc{AttackCollisionEndEvent} are triggered should occur in the small time frame where the character swings the weapon in the direction of their target. Figure \ref{fig:attack-combo-diagram} shows the relationships between components involved in issuing Attack commands and handling combo states and animations.
+%   > Hit detection toggled when receiving an event signal from the Attack animation
+During combat-related animations, the Animation System broadcasts event signals that toggle the activation or deactivation of the \emph{Hit Detection System}, which has the purpose of validating whether an attack successfully hit an enemy. At a certain point during the attack animation, we broadcast the \textsc{AttackCollisionStartEvent}, which signalizes that attack collisions must be checked on each frame until the \textsc{AttackCollisionEndEvent} is published. The \textsc{AttackCollisionStart} and \textsc{AttackCollisionEnd}\sepfootnote{fn:attack-collision-end} events are triggered in the short time frame where a character swings their weapon. Figure \ref{fig:attack-combo-diagram} shows the relationships between components involved in issuing Attack commands and handling hit detection.
 
 % Figure: Attack and combos Class Diagram
 \input{figures/fig_attack_combo_diagram}
 
 %     - Hit detection must not occur twice between the same target and same attack
 %     - Specific collision layer to detect hitbox collision
-To implement hit detection, we perform collider overlap checks in fixed time intervals of 16 milliseconds. These collision checks occur in a special collision layer called HitDetection, where every Collider is either the weapon of an attacker or the body of a target. This is an optimization requirement to meet the required time constraint in most computing systems. If a system is unable to meet the time constraint, there is a small chance that an attack might not be detected, where the attacker weapon "passes-by" the body of the attacker without triggering collision detection.
+To implement hit detection, we perform collision intersection checks in fixed time intervals of 16 milliseconds. Objects involved in combat-related collision checking are restricted to a special layer called HitDetection, where every Collider is either the weapon of an attacker or the body of a target. Restricting the elements involved in a hit detection system is a required optimization for collisions to be detected consistently. If the Hit Detection system is unable to meet the 16 milliseconds time constraint, there is a small chance that an attack might not be detected, where an attacker weapon "passes-by" the body of the attacker without triggering the collision event.
 
-We estimate that attack collision detection occurs for approximately 20 frames from the point where it is first activated. Thus, if a computer system is able perform at least 4 updates per second, attack collision is guaranteed to be correctly detected. It is important to note that updates to the collision detection system are independent to the rendering performed by the graphics pipeline, and as a consequence are unaffected by most forms of temporary stutters in the application.
+We estimate that in our implementation attack collision detection occurs for approximately 20 frames from the point where it is first activated. Thus, if a computer system is able perform at least 4 updates per second, attack collision is guaranteed to be correctly detected. It is important to note that updates to the collision detection system are independent to the rendering performed by the graphics pipeline, and as a consequence are unaffected by graphics-related stuttering.
 
-We also require safety measures to ensure that attack collision detection does not trigger a Hit event twice given the same Attack and Target entities. Therefore, for each attack performed by an attacking entity that is successfully registered as a Hit, we store a reference to an \emph{AttackCollision} instance in the \emph{Hitbox} component of the target entity. The Hitbox component then listens for the \emph{AttackCollisionEndEvent}, where the reference can be deleted since at this point the same \emph{AttackCollision} instance is not performing any collision checks.
+We also employed several safety measures to ensure that attack collision detection does not trigger a \emph{Hit} event twice for a same attack input. Therefore, we store a reference to an \emph{AttackCollision} instance in the \emph{Hitbox} component of the target entity for each attack command. The Hitbox component listens for the \emph{AttackCollisionEndEvent}, which determinesn when the reference can be deleted. At this point, the attacker's hit detection system does not perform any collision checks for the same attack.
 
 % - Hit detection:
 %   > Colliders:
 %     - Hitbox overlap detection for attacker weapons and target character
 %     - Attack Colliders are bounding boxes in weapons
 %     - Character colliders are simplified bounding boxes that enclose torso, head and partially legs
-For each occurrence of an attack collision, two colliders are obligatorily involved: one for the weapon of the attacker, and one for the body of the target. The colliders are instanced as \emph{bounding boxes}\sepfootnote{fn:bounding-boxes} that fully or partially enclose the 3D models of their relative entity. In order to perform collision checks with a reasonably optimized numbers of collision checks, we simplify bounding boxes of character models to only enclose the torso, head and a central position of the legs of a target. Using this method, we can minimize the amount of collision checks per frame, while also having appropriate precision for our implementation purposes.
+For each occurrence of an attack collision, two colliders are involved: one for the weapon of the attacker, and one for the body of the target. The colliders are instanced as \emph{bounding boxes}\sepfootnote{fn:bounding-boxes} that fully or partially enclose the 3D models of their relative entity (an attacker's weapon or a target's body). To perform collision checks with a reasonably optimized numbers of collision checks, we simplify collision by introducing a single bounding box that encloses the torso, the head and a central position of the target's legs. Using this method, we minimize the amount of collision checks per frame, while also having appropriate precision for our gameplay purposes.
 
 %     - Consider character faction to recognize which combat characters can be hurt by an attack
-After the collision detection step is performed, we must ensure that the attacking character is hitting a target that is not part of their own \emph{Combat Group} before validating an attack as a \emph{Successful Hit}. To do this we create the \textsc{FactionAttribute}, which determines that each character belongs to a combat group that is unable to perform attacks to other members of the same group. This is done so that groups of characters such as enemies of the player do not damage themselves when attempting to hit a target while being too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}. In addition, figure \ref{fig:hit-detection-diagram} shows the execution flow and class relationship of components used during the Hit Detection step.
+After the collision detection step is performed, we validate that the target is not part of the attacker's \emph{Combat Group} by comparing the \textsc{FactionAttribute} value of the involved entities. We perform such distinction to avoid a situation where player enemies would damage themselves when attempting to hit the player when too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}. In addition, figure \ref{fig:hit-detection-diagram} shows the execution flow and class relationship of components used during the Hit Detection step.
 
 % * Table: Values for the Faction Attribute
 \input{tables/tab_faction_groups}
@@ -371,42 +388,35 @@ After the collision detection step is performed, we must ensure that the attacki
 
 % - Attack damage and other effects are abstracted into Combat effects
 %     - Manipulate character attributes, statuses and physics
-Once we performed all steps regarding the verification of whether an attack successfully hit an enemy, we can proceed to the next step of applying the \emph{Combat Effects} contained by the Attack. Combat Effects are our abstraction to the set of attribute effects, status effects and any other behaviors that occur when a character is struck by an attack. Examples of Combat Effects include the damage dealt to the Health of a target, Status effects such as \emph{Staggers}\sepfootnote{fn:stagger}, and physics effects such as the \emph{Knockback}\sepfootnote{fn:knockback} caused by an attack. Figure \ref{fig:combat-effects-diagram} shows an overview of the relationship between classes and components regarding the application of \textsc{CombatEffects} to \textsc{ICombatTarget} entities.
+After validating an attack as a \emph{Succesful Hit} to a target, we apply \emph{Combat Effects} contained by the Attack onto the target. Combat Effects are containers to a set of attribute changes, status changes and any behaviors that might occur when a character is struck by an attack. Examples of Combat Effects include the \emph{Damage} dealt to the Health of a target, a \emph{StatusEffect} such as a \emph{Stagger}\sepfootnote{fn:stagger} and physics effects such as a \emph{Knockback}\sepfootnote{fn:knockback}. To be affected by a combat effect, the target entity must possess a compatible component or attribute which is able to handle the change proposed by the effect. Therefore, if the player hits an entity and applies the \emph{DamageHealth} effect to a target, the target has to possess the \emph{HealthAttribute} component for the effect to be applied. Figure \ref{fig:combat-effects-diagram} shows an overview of the relationship between classes and components regarding the application of \textsc{CombatEffects} to \textsc{ICombatTarget} entities.
 
 % * Figure: Combat Effect class diagram
 \input{figures/fig_combat_effects_diagram}
 
 %     - Instant combat effects are completely applied in the same frame as hit detection occurred
 %     - Over-time combat effects with fixed interval ticks
-In our implementation, we differentiate between \emph{Instant Combat Effects} and \emph{Over-time Combat Effects}. Instant Effects are applied to a target when a discrete event such as an attack takes place, and will often simply modify the value of an attribute. Examples of Instant Effects include the Health damage caused by an attack to a target and the Stamina cost of performing the attack, which is applied to the attacker. Over-time Effects are effects that occur in fixed time intervals over the course of a duration or is bound to the life of an entity.
+We differentiate between \emph{Instant Combat Effects} and \emph{Over-time Combat Effects}. Instant Effects are applied to a target when a discrete event such as an attack takes place, and simply modify the value of an attribute or apply a temporary \emph{Status}. Examples of Instant Effects include the Health damage caused by an attack, which is applied to the target; And the Stamina cost of performing the attack, which is applied to the attacker. A status change effect can be seen when the player performs the \emph{Dodge} action, which temporarily applies the \emph{Invincible} status effect to their character.
 
 % Player has a default Stamina regeneration effect
-An example of Over-time effect would be the \textsc{StaminaRegeneration} effect that is permanently applied to the player, and which is temporarily blocked or modified by combat-related actions. During the course of a level, the player recovers a default amount of the Stamina resource over fixed time intervals, until either their Stamina resource is at the maximum possible amount or a combat action is performed. After a certain amount of time without issuing combat-related commands such as Attacking and Dodging, Stamina regeneration is re-enabled. Entering the Blocking state also modifies stamina regeneration by applying the \textsc{BlockingStaminaRegenModifier}, where the amount of stamina recovered is halved.
+In contrast, Over-time Effects occur in fixed time intervals over the course of a duration (or can have an unlimited duration, being bound to the lifetime of an entity). An example of Over-time effect would be \textsc{StaminaRegeneration}, an effect which is permanently applied to the player when not performing any combat-related actions. During the course of a level, the player recovers a fixed amount of Stamina over fixed time intervals. The regeneration is blocked temporarily by the \textsc{StaminaRegenBlock} effect after the player performs any combat-related action which makes use of Stamina, such as attacking, dodging or being struck by an attack. After a certain amount of time without issuing combat-related commands, the \emph{StaminaRegeneration} effect is re-enabled. We also apply modifiers to the amount of recovered stamina under certain circumstances. For instance, entering the Blocking state halves the amount of stamina recovered by applying the \textsc{BlockingStaminaRegenModifier} effect.
 
 % - Combat Effect Modifiers
-Combat Effects are restricted to performing modifications on a limited set of Attributes and Components exposed through the \textsc{ICombatTarget} interface, which is implemented by any entity that can be attacked. Before applying an effect to a target, we first check if the target contains any \emph{Combat Effect Modifiers}, such as a damage modifier caused by the target \emph{Blocking} or \emph{Dodging} an attack.
+Combat Effects are restricted to performing modifications on a limited set of Attributes and Components exposed through the \textsc{ICombatTarget} interface, which is implemented by any entity which can be attacked. Before effectively applying an effect to a target, we first check if the target contains any \emph{Combat Effect Modifiers}, such as a damage modifier caused by the target \emph{Blocking} or \emph{Dodging} an attack. If the target has compatible effect modifiers, the \textsc{Attack} class uses such modifiers to reconstruct its Combat Effects with updated values. For instance, if the target successfully blocks an attack, the \textsc{BlockDamage} modifier is applied to any \textsc{DamageHealth} effects by halving the damage amount. After the reconstruction of Combat Effects using any applicable modifiers, we apply the final effect to the target entity.
 
-If the target has effect modifiers that are compatible with any of the effects being applied by an attack, the \textsc{Attack} class uses the modifiers to reconstruct its Combat Effects with updated values that reflect the purpose of the modifier. For instance, if the target successfully blocks an attack, the \textsc{BlockDamage} modifier is added to the target, which is used by the \textsc{Attack} class to update the \textsc{AttackDamage} combat effect by halving the damage that should be applied to the target. After the reconstruction of Combat Effects using any applicable modifiers, we finally commit to performing the attribute and status modifications and behaviors that are caused by an attack.
-
-In figure \ref{fig:combat-flow-diagram}, we show an overview of all the steps involved with handling attacks, including detection of Attack commands being issued by the player, management of the animation states associated with weapons, validating Hitbox collision and combat groups with a Hit Detection System, and applying combat effects to modify target attributes and execute behaviors.
+In figure \ref{fig:combat-flow-diagram}, we show an overview of all the steps involved with handling attacks, starting from the player issuing Attack commands through the Input System, proceeding to the management of animation states associated with weapons, validating Hitbox collision and combat groups with a Hit Detection System, and finally applying combat effects to modify target attributes and execute behaviors.
 
 % * Figure: Flow of Combat System when processing Attack of entities
 \input{figures/fig_combat_flow_diagram}
 
 %     - Block detection occurs when target is hit, is in "blocking" state and vector dot product between attack and target directions is < 0
-To perform the blocking action, the player holds an input button which continuously issues the \textsc{BlockCommand}. When the player character is hit by an attack while performing the blocking action, we calculate the vector dot product between the attacker direction and the player direction before the player is hit. If the result has a negative value, it means that the player is pointing their shield towards the target, and thus it results in a successful block. If the target attacks the player from behind, the player is unable to block the attack.
-
-% TODO (ADDITIONAL) Add formulae to vector dot product between defender and attacker direction, with outcomes.
+To perform a \emph{Block}, the player is required to hold an input button which continuously issues the \textsc{BlockCommand}. When the player character is hit by an attack while performing a Block, we calculate the vector dot product between the attacker and player directions to determine if an attack was succesfully blocked. If the result of the dot product has a negative value, the player is considered to be correctly pointing their shield towards the target, which results in a successful block. If the result has a positive value, we consider that the target attacked the player from their flank or back, and thus the player was unable to block the attack.
 
 %     - Dodge detection also occurs when target is hit. If hit detection occurs during target invincibility frames, a "dodge" is registered, and target receives no combat effects
-Contrary to blocking, the \textsc{DodgeCommand} is issued discreetly at the press of a button. When the player presses the dodge command, the \textsc{Player} component signalizes the action to the animation system. If the player issues the command when moving towards a specific direction, the \textsc{Animator} component handles the movement of the \textsc{Transform} to translate the character into that direction. If the player is stationary when the dodge command is issued, the \textsc{Animator} simply uses the current direction defined by the \textsc{Transform}.
+Contrary to blocking, the \textsc{DodgeCommand} is issued at the discrete press of a button. When the dodge command is issued, the \emph{Dodge} action is signalized to the animation system, which in turn responds by moving the player character accordingly. If the dodge command is issued towards a specific direction (by using a movement command), the Animation System translates the character towards such direction. If the player is stationary when issuing the dodge command, the \textsc{Animator} simply uses the current direction being faced by the player character as a translation direction. Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin} and the \textsc{DodgeIFramesEnd} events, which toggle the \textsc{Invincibility} status to the player. Combat invincibility effect nullifies any combat effects towards the player.
 
-Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin} and the \textsc{DodgeIFramesEnd} events, which toggle the \textsc{Invincibility} combat effect modifier to the player. The Invincibility combat effect nullifies any negative combat effects that might affect the player during an attack, causing enemy attacks to have essentially no effect over the player.
-
-
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ========================================================================
+% ========================================================================
+% ========================================================================
 
 % TODO \subsubsection{Animation System (ADDITIONAL)}
 
@@ -423,113 +433,113 @@ Over the duration of the dodge animation, we issue the \textsc{DodgeIFramesBegin
 
 % - Figure: Animation System class diagram showing component relations and events
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ========================================================================
+% ========================================================================
+% ========================================================================
 
 \section{Artificial Intelligence and Enemy Design}
 
 % Enemies in Dark Souls present basic, somewhat predictable behavior (REF Analysis Dark Souls)
-As discussed in \ref{sec:analysis-dark-souls}, enemies in Dark Souls present basic and somewhat predictable behavior. When spawned, enemies either remain stationary or move through predefined paths until interaction with the player. When detecting player presence, they will often switch to a combat stance where they perform an attack from a limited and small set, and then switch to a defensive stance for the duration of a \emph{Cooldown}\sepfootnote{fn:cooldown} timer.
+As discussed in \ref{sec:analysis-dark-souls}, enemies in \emph{Dark Souls} are implemented with simplistic and predictable behavior. When spawned, enemies either remain stationary or move through predefined paths until interaction with the player. When detecting player presence, enemies switch to a combat stance where a limited and small set of attacks can be performed. Attacks are only performed if the player is in sufficient range to be hit. After performing an attack, enemies switch to a defensive stance for a predetermined \emph{Cooldown}\sepfootnote{fn:cooldown} duration.
 
-%   - Decided to use State Machines to replicate simplistic behavior
-While we were unable to gather any specific information on how \emph{AI Agents} are implemented in the source code of Dark Souls, we argue that \emph{State Machines} can be used to implement the behaviors we observed and described. Using State Machines, we can represent the actions performed by enemies in Dark Souls as \emph{States} and \emph{Behaviors}. Each enemy will be in a particular State at a given point in time, and each State contains a set of behaviors that define the actions performed by an agent given environmental and player-related circumstances.
-
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ========================================================================
+% ========================================================================
+% ========================================================================
 
 \subsection{State Machines}
 
-To exemplify our claim, when an enemy is stationary we consider it to be in the \emph{Idle} state, which contains no particular Behaviors attached to it. When an enemy is moving along predefined paths and scouting for the player it is considered in the \emph{Patrolling} state, which contains the \emph{Scan} Behavior, which checks for the presence of the player in an area near the enemy, and the \emph{WaypointMovement} Behavior, which handles movement of the entity. Figure \ref{fig:fig-ai-state-machine} shows an example of a State Machine definition which is used by Melee-range enemies in our implementation, such as the \emph{Ghouls} and \emph{Warrior Skeletons}.
+%   - Decided to use State Machines to replicate simplistic behavior
+While we were unable to gather specific information pertaining how \emph{AI Agents} are implemented in the original game, we argue that \emph{State Machines} can be used to implement identical behaviors due to their simplicity. Using State Machines, we represented enemy objectives and actions as \emph{States} and \emph{Behaviors}. At any given point in time, each enemy is in a specific State, and each State contains a set of behaviors which define the actions it can perform. Such actions can be restricted or chosen upon based on environmental properties and player state.
+
+When an enemy is stationary, we consider it to be in the \emph{Idle} state, which contains no particular Behaviors attached to it. When an enemy is moving along predefined paths and scouting for targets, it is considered in the \emph{Patrolling} state, which contains the \emph{Scan} Behavior. The Scan behavior checks for player presence in an area near the owner entity, and upon detection causes the AI agent to enter the \emph{Chase} state. The Patrolling state also contains the \emph{WaypointMovement} Behavior, which handles the entity's pathfinding along a predefined route. Figure \ref{fig:fig-ai-state-machine} shows the state machine used by Melee enemies in our implementation, such as \emph{Ghouls} and \emph{Warrior Skeletons}.
 
 % * Figure: Melee enemy AI State Machine
 \input{figures/fig_ai_state_machine}
 
 % Implementation of a Serializable, multipurpose State Machine structure
 %   - StateMachineController: MonoBehaviours, instanced in scenes. Contains a reference to the state machine and its owner. Validates conditions for transitions, performs transitions and updates states.
-For our implementation, we use a generic definition of State Machines which can be used outside the scope of implementations of AI Agents. We start by defining a \textsc{StateMachineController} component which can be assigned to a MonoBehaviour. In the context of AI Agents, the StateMachineController will be attached to an \textsc{AICharacter} component, which represents the root hierarchy level of AI-controlled characters. The \textsc{StateMachineController} contains a reference to the \textsc{StateMachine} and to its owner, and is tasked with performing frame-bound updates to states and validating the conditions to perform transitions between states. Therefore, the \textsc{StateMachineController} is the sole runtime component in our State Machine implementation.
+We implemented modular and generic State Machines which can be used outside the scope of AI Agents. The reason for this approach was to facilitate the management of player state, helping to constrain the actions which the player can perform given the current game state. We defined a reusable \textsc{StateMachineController} component which can be assigned to a MonoBehaviour. In the context of AI Agents, the StateMachineController is attached to an \textsc{AICharacter}, which represents any AI-controlled agents. The \textsc{StateMachineController} contains a reference to the \textsc{StateMachine} and its owner, and is tasked with performing frame-bound updates to states and validating transition conditions that toggle state changes.
 
 % - State Machines are bound to asset files
 % - Class Definitions:States, Transitions, StateBehaviors
 %   - StateMachine: Class definition for all the serialized data involving our implementation of state machines. Contains states and transitions. 
 %   - States: Contain a variable set of Behaviors, that can be assigned dynamically during runtime and serialization.
 %   - Transitions: References an origin and a target state, and contains a set of boolean conditions to validate a transition as valid.
-The definitions of State Machine, including their States, Transitions and Behaviors are constrained to serializable space, with State Machines being bound to asset files that can be referenced to by the \textsc{StateMachineController}. The \textsc{StateMachine} class contains serialization data for \textsc{States}, which contain a variable set of \textsc{Behaviors}; and textsc{Transitions}, which contain references to an origin and target state and a set of boolean conditions to define when the transition should occur. Figure \ref{fig:state-machine-class-diagram} shows the class and data structure relationships for our implementation of state machines.
-
-% * Figure: State Machine system architecture
-\input{figures/fig_state_machine_class_diagram}
-
 % Each state has a set of dynamically assigned Behaviors that determine the actions performed by an AI Agent on that state.
-Each \textsc{State} has a set of dynamically assignable \textsc{Behaviors}, which determine the actions that are performed by the AI Agent that contains the State Machine. In table \ref{tab:ai-behaviors}, we define all the possible behaviors in our implementation, specifying the States in which they are used and a brief description of the actions performed by the AI Agent when executing the Behavior.
+The definitions of State Machine, including their States, Transitions and Behaviors are constrained to serializable space, being bound to asset files that are referenced by the \textsc{StateMachineController}. The \textsc{StateMachine} class contains serialization data used by \textsc{States}. Each State contains a variable set of \emph{Transitions} and \emph{Behaviors}.
+
+Transitions reference an origin and a target state, and contain a set of boolean validation functions that define when such transition occurs. Behaviors determine the actions can be performed by the State Machine owner. In table \ref{tab:ai-behaviors}, we define all AI Agent behaviors in our implementation, specifying the States in which they are used and a brief description of the actions performed by the AI Agent when executing the Behavior.
 
 % * Table - AICharacter Behaviors
 \input{tables/tab_ai_behaviors}
 
 % State machines are serialized, therefore Behaviors are unable to keep state of objects that are instanced in a scene. We need to keep data for each behavior in the container of the state machine, which in this case is the AICharacter.
-States are serialized and independent of any instanced objects, which in consequence creates the restriction that Behaviors are unable to store any type of runtime data from instanced entities, or even static data that is referenced by the entities. Therefore, we are required to maintain the data used by each behavior in the container of the \textsc{StateMachineController}. For this reason we create the \textsc{IStateMachineOwner} interface, which provides a public accessor to a \textsc{Hashmap} structure which contains the runtime and referenced data for an instanced entity, using an identifier for the current state as the \emph{Key}.
+States are serialized and independent of instanced objects, which creates the restriction that Behaviors are unable to store runtime data representing entity state. Therefore, we are required to maintain the data used by each behavior in a container for the \textsc{StateMachineController}. For this reason, we create the \textsc{IStateMachineOwner} interface, which provides a public accessor to a \textsc{Hashmap} structure which contains the runtime and referenced data for an instanced entity, using an identifier for the current state as the \emph{Key}. Figure \ref{fig:state-machine-class-diagram} shows the class and data structure relationships for our implementation of state machines. 
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% * Figure: State Machine system architecture
+\input{figures/fig_state_machine_class_diagram}
+
+% ===================================================================
+% ===================================================================
+% ===================================================================
 
 \subsection{Implementation of Behaviors}
+
+\sepfootnotecontent{fn:manhattan-distance}{What is the manhattan distance?}
 
 % Movement:
 %   - Use of NavMeshes to define walkable space in 3D environment for AI Agents.
 %   - Use of A* path-finding algorithm to define movement over nodes scattered throughout the mesh.
-For an AI Agent to perform movement over the environments that were assembled when executing the \textsc{WaypointMove} or \textsc{Seek} behaviors we use Unity's \emph{NavMesh} system, which uses the topology of 3D objects and a user-defined set of layers with movement costs to generate a simplified mesh representing the traversable ground in the environment. The resulting mesh also contains weights for each vertex, which causes the AI Agent to prioritize certain paths defined by the user. Using the data generated from \emph{NavMeshes}, we define the movement performed by the AI as a set of waypoints that are calculated using the \textsc{A*} algorithm with the \textsc{Manhattan Distance} heuristic.
+To implement AI Agent pathfinding when executing the \textsc{WaypointMove} or \textsc{Seek} behaviors, we use Unity's \emph{NavMesh} system, which uses the topology of 3D objects and predefined movement costs to generate a planar mesh representing traversable surfaces. The resulting mesh also contains weights for each vertex, which causes the AI Agent to prioritize certain paths which are considered optimal. Using  data generated from \emph{NavMeshes}, we define the movement path as a set of positions calculated by the \textsc{A*} algorithm, using the \emph{Manhattan Distance}\sepfootnote{fn:manhattan-distance} function as an estimation heuristic.
 
 % How AI agents scan for targets
 % - Spheric collider for frontal view cone
 %      - Detects collision with ICombatCharacters from different Faction
 % - Calculate the angle between agent forward and target relative pos
-To scan for targets in the environment, AI Agents have a spheric collider representing the radius where a target can be detected by a frontal view cone. The collider detects collision with \textsc{ICombatCharacter} entities where the \textsc{FactionAttribute} has a different value to that of the agent. If a target is within this radius, we calculate the angle between the forward vector\sepfootnote{fn:forward-vector} of the agent and the relative direction of the target. The forward vector is natively supplied by \textsc{Unity} with the \textsc{Transform} component, but we also need to project the vector onto the two-dimensional [X, Z] plane.
+To scan for targets in the environment and initiate combat, AI Agents contain a spheric collider representing a radius where targets can be detected. We constrain such targets to those within a frontal view cone defined by the agent's orientation.  We validate whether an entity is inside an agent's view cone using the \emph{Target's Relative Direction}, which can be calculated by subtracting the agent's position from the target's position, normalizing the result and projecting it onto the ground plane. We then use Unity's \textsc{Vector3.Angle} operation to compare agent orientation and the target's relative direction, and clamp results to a cone of 90 degrees.
 
-% - How target relative pos is calculated
-% - Use of another, smaller spheric collider for enemy hearing
-The \emph{Target Relative Direction} is calculated by subtracting the target position to the position of the agent, normalizing the result and projecting it onto the ground plane. Having these vectors, we use the \textsc{Vector3.Angle} operation from \textsc{Unity} to clamp field detection range to a cone of 90 degrees, causing the agent to have a constrained field of view. Additionally, we use another spheric collider with smaller radius to represent the distance in which the AI Agent would be able to hear. When an entity of the type \textsc{ICombatCharacter} enters this collider, the AI Agent will immediately consider it as the new target.
+When an entity of the type \textsc{ICombatCharacter} enters the resulting area, such entity is marked as an \emph{Elligible target}. Elligible targets are then further restricted by the value of their \textsc{FactionAttribute}, where a valid target must belong to a different faction to the agent. The agent will then mark the first detected elligible entity as their target, and proceed to chase them.
 
 % - What happens when the target dies
 %       - AI agent is reset to Idle
 % - If target is unreachable, same thing happens
-When the target dies, the AI agent is reset to their default state - which is generally the start point of its state machine. Therefore, when an enemy AI agent is able to defeat the player, they will return to the \emph{Idle} state. A similar event happens when the AI agent is in the \emph{Seeking} state and the target can not be interacted with. If the target is in an unreachable position where there is no path connecting the ground NavMesh from agent to player position, the AI loses interest in the target and returns to its default state.
+Therefore, when an enemy AI agent is able to defeat their target, they are reset to the \emph{Idle} state. A similar event happens when the AI agent is in the \emph{Seeking} state and the target can not be reached. If the target is in an unreachable position where there is no traversable ground geometry from the agent to their target, the AI loses interest in the target and returns to its default state.
 
 % How AI Agents attack
 %   - Each enemy has own state machine
 %   - State state differs because of behaviors and data
 %   - CombatMovement: adjust position, plan attack, execute
-In our implementation, we group AI agents by an \emph{Enemy Type}. Each enemy type will have its own State Machine definition. While the State Machine for an enemy type might contain states with the same name as another, their functionality differs by using a different set of behaviors or different values for the data in the behaviors. The most relevant example would be in the \textsc{CombatMovement} state where a melee AI agent must adjust their position, plan their attack and perform the attack based on their position in the environment, their available actions and the actions being performed by the player. The \textsc{CombatMovement} state is functionally the same as the sub-state machine concept used in hierarchical state machines. We switch between three unique behaviors to give the impression of different states: \emph{PositionAdjustment}, \emph{AttackPlanning} and \emph{AttackExecution}.
+To differentiate the behaviors of different enemies, we created state machine definitions based on \emph{Enemy Types}. Each enemy type has their own state machine definition, with different behaviors for each state. For melee-ranged agents, we defined the unique \textsc{CombatMovement} state. In such state, AI agents adjust their position and execute attacks based on target state and environment properties. The \textsc{CombatMovement} functions as a sub-state machine, where we switch between three stages to give the impression of different states: \textsc{PositionAdjustment}, \textsc{AttackPlanning} and \textsc{AttackExecution}.
 
 % AdjustPosition
 %     - Two-dimensional radial and distance-based positioning
-In the \textsc{PositionAdjustment} behavior, we have several steps to calculate the position an AI agent should move towards. We start by defining a two-dimensional vector to define the position an AI agent should be in relative to their target: a \emph{distance relationship} between the agent and their target and a \emph{radial-distribution} position, where the agent positions itself in a circular perimeter around the target.
+In the \textsc{PositionAdjustment} stage, we perform several steps to calculate the position to which an agent should move towards. First, we define a \emph{distance relationship} between the agent and their target; Then, we define a \emph{radial distribution position}, which constrains the agent to a directional range in a circular perimeter around the target.
 
-%     - GroupAIBrain: What is the expected distance?
-To define the distance relationship between the agent and their target, we consider parameters that define the context of the combat encounter. First, we communicate with the \textsc{GroupAIBrain} component to understand whether the player is dealing with too many enemies, which means the agent should take a more idle stance and remain in the backline. The \textsc{GroupAIBrain} component is a manager to all AI agents engaged in a \emph{Combat Encounter} against the player.
+\sepfootnotecontent{fn:group-ai-brain}{The \textsc{GroupAIBrain} component is a manager to all AI agents engaged in a \emph{Combat Encounter} against the player.}
 
 \sepfootnotecontent{fn:hitbox-central-point}{Footnote: What is the hitbox central point?}
 
-%     - Is the attack in cooldown?
-%     - Distance to Player: Would an attack hit?
-Second, we determine if the AI agent attacks are on \emph{cooldown}, meaning that the agent is not able to attack for a short period of time after performing another attack. If so, the agent takes a defensive approach and attempts to position itself further away from the player so that the player has to make a time investment to be able to attack the agent. Third, we calculate the average \emph{Hitbox Central Point}\sepfootnote{fn:hitbox-central-point} distance for all attacks that the AI Agent can perform. We use this average to create a target position that minimizes the chances of the player being able to avoid an attack by simply moving backwards. This step is performed when the target is either out of attack range or after half of the \emph{cooldown} duration for the next attack.
+%     - GroupAIBrain: What is the expected distance?
+To define the \emph{distance relationship} between the agent and their target, we query the \textsc{GroupAIBrain}\sepfootnote{fn:group-ai-brain} component to check if the player is dealing with too many enemies. In that case, the agent takes an idle stance and remains in the backline, avoiding direct conflict with their target. Similarly, we determine if the AI agent attacks are on \emph{cooldown}, which also positions the agent throughout the backline. We then calculate the average \emph{Hitbox Central Point}\sepfootnote{fn:hitbox-central-point} distance for all attacks that the AI Agent can perform. We use this average to create a target position that maximizes the chances of hitting the target. The agent adjusts their distance towards or away from their target, and executes the attack.
+
+\sepfootnotecontent{fn:combat-encounter}{AI Agents are considered to be in a combat encounter when the player is within their effective combat range. For melee-ranged enemies, this is determined by being in the \textsc{CombatMovement} state.}
 
 % - GroupAIBrain: What is the expected radial position?
 %     - Priority index
 %     - Positions in arc in circular perimeter
 %     - Arc boundaries restricted by environment geometry
 %     - Arc also restricted by dynamic radian in GroupAIBrain
-To define the radial-distribution position for an entity, the AI Agent is assigned a numeric priority index upon entering a \emph{Combat Encounter} instance against the player. The value of the priority index is used to evenly arrange AI Agents in a constrained arc of a circular perimeter around the player. The aperture of the arc is defined by both the geometry of environment colliders around the player and adjustment metrics. If the arc boundaries are not restricted by environmental geometry, the aperture is defined by an adjustable radian supplied by the \textsc{GroupAIBrain} component.
+To define the radial-distribution position for an entity, the AI Agent is assigned a numeric priority index upon entering the \emph{Combat Encounter}\sepfootnote{fn:combat-encounter}. The value of the priority index is used to evenly arrange AI Agents in an arc of a circular perimeter around the player. The aperture of the arc is defined by environmental geometry around the player and dynamic adjustment metrics. If the arc boundaries are not restricted by environmental geometry, the aperture is defined by an adjustable radian supplied by the \textsc{GroupAIBrain} component.
 
 % - How agents are distributed in the arc
 % - Arc divided in equal size segment
 % - First agent in center
 % - Second and third agent in boundaries
-The agent placement arc is divided in equal size segments that are used to distribute the agents uniformly in relation to the player. At the beginning of a combat encounter, a single agent becomes part of the AI group. This initial agent is defined as the pivot for the group. The arc is divided in two segments by the position of the pivot agent, which is exactly at the center of the two segments. The following two agents are placed at the outer boundaries of the arc, each at the limits of their respective segments.
+The arc is divided in equal size segments that distribute agents uniformly around the player. At the beginning of a combat encounter, a single agent becomes part of the AI group. This initial agent is defined as the pivot for the group. The arc is divided in two segments centered at the pivot. The following two agents are placed at the outer boundaries of the arc, each at the limits of their respective segments. Every subsequent agent subdivides the largest segment that is closest to the pivot, using the center position of the segment and creating two new segments.
 
 % - Subsequent agents subdivides largest segments from center outwards
 % - Recalculate segments when agents die
-Every subsequent agent subdivides the largest segment that is closest to the pivot, using the center position of the segment and creating two new segments. When the pivot agent is defeated, a new pivot agent is selected based on its distance from the original pivot, and the segments are recalculated by adding each subsequent agent that is closest to the pivot through the same algorithm. When non-pivot agents are defeated, the group is also recalculated but with the difference that we use the same pivot when recalculating agent segments. This algorithm is exemplified by figure \ref{fig:arc-segments}, and the resulting behavior can be seen in figure \ref{fig:enemy-positioning-example}.
+When the pivot agent is defeated, a new pivot is selected based on its distance from the original pivot, and the segments are recalculated. We iteratively add each subsequent agent which is closest to the pivot through the same algorithm. When non-pivot agents are defeated the group is also recalculated, but we retain the same pivot when recalculating segments. This algorithm is exemplified by figure \ref{fig:arc-segments}, and the resulting behavior is exemplified by figure \ref{fig:enemy-positioning-example}.
 
 % * Figure: Figure illustrating the behavior of the "arc segments" algorithm
 \input{figures/fig_arc_segments}
@@ -540,36 +550,36 @@ Every subsequent agent subdivides the largest segment that is closest to the piv
 % PlanAttack behavior
 % Player State + GroupAIBrain info used as input
 % Decide if can attack and which attack
-In the \textsc{PlanAttack} behavior, we use information from player state along with constraints imposed by the \textsc{GroupAIBrain} component to define if an attack can be executed, and which attack the AI Agent should perform at a given context. Each attack has a different purpose designed to guide the player towards a specific response.
+In the \textsc{PlanAttack} behavior, we use information regarding player state and constraints imposed by the \textsc{GroupAIBrain} component to define if an attack can be executed, and which attack an AI Agent should perform. Each attack has a different purpose designed to guide the player towards a specific response.
 
 %     - AI Brain: Does it give permission to attack?
 %     - EGCD: Enemy Group Cool-Down
-First, we query the \textsc{GroupAIBrain} component to check whether the current AI Agent being processed has permission to attack. Enemy AI Groups have a shared set of \emph{Enemy Group Cooldown} timers that are reset every time an AI agent performs an attack. All AI Agents that are part of a group will be unable to attack unless at least one of the available cooldown timers has a specific amount of elapsed time. Both the numbers of timers available and the minimum elapsed time for each are determined by adaptive parameters from the \textsc{GroupAIBrain} component, and are further discussed in section \ref{sec:adjustments}.
+First, we query the \textsc{GroupAIBrain} component to check whether the agent has permission to attack. Enemy AI Groups have shared  \emph{Enemy Group Cooldown} timers that reset when an agent performs an attack. Agents that are part of a group will be unable to attack unless at least one cooldown timers is available for use. The numbers of timers available and the cooldown time are determined by adaptive parameters from the \textsc{GroupAIBrain} component, and are further discussed in section \ref{sec:adjustments}.
 
 % Uses list of available types to query for information
 %     - AI Brain: does it give permission for special attack?
-Second, the PlanAttack behavior uses information on the available attack types to query which information is necessary to decide the attack. We communicate with the \textsc{GroupAIBrain} component to determine if the entity is able to perform \emph{Special Attacks}. Given a small interval of time, a limited number of non-basic attacks can be performed by an agent. If the agent is unable to perform a Special Attack after querying availability from the \textsc{GroupAIBrain} component, it simply chooses one of multiple basic attacks to perform.
+Second, the PlanAttack behavior uses information on attack types available to the entity to query which information is necessary to decide the attack. We communicate with the \textsc{GroupAIBrain} component to determine if the entity is able to perform \emph{Special Attacks}. Given a small interval of time, a limited number of non-basic attacks can be performed by an agent. If the agent is unable to perform a Special Attack after querying availability from the \textsc{GroupAIBrain} component, it simply chooses one of multiple basic attacks to perform.
 
-Non-basic attacks have the purpose of creating incentive for the player to perform a new or specific reaction. For instance, the \emph{Overhead} and \emph{Pierce} attacks are designed to punish the player if attempted to be blocked and drain their Stamina resource. If the player does attempt to block one of such attacks, they will quickly find themselves out of Stamina and trigger a \emph{Poise Break}\sepfootnote{fn:poise-break}.
+Special attacks have the purpose of creating incentive for the player to vary their reactions. For instance, the \emph{Overhead} and \emph{Pierce} attacks are designed to punish the player if attempted to be blocked, and drain a significant amount of the Stamina resource. If the player does attempt to block one of such attacks, they will quickly find themselves out of Stamina and trigger a \emph{Poise Break}\sepfootnote{fn:poise-break} status.
 
 %     - Is the player out of attack range?
 %     - How often does the player back-step
-Then, we check if the player is still out of attack range even after the adjusting its position during the PositionAdjustment behavior. If so, we use a parametrized threshold related to the chance of an agent performing a \emph{Charge} attack, if it is one the available movements. The threshold is combined with a \emph{profile} metric regarding the frequency the player uses back-steps to avoid attacks, and then used as input for a RNG (random number generation) algorithm to determine if the agent will perform the \emph{Charge} attack. The parametrized thresholds for each attack type are explained further in section \ref{sec:adjustments}. If the agent is not able to perform the \emph{Charge} attack, it is reverted back to the \emph{PositionAdjustment} behavior.
+Then, we check if the player is still out of attack range after adjusting its position during the \emph{PositionAdjustment} behavior. In such case, we use a parametrized threshold as a probability for the agent to perform a \emph{Charge} attack, if it is one the available special movements. The threshold is combined with a metric from our DDA system regarding the frequency of player back-steps, which affects RNG (random number generation) probabilities for the \emph{Charge} attack. The parametrized thresholds for each attack type are explained further in section \ref{sec:adjustments}. If the agent is not able to perform the \emph{Charge} attack, it is reverted back to the \emph{PositionAdjustment} behavior.
 
 %         - Is the player blocking?
 %         - How often does the player block, dodge?
-In the same sense, we check if the player is blocking and use a threshold related to the chance of the agent performing an \emph{Anti-Block} attack, such as the \emph{Overhead} or \emph{Pierce} attacks. We combine that chance with the player \emph{profile} metric regarding the frequency which the player uses the Block Action to mitigate the damage of attacks, and use these values as input for the RNG algorithm to determine if the agent will perform an \emph{Anti-Block} attack. Anti-dodge attacks use a similar threshold adjustment system, with the exception that it is not considered whether the player is performing a dodge or not. Since the dodging action is discrete and occurs in a fraction of a second, the agent has to be able to predict when a player would perform a dodge so that the attack punishes the player.
+Similarly, we check if the player is blocking and use a threshold for  a \emph{Anti-Block} attacks, such as the \emph{Overhead} or \emph{Pierce} attacks. We combine the threshold with the frequency of player Blocks, and use the resulting value as an input probability for the \emph{Anti-Block} attack. Anti-dodge attacks also use the same approach, with the exception that we disregard current player state. Since the dodging action is discrete and occurs in a fraction of a second, the agent attempts to predict when a player would perform a dodge solely through statistical data.
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ===================================================================
+% ===================================================================
+% ===================================================================
 
 % TODO \subsubsection{Management of Agent Groups}
 %\label{sec:ai-brain}
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ===================================================================
+% ===================================================================
+% ===================================================================
 
 % TODO \subsection{Design of Enemy Types (ADDITIONAL)}
 
@@ -677,27 +687,15 @@ In the same sense, we check if the player is blocking and use a threshold relate
 %          |            |          | final position after a dodge.
 % =========|============|==========|===============================
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ===================================================================
+% ===================================================================
+% ===================================================================
 
 % TODO \subsection{Level Design (ADDITIONAL)}
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
-
-% TODO \subsection{Audio and Visual Effects (ADDITIONAL)}
-
-% ============================================================================
-% ============================================================================
-% ============================================================================
-
-% TODO \subsection{User Interface (ADDITIONAL)}
-
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ===================================================================
+% ===================================================================
+% ===================================================================
 
 \section{Event Tracking and Metrics}
 
@@ -809,10 +807,9 @@ As a base guideline to define the discrete values for parametrized adjustments, 
 % As session progresses, parameters start to diverge
 Through the base presets, we are initially defining game difficulty as a one dimensional configuration of multiple parameters. However, as a session progresses and we capture in-game events and calculate performance and profile metrics, we can begin to compare such metrics to a set of thresholds that were previously defined, and certain parameters will begin to be adjusted independently and diverge, effectively transforming game difficulty into an N-dimensional set of parameters.
 
-% The thresholds are not a continuous set of values, meaning that the conditions for each threshold are not always valid
-% If the conditions are not met, the adjustment parameter is kept the same
+% The thresholds are not a continuous set of values, where causing the next attack animation to be queued and triggered when the current animation ends met, the adjustment parameter is kept the same
 % This works because of the initial parameters defined by player classification survey
-It is important to note that the thresholds defined for each parameter value do not represent a continuous group of validation conditions, meaning that it is not guaranteed that the metrics captured from the player will be necessarily validated against any of the threshold conditions for a parameter. This is done by design so that if the conditions for all thresholds of a parameter are not met, the adjustment parameter is kept the same. Therefore, the transition conditions for a lower parameter value to be adjusted into a higher value can not be symmetrically inverted as to adjust the higher value into the lower value, which generates a tendency for the player to be kept in the same difficulty level unless their performance or profile metrics relevantly deviate from the intended user group.
+It is important to note that used each parameter value does not represent a continuous group of validation conditions, where causing the next attack animation to be queued and triggered when the current animation ends against any of the threshold conditions for a parameter. This is done by design so that if the conditions for all thresholds of a parameter are used adjustment parameter is kept the same. Therefore, the transition conditions for a lower parameter value to be adjusted into a higher value can not be symmetrically inverted as to adjust the higher value into the lower value, which generates a tendency for the player to be kept in the same difficulty level unless their performance or profile metrics relevantly deviate from the intended user group.
 
 % Table detailing thresholds and values for adjustments
 In table \ref{tab:adjustment-thresholds} we attempt to organize  and specify the values that parametrized adjustments can be assigned to and their associated metrics, along with the threshold values for each metric. Some of the adjustment parameters have restricted value ranges with the purpose of making the game more difficult or easier than the proposed core experience of our game, and will present a default value as a minimum or maximum limit which represents the standard experience for an average skilled player. For this purpose, we attempt to visually separate adjustments in regions that describe their target player profile stereotype.
