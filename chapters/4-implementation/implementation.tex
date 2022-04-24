@@ -697,33 +697,42 @@ Similarly, we check if the player is blocking and use a threshold for  a \emph{A
 % ===================================================================
 % ===================================================================
 
-\section{Event Tracking and Metrics}
+\section{Dynamic Adjustments System}
 
-To perform difficulty adjustments that satisfy the skill level and knowledge of a player regarding our implementation, we need to capture data regarding to how the game is being played. We then must use the data to reconstruct an order of events and analyze the patterns and outcomes of player actions, to determine if the player is being overtly successful or failing to meet the requirements of the challenged that was imposed by the current difficulty.
-
-We use the previously discussed definition of player \emph{profile} and \emph{performance} to implement various metrics which represent the outcomes of actions performed by the player during a play session. Then, we use such metrics as an input to a comparison with predefined thresholds, which serve as discrete delimiters to predefined parametrized adjustments to difficulty. To provide an overview of the implementation of the adjustments system as a whole, including the generation of gameplay events, calculation of player metrics, comparison of thresholds to player metrics and application of dynamic adjustments to parametrized difficulty configurations, figure \ref{fig:adjustments-execution-flow} shows the event flow and interactions for the systems involved in our adjustments system.
+To implement a DDA system which modifies game difficulty to be in harmony with player skill, we need to capture gameplay data which can be translated into skill evaluation metrics. We satisfy this requirement by recording gameplay events in a tabular format, which can be reconstructed after completion of game levels to generate metrics. We calculate such metrics to represent the frequency and efficiency of actions performed by the player during a level. Then, we use such metrics as an input to a comparison with predefined thresholds, which serve as discrete delimiters to predefined parametrized adjustments to difficulty. Figure \ref{fig:adjustments-execution-flow} provides an overview of our implementation of a DDA system, showing the execution flow and interactions between the defined components.
 
 \input{figures/fig_adjustments_execution_flow}
 
-We can start to define player \emph{profile} and \emph{performance} by implementing a pipeline of data acquisition, manipulation and analysis using a log of \emph{Events} raised during a play session. To do this, we implement a set of components that observe the actions performed by in-game entities to raise parametrized events while also gathering variable elements of contextual data as input.
+\subsection{Event Tracking Objectives}
 
-Events are then packaged into a standardized data structure called \textsc{EventInstance}, where we store data such as a \emph{Timestamp} which represents the time since application start where an event was raised, a \emph{Name} which is used as an identifier for the event, a \emph{Type} which is used to determine the superset of systems where the event is raised, a \emph{Source} which is used to determine which in-game entity the event is related to, and a set of \emph{Parameters} which are valued types that might contain contextual data for the event. Table \ref{tab:event-instance} shows a detailed description of the fields in the \textsc{EventInstance} data structure, along with the associated types for each fields.
+We begin the pipeline of our adjustments system through data acquisition, by logging gameplay-related \emph{Events} which are raised during a game level. To do this, we implement a set of components that observe the actions performed by in-game entities and define parametrized events that can gather variable elements of contextual data as input.
+
+Events are packaged into a standardized data structure called \textsc{EventInstance}, where we store: 
+\begin{itemize}
+    \item{A \emph{Timestamp}, which represents the time since application start where an event was raised;}
+    \item{A \emph{Name}, which is used as an identifier and brief descriptor for the contents of the event;}
+    \item{A \emph{Type}, which is used to determine the superset of systems where the event is raised;}
+    \item{A \emph{Source}, which is used to determine which in-game entity the event is related to;}
+    \item{And a set of variable \emph{Parameters} which are valued types that contain relevant contextual data for the event.}
+\end{itemize}
+
+Table \ref{tab:event-instance} shows a description of the fields in the \textsc{EventInstance} data structure, along with the associated types for each field.
 
 % * Table: Event Instances
 \input{tables/tab_event_instance}
 
 % - Write events to file in batches for performance
-Events are captured and written to output files in batches to minimize performance costs over extended gameplay sessions. By doing this, frame rendering "hiccups" are minimized to a few particular moments where events exceed a specific threshold of allocated memory for batches, and in most instances do not occur over the duration of a game level. We attempt to keep the use of the input/output system and any data processing restricted to the duration of the loading screen, which happens in the transition between in-game levels. Since players does not have any sort of input or control over the application during the loading screen, this implementation abstracts the processing from the player, keeping the gameplay experience fluid.
+Events are written to a circular buffer and outputted to a file in batches to minimize performance costs over extended gameplay sessions. By doing this, frame rendering "hiccups" are minimized to few particular moments where events exceed a specific threshold of allocated memory for batches. In most instances throughout our tests, such issues did not occur over the duration of a singular game level. We restrict our use of the IO (Input/Output) system and the processing of gameplay data to level transitions. Since players do not have control over the application during loading screens, this solution abstracts data processing from the player, maintaining a fluid gameplay experience.
 
 \sepfootnotecontent{fn:play-session}{A Play Session is delimited by the moment where a user starts the game application and the moment where the user exits the application, returning to the operating system.}
 
 % - Events are stored in a simple .csv file
 % - .csv file is uploaded to google sheets after session
-For each \emph{Play Session}\sepfootnote{fn:play-session}, we store a unique \emph{CSV} (Comma-Separated Values) file that is implemented to serve as a simplified relational database to store in-game events. Before the end of a play session and after all levels are completed by the player, our database files are uploaded to a \emph{Google Sheets} repository using the \emph{Sheets API}.
+For each \emph{Play Session}\sepfootnote{fn:play-session}, we store a unique \emph{CSV} (Comma-Separated Values) file that serves as a simplified database to store in-game events. Before the end of a play session and after all levels are completed by the player, our database files are uploaded to a \emph{Google Sheets} folder using the \emph{Sheets API}.
 
 \subsection{Captured Events}
 
-In this section, we specify the basic events that are captured in the data acquisition step of our performance tracking pipeline. First, we explain the difference between \emph{discrete} events and \emph{timer-based} events, which are both part of the \emph{basic events} category. After collecting events over the course of a play session or level, we aggregate and transform basic events into \emph{composite events}, which are abstractions used to simplify our definitions for metrics.
+In our implementation, we differentiate between \emph{discrete} events and \emph{timer-based} events, which are both part of the \emph{basic events} category; and the aggregation of such instances into \emph{composite} events. Such division is used to facilitate the algorithm for calculating specific player metrics, and to provide a layer of abstraction for users of the event tracking API.
 
 % ========================================
 %  Base Events
@@ -731,12 +740,12 @@ In this section, we specify the basic events that are captured in the data acqui
 
 % Event types
 %   - Raised, Timer-based, Composite
-Discrete events are events that can be raised at any given moment in a session. They do not have a pre-defined time-based restriction, and instead are simply raised from signals emitted from entity components. An example of a discrete event would be the player character performing an attack, where the occurrence of the event depends entirely on input provided by the player and can not be bound to any specific timed measure. Discrete events are generally used to represent system-based state changes, entity actions and the results of actions. In table \ref{tab:discrete-events}, we specify the discrete events in our implementation.
+Discrete events can be raised at any given moment in a session, and originate from signals emitted by entity components. An example of a discrete event would be the player character performing an attack, where the occurrence of the event depends entirely on input provided by the player and can not be bound to any specific timed measure. Discrete events are used to represent system-based state changes, entity actions and the results of such actions. In table \ref{tab:discrete-events}, we specify the discrete events defined in our implementation.
 
 % * Table - Discrete Events
 \input{tables/tab_discrete_events}
 
-In contrast, timer-based events are raised repeatedly after fixed time intervals over the course of a level or play session. They are generally used to track values and actions that change over the course of time, such as the position of an entity, the movement performed by the player and the proximity of the player to walls and obstacles. Contrary to discrete events, timer-based events use a \emph{polling} approach to determine the value of its parameters, instead of the signal-based system used by discrete events. In table \ref{tab:timer-based-events}, we specify the timer-based events used in our implementation.
+In contrast, timer-based events are raised repeatedly at fixed time intervals over the course of a level. They are used to track values and actions that change over the course of time, such as the position of an entity, the movement performed by the player and the proximity of the player to walls and obstacles. Timer-based events use a \emph{polling} approach to determine the value of its parameters, instead of the signal-based system used by discrete events. In table \ref{tab:timer-based-events}, we specify the timer-based events used in our implementation.
 
 % * Table - Timer-Based Events
 \input{tables/tab_timer_based_events}
@@ -744,48 +753,48 @@ In contrast, timer-based events are raised repeatedly after fixed time intervals
 % Composite Events
 %   - Use of composite events as helpers
 %   - Composite events are runtime only
-The last type of events implemented in our application are the \emph{composite} events, which are created by aggregating discrete and timer-based events and are used as helper tools to simplify the definition of our metrics. Composite events are not raised or stored during play sessions, as they are purposed simply for the calculation of player metrics. Composite events are generated between and after levels, before metric calculation and dynamic difficulty adjustments take place, and only exist at runtime.
+Lastly, we define \emph{composite} events by aggregating discrete and timer-based events into a single consolidated package. Composite events are used to simplify the algorithm to calculate specific player metrics. Composite events are not raised or stored during play sessions. Instead, Composite events are generated at runtime between game levels before metric calculation and dynamic adjustments occur.
 
-The aggregation of basic events into composite events uses the \emph{Timestamp} and \emph{Parameters} of events to establish the correlation between events and guarantee that events of different scopes are not being used to calculate the same metric. For instance, the \emph{Successful Block} event uses the parameter \emph{AttackId} from \emph{AttackStart} events to check if the attack being blocked is the same attack that initiated right before or after the player started blocking. Table \ref{tab:composite-events} specifies the composite events used in our implementation. 
+The aggregation of basic events into composite events uses the \emph{Timestamp}, \emph{Source} and \emph{Parameters} fields to establish the correlation between basic events. We use such fields to guarantee that events of different scopes are not being used to calculate the same metric. For instance, the \emph{Successful Block} event uses the parameter \emph{AttackId} from \emph{AttackStart} events to check if the attack being blocked is the same attack that initiated before or after the player started blocking. Table \ref{tab:composite-events} specifies the composite events used in our implementation. 
 
 % * Table - Composite Events
 \input{tables/tab_composite_events}
 
 \subsection{Player Metrics}
 
-After the player successfully completes a level and we perform aggregation of basic events into composite events, we can begin to calculate the metrics which will be used as input to perform difficulty adjustments. Since reading and performing data transformations over events in our application requires a high processing and \emph{Input/Output} load, we chose to implement calculation of player metrics in non-interactive segments of our application. This imposes a limitation of our application being unable to perform difficulty adjustments in real time. Instead, adjustments are performed on a per-level basis, with metrics being calculated before each level is started.
+After the player successfully completes a level and we perform aggregation of basic events into composite events, we calculate the metrics which are used as input to perform difficulty adjustments. Reading and performing data transformations over events in our application requires a high processing and \emph{Input/Output} load. Therefore, we chose to postpone calculation of player metrics to  non-interactive segments of our application. This imposes a limitation to our application where we are unable to perform difficulty adjustments in real time. Instead, adjustments are performed on a per-level basis, with metrics being calculated before each level is started.
 
-We use our previously defined adjustments as a basis to define which metrics would be gathered. Metrics are meant to evaluate the efficiency and tendencies of a player. Each difficulty adjustment relates to one or several aspects of the decision-making process and skill level of a player, and thus metrics are used to provide an estimation of the efficiency of player decisions or their ability to execute the appropriate actions for each situation.
+During our analysis of the object of study, we defined adjustment targets that could affect the player's experience and learning curve. We use such adjustments as a basis to define which metrics are required to be gathered. Metrics are meant to evaluate the efficiency and tendencies of a player. Each difficulty adjustment relates to one or several aspects of the player's skill. Thus, metrics are used to provide an estimation of the efficiency of player decisions or their ability to execute the appropriate actions for each situation.
 
-In our implementation, we categorize metrics into \emph{profile} and \emph{performance metrics}. Profile metrics have the purpose of identifying player habits and common responses to the environment or encounters, as seen in \cite{ARTICLE_DynamicPlayerModelling}. In general, profile metrics in our implementation are used to make the game more challenging and interesting, providing a variety to actions performed by enemies and enemy positioning setups for encounters in the later levels.
+We categorize metrics into \emph{profile} and \emph{performance} metrics. Profile metrics identify player habits and common responses to the environment or combat encounters. In contrast to metrics discussed in \citet{ARTICLE_DynamicPlayerModelling}, the profile metrics in our implementation are used to create interesting interactions between the player, enemies and the environment. We increase the variety of enemy actions and behaviors based on player success, and adapt level layout complexity depending on the player's use of environment geometry.
 
-We use profile metrics to detect the frequency of defensive actions and target prioritization tendencies. The information provided by the player profile is then used to modify the chance of enemies performing a specific action and their placement in levels.  Table \ref{tab:profile-metrics} provides a list of the profile metrics implemented in our application, along with the events that are used to calculate each metric and a brief description of its purpose.
+We use profile metrics to detect the frequency of defensive actions and target prioritization tendencies. Information regarding player actions is used to modify the chance of enemies performing specific actions, as well as changing their placement in levels.  Table \ref{tab:profile-metrics} provides a list of the profile metrics implemented in our application, along with the events that are used to calculate each metric with a brief description of its purpose.
 
 % * Table - Profile Metrics
 \input{tables/tab_profile_metrics}
 
 % Performance Metrics
 
-In contrast, performance metrics gather the results of player actions, focusing on measuring success, failure and efficiency of the execution of game mechanics and the player decision-making process. We attempt to use performance metrics to smooth out the learning curve for beginner players, while also providing more challenging situations and behaviors for veteran players.
-
-Some examples of adjustments performed using performance metrics include the number of enemies that can simultaneously attack the player, visual cues for enemy attacks, the frequency of checkpoints in levels and the overall game speed. Table \ref{tab:performance-metrics} provides a list of the performance metrics implemented in our application, specifying the events used to calculate them and a brief description of their purpose.
+In contrast, performance metrics focus on the results of player actions. We measure success, failure and the efficiency of execution of game mechanics or strategies. We attempt to use performance metrics to smooth out the learning curve for beginner players, easing the learning process of basic game mechanics. Some examples of adjustments based on performance metrics include the number of enemies that can simultaneously attack the player, visual cues for enemy attacks, the frequency of checkpoints in levels and the overall game speed. Table \ref{tab:performance-metrics} provides a list of the performance metrics implemented in our application, specifying the events used to calculate them and a brief description of their purpose.
 
 % * Table - Performance Metrics
 \input{tables/tab_performance_metrics}
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ======================================================================
+% ======================================================================
+% ======================================================================
 
-\section{Adjustment Policies}
+\subsection{Adjustment Policies}
 \label{sec:adjustments}
 
 % Difficulty as an N-dimensional set of parameters
 % Parameters are adjusted using one or more metrics
-In our implementation, we treat difficulty as an N-dimensional set of parameters that are adjusted according to player profile and performance. Each difficulty parameter is adjusted based on a subset of the metrics we defined previously. Therefore, each metric can be mapped to one or more adjustments, and conversely each adjustment is influenced by one or more metrics.
+In our implementation, we define difficulty as an N-dimensional set of parameters that are adjusted according to profile and performance metrics. Each difficulty parameter is adjusted based on a subset of the metrics we defined previously. Therefore, each metric can be mapped to one or more adjustments, and conversely each adjustment is influenced by one or multiple metrics.
 
 % We chose the statistical model approach because it can better represent the process of game development in the video game industry, where values and thresholds for difficulty adjustments can be tested and adjusted through iterative play-testing sessions.
-The purpose of our experiment is to compare N-dimensional difficulty to the definition of difficulty as multiple preset configurations of all adjustment parameters. Therefore, we found that representing adjustments through a probabilistic model, as explored in section \ref{sec:statistical-adjustments} is best suited to represent the nature of the game development process in the video game industry. During the game development process, game designers perform iterative play-testing sessions, where users are monitored to identify flaws in game design or adjustable properties that might better represent the desired outcome of in-game systems. Through the same philosophy, we can incorporate the probabilistic model in the game design process, where values and thresholds for difficulty adjustments can be tested and adjusted through the iterative play-testing sessions to better represent the desired learning and challenge curve adjustment for the game.
+The purpose of our experiment is to compare N-dimensional dynamic difficulty to fixed configurations. Therefore, we concluded that representing adjustments through a probabilistic model, as explored in section \ref{sec:statistical-adjustments}, would be the best suited approach to our purposes. Additionally, probability-based approaches would better integrate with the industry standards of game development processes.
+
+During the game development process, game designers perform iterative play-testing sessions, where users are monitored to identify flaws in game design or adjustable properties that might better represent the desired outcome of in-game systems. Through the same philosophy, we can incorporate the probabilistic model in the game design process, where values and thresholds for difficulty adjustments can be tested and adjusted through the iterative play-testing sessions to better represent the desired learning and challenge curve adjustment for the game.
 
 % Discrete values for parameters, switched between by thresholds
 % Thresholds gathered with iterative play sessions
@@ -816,6 +825,6 @@ In table \ref{tab:adjustment-thresholds} we attempt to organize  and specify the
 
 \input{tables/tab_adjustment_thresholds}
 
-% ============================================================================
-% ============================================================================
-% ============================================================================
+% ======================================================================
+% ======================================================================
+% ======================================================================
