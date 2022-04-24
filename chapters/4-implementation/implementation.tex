@@ -3,6 +3,7 @@
 
 \input{footnotes}
 
+
 % * ===================================================================
 % * ===================================================================
 % * ===================================================================
@@ -24,6 +25,8 @@ We detail our implementation for an event tracking system which monitors actions
 \section{Tools and Frameworks}
 
 % Brief overview of tools used in the project, specify that we chose Unity, Cinemachine, Post Processing Stack, Aura Volumetric Rendering
+
+\sepfootnotecontent{fn:unity-engine}{\emph{Unity} is a cross-platform game engine which provides reusable functionality for rendering, input handling, audio and gameplay systems. Unity is widely used in the games industry due to its simplicity for beginner developers, being a popular choice for independent game development.}
 
 To implement a subset of Dark Souls that satisfies our purposes of evaluating DDA systems, we decided to use a framework able to render 3D environments with high visual fidelity. We also included utilities that would help implement the player interface aspects of the original game, such as an Input System that can deal with multiple input devices, a set functions to manipulate 3D Camera behavior and a physics engine that can detect and handle collisions for at least basic geometry. For these reasons we chose \emph{Unity}\sepfootnote{fn:unity-engine} as our development platform, as it contains most of the essential functionality we require and the possibility of extending and adapting the purpose of its editor to satisfy any development purpose.
 
@@ -485,7 +488,7 @@ States are serialized and independent of instanced objects, which creates the re
 
 \subsection{Implementation of Behaviors}
 
-\sepfootnotecontent{fn:manhattan-distance}{What is the manhattan distance?}
+\sepfootnotecontent{fn:manhattan-distance}{\emph{Manhattan distance} is a simplified distance estimation between two points in a vector space. It is commonly used in realtime pathfinding algorithms due to its low computational cost.}
 
 % Movement:
 %   - Use of NavMeshes to define walkable space in 3D environment for AI Agents.
@@ -517,7 +520,7 @@ In the \textsc{PositionAdjustment} stage, we perform several steps to calculate 
 
 \sepfootnotecontent{fn:group-ai-brain}{The \textsc{GroupAIBrain} component is a manager to all AI agents engaged in a \emph{Combat Encounter} against the player.}
 
-\sepfootnotecontent{fn:hitbox-central-point}{Footnote: What is the hitbox central point?}
+\sepfootnotecontent{fn:hitbox-central-point}{The \emph{Hitbox central point} refers to a hypothetic central point between the limits of a bounding box that envelops all \emph{Hitboxes} of a game entity.}
 
 %     - GroupAIBrain: What is the expected distance?
 To define the \emph{distance relationship} between the agent and their target, we query the \textsc{GroupAIBrain}\sepfootnote{fn:group-ai-brain} component to check if the player is dealing with too many enemies. In that case, the agent takes an idle stance and remains in the backline, avoiding direct conflict with their target. Similarly, we determine if the AI agent attacks are on \emph{cooldown}, which also positions the agent throughout the backline. We then calculate the average \emph{Hitbox Central Point}\sepfootnote{fn:hitbox-central-point} distance for all attacks that the AI Agent can perform. We use this average to create a target position that maximizes the chances of hitting the target. The agent adjusts their distance towards or away from their target, and executes the attack.
