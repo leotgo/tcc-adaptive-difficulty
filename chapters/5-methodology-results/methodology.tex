@@ -16,6 +16,7 @@
 % =================================================================
 
 \section{Hypotheses and General Objectives}
+\label{sec:hypotheses-and-objectives}
 
 % * Hypotheses
 % * ====================================
@@ -49,6 +50,7 @@ We also wish to understand if dynamic difficulty can maintain a fair level of ch
 % =================================================================
 
 \section{User Selection Criteria}
+\label{sec:user-selection-criteria}
 % * User selection criteria
 % * ====================================
 
@@ -122,7 +124,7 @@ We also require that players use similar input interface methods, to ensure that
     \end{itemize}
 \end{itemize}
 
-We apply our user selection criteria through a Player Classification Survey, which is further detailed in section \ref{sec:user-base-classification} and is also used to subdivide our users in skill-based classification groups for \emph{Souls-like} games, such as \emph{Beginner}, \emph{Intermediate} and \emph{Veteran} users. Details on specific questions and metrics used in the survey can be seen in annex \ref{anx:player-classification-survey}.
+We apply the aforementioned criteria through a Player Classification Survey, which is further detailed in section \ref{sec:user-base-classification}. The survey is also used to categorize our users in skill-based classification groups, such as \emph{Beginner}, \emph{Intermediate} and \emph{Veteran} users. Information on the specific questions and metrics used in the survey can be seen in annex \ref{anx:player-classification-survey}.
 
 % =================================================================
 % =================================================================
@@ -133,18 +135,14 @@ We apply our user selection criteria through a Player Classification Survey, whi
 % * User classification groups
 % * ====================================
 
+We define user classification groups which are used to divide our data sets based on expected levels of player skill. Such classification is necessary to evaluate the impact of difficulty and dynamic difficulty adjustments based on player expertise. Additionally, we also use such classification to evaluate the opinions of different players on the validity of our application as a sufficient representative of the core aspects of our object of study, \emph{Dark Souls}. The classification is performed based on a \emph{Player Classification Survey}, which was performed during the User Selection step of our experiment.
+
 % Objective
 % ===================
 %   - Separate players in beginners, intermediate, veterans
 %       - Beginners: casuals, unused to action games
 %       - Intermediate: average, used to action games
 %       - Veterans:  hardcore, used to action & Souls-like games
-
-% Metrics
-% ===================
-%   - Avg. Playtime per Week
-%   - Experience in action games
-%   - Completion of Souls-likes
 
 % Classification Groups
 % ===================
@@ -161,6 +159,170 @@ We apply our user selection criteria through a Player Classification Survey, whi
 %       - Finished one or multiple souls-likes
 %       - High experience in action games
 %       - High avg. playtime
+
+We separate the player base in our experiment in the following groups: \emph{beginners}, \emph{intermediate} and \emph{veterans}. We define general descriptions for each group to serve as a guide when defining functional and data-based metrics which can be applied to our Player Classification Survey:
+
+\begin{itemize}
+    \item{\emph{Beginners:} casual players which are unused to playing action games, or players which are initiating their first playthrough on a \emph{Souls-like} game;}
+    \item{\emph{Intermediate:} recurrent players which are used to action games, and have finished or relevantly progressed through a single \emph{Souls-like} game;}
+    \item{\emph{Veterans:} dedicated players which are used to the \emph{Souls-like} genre, and have finished multiple games of FromSoftware's \emph{Souls} franchise.}
+\end{itemize}
+
+% Metrics
+% ===================
+%   - Avg. Playtime per Week
+%   - Experience in action games
+%   - Completion of Souls-likes
+
+With such descriptions, we can begin to specify each categorization in functional or data-based terminology. We use the definitions of \emph{casual} and \emph{hardcore} players from the work of  \citet{ARTICLE_CasualsHardcoreDefinition} as a reference, where casual players are defined as individuals which perform the act of play \emph{casually} -- who dedicate a smaller portion of their time to play games, and usually on a more restricted set of genres.
+
+Therefore, we define \emph{casual} players as players with a weekly playtime between 0 and 3 hours, which are comfortable with at most three different game genres which do not include action games, and have not achieved 50\% completion on a \emph{Souls-like} game. \emph{Intermediate} players have a weekly playtime between 4 and 10 hours, are comfortable with at least three game genres which include action games, and have achieved at least 50\% completion on a single \emph{Souls-like} game. \emph{Veteran} players have a weekly playtime above 10 hours, have at least four comfortable game genres which include action games, and have completed two or more \emph{Souls-like} games.
+
+% TODO Include table with brief info on player classifications
+
+% User base
+% ===================
+%   - Total number: 23
+%       - Beginners: 10
+%       - Intermediates: 7
+%       - Veterans: 6
+
+The total number of users which participated in ther experiment and sufficiently satisfied our selection criteria was 23, where 10 users were classified as \emph{beginners}, 7 users were classified as \emph{intermediates}, and 6 users were classified as \emph{veterans}. As will be explained in section \ref{sec:experiment-methodology}, we divided our total user base in two groups. Unfortunately, we were unable to acquire an even number of intermediate candidates for a symmetrical division, and the number of intermediate and veteran candidates was significantly lower than than the number of casual players which applied. 
+
+% TODO Include table with brief info on user base sizes
+
+% =================================================================
+% =================================================================
+% =================================================================
+
+\section{Experiment Methodology}
+% * Experiment 2: Validation of Adaptive Solution
+% * ====================================
+\label{sec:experiment-methodology}
+
+% * Methodology
+% * =======================
+
+\subsection{Goals}
+
+% Goals
+% ===================
+%   - Verify if dynamic adjustments create an increase in the performance over the play session for beginner & intermediate players
+%   - Verify if dynamic adjustments keep a fair challenge, without overt increases in performance for advanced players
+
+\subsection{User Groups}
+
+% Division of user groups
+% ===================
+%   - Group A: Fixed first, adaptive second
+%       - Segment 1: Fixed difficulty modes
+%       - Segment 2: N-dimensional adaptive difficulty
+%   - Group B: Adaptive first, fixed second
+%       - Segment 1: N-dimensional adaptive difficulty
+%       - Segment 2: Fixed difficulty modes
+
+% - Separation of groups is done because we wish to evaluate user perception of difficulty comparing both versions
+% - Users tend to have an easier time with the second version, as they had more time to learn how to play
+% - 
+
+% Number in user groups
+% ===================
+%   - Group A: 12
+%       - Beginners: 5
+%       - Intermediates: 4
+%       - Veterans: 3
+%   - Group B: 11
+%       - Beginners:  5
+%       - Intermediates: 3
+%       - Veterans: 3
+
+\subsection{Metrics}
+
+% Explanation of used Metrics
+% ===================
+%   - Player Adaptive System Performance Metrics
+%       -
+%       -
+%   - Player Perception & Comparison Survey
+
+\subsection{Experiment Flow}
+
+% Experiment overview
+% ===================
+%   - Step 1: Perform player classification survey
+%       - Be classified as beginner, intermediate, 
+%   - Step 2: Be assigned to Group A or Group B
+%   - Step 3: Play through part 1
+%   - Step 4: Play through part 2
+%   - Step 5: Perform player perception & comparison survey
+
+\subsection{Player Perception Survey Motivation and Details}
+% Player Perception & Comparison Survey
+% ===================
+
+% =================================================================
+% =================================================================
+% =================================================================
+
+\section{Results}
+% * Results
+% * =======================
+
+% Figures:
+%   - One graph Per Player Classification Type
+%   - Bar Charts Comparing Fixed vs Dynamic Difficulty
+
+% Negative Metrics (lower is better)
+%   - Avg. Completion Time per Level
+%   - Avg. Number of Deaths Per Level
+%   - Avg. Health Lost Per Encounter
+
+% Positive Metrics (higher is better)
+%   - Avg. Attack Avoidance Efficiency
+%   - Avg. Attack Window Efficiency
+%   - ? Avg. Damage Dealt Per 10s In Encounters
+%   - ? Avg. Stamina Level In Encounters
+
+
+\subsection{Perceptions on Part 1 vs. Part 2}
+
+% Difficulty
+- Perception Survey answers regarding difficulty of part 1 vs part 2
+
+% Learning Curve
+- Perception Survey answers regarding learning curve of part 1 vs part 2
+
+\subsection{User Group Performance in Part 1}
+
+% Figures:
+%   - Comparison Group A Part 1 (Fixed) vs Group B Part 1 (Dynamic)
+
+\subsection{User Group Performance in Part 2}
+
+% Figures:
+%   - Comparison Group A Part 1 (Fixed) vs Group B Part 1 (Dynamic)
+
+% =================================================================
+% =================================================================
+% =================================================================
+
+\section{Conclusions}
+
+\subsection{Summary of Results}
+% * Summary of Results
+% * =======================
+
+\subsection{Limitations}
+% * Limitations
+% * =======================
+
+\subsection{Comparison with Previous Methodologies}
+% * Comparison with previous work
+% * =======================
+
+% =================================================================
+% =================================================================
+% =================================================================
 
 % =================================================================
 % =================================================================
@@ -244,140 +406,3 @@ We apply our user selection criteria through a Player Classification Survey, whi
 %   - Avg. Attack Window Efficiency
 %   - ? Avg. Damage Dealt Per 10s In Encounters
 %   - ? Avg. Stamina Level In Encounters
-
-% =================================================================
-% =================================================================
-% =================================================================
-
-\section{Methodology}
-% * Experiment 2: Validation of Adaptive Solution
-% * ====================================
-\label{sec:experiment-methodology}
-
-% * Methodology
-% * =======================
-
-\subsection{Goals}
-
-% Goals
-% ===================
-%   - Verify if dynamic adjustments create an increase in the performance over the play session for beginner & intermediate players
-%   - Verify if dynamic adjustments keep a fair challenge, without overt increases in performance for advanced players
-
-\subsection{User base}
-
-% User base
-% ===================
-%   - Total number: 23
-%       - Beginners: 10
-%       - Intermediates: 7
-%       - Veterans: 6
-
-% Division of user groups
-% ===================
-%   - Group A: Fixed first, adaptive second
-%       - Segment 1: Fixed difficulty modes
-%       - Segment 2: N-dimensional adaptive difficulty
-%   - Group B: Adaptive first, fixed second
-%       - Segment 1: N-dimensional adaptive difficulty
-%       - Segment 2: Fixed difficulty modes
-
-% - Separation of groups is done because we wish to evaluate user perception of difficulty comparing both versions
-% - Users tend to have an easier time with the second version, as they had more time to learn how to play
-% - 
-
-% Number in user groups
-% ===================
-%   - Group A: 12
-%       - Beginners: 5
-%       - Intermediates: 4
-%       - Veterans: 3
-%   - Group B: 11
-%       - Beginners:  5
-%       - Intermediates: 3
-%       - Veterans: 3
-
-\subsection{Metrics}
-
-% Explanation of used Metrics
-% ===================
-%   - Player Adaptive System Performance Metrics
-%       -
-%       -
-%   - Player Perception & Comparison Survey
-
-
-\subsection{Player Perception Survey Details}
-% Player Perception & Comparison Survey
-% ===================
-
-\subsection{Experiment Flow}
-
-% Experiment overview
-% ===================
-%   - Step 1: Perform player classification survey
-%       - Be classified as beginner, intermediate, 
-%   - Step 2: Be assigned to Group A or Group B
-%   - Step 3: Play through part 1
-%   - Step 4: Play through part 2
-%   - Step 5: Perform player perception & comparison survey
-
-\section{Results}
-% * Results
-% * =======================
-
-% Figures:
-%   - One graph Per Player Classification Type
-%   - Bar Charts Comparing Fixed vs Dynamic Difficulty
-
-% Negative Metrics (lower is better)
-%   - Avg. Completion Time per Level
-%   - Avg. Number of Deaths Per Level
-%   - Avg. Health Lost Per Encounter
-
-% Positive Metrics (higher is better)
-%   - Avg. Attack Avoidance Efficiency
-%   - Avg. Attack Window Efficiency
-%   - ? Avg. Damage Dealt Per 10s In Encounters
-%   - ? Avg. Stamina Level In Encounters
-
-
-\subsection{Perceptions on Part 1 vs. Part 2}
-
-% Difficulty
-- Perception Survey answers regarding difficulty of part 1 vs part 2
-
-% Learning Curve
-- Perception Survey answers regarding learning curve of part 1 vs part 2
-
-\subsection{User Group Performance in Part 1}
-
-% Figures:
-%   - Comparison Group A Part 1 (Fixed) vs Group B Part 1 (Dynamic)
-
-\subsection{User Group Performance in Part 2}
-
-% Figures:
-%   - Comparison Group A Part 1 (Fixed) vs Group B Part 1 (Dynamic)
-
-% =================================================================
-% =================================================================
-% =================================================================
-
-\section{Conclusions}
-
-\subsection{Summary of Results}
-% * Summary of Results
-% * =======================
-
-\subsection{Limitations}
-% * Limitations
-% * =======================
-
-\subsection{Comparison with Previous Methodologies}
-% * Comparison with previous work
-% * =======================
-
-% =================================================================
-% =================================================================
-% =================================================================
