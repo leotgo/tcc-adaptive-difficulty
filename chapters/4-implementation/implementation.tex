@@ -331,7 +331,7 @@ To implement the combat mechanics in our \emph{Souls-like} implementation, we de
     \item{Apply \emph{Combat Effects} when a target is hit, such as a \emph{Health Damage} effect;}
     \item{Modify character state according to the effects that are applied.}
 \end{itemize}
-By invoking the aforementioned functionality with player input and AI agent actions, we created a satisfactory combat system that provides appropriate feedback to player actions and decisions. In figure \ref{fig:combat-system-overview}, we provide an overview of the subsystems and classes regarding to our implementation of a Combat System.
+By invoking the aforementioned functionality with player input and AI agent actions, we created a satisfactory combat system that provides appropriate feedback to player actions and decisions. In Figure \ref{fig:combat-system-overview}, we provide an overview of the subsystems and classes regarding to our implementation of a Combat System.
 
 % * Figure: Combat System Overview Diagram
 \input{figures/fig_combat_system_overview}
@@ -381,7 +381,7 @@ We also employed several safety measures to ensure that attack collision detecti
 For each occurrence of an attack collision, two colliders are involved: one for the weapon of the attacker, and one for the body of the target. The colliders are instanced as \emph{bounding boxes}\sepfootnote{fn:bounding-boxes} that fully or partially enclose the 3D models of their relative entity (an attacker's weapon or a target's body). To perform collision checks with a reasonably optimized numbers of collision checks, we simplify collision by introducing a single bounding box that encloses the torso, the head and a central position of the target's legs. Using this method, we minimize the amount of collision checks per frame, while also having appropriate precision for our gameplay purposes.
 
 %     - Consider character faction to recognize which combat characters can be hurt by an attack
-After the collision detection step is performed, we validate that the target is not part of the attacker's \emph{Combat Group} by comparing the \textsc{FactionAttribute} value of the involved entities. We perform such distinction to avoid a situation where player enemies would damage themselves when attempting to hit the player when too close to each other. The values that the faction attribute can be assigned are described in table \ref{tab:table-faction-groups}. In addition, figure \ref{fig:hit-detection-diagram} shows the execution flow and class relationship of components used during the Hit Detection step.
+After the collision detection step is performed, we validate that the target is not part of the attacker's \emph{Combat Group} by comparing the \textsc{FactionAttribute} value of the involved entities. We perform such distinction to avoid a situation where player enemies would damage themselves when attempting to hit the player when too close to each other. The values that the faction attribute can be assigned are described in Table \ref{tab:table-faction-groups}. In addition, Figure \ref{fig:hit-detection-diagram} shows the execution flow and class relationship of components used during the Hit Detection step.
 
 % * Table: Values for the Faction Attribute
 \input{tables/tab_faction_groups}
@@ -406,7 +406,7 @@ In contrast, Over-time Effects occur in fixed time intervals over the course of 
 % - Combat Effect Modifiers
 Combat Effects are restricted to performing modifications on a limited set of Attributes and Components exposed through the \textsc{ICombatTarget} interface, which is implemented by any entity which can be attacked. Before effectively applying an effect to a target, we first check if the target contains any \emph{Combat Effect Modifiers}, such as a damage modifier caused by the target \emph{Blocking} or \emph{Dodging} an attack. If the target has compatible effect modifiers, the \textsc{Attack} class uses such modifiers to reconstruct its Combat Effects with updated values. For instance, if the target successfully blocks an attack, the \textsc{BlockDamage} modifier is applied to any \textsc{DamageHealth} effects by halving the damage amount. After the reconstruction of Combat Effects using any applicable modifiers, we apply the final effect to the target entity.
 
-In figure \ref{fig:combat-flow-diagram}, we show an overview of all the steps involved with handling attacks, starting from the player issuing Attack commands through the Input System, proceeding to the management of animation states associated with weapons, validating Hitbox collision and combat groups with a Hit Detection System, and finally applying combat effects to modify target attributes and execute behaviors.
+In Figure \ref{fig:combat-flow-diagram}, we show an overview of all the steps involved with handling attacks, starting from the player issuing Attack commands through the Input System, proceeding to the management of animation states associated with weapons, validating Hitbox collision and combat groups with a Hit Detection System, and finally applying combat effects to modify target attributes and execute behaviors.
 
 % * Figure: Flow of Combat System when processing Attack of entities
 \input{figures/fig_combat_flow_diagram}
@@ -471,7 +471,7 @@ We implemented modular and generic State Machines which can be used outside the 
 % Each state has a set of dynamically assigned Behaviors that determine the actions performed by an AI Agent on that state.
 The definitions of State Machine, including their States, Transitions and Behaviors are constrained to serializable space, being bound to asset files that are referenced by the \textsc{StateMachineController}. The \textsc{StateMachine} class contains serialization data used by \textsc{States}. Each State contains a variable set of \emph{Transitions} and \emph{Behaviors}.
 
-Transitions reference an origin and a target state, and contain a set of boolean validation functions that define when such transition occurs. Behaviors determine the actions can be performed by the State Machine owner. In table \ref{tab:ai-behaviors}, we define all AI Agent behaviors in our implementation, specifying the States in which they are used and a brief description of the actions performed by the AI Agent when executing the Behavior.
+Transitions reference an origin and a target state, and contain a set of boolean validation functions that define when such transition occurs. Behaviors determine the actions can be performed by the State Machine owner. In Table \ref{tab:ai-behaviors}, we define all AI Agent behaviors in our implementation, specifying the States in which they are used and a brief description of the actions performed by the AI Agent when executing the Behavior.
 
 % * Table - AICharacter Behaviors
 \input{tables/tab_ai_behaviors}
@@ -542,7 +542,7 @@ The arc is divided in equal size segments that distribute agents uniformly aroun
 
 % - Subsequent agents subdivides largest segments from center outwards
 % - Recalculate segments when agents die
-When the pivot agent is defeated, a new pivot is selected based on its distance from the original pivot, and the segments are recalculated. We iteratively add each subsequent agent which is closest to the pivot through the same algorithm. When non-pivot agents are defeated the group is also recalculated, but we retain the same pivot when recalculating segments. This algorithm is exemplified by figure \ref{fig:arc-segments}, and the resulting behavior is exemplified by figure \ref{fig:enemy-positioning-example}.
+When the pivot agent is defeated, a new pivot is selected based on its distance from the original pivot, and the segments are recalculated. We iteratively add each subsequent agent which is closest to the pivot through the same algorithm. When non-pivot agents are defeated the group is also recalculated, but we retain the same pivot when recalculating segments. This algorithm is exemplified by Figure \ref{fig:arc-segments}, and the resulting behavior is exemplified by Figure \ref{fig:enemy-positioning-example}.
 
 % * Figure: Figure illustrating the behavior of the "arc segments" algorithm
 \input{figures/fig_arc_segments}
@@ -743,12 +743,12 @@ In our implementation, we differentiate between \emph{discrete} events and \emph
 
 % Event types
 %   - Raised, Timer-based, Composite
-Discrete events can be raised at any given moment in a session, and originate from signals emitted by entity components. An example of a discrete event would be the player character performing an attack, where the occurrence of the event depends entirely on input provided by the player and can not be bound to any specific timed measure. Discrete events are used to represent system-based state changes, entity actions and the results of such actions. In table \ref{tab:discrete-events}, we specify the discrete events defined in our implementation.
+Discrete events can be raised at any given moment in a session, and originate from signals emitted by entity components. An example of a discrete event would be the player character performing an attack, where the occurrence of the event depends entirely on input provided by the player and can not be bound to any specific timed measure. Discrete events are used to represent system-based state changes, entity actions and the results of such actions. In Table \ref{tab:discrete-events}, we specify the discrete events defined in our implementation.
 
 % * Table - Discrete Events
 \input{tables/tab_discrete_events}
 
-In contrast, timer-based events are raised repeatedly at fixed time intervals over the course of a level. They are used to track values and actions that change over the course of time, such as the position of an entity, the movement performed by the player and the proximity of the player to walls and obstacles. Timer-based events use a \emph{polling} approach to determine the value of its parameters, instead of the signal-based system used by discrete events. In table \ref{tab:timer-based-events}, we specify the timer-based events used in our implementation.
+In contrast, timer-based events are raised repeatedly at fixed time intervals over the course of a level. They are used to track values and actions that change over the course of time, such as the position of an entity, the movement performed by the player and the proximity of the player to walls and obstacles. Timer-based events use a \emph{polling} approach to determine the value of its parameters, instead of the signal-based system used by discrete events. In Table \ref{tab:timer-based-events}, we specify the timer-based events used in our implementation. An example of the raw data captured from basic events in our application can be seen in Appendix \ref{anx:raw-collected-event-data}.
 
 % * Table - Timer-Based Events
 \input{tables/tab_timer_based_events}
@@ -824,7 +824,7 @@ Through the base presets, we are initially defining game difficulty as a one dim
 It is important to note that used each parameter value does not represent a continuous group of validation conditions, where causing the next attack animation to be queued and triggered when the current animation ends against any of the threshold conditions for a parameter. This is done by design so that if the conditions for all thresholds of a parameter are used adjustment parameter is kept the same. Therefore, the transition conditions for a lower parameter value to be adjusted into a higher value can not be symmetrically inverted as to adjust the higher value into the lower value, which generates a tendency for the player to be kept in the same difficulty level unless their performance or profile metrics relevantly deviate from the intended user group.
 
 % Table detailing thresholds and values for adjustments
-In table \ref{tab:adjustment-thresholds} we attempt to organize  and specify the values that parametrized adjustments can be assigned to and their associated metrics, along with the threshold values for each metric. Some of the adjustment parameters have restricted value ranges with the purpose of making the game more difficult or easier than the proposed core experience of our game, and will present a default value as a minimum or maximum limit which represents the standard experience for an average skilled player. For this purpose, we attempt to visually separate adjustments in regions that describe their target player profile stereotype.
+In Table \ref{tab:adjustment-thresholds} we attempt to organize  and specify the values that parametrized adjustments can be assigned to and their associated metrics, along with the threshold values for each metric. Some of the adjustment parameters have restricted value ranges with the purpose of making the game more difficult or easier than the proposed core experience of our game, and will present a default value as a minimum or maximum limit which represents the standard experience for an average skilled player. For this purpose, we attempt to visually separate adjustments in regions that describe their target player profile stereotype.
 
 \input{tables/tab_adjustment_thresholds}
 
