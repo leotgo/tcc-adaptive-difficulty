@@ -1,25 +1,26 @@
 \chapter{METHODOLOGY AND RESULTS}
 \label{ch:methodology-results}
 
+% Overview of chapter
 \section{Overview}
 
-- Overview \\
-- About the hypotheses and objectives \\
-- About the user selection criteria \\
-- About the classification of the user base \\
-- About the experiment 1 \\
-- About the experiment 2 \\
-- About the analysis of results 
+% About the hypotheses and objectives
+% About the user selection criteria
+In this chapter, we briefly revisit the objectives of this work to formulate the hypotheses and methodology for our experiment. We establish the selection criteria for the users in our experiment, which enforce restrictions to provide a more controllable environment given societarial restrictions inherent to the time at which this work was developed.
+
+% About the classification of the user base
+% About the methodology of the experiment
+We specify the classification method used in this experiment, which was employed to compare the effects of our DDA system to different types of users, in comparison to the traditional fixed difficulty presets commonly seen in commercial games. In sequence, we explain the methodology used in our experiment, specifying the division of user groups, describing the metrics used to compare such groups, providing a brief description of the steps performed by users in the experiment, and providing details on a survey used to assess user perceptions after performing the experiment.
+
+% About the analysis of results 
+Finally, we report and analyze the results of our experiment, performing a comparison of the performance of user groups when using DDA systems or fixed difficulty. We perform a more granular comparison by separating  the data for each group based on our initial user classification, and assess the effects of DDA systems on each player profile: \emph{beginners}, \emph{intermediates} and \emph{veterans}. We also compare the performance of players to their own assessment of the difficulty of our game, and correlate their perception with our performance analysis.
 
 % ======================================================================
 % ======================================================================
 % =================================================================
 
-\section{Hypotheses and General Objectives}
+\section{Hypotheses and Objectives}
 \label{sec:hypotheses-and-objectives}
-
-% * Hypotheses
-% * ====================================
 
 % Main Objectives
 % ===================
@@ -28,14 +29,33 @@
 As a first objective when performing this experiment, we wish to verify if dynamic adjustments can create a relevant increase in player performance in the first or second playthrough for players that are inexperienced with \emph{Souls-like} games. We attempt to understand if players that experience dynamic difficulty at their first playthrough can achieve a better understanding of game mechanics on their second playthrough.
 
 We also wish to understand if dynamic difficulty can maintain a fair level of challenge to veterans or experienced players on a second playthrough. To do this, we wish to evaluate the difference in performance between fixed and dynamic difficulty on a second playthrough where players have likely increased their performance when using game mechanics. Based on these objectives, we formulate the following hypotheses:
+
+% * Hypotheses
+% * ====================================
 % Hypothesis 1: Dynamic can alleviate the learning curve for beginners
 % Hypothesis 2: Dynamic is less frustrating than fixed for beginners
 % Hypothesis 3: Dynamic can keep a better challenge on 2nd+ playthrough
 % Hypothesis 4: Dynamic is not overtly easy to veterans
 \begin{itemize}
     \item{Hypothesis 1: Dynamic difficulty can alleviate the steep learning curve of challenging games for inexperienced players;}
-    \item{Hypothesis 2: Dynamic difficulty can keep a better challenge on the second or subsequent playthroughs.}
+    \item{Hypothesis 2: Dynamic difficulty can provide a better suited level of challenge on the second or subsequent playthroughs.}
 \end{itemize}
+
+The hypotheses defined have the intent of comparing DDA systems to fixed difficulty on two different aspects: the ability for players to learn and become used to \emph{Souls-like} game mechanics in a first playthrough, and the ability for the game to provide a sufficient level of challenge to players which have become accustomed to and proficient at the game at a second or subsequent playthrough.
+
+\subsection{Validation of Hypothesis 1}
+
+As discussed in chapter \label{ch:analysis-dark-souls}, the most prevalent causes of failure in a first playthrough in \emph{Souls-like} games are becoming used to the game's input and its resulting actions, understanding the principles of the most relevant game mechanics, and memorizing patterns of enemies or level layouts. In a second playthrough, players will generally have achieved a consolidated understanding of which elements provide the most significant challenge, and how to use the game's mechanics in a way that maximizes their chances of success.
+
+Therefore, failure is often part of the process of learning in a first playthrough. Presenting the player with a slight difficulty spike at a specific point in the game could be a tool to accelerate the process of learning a specific game mechanic, given that the level of challenge is not overtly contrasted to the player's skill. Thus, we wish to validate our hypothesis that the performance of players which experience Dynamic Difficulty first is higher than those which experience fixed difficulty first, as they become used to the game's mechanics and challenges.
+
+To perform the validation of Hypothesis 1, we divide the users in our experiment in two groups: users which experience DDA systems first (Group A), and users which experience fixed difficulty systems first (Group B). After performing such division, we must evaluate the performance of each group according to level progression in their first playthrough, by gathering multiple performance statistics for each level. To validate the hypothesis, we must validate that the average performance of Group A is higher than the performance of Group B. Therefore, the \emph{null hypothesis} of Hypothesis 1 is that the average performance of Group B is the same or higher than the performance of Group A.
+
+\subsection{Validation of Hypothesis 2}
+
+In a second playthrough, players will have experienced and become used to most or all relevant game mechanics or difficulty factors. In consequence, most players will be able to devise one or multiple plans of action against challenging elements ahead of time, and attempt to execute such plans. Therefore, the most prevalent cause of failure in a second or subsequent playthrough is a failure of execution, where the player either performs their input incorrectly, or their plan of action does not optimally address the issues inherent to a specific challenge.
+
+
 
 % =================================================================
 
@@ -54,13 +74,13 @@ We also wish to understand if dynamic difficulty can maintain a fair level of ch
 % * User selection criteria
 % * ====================================
 
-\sepfootnotecontent{fn:bloodborne}{Footnote: What is Bloodborne}
-\sepfootnotecontent{fn:sekiro}{Footnote: What is Sekiro}
-\sepfootnotecontent{fn:steam}{Footnote: What is Steam}
+\sepfootnotecontent{fn:bloodborne}{Bloodborne (FromSoftware, 2015). Video Game. Available on PlayStation 4.}
+\sepfootnotecontent{fn:sekiro}{Sekiro: Shadows Die Twice (FromSoftware, 2019). Video Game. Available on PlayStation 4, Xbox One, Microsoft Windows, Google Stadia.}
+\sepfootnotecontent{fn:steam}{\emph{Steam} is an online storefront and a digital service for video game distribution, developed by \emph{Valve}. Features provided by Steam include digital rights management, social networking, cloud-based game saving systems, automatic game updating and streaming.}
 
-The methodology used for our experiment involves the deployment and use of our application in the environments which are most commonly used by each user to play games on, without in-person monitoring by the experiment observers. For the analysis of user performance and results, we remotely collect data through telemetry, and compare data sets based on user classification and use the results of our player perception surveys as a reference. We employed restricted selection criteria for our user base to ensure similar characteristics on how the application is used.
+The methodology used for our experiment involves the deployment and use of our application in environments where the users are comfortable playing, without in-person monitoring by the experiment observers. For the analysis of user performance and results, we remotely collect data through telemetry, and compare data sets based on user classification and use the results of our player perception surveys as a reference. We employed restricted selection criteria for our user base to ensure similar characteristics on how the application is used.
 
-The selection of users for our experiment was guided by a small set of profile characteristics and hardware requirements. This was required to mitigate the impact of external and unmanageable factors such as preferences, age, platform or input devices to the performance of users. Users were invited for the experiment through multiple Brazilian online gaming communities using the \emph{Discord} application. The targeted groups included communities with players of all skill levels, with the shared common interest of discussing  \emph{Souls-like} games, such as \emph{Dark Souls}, \emph{Bloodborne} and \emph{Sekiro}. We define in the list below the profile-based criteria for user selection performed in our experiment:
+The selection of users for our experiment was guided by a small set of profile characteristics and hardware requirements. This was required to mitigate the impact of external and unmanageable factors such as preferences, age, platform or input devices to the performance of users. Users were invited for the experiment through multiple Brazilian online gaming communities using the \emph{Discord} application. The targeted groups included communities with players of all skill levels, with the shared common interest of discussing  \emph{Souls-like} games, such as \emph{Dark Souls}, \emph{Bloodborne}\sepfootnote{fn:bloodborne} and \emph{Sekiro}\sepfootnote{fn:sekiro}. We define in the list below the profile-based criteria for user selection performed in our experiment:
 % Player profile
 % ===================
 %   - Age: 18-23
@@ -125,6 +145,8 @@ We also require that players use similar input interface methods, to ensure that
 \end{itemize}
 
 We apply the aforementioned criteria through a Player Classification Survey, which is further detailed in section \ref{sec:user-base-classification}. The survey is also used to categorize our users in skill-based classification groups, such as \emph{Beginner}, \emph{Intermediate} and \emph{Veteran} users. Information on the specific questions and metrics used in the survey can be seen in annex \ref{anx:player-classification-survey}.
+
+% TODO add annex with the Player Classification Survey
 
 % =================================================================
 % =================================================================
@@ -203,13 +225,6 @@ The total number of users which participated in ther experiment and sufficiently
 % * Methodology
 % * =======================
 
-\subsection{Goals}
-
-% Goals
-% ===================
-%   - Verify if dynamic adjustments create an increase in the performance over the play session for beginner & intermediate players
-%   - Verify if dynamic adjustments keep a fair challenge, without overt increases in performance for advanced players
-
 \subsection{User Groups}
 
 % Division of user groups
@@ -221,9 +236,7 @@ The total number of users which participated in ther experiment and sufficiently
 %       - Segment 1: N-dimensional adaptive difficulty
 %       - Segment 2: Fixed difficulty modes
 
-% - Separation of groups is done because we wish to evaluate user perception of difficulty comparing both versions
-% - Users tend to have an easier time with the second version, as they had more time to learn how to play
-% - 
+
 
 % Number in user groups
 % ===================
@@ -236,14 +249,7 @@ The total number of users which participated in ther experiment and sufficiently
 %       - Intermediates: 3
 %       - Veterans: 3
 
-\subsection{Metrics}
-
-% Explanation of used Metrics
-% ===================
-%   - Player Adaptive System Performance Metrics
-%       -
-%       -
-%   - Player Perception & Comparison Survey
+% TODO add figure with consolidated user group numbers
 
 \subsection{Experiment Flow}
 
@@ -256,21 +262,16 @@ The total number of users which participated in ther experiment and sufficiently
 %   - Step 4: Play through part 2
 %   - Step 5: Perform player perception & comparison survey
 
-\subsection{Player Perception Survey Motivation and Details}
-% Player Perception & Comparison Survey
+% TODO add figure illustrating experiment flow
+
+\subsection{Metrics}
+
+% Explanation of used Metrics
 % ===================
-
-% =================================================================
-% =================================================================
-% =================================================================
-
-\section{Results}
-% * Results
-% * =======================
-
-% Figures:
-%   - One graph Per Player Classification Type
-%   - Bar Charts Comparing Fixed vs Dynamic Difficulty
+%   - Player Adaptive System Performance Metrics
+%       -
+%       -
+%   - Player Perception & Comparison Survey
 
 % Negative Metrics (lower is better)
 %   - Avg. Completion Time per Level
@@ -283,24 +284,72 @@ The total number of users which participated in ther experiment and sufficiently
 %   - ? Avg. Damage Dealt Per 10s In Encounters
 %   - ? Avg. Stamina Level In Encounters
 
+% TODO Add table with the metrics and what they represent
 
-\subsection{Perceptions on Part 1 vs. Part 2}
+\subsection{Player Perception Survey}
+% Player Perception & Comparison Survey Motivation and Details
+% ===================
 
-% Difficulty
-- Perception Survey answers regarding difficulty of part 1 vs part 2
+%   - Verify if gameplay, aesthetics and challenge meet player expectations for a Dark Souls replica
+%   - Observe performance metrics & define adjustment thresholds
 
-% Learning Curve
-- Perception Survey answers regarding learning curve of part 1 vs part 2
+% TODO add table with the questions and their objective
 
-\subsection{User Group Performance in Part 1}
+% TODO Add annex with the Player Perception Survey
+
+% =================================================================
+% =================================================================
+% =================================================================
+
+\section{Results}
+% * Results
+% * =======================
+
+\subsection{Perceptions on Usability and Fidelity of All Players}
+
+%   - Player Perception Survey
+%       - Perception on Aesthetic Fidelity
+%       - Perception on Gameplay Fidelity
+%       - Peception on Usability
+
+\subsection{Beginner Players}
 
 % Figures:
 %   - Comparison Group A Part 1 (Fixed) vs Group B Part 1 (Dynamic)
 
-\subsection{User Group Performance in Part 2}
-
 % Figures:
 %   - Comparison Group A Part 1 (Fixed) vs Group B Part 1 (Dynamic)
+
+% Figures:
+%   - One graph Per Player Classification Type
+%   - Bar Charts Comparing Fixed vs Dynamic Difficulty
+
+%   - Player Perception Survey
+%       - Perception on Challenge Level and Difficulty
+
+% Perception
+% =============================
+
+% Performance
+% =============================
+
+\subsection{Intermediate Players}
+
+% Perception
+% =============================
+
+% Performance
+% =============================
+
+\subsection{Veteran Players}
+
+% Perception
+% =============================
+
+% Performance
+% =============================
+
+
 
 % =================================================================
 % =================================================================
@@ -316,6 +365,12 @@ The total number of users which participated in ther experiment and sufficiently
 % * Limitations
 % * =======================
 
+% Calculation and adjustments based on metrics are executed between levels
+% Difficulty in level 2 was always higher in DDA systems, which might show a level design issue
+% Adjusments should have been tested in isolation and in groups
+% Should have 5 difficulty levels for DDA, instead of 3. Because veterans and beginners should extrapolate higher and lower limits.
+
+
 \subsection{Comparison with Previous Methodologies}
 % * Comparison with previous work
 % * =======================
@@ -323,86 +378,3 @@ The total number of users which participated in ther experiment and sufficiently
 % =================================================================
 % =================================================================
 % =================================================================
-
-% =================================================================
-% =================================================================
-% =================================================================
-
-% \section{Experiment 1: Validation of Simplified Object of Study}
-% * Experiment 1: Validation of Simplified Object of Study
-% * ====================================
-
-% \subsection{Methodology}
-% * Methodology
-% * =======================
-
-%\subsubsection{Restrictions}
-
-% Restrictions
-% ===================
-%   - No dynamic adjustments
-%   - Only advanced difficulty
-%   - 3 levels
-
-% \subsubsection{Goals}
-
-% Goals
-% ===================
-%   - Verify if gameplay, aesthetics and challenge meet player expectations for a Dark Souls replica
-%   - Observe performance metrics & define adjustment thresholds
-
-% \subsubsection{User Base Description}
-
-% User base
-% ===================
-%   - Total number: 10
-%       - Beginners: 2
-%       - Intermediates: 2
-%       - Veterans: 6
-
-% \subsubsection{Metrics}
-
-% Metrics
-% ===================
-%   - Implementation validation survey
-%       - Perception on Gameplay Fidelity
-%       - Perception on Challenge Level and Difficulty
-%       - Perception on Aesthetic Fidelity
-%       - Performance of User Groups
-
-% \subsubsection{Implementation Validation Survey Details}
-
-% Implementation Validation Survey Details
-% ===================
-
-% \subsubsection{Experiment Flow}
-
-% Experiment overview
-% ===================
-%   - Step 1: Perform player classification survey
-%   - Step 2: Play through 3 levels with advanced difficulty
-%   - Step 3: Perform implementation validation survey
-
-% \subsection{Results}
-% * Results
-% * =======================
-
-% \subsubsection{Perceptions on Gameplay \& Aesthetical Fidelity}
-
-% \subsubsection{Perceptions on Challenge Level and Difficulty}
-
-% \subsubsection{Performance of Player Skill Levels}
-
-% Figures:
-%   - One graph Per Player Classification Type
-
-% Negative Metrics (lower is better)
-%   - Avg. Completion Time per Level
-%   - Avg. Number of Deaths Per Level
-%   - Avg. Health Lost Per Encounter
-
-% Positive Metrics (higher is better)
-%   - Avg. Attack Avoidance Efficiency
-%   - Avg. Attack Window Efficiency
-%   - ? Avg. Damage Dealt Per 10s In Encounters
-%   - ? Avg. Stamina Level In Encounters

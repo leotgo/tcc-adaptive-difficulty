@@ -11,3 +11,4 @@ cic-tc.bbl
 cic-tc.fdb_latexmk
 cic-tc.log
 *.aux
+.Rproj.user
