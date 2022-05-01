@@ -1,0 +1,5 @@
+Group	Level 1	Level 2	Level 3	Level 4	Level 5
+Group A Part 1 - Fixed	3,3,3	3,3,3	3,3,3	3,3,3	3,3,3
+Group A Part 2 - Dynamic	3,3,3	2.82,2.78,2.55	2.53,2.68,2.83	2.38,2.41,2.74	2.53,2.44,2.68
+Group B Part 1 - Dynamic	3,3,3	2.53,2.31,2.15	2.23,2.34,2.12	2.43,2.53,2.61	2.54,2.42,2.73
+Group B Part 2 - Fixed	3,3,3	3,3,3	3,3,3	3,3,3	3,3,3

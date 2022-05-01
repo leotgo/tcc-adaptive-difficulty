@@ -43,19 +43,28 @@ We also wish to understand if dynamic difficulty can maintain a fair level of ch
 
 The hypotheses defined have the intent of comparing DDA systems to fixed difficulty on two different aspects: the ability for players to learn and become used to \emph{Souls-like} game mechanics in a first playthrough, and the ability for the game to provide a sufficient level of challenge to players which have become accustomed to and proficient at the game at a second or subsequent playthrough.
 
-\subsection{Validation of Hypothesis 1}
+% Validation of Hypothesis 1
+% =========================
 
+% Most common causes of failure are discovery
 As discussed in chapter \label{ch:analysis-dark-souls}, the most prevalent causes of failure in a first playthrough in \emph{Souls-like} games are becoming used to the game's input and its resulting actions, understanding the principles of the most relevant game mechanics, and memorizing patterns of enemies or level layouts. In a second playthrough, players will generally have achieved a consolidated understanding of which elements provide the most significant challenge, and how to use the game's mechanics in a way that maximizes their chances of success.
 
+% We wish to validate that 
 Therefore, failure is often part of the process of learning in a first playthrough. Presenting the player with a slight difficulty spike at a specific point in the game could be a tool to accelerate the process of learning a specific game mechanic, given that the level of challenge is not overtly contrasted to the player's skill. Thus, we wish to validate our hypothesis that the performance of players which experience Dynamic Difficulty first is higher than those which experience fixed difficulty first, as they become used to the game's mechanics and challenges.
 
-To perform the validation of Hypothesis 1, we divide the users in our experiment in two groups: users which experience DDA systems first (Group A), and users which experience fixed difficulty systems first (Group B). After performing such division, we must evaluate the performance of each group according to level progression in their first playthrough, by gathering multiple performance statistics for each level. To validate the hypothesis, we must validate that the average performance of Group A is higher than the performance of Group B. Therefore, the \emph{null hypothesis} of Hypothesis 1 is that the average performance of Group B is the same or higher than the performance of Group A.
+% Validation of hypothesis 1
+To perform the validation of Hypothesis 1, we divide the users in our experiment in two groups: users which experience Fixed Difficulty first (Group A), and users which experience Dynamic Difficulty systems first (Group B). After performing such division, we must evaluate the performance of each group according to level progression in their first playthrough, by gathering multiple performance statistics for each level. To validate the hypothesis, we must validate that the average performance of Group B is higher than the performance of Group A. Therefore, the \emph{null hypothesis} of Hypothesis 1 is that the average performance of Group A is the same or higher than the performance of Group B.
 
-\subsection{Validation of Hypothesis 2}
+% Validation of Hypothesis 2
+% =========================
 
-In a second playthrough, players will have experienced and become used to most or all relevant game mechanics or difficulty factors. In consequence, most players will be able to devise one or multiple plans of action against challenging elements ahead of time, and attempt to execute such plans. Therefore, the most prevalent cause of failure in a second or subsequent playthrough is a failure of execution, where the player either performs their input incorrectly, or their plan of action does not optimally address the issues inherent to a specific challenge.
+In a second playthrough, players will have experienced and become used to most or all relevant game mechanics or difficulty factors. In consequence, most players will be able to devise one or multiple plans of action against challenging elements ahead of time, and attempt to execute such plans. 
 
+Therefore, the most prevalent cause of failure in a second playthrough with fixed difficulty is a failure of execution, where the player either performs their input incorrectly, or their plan of action does not optimally address the issues inherent to a specific challenge. As a consequence, players will generally present a much better performance in a second playthrough in fixed difficulty systems.
 
+However, when the advent of dynamic difficulty is employed, the game is able to present new challenges and situations, and even increase the complexity at which a game mechanic needs to be executed by the player. Therefore, even though players are used to most or all game mechanics in a second playthrough, their performance can stay at the same or a lower level than that of the first playthrough. Therefore, we wish to evaluate the performance of players in a second playthrough, which occurs in the second part of the experiment.
+
+To validate Hypothesis 2, we wish to verify that the average performance of Group A (which starts with fixed difficulty) is the same or lower than the average performance of Group B (which starts with dynamic difficulty). Therefore, the \emph{null hypothesis} of Hypothesis 2 is that the average performance of Group B is significantly higher than that of Group A in a second playthrough.
 
 % =================================================================
 
@@ -198,9 +207,7 @@ We separate the player base in our experiment in the following groups: \emph{beg
 
 With such descriptions, we can begin to specify each categorization in functional or data-based terminology. We use the definitions of \emph{casual} and \emph{hardcore} players from the work of  \citet{ARTICLE_CasualsHardcoreDefinition} as a reference, where casual players are defined as individuals which perform the act of play \emph{casually} -- who dedicate a smaller portion of their time to play games, and usually on a more restricted set of genres.
 
-Therefore, we define \emph{casual} players as players with a weekly playtime between 0 and 3 hours, which are comfortable with at most three different game genres which do not include action games, and have not achieved 50\% completion on a \emph{Souls-like} game. \emph{Intermediate} players have a weekly playtime between 4 and 10 hours, are comfortable with at least three game genres which include action games, and have achieved at least 50\% completion on a single \emph{Souls-like} game. \emph{Veteran} players have a weekly playtime above 10 hours, have at least four comfortable game genres which include action games, and have completed two or more \emph{Souls-like} games.
-
-% TODO Include table with brief info on player classifications
+Therefore, we define \emph{beginner} players as players with a weekly playtime between 0 and 3 hours, which are comfortable with at most three different game genres which do not include action games, and have not achieved 50\% completion on a \emph{Souls-like} game. \emph{Intermediate} players have a weekly playtime between 4 and 10 hours, are comfortable with at least three game genres which include action games, and have achieved at least 50\% completion on a single \emph{Souls-like} game. \emph{Veteran} players have a weekly playtime above 10 hours, have at least four comfortable game genres which include action games, and have completed two or more \emph{Souls-like} games.
 
 % User base
 % ===================
@@ -209,9 +216,39 @@ Therefore, we define \emph{casual} players as players with a weekly playtime bet
 %       - Intermediates: 7
 %       - Veterans: 6
 
-The total number of users which participated in ther experiment and sufficiently satisfied our selection criteria was 23, where 10 users were classified as \emph{beginners}, 7 users were classified as \emph{intermediates}, and 6 users were classified as \emph{veterans}. As will be explained in section \ref{sec:experiment-methodology}, we divided our total user base in two groups. Unfortunately, we were unable to acquire an even number of intermediate candidates for a symmetrical division, and the number of intermediate and veteran candidates was significantly lower than than the number of casual players which applied. 
+The total number of users which participated in ther experiment and sufficiently satisfied our selection criteria was 23, where 10 users were classified as \emph{beginners}, 7 users were classified as \emph{intermediates}, and 6 users were classified as \emph{veterans}. As will be explained in section \ref{sec:experiment-methodology}, we divided our total user base in two groups. Unfortunately, we were unable to acquire an even number of intermediate candidates for a symmetrical division, and the number of intermediate and veteran candidates was significantly lower than than the number of casual players which applied.
 
-% TODO Include table with brief info on user base sizes
+Table \ref{tab:user-base-sizes} specifies the definition used in our experiment for each user category, as well as the amount of users in each category which participated in our experiment.
+
+% Event Instance
+%   • Timestamp ( Time : double )
+%   • Name ( String )
+%   • Category ( String )
+%   • Source ( ObjectId : GUID )
+%   • Params[]
+%       • { "name", "type", "value" }
+
+% Table with user classifications
+\begin{table}[!ht]
+    \begin{center}
+      \caption{Users for each user classification category in our experiment.}
+      \label{tab:user-base-sizes}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ w{l}{5em} w{r}{2em} m{25em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Group & \bf Users  & \bf Definition \\
+        \midrule
+        % Data
+        Beginners & 10 & Weekly playtime between 0 and 3 hours; Comfortable with at most 3 different genres different than action games; Have not achieved 50\% completion on a \emph{Souls-like} game. \\
+        Intermediate & 7 & Weekly playtime between 4 and 10 hours; Comfortable with at least 3 game genres which include action games; Have achieved at least 50\% completion on a single \emph{Souls-like} game. \\
+        Veterans & 6 & Weekly playtime above 10 hours; Have at least 4 comfortable game genres which include action games; Have completed two or more \emph{Souls-like} games. \\
+        Total & 23 & All players in our experiment. \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
 
 % =================================================================
 % =================================================================
@@ -236,7 +273,11 @@ The total number of users which participated in ther experiment and sufficiently
 %       - Segment 1: N-dimensional adaptive difficulty
 %       - Segment 2: Fixed difficulty modes
 
-
+As specified in the earlier sections of this chapter, we divide our user base in two similarly sized groups to evaluate the effects of DDA systems in the learning curve for beginners and in the challenge level for proficient players:
+\begin{itemize}
+    \item{Group A: Fixed Difficulty in the first playthrough (Part 1), and Dynamic Difficulty in the second playthrough (Part 2);}
+    \item{Group B: Dynamic Difficulty in the first playthrough (Part 1), and Fixed Difficulty in the second playthrough (Part 2).}
+\end{itemize}
 
 % Number in user groups
 % ===================
@@ -249,7 +290,17 @@ The total number of users which participated in ther experiment and sufficiently
 %       - Intermediates: 3
 %       - Veterans: 3
 
-% TODO add figure with consolidated user group numbers
+Regarding our division of the user groups, we attempted to divide our user base simetrically based on each category, as a means to attempt to compare the statistics of each group with the same sample size. Each group contains the same or a similar amount of users for each classification described in section \ref{sec:user-base-classification}. As a result, in \emph{Group A} consisted of a total amount of 12 users, with 5 beginners, 4 intermediates and 3 veterans. \emph{Group B} consisted of 11 users, with 5 beginners, 4 intermediates and 3 veterans. Figure \ref{fig:user-group-sizes} illustrates the division and sample size of each user group, separating each group in the classifications defined in section \ref{sec:user-base-classification}.
+
+% Figure with consolidated user group numbers
+\begin{figure}[!ht]
+    \caption{Chart representing the size of each experiment group, separated by our user classification.}
+    \begin{center}
+        \includegraphics[width=26em]{figures/fig-user-groups.png}
+    \end{center}
+    \legend{Source: Chart assembled by authors.}
+    \label{fig:user-group-sizes}
+\end{figure}
 
 \subsection{Experiment Flow}
 
@@ -262,16 +313,21 @@ The total number of users which participated in ther experiment and sufficiently
 %   - Step 4: Play through part 2
 %   - Step 5: Perform player perception & comparison survey
 
+\begin{enumerate}
+    \item{User performs the Player Classification Survey;}
+    \item{User is classified as a Beginner, Intermediate or Veteran;}
+    \item{User is assigned to Group A or Group B;}
+    \item{User plays through Part 1 of the Experiment (First Playthrough);}
+    \item{User plays through Part 2 of the Experiment (Second Playthrough);}
+    \item{User performs the Player Perception Survey.}
+\end{enumerate}
+
 % TODO add figure illustrating experiment flow
 
 \subsection{Metrics}
 
 % Explanation of used Metrics
 % ===================
-%   - Player Adaptive System Performance Metrics
-%       -
-%       -
-%   - Player Perception & Comparison Survey
 
 % Negative Metrics (lower is better)
 %   - Avg. Completion Time per Level
