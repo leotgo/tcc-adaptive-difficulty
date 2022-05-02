@@ -683,11 +683,10 @@
 \captiondelim{ -- }
 \setlength{\abovecaptionskip}{0pt}
 \setlength{\belowcaptionskip}{0pt}
+\setlength{\abovelegendskip}{0pt}
 \setlength{\belowlegendskip}{0pt}
 
 \captiontitlefont{\small}
-
-
 
 
 %==============================================================================
