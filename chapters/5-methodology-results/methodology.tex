@@ -153,9 +153,7 @@ We also require that players use similar input interface methods, to ensure that
     \end{itemize}
 \end{itemize}
 
-We apply some of the aforementioned criteria through a \emph{Player Classification Survey}, which is further detailed in section \ref{sec:user-base-classification}. The Player Classification survey is also used to categorize our users in skill-based classification groups, such as \emph{Beginner}, \emph{Intermediate} and \emph{Veteran} users. Information on the specific questions and metrics used in the classification survey can be seen in appendix \ref{anx:player-classification-survey}. Regarding the topics not covered in the classification survey, we applied a secondary \emph{Player Experiment Requirements Survey}, which can be seen in \ref{anx:player-experiment-requirements-survey}.
-
-% TODO add annex with the Player Classification Survey
+We apply some of the aforementioned criteria through a \emph{Player Classification Survey}, which is further detailed in section \ref{sec:user-base-classification}. The Player Classification survey is also used to categorize our users in skill-based classification groups, such as \emph{Beginner}, \emph{Intermediate} and \emph{Veteran} users. Information on the specific questions and metrics used in the classification survey can be seen in appendix \ref{anx:player-classification-survey}. Regarding the topics not covered in the classification survey, we applied a secondary \emph{Player Experiment Requirements Survey}, which can be seen in \ref{anx:player-experiment-requirements-survey}
 
 % TODO add photo of how the environment for the experiment was supposed to be
 
@@ -298,10 +296,10 @@ Regarding our division of the user groups, we attempted to divide our user base 
 \begin{figure}[!ht]
     \begin{center}
     \caption{Chart representing the size of each experiment group, separated by our user classification.}
-        \includegraphics[width=26em]{figures/fig-user-groups.png}
+        \includegraphics[width=24em]{figures/fig-user-groups.png}
         \legend{Source: Chart assembled by authors.}
+        \label{fig:user-group-sizes}
     \end{center}
-    \label{fig:user-group-sizes}
 \end{figure}
 
 \subsection{Experiment Flow}
@@ -315,6 +313,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
 %   - Step 4: Play through part 2
 %   - Step 5: Perform player perception & comparison survey
 
+Regarding the execution of our experiment, we defined the following series of steps which are performed by users to classify and group users, and collect data for each group based on our initial classification:
+
 \begin{enumerate}
     \item{User performs the Player Classification Survey;}
     \item{User is classified as a Beginner, Intermediate or Veteran;}
@@ -324,7 +324,17 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \item{User performs the Player Perception Survey.}
 \end{enumerate}
 
-% TODO add figure illustrating experiment flow
+Figure \ref{fig:experiment-flow} illustrates the aforementioned process in the form of a diagram.
+
+% Figure with consolidated user group numbers
+\begin{figure}[!ht]
+    \begin{center}
+    \caption{Diagram representing the steps performed by users in our experiment.}
+        \includegraphics[width=18em]{figures/fig-experiment-flow.png}
+        \legend{Source: Diagram assembled by authors.}
+        \label{fig:experiment-flow}
+    \end{center}
+\end{figure}
 
 \subsection{Metrics}
 
@@ -438,8 +448,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Adjustment Target (Y) per Level (X) for Beginners.}
         \includegraphics[width=34em]{figures/adjustment_target_level-beginner_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-beginners-adjustment-target-level}
     \end{center}
-    \label{fig:result-metric-beginners-adjustment-target-level}
 \end{figure}
 
 %attack_avoidance_efficiency
@@ -450,8 +460,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Attack Avoidance Efficiency (Y) per Level (X) for Beginners.}
         \includegraphics[width=34em]{figures/attack_avoidance_efficiency-beginner_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-beginners-attack-avoidance-efficiency}
     \end{center}
-    \label{fig:result-metric-beginners-attack-avoidance-efficiency}
 \end{figure}
 
 %attack_window_efficiency
@@ -462,8 +472,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Attack Window Efficiency (Y) per Level (X) for Beginners.}
         \includegraphics[width=34em]{figures/attack_window_efficiency-beginner_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-beginners-attack-window-efficiency}
     \end{center}
-    \label{fig:result-metric-beginners-attack-window-efficiency}
 \end{figure}
 
 %completion_time
@@ -474,8 +484,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Completion Time (Y) per Level (X) for Beginners.}
         \includegraphics[width=34em]{figures/completion_time-beginner_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-beginners-completion-time}
     \end{center}
-    \label{fig:result-metric-beginners-completion-time}
 \end{figure}
 
 %damage_dealt_per_10s
@@ -486,8 +496,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Damage Dealt per 10 seconds (Y) per Level (X) for Beginners.}
         \includegraphics[width=34em]{figures/damage_dealt_per_10s-beginner_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-beginners-damage-dealt-per-10s}
     \end{center}
-    \label{fig:result-metric-beginners-damage-dealt-per-10s}
 \end{figure}
 
 %deaths_per_level
@@ -498,8 +508,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Deaths (Y) per Level (X) for Beginners.}
         \includegraphics[width=34em]{figures/deaths_per_level-beginner_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-beginners-deaths-per-level}
     \end{center}
-    \label{fig:result-metric-beginners-deaths-per-level}
 \end{figure}
 
 %health_lost_per_encounter
@@ -510,8 +520,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Health Lost per Encounter (Y) per Level (X) for Beginners.}
         \includegraphics[width=34em]{figures/health_lost_per_encounter-beginner_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-beginners-health-lost-per-encounter}
     \end{center}
-    \label{fig:result-metric-beginners-health-lost-per-encounter}
 \end{figure}
 
 % ==================================================
@@ -559,8 +569,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Adjustment Target (Y) per Level (X) for Intermediates.}
         \includegraphics[width=34em]{figures/adjustment_target_level-intermediate_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-intermediate-adjustment-target-level}
     \end{center}
-    \label{fig:result-metric-intermediate-adjustment-target-level}
 \end{figure}
 
 %attack_avoidance_efficiency
@@ -571,8 +581,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Attack Avoidance Efficiency (Y) per Level (X) for Intermediates.}
         \includegraphics[width=34em]{figures/attack_avoidance_efficiency-intermediate_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-intermediates-attack-avoidance-efficiency}
     \end{center}
-    \label{fig:result-metric-intermediates-attack-avoidance-efficiency}
 \end{figure}
 
 %attack_window_efficiency
@@ -583,8 +593,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Attack Window Efficiency (Y) per Level (X) for Intermediates.}
         \includegraphics[width=34em]{figures/attack_window_efficiency-intermediate_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-intermediates-attack-window-efficiency}
     \end{center}
-    \label{fig:result-metric-intermediates-attack-window-efficiency}
 \end{figure}
 
 %completion_time
@@ -595,8 +605,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Completion Time (Y) per Level (X) for Intermediates.}
         \includegraphics[width=34em]{figures/completion_time-intermediate_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-intermediates-completion-time}
     \end{center}
-    \label{fig:result-metric-intermediates-completion-time}
 \end{figure}
 
 %damage_dealt_per_10s
@@ -607,8 +617,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Damage Dealt per 10 seconds (Y) per Level (X) for Intermediates.}
         \includegraphics[width=34em]{figures/damage_dealt_per_10s-intermediate_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-intermediates-damage-dealt-per-10s}
     \end{center}
-    \label{fig:result-metric-intermediates-damage-dealt-per-10s}
 \end{figure}
 
 %deaths_per_level
@@ -619,8 +629,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Deaths (Y) per Level (X) for Intermediates.}
         \includegraphics[width=34em]{figures/deaths_per_level-intermediate_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-intermediates-deaths-per-level}
     \end{center}
-    \label{fig:result-metric-intermediates-deaths-per-level}
 \end{figure}
 
 %health_lost_per_encounter
@@ -631,8 +641,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Health Lost per Encounter (Y) per Level (X) for Intermediates.}
         \includegraphics[width=34em]{figures/health_lost_per_encounter-intermediate_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-intermediates-health-lost-per-encounter}
     \end{center}
-    \label{fig:result-metric-intermediates-health-lost-per-encounter}
 \end{figure}
 
 % ==================================================
@@ -680,8 +690,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Adjustment Target (Y) per Level (X) for Veterans.}
         \includegraphics[width=34em]{figures/adjustment_target_level-veteran_players.png}
     \legend{Source: Assembled by authors.}
-    \end{center}
     \label{fig:result-metric-veteran-adjustment-target-level}
+    \end{center}
 \end{figure}
 
 %attack_avoidance_efficiency
@@ -692,8 +702,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
         \caption{Avg. Attack Avoidance Efficiency (Y) per Level (X) for Veterans.}
         \includegraphics[width=34em]{figures/attack_avoidance_efficiency-veteran_players.png}
     \legend{Source: Assembled by authors.}
-    \end{center}
     \label{fig:result-metric-veterans-attack-avoidance-efficiency}
+    \end{center}
 \end{figure}
 
 %attack_window_efficiency
@@ -704,8 +714,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Attack Window Efficiency (Y) per Level (X) for Veterans.}
         \includegraphics[width=34em]{figures/attack_window_efficiency-veteran_players.png}
     \legend{Source: Assembled by authors.}
-    \end{center}
     \label{fig:result-metric-veterans-attack-window-efficiency}
+    \end{center}
 \end{figure}
 
 %completion_time
@@ -716,8 +726,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Completion Time (Y) per Level (X) for Veterans.}
         \includegraphics[width=34em]{figures/completion_time-veteran_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-veterans-completion-time}
     \end{center}
-    \label{fig:result-metric-veterans-completion-time}
 \end{figure}
 
 %damage_dealt_per_10s
@@ -728,8 +738,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Damage Dealt per 10 seconds (Y) per Level (X) for Veterans.}
         \includegraphics[width=34em]{figures/damage_dealt_per_10s-veteran_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-veterans-damage-dealt-per-10s}
     \end{center}
-    \label{fig:result-metric-veterans-damage-dealt-per-10s}
 \end{figure}
 
 %deaths_per_level
@@ -740,8 +750,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Deaths (Y) per Level (X) for Veterans.}
         \includegraphics[width=34em]{figures/deaths_per_level-veteran_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-veterans-deaths-per-level}
     \end{center}
-    \label{fig:result-metric-veterans-deaths-per-level}
 \end{figure}
 
 %health_lost_per_encounter
@@ -752,8 +762,8 @@ Regarding our division of the user groups, we attempted to divide our user base 
     \caption{Avg. Health Lost per Encounter (Y) per Level (X) for Veterans.}
         \includegraphics[width=34em]{figures/health_lost_per_encounter-veteran_players.png}
         \legend{Source: Assembled by authors.}
+        \label{fig:result-metric-veterans-health-lost-per-encounter}
     \end{center}
-    \label{fig:result-metric-veterans-health-lost-per-encounter}
 \end{figure}
 
 % =================================================================

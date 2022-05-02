@@ -165,12 +165,12 @@ According to the Theory of Flow, the main components of Flow are a challenging a
 The Theory of Flow also states that to maintain the state of Flow, the challenge of an activity must be balanced to the abilities of the person performing it. This concept is known as \emph{Flow Channel} or \emph{Flow Zone}. This can be translated directly to the concepts of Difficulty and player Skill Level in gaming. Different players will present different Flow Channels. Hardcore players will prefer more aggressive challenge scaling in comparison to their skill, whereas Casual or Novice players will prefer a more subtle introduction to the game's complexity \cite{ARTICLE_FlowInGames}. Figure \ref{fig:flow-channel} exemplifies the \emph{Flow Channel}, where a balance of difficulty and player skill denotes the optimal conditions for player immersion and focus.
 
 \begin{figure}
-    \caption{A visual representation of the concept of \emph{Flow Channel} or \emph{Flow Zone} discussed by \citet{BOOK_Flow}.}
     \begin{center}
+    \caption{A visual representation of the concept of \emph{Flow Channel} or \emph{Flow Zone} discussed by \citet{BOOK_Flow}.}
         \includegraphics[width=26em]{figures/fig-flow-channel.png}
+        \legend{Source: Diagram assembled by the authors based on the concepts defined by \citet{BOOK_Flow}.}
+        \label{fig:flow-channel}
     \end{center}
-    \legend{Source: Diagram assembled by the authors based on the concepts defined by \citet{BOOK_Flow}.}
-    \label{fig:flow-channel}
 \end{figure}
 
 The balance between challenge and skill strongly contributes to the optimal experience of a player, and is referred to as a defining factor on the quality of a game \cite{ARTICLE_FearOfFailure}. We argue that we can balance the level of challenge through AGT. By acquiring information on the profile and preferences of a player, we can either ramp up the difficulty or encourage the learning process. Therefore, we understand that the usage of AGT can directly contribute to a positive experience.
@@ -181,12 +181,12 @@ The balance between challenge and skill strongly contributes to the optimal expe
 Another interesting concept in games is the \emph{learning curve} \cite{article_learningcurve}. The learning curve depicts how easy it is to become used to the game's mechanics and systems. Game Developers often consider the learning curve as a key reference when performing level design. The first few levels of a game should enable the player to learn each mechanic in an isolated and controlled environment, whereas the last levels of a game should be designed considering that the player has knowledge about all the mechanics proposed by the game designer, and thus should present challenges that require mastery of each mechanic to surpass. Figure \ref{fig:difficulty-curves} depicts multiple possibilities for difficulty curves as a function of player progress in a game.
 
 \begin{figure}
-    \caption{Examples of the distribution of difficulty in games as a function of player progress.}
     \begin{center}
+    \caption{Examples of the distribution of difficulty in games as a function of player progress.}
         \includegraphics[width=26em]{figures/fig-difficulty-curves.png}
+        \legend{Source: Diagram assembled by the authors.}
+        \label{fig:difficulty-curves}
     \end{center}
-    \legend{Source: Diagram assembled by the authors.}
-    \label{fig:difficulty-curves}
 \end{figure}
 
 Perhaps the most notable example in teaching game mechanics through a concise learning curve is seen the famous game \emph{Super Mario Bros} \sepfootnote{fn:smb-original} in World 1-1, as addressed by \citet{video_extracreditsmario11}. In the first thirty seconds of gameplay, the player is able to learn that they must progress going to the right, that enemies must be avoided or eliminated by jumping in their heads and that special blocks hide valuable rewards such as additional lives. All the mechanics are taught without a single line of text or on-screen dialog box. Instead, the game teaches them by simply using the player's curiosity with an ingenious placement of game entities.
@@ -248,12 +248,12 @@ Attributes in this implementation consist of values between 0 and 1, indicating 
 The concept of player models is used as a basis for dynamic adjustments in the framework described in \citet{ARTICLE_DynamicPlayerModelling}. The authors describe a methodology for the conception of player models that considers the existence of \emph{concept drift}, which is the possibility of players adapting or changing behaviors and play styles according to their evolution or progress in a game. The framework relies on two sources of data related to players: information of player preferences inputted by a player prior to application use and tracking player performance in-game. Figure \ref{fig:dynamic-player-model} exemplifies the dynamic player model framework.
 
 \begin{figure}[!ht]
-    \caption{A representation of the dynamic player modelling framework discussed in \citet{ARTICLE_DynamicPlayerModelling}.}
     \begin{center}
+    \caption{A representation of the dynamic player modelling framework discussed in \citet{ARTICLE_DynamicPlayerModelling}.}
         \includegraphics[width=26em]{figures/fig-dynamic-player-model.png}
+        \legend{Source: Diagram assembled by the authors based on visual representations in \citet{ARTICLE_DynamicPlayerModelling}.}
+        \label{fig:dynamic-player-model}
     \end{center}
-    \legend{Source: Diagram assembled by the authors based on visual representations in \citet{ARTICLE_DynamicPlayerModelling}.}
-    \label{fig:dynamic-player-model}
 \end{figure}
 
 The discussion in \citet{ARTICLE_DynamicPlayerModelling} emphasizes the necessity of remodelling player types after measuring the effectiveness of adaptation. This means that a DDA system should be able to gather some type of player feedback regarding the effectiveness of the dynamic adjustments that were performed during play, and recreate the player profile based on this feedback. Some methods for gathering such feedback include inferring the player's affective state, such as with physiological sensors or from a camera or an analysis of statistical data retrieved from in-game attributes, such as player performance or their action history.
@@ -407,12 +407,12 @@ Three difficulty levels were implemented in total, which would be assigned depen
 % * Figure: Performance-based and anxiety based adaptation
 % * ================
 \begin{figure}[!h]
-    \caption{A state-flow diagram representation of the performance-based and anxiety-based adaptation variants in \citet{article_affectivedda}.}
     \begin{center}
+    \caption{A state-flow diagram representation of the performance-based and anxiety-based adaptation variants in \citet{article_affectivedda}.}
         \includegraphics[width=26em]{figures/fig-affective-adaptation.png}
+        \legend{Source: Diagram assembled by the authors based on visual representations in \citet{article_affectivedda}.}
+        \label{fig:affective-adaptation}
     \end{center}
-    \legend{Source: Diagram assembled by the authors based on visual representations in \citet{article_affectivedda}.}
-    \label{fig:affective-adaptation}
 \end{figure}
 
 % * Results of Affect-based System
