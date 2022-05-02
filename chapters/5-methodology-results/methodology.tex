@@ -47,7 +47,7 @@ The hypotheses defined have the intent of comparing DDA systems to fixed difficu
 % =========================
 
 % Most common causes of failure are discovery
-As discussed in chapter \label{ch:analysis-dark-souls}, the most prevalent causes of failure in a first playthrough in \emph{Souls-like} games are becoming used to the game's input and its resulting actions, understanding the principles of the most relevant game mechanics, and memorizing patterns of enemies or level layouts. In a second playthrough, players will generally have achieved a consolidated understanding of which elements provide the most significant challenge, and how to use the game's mechanics in a way that maximizes their chances of success.
+As discussed in chapter \ref{ch:analysis-object-study}, the most prevalent causes of failure in first playthroughs of \emph{Souls-like} games include becoming used to the game's input and its resulting actions, understanding the principles of the most relevant game mechanics, and memorizing patterns of enemies or level layouts. In a second playthrough, players will generally have achieved a consolidated understanding of which elements provide the most significant challenge, and how to use the game's mechanics in a way that maximizes their chances of success.
 
 % We wish to validate that 
 Therefore, failure is often part of the process of learning in a first playthrough. Presenting the player with a slight difficulty spike at a specific point in the game could be a tool to accelerate the process of learning a specific game mechanic, given that the level of challenge is not overtly contrasted to the player's skill. Thus, we wish to validate our hypothesis that the performance of players which experience Dynamic Difficulty first is higher than those which experience fixed difficulty first, as they become used to the game's mechanics and challenges.
@@ -216,9 +216,7 @@ Therefore, we define \emph{beginner} players as players with a weekly playtime b
 %       - Intermediates: 7
 %       - Veterans: 6
 
-The total number of users which participated in ther experiment and sufficiently satisfied our selection criteria was 23, where 10 users were classified as \emph{beginners}, 7 users were classified as \emph{intermediates}, and 6 users were classified as \emph{veterans}. As will be explained in section \ref{sec:experiment-methodology}, we divided our total user base in two groups. Unfortunately, we were unable to acquire an even number of intermediate candidates for a symmetrical division, and the number of intermediate and veteran candidates was significantly lower than than the number of casual players which applied.
-
-Table \ref{tab:user-base-sizes} specifies the definition used in our experiment for each user category, as well as the amount of users in each category which participated in our experiment.
+The total number of users which participated in ther experiment and sufficiently satisfied our selection criteria was 23, where 10 users were classified as \emph{beginners}, 7 were classified as \emph{intermediates}, and 6 were classified as \emph{veterans}. Unfortunately, we were unable to acquire an even number of intermediate candidates for a symmetrical division. As will be explained in section \ref{sec:experiment-methodology}, we divided our total user base in two groups. Table \ref{tab:user-base-sizes} specifies the definition used in our experiment for each user category, as well as the amount of users in each category which participated in our experiment.
 
 % Event Instance
 %   • Timestamp ( Time : double )
@@ -351,8 +349,14 @@ Additionally, it is important to note that there was no automated method assign 
 % Positive Metrics (higher is better)
 %   - Avg. Attack Avoidance Efficiency
 %   - Avg. Attack Window Efficiency
-%   - ? Avg. Damage Dealt Per 10s In Encounters
-%   - ? Avg. Stamina Level In Encounters
+%   - Avg. Damage Dealt Per 10s In Encounters
+%   - Avg. Stamina Level In Encounters
+
+To verify the validity of our hypotheses in each group, we gathered a subset of the metrics which are originally calculated by our application to serve as input for adjustment policies. Such metrics are selected based on their relevance in assessing the overall performance of a player, which will be evaluated in the context of the first and second playthroughs.
+
+Furthermore, we specifically wish to evaluate performance regarding the effectiveness of players to complete game levels -- which includes traversing through environments, defeating enemies and avoiding defeat. Therefore, the metrics selected to define player performance in this experiment attempt to satisfy the efficiency and effectiveness of players when performing game mechanics which help them complete levels faster, defeat enemies faster and avoiding taking damage.
+
+Thus, we selected the following metrics as our objects of analysis: \emph{Average Completion Time per Level}, \emph{Average Number of Deaths per Level}, \emph{Avg. Health Lost per Encounter per Level}, \emph{Average Attack Avoidance Efficiency}, \emph{Average Attack Window Efficiency}, \emph{Average Damage Dealt per 10s in Encounters} and \emph{Average Stamina Level in Encounters}. Table \ref{tab:descriptions-performance-metrics} attempts to provide a brief description of the purpose and unit of measure of each selected metric.
 
 % Table with Descriptions for Performance Metrics used for Evaluating Player Performance
 \begin{table}[!ht]
@@ -360,35 +364,105 @@ Additionally, it is important to note that there was no automated method assign 
       \caption{Descriptions of the Performance Metrics used to evaluate Players.}
       \label{tab:descriptions-performance-metrics}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ m{6em} m{27em} } % alignments and column size
+      \begin{tabular}{ w{c}{6em} m{27em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
         \bf Metric & \bf Description  \\
         \midrule
         % Data
-        \makecell[c]{Adjustment\\Target} & \\
-        \makecell[c]{Attack\\Avoidance\\Efficiency} & \\
-        \makecell[c]{Attack\\Window\\Efficiency} & \\
-        \makecell[c]{Completion\\Time} & \\
-        \makecell[c]{Damage Dealt\\per 10 seconds} & \\
-        \makecell[c]{Deaths per\\Level} & \\
-        \makecell[c]{Health Lost\\per Encounter} & \\
+        \makecell[c]{Adjustment\\Targets\\Average} & Consolidated average $x$ of all \emph{ajustment target} values $v_n \in \{1, 2, 3\}$ of a player at a given level. A value of 1 in this metric would mean that all adjustment values would map to the beginner-level fixed difficulty, while a value of 3 would mean that all adjustment values would map to the veteran-level fixed difficulty. \\
+        \makecell[c]{Attack\\Avoidance\\Efficiency} & The percent of attacks, with value $v \in \mathbb{R}(0, 1)$, that the player successfully avoids at a given level by \emph{dodging}, \emph{blocking} or simply moving away from the attack's area of effect. \\
+        \makecell[c]{Attack\\Window\\Efficiency} & The percent of time, with value $v \in \mathbb{R}(0, 1)$, in which an enemy character is \emph{vulnerable} and the player is performing an attack. A \emph{vulnerable} enemy is in one of the following conditions: \emph{staggered}, in an \emph{animation lock} or in \emph{cooldown}. \\
+        \makecell[c]{Completion\\Time} & The amount of time, with value $v \in \mathbb{R}$ and represented in minutes, which elapses between when the player is given control of their character after a given level starts, and when the player succesfully reaches the end of such level. \\
+        \makecell[c]{Damage Dealt\\per 10 seconds} & The average amount of damage dealt by a player for every 10 seconds of combat, with value $v \in \mathbb{R}$ and measured in health points, during the combat encounters at a given level. Combat encounters start when the first enemy i a group engages the player and is able to attack, and ends when the last enemy of the group is defeated. \\
+        \makecell[c]{Deaths per\\Level} & The number of deaths, with value $v \in \mathbb{N}$, of a player at a given level. \\
+        \makecell[c]{Health Lost\\per Encounter} & The average amount of health lost by players, with value $v \in \mathbb{R}$, for all combat encounters at a given level.  \\
         \bottomrule
       \end{tabular}
     \end{center}
 \end{table}
 
 \subsection{Player Perception Survey}
+
 % Player Perception & Comparison Survey Motivation and Details
 % ===================
 
-%   - Verify if gameplay, aesthetics and challenge meet player expectations for a Dark Souls replica
-%   - Observe performance metrics & define adjustment thresholds
+Verify if the game presents any usability problems which could affect user performance and skew experiment results
 
-% TODO add table with the questions and their objective
+Verify if gameplay, aesthetics and challenge meet player expectations for a Dark Souls replica
 
-% TODO Add annex with the Player Perception Survey
+Verify if the player perception of difficulty is congruent with their performance
+
+Further details on how the survey is presented to users can be seen in Appendix \ref{anx:player-perception-survey}.
+
+\begin{table}
+    \begin{center}
+      \caption{Aggregate Perception Assessments in the Player Perception Survey.}
+      \label{tab:player-perception-survey-questions-pt1}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ w{c}{9em} w{c}{5em} m{17em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Assessment & \bf Category & \bf Objective  \\
+        \midrule
+        % Data
+        \makecell[c]{I think the gameplay\\was satisfying} & Aesthetics & Evaluate if the gameplay is sufficiently satisfactory to players. \\
+        \makecell[c]{I think the graphics\\were visually appealing} & Aesthetics & Evaluate if the visuals are sufficiently appealing to players. \\
+        \makecell[c]{I think the sounds\\provided proper\\feedback to actions} & Aesthetics & Evaluate if the audio harmonizes with the visuals and actions performed by players. \\
+        \makecell[c]{I felt interested\\to the game} & Aesthetics & Evaluate if users were motivated to play the game during the experiment. \\
+        \makecell[c]{I think the game was\\hard to understand} & Learning & Evaluate if users had issues understanding basic game elements.  \\
+        \makecell[c]{I think the game\\was easy to play} & Learning & Evaluate if users had ease with executing basic game mechanics.  \\
+        \makecell[c]{I think the game\\was easy to learn} & Learning & Evaluate if users had ease with learning how to play. \\
+        \makecell[c]{I think the game\\was difficult} & Difficulty & Evaluate if users perceived the game as generally difficult to complete. \\
+        \makecell[c]{I think the difficulty\\was unfair} & Difficulty & Evaluate if the game presented a significantly higher level of challenge in comparison to the skill level of players. \\
+        \makecell[c]{I had trouble with\\the game controls} & Usability & Evaluate if players had issues caused by button mapping, basic mechanics or input device compatibility issues. \\
+        \makecell[c]{I had trouble\\hitting enemies} & Usability & Evaluate if players had issues caused by failures in the hit detection system. \\
+        \makecell[c]{I had trouble defending\\against enemies} & Usability & \\
+        \makecell[c]{I had trouble dodging\\enemy attacks} & Usability & \\
+        \makecell[c]{I had trouble with\\a specific enemy} & Usability & \\
+        \makecell[c]{I had trouble finding\\out where to go} & Usability & \\
+        \makecell[c]{I had a hard\\time playing} & Usability & \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
+
+\begin{table}
+    \begin{center}
+      \caption{Group-based Perception Assessments in the Player Perception Survey.}
+      \label{tab:player-perception-survey-questions-pt2}
+      \rowcolors{2}{}{gray!25} % Alternate row colors
+      \begin{tabular}{ w{c}{10em} w{c}{5em} m{17em} } % alignments and column size
+        \addlinespace
+        \toprule
+        % Headings
+        \bf Assessment & \bf Category & \bf Objective  \\
+        \midrule
+        % Data
+        \makecell[c]{I think the enemies\\were challenging} & Difficulty & \\
+        \makecell[c]{I think the enemies were\\too challenging for me} & Difficulty & \\
+        \makecell[c]{I think the enemies\\were too easy for me} & Difficulty & \\
+        \makecell[c]{I think the enemies in\\later levels were harder} & Difficulty & \\
+        \makecell[c]{I found myself\\constantly outnumbered} & Learning & \\
+        \makecell[c]{I learned how to defend\\against enemy attacks} & Learning & \\
+        \makecell[c]{I learned how to\\dodge enemy attacks} & Learning & \\
+        \makecell[c]{I think the second version\\was easier than the first} & Improvement & \\
+        \makecell[c]{I think the second version\\was harder than the first} & Improvement & \\
+        \makecell[c]{I think the enemies\\in the second version\\were smarter} & Improvement & \\
+        \makecell[c]{I think the enemies\\in the second version\\were dumber} & Improvement & \\
+        \makecell[c]{I felt confident in my\\first time playing} & Improvement & \\
+        \makecell[c]{I think I did better in\\my second time playing} & Improvement & \\
+        \makecell[c]{I felt more confident in\\the second time playing} & Improvement & \\
+        \makecell[c]{I felt frustrated\\while playing} & Feeling & \\
+        \makecell[c]{I felt anxious\\while playing} & Feeling & \\
+        \makecell[c]{I felt bored\\while playing} & Feeling & \\
+        \makecell[c]{I felt comfortable\\while playing} & Feeling & \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+\end{table}
 
 % =================================================================
 % =================================================================
@@ -430,7 +504,7 @@ Additionally, it is important to note that there was no automated method assign 
         \bf Metric & \bf Observations  \\
         \midrule
         % Data
-        \makecell[c]{Adjustment\\Target} & \\
+        \makecell[c]{Adjustment\\Targets\\Average} & \\
         \makecell[c]{Attack\\Avoidance\\Efficiency} & \\
         \makecell[c]{Attack\\Window\\Efficiency} & \\
         \makecell[c]{Completion\\Time} & \\
@@ -445,9 +519,9 @@ Additionally, it is important to note that there was no automated method assign 
 %adjustment_target_level
 % Avg Adjustment Target per Level - Beginners
 % =======================
-\begin{figure}[!ht]
+\begin{figure}
     \begin{center}
-    \caption{Avg. Adjustment Target (Y) per Level (X) for Beginners.}
+    \caption{Avg. Adjustment Targets Average (Y) per Level (X) for Beginners.}
         \includegraphics[width=34em]{figures/adjustment_target_level-beginner_players.png}
         \legend{Source: Assembled by authors.}
         \label{fig:result-metric-beginners-adjustment-target-level}
@@ -551,7 +625,7 @@ Additionally, it is important to note that there was no automated method assign 
         \bf Metric & \bf Observations  \\
         \midrule
         % Data
-        \makecell[c]{Adjustment\\Target} & \\
+        \makecell[c]{Adjustment\\Targets\\Average} & \\
         \makecell[c]{Attack\\Avoidance\\Efficiency} & \\
         \makecell[c]{Attack\\Window\\Efficiency} & \\
         \makecell[c]{Completion\\Time} & \\
@@ -568,7 +642,7 @@ Additionally, it is important to note that there was no automated method assign 
 % =======================
 \begin{figure}[!ht]
     \begin{center}
-    \caption{Avg. Adjustment Target (Y) per Level (X) for Intermediates.}
+    \caption{Avg. Adjustment Targets Average (Y) per Level (X) for Intermediates.}
         \includegraphics[width=34em]{figures/adjustment_target_level-intermediate_players.png}
         \legend{Source: Assembled by authors.}
         \label{fig:result-metric-intermediate-adjustment-target-level}
@@ -689,7 +763,7 @@ Additionally, it is important to note that there was no automated method assign 
 % =======================
 \begin{figure}[!ht]
     \begin{center}
-    \caption{Avg. Adjustment Target (Y) per Level (X) for Veterans.}
+    \caption{Avg. Adjustment Targets Average (Y) per Level (X) for Veterans.}
         \includegraphics[width=34em]{figures/adjustment_target_level-veteran_players.png}
     \legend{Source: Assembled by authors.}
     \label{fig:result-metric-veteran-adjustment-target-level}

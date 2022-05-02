@@ -54,3 +54,5 @@ rscripts/barcharts/chart_graphs/deaths_per_level-veteran_players.png
 rscripts/barcharts/chart_graphs/health_lost_per_encounter-beginner_players.png
 rscripts/barcharts/chart_graphs/health_lost_per_encounter-intermediate_players.png
 rscripts/barcharts/chart_graphs/health_lost_per_encounter-veteran_players.png
+rscripts/barcharts/.RData
+rscripts/barcharts/.Rhistory
