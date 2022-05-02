@@ -375,7 +375,7 @@ Thus, we selected the following metrics as our objects of analysis: \emph{Averag
         \makecell[c]{Attack\\Avoidance\\Efficiency} & The percent of attacks, with value $v \in \mathbb{R}(0, 1)$, that the player successfully avoids at a given level by \emph{dodging}, \emph{blocking} or simply moving away from the attack's area of effect. \\
         \makecell[c]{Attack\\Window\\Efficiency} & The percent of time, with value $v \in \mathbb{R}(0, 1)$, in which an enemy character is \emph{vulnerable} and the player is performing an attack. A \emph{vulnerable} enemy is in one of the following conditions: \emph{staggered}, in an \emph{animation lock} or in \emph{cooldown}. \\
         \makecell[c]{Completion\\Time} & The amount of time, with value $v \in \mathbb{R}$ and represented in minutes, which elapses between when the player is given control of their character after a given level starts, and when the player succesfully reaches the end of such level. \\
-        \makecell[c]{Damage Dealt\\per 10 seconds} & The average amount of damage dealt by a player for every 10 seconds of combat, with value $v \in \mathbb{R}$ and measured in health points, during the combat encounters at a given level. Combat encounters start when the first enemy i a group engages the player and is able to attack, and ends when the last enemy of the group is defeated. \\
+        \makecell[c]{Damage Dealt\\per 10 seconds} & The average amount of damage dealt by a player for every 10 seconds of combat, with value $v \in \mathbb{R}$ and measured in health points, during the combat encounters at a given level. \\
         \makecell[c]{Deaths per\\Level} & The number of deaths, with value $v \in \mathbb{N}$, of a player at a given level. \\
         \makecell[c]{Health Lost\\per Encounter} & The average amount of health lost by players, with value $v \in \mathbb{R}$, for all combat encounters at a given level.  \\
         \bottomrule
@@ -388,42 +388,62 @@ Thus, we selected the following metrics as our objects of analysis: \emph{Averag
 % Player Perception & Comparison Survey Motivation and Details
 % ===================
 
-Verify if the game presents any usability problems which could affect user performance and skew experiment results
+After collecting data about user performance during the experiment, we wish to verify if the application presents any issues that could affect the observation of the results, and iof the results observed in our metrics can correlate with the perceptions of difficulty and challenge of players. Therefore, we presented a set of propositions that attempts to determine if:
 
-Verify if gameplay, aesthetics and challenge meet player expectations for a Dark Souls replica
+\begin{itemize}
+    \item{Players experienced any issues regarding defects in our implementation;}
+    \item{Players experienced any issues regarding their experiment environment, including hardware, input devices or presentation;}
+    \item{Players were interested to our application;}
+    \item{Players felt like the game presented a sufficient level of challenge in comparison to their skill, but was not overtly difficult;}
+    \item{Players felt like they could sufficiently learn and execute all relevant game mechanics;}
+    \item{Players felt like the game was still challenging in a second playthrough;}
+\end{itemize}
 
-Verify if the player perception of difficulty is congruent with their performance
+The propositions are presented in the survey can be mapped to a \emph{Likert Psychometric Scale}. Users can rate their perception on each proposition by selecting one of the following options: \emph{Strongly Disagree}, \emph{Partially Disagree}, \emph{Indifferent}, \emph{I do not Know}, \emph{Partially Agree} and \emph{Strongly Agree}. By performing this assessment, we wish to be able to validate that:
 
-Further details on how the survey is presented to users can be seen in Appendix \ref{anx:player-perception-survey}.
+\begin{itemize}
+    \item{Our implementation does not present any aesthetics or usability related issues which could affect user performance and invalidate the collected metrics;}
+    \item{The metrics selected for the player performance evaluation can sufficiently determine the level of challenge experienced by players in contrast to their skill;}
+    \item{The perception of difficulty by players is congruent with their actual performance.}
+\end{itemize}
+
+Additionally, we wish to use the results of this assessment to reinforce our data-based player performance analysis. We wish to verify the efficiency of adjustments performed in a first playthrough, to determine if players which experience Dynamic Difficulty first are able to learn game mechanics and perform better. Similarly, this is also performed in regards to the second playthrough, where we wish to determine if players were sufficiently challenged after learning and becoming used to most game mechanics.
+
+Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perception-survey-questions-pt2} provide consolidated lists of the propositions presented in the Player Perception Survey, along with a briefly described purpose for the existence of each proposition. Table \ref{tab:player-perception-survey-questions-pt1} shows the propositions which are analyzed in aggregate, consolidating the results of all user groups to assess user opinions on the quality of our implementation. In contrast, Table \ref{tab:player-perception-survey-questions-pt2} shows the propositions which are analyzed per user group, in order to verify performance alterations in each user profile. Further details on how the survey is presented to users can be seen in Appendix \ref{anx:player-perception-survey}.
 
 \begin{table}
     \begin{center}
       \caption{Aggregate Perception Assessments in the Player Perception Survey.}
       \label{tab:player-perception-survey-questions-pt1}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ w{c}{9em} w{c}{5em} m{17em} } % alignments and column size
+      \begin{tabular}{ w{c}{10em} m{20em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
-        \bf Assessment & \bf Category & \bf Objective  \\
+        \bf Assessment & \bf Objective  \\
         \midrule
         % Data
-        \makecell[c]{I think the gameplay\\was satisfying} & Aesthetics & Evaluate if the gameplay is sufficiently satisfactory to players. \\
-        \makecell[c]{I think the graphics\\were visually appealing} & Aesthetics & Evaluate if the visuals are sufficiently appealing to players. \\
-        \makecell[c]{I think the sounds\\provided proper\\feedback to actions} & Aesthetics & Evaluate if the audio harmonizes with the visuals and actions performed by players. \\
-        \makecell[c]{I felt interested\\to the game} & Aesthetics & Evaluate if users were motivated to play the game during the experiment. \\
-        \makecell[c]{I think the game was\\hard to understand} & Learning & Evaluate if users had issues understanding basic game elements.  \\
-        \makecell[c]{I think the game\\was easy to play} & Learning & Evaluate if users had ease with executing basic game mechanics.  \\
-        \makecell[c]{I think the game\\was easy to learn} & Learning & Evaluate if users had ease with learning how to play. \\
-        \makecell[c]{I think the game\\was difficult} & Difficulty & Evaluate if users perceived the game as generally difficult to complete. \\
-        \makecell[c]{I think the difficulty\\was unfair} & Difficulty & Evaluate if the game presented a significantly higher level of challenge in comparison to the skill level of players. \\
-        \makecell[c]{I had trouble with\\the game controls} & Usability & Evaluate if players had issues caused by button mapping, basic mechanics or input device compatibility issues. \\
-        \makecell[c]{I had trouble\\hitting enemies} & Usability & Evaluate if players had issues caused by failures in the hit detection system. \\
-        \makecell[c]{I had trouble defending\\against enemies} & Usability & \\
-        \makecell[c]{I had trouble dodging\\enemy attacks} & Usability & \\
-        \makecell[c]{I had trouble with\\a specific enemy} & Usability & \\
-        \makecell[c]{I had trouble finding\\out where to go} & Usability & \\
-        \makecell[c]{I had a hard\\time playing} & Usability & \\
+        \makecell[c]{I think the gameplay\\was satisfying} & Evaluate if the gameplay is sufficiently satisfactory to players. \\
+        \makecell[c]{I think the graphics\\were visually appealing} & Evaluate if the visuals are sufficiently appealing to players. \\
+        \makecell[c]{I think the sounds\\provided proper\\feedback to actions} & Evaluate if the audio harmonizes with the visuals and actions performed by players. \\
+        \makecell[c]{I felt interested\\to the game} & Evaluate if users were motivated to play the game during the experiment. \\
+        \midrule
+        \makecell[c]{I think the game was\\hard to understand} & Evaluate if users had issues understanding basic game elements.  \\
+        \makecell[c]{I think the game\\was easy to play} & Evaluate if users had ease with executing basic game mechanics.  \\
+        \makecell[c]{I think the game\\was easy to learn} & Evaluate if users had ease with learning basic game mechanics. \\
+        \midrule
+        \makecell[c]{I had trouble with\\the game controls} & Evaluate if players had issues caused by button mapping, basic mechanics or input device compatibility issues. \\
+        \makecell[c]{I had trouble\\hitting enemies} & Evaluate if players had issues caused by failures in the \emph{hit detection system}. \\
+        \makecell[c]{I had trouble defending\\against enemies} & Evaluate if players had issues with executing the \emph{blocking} mechanic. \\
+        \makecell[c]{I had trouble dodging\\enemy attacks} & Evaluate if players had issues with executing the \emph{dodging} mechanic. \\
+        \makecell[c]{I had trouble with\\a specific enemy} & Evaluate if players had issues with a specific enemy type, which would mean the behavior design for such enemy would be inconsistent with the challenge level presented by other entities. \\
+        \makecell[c]{I had trouble finding\\out where to go} & Evaluate if players had issues with level design, where the layout and presentation of environments does not present a clear destination. \\
+        \makecell[c]{I had a hard\\time playing} & Evaluate if players had more general issues when playing which could not be encompassed by previous propositions. \\
+        \midrule
+        \makecell[c]{I felt frustrated\\while playing} & Evaluate if players were frustrated with some aspect of the game, such as the difficulty or usability. \\
+        \makecell[c]{I felt anxious\\while playing} & Evaluate if players felt anxious while playing due to difficulty.  \\
+        \makecell[c]{I felt bored\\while playing} & Evaluate if players were uninterested in the game due to poor aesthetics or level of challenge. \\
+        \makecell[c]{I felt comfortable\\while playing} & Evaluate if players were generally comfortable with experience-related aspects of the game, such as difficulty, controls and aesthetics. \\
         \bottomrule
       \end{tabular}
     \end{center}
@@ -434,31 +454,31 @@ Further details on how the survey is presented to users can be seen in Appendix 
       \caption{Group-based Perception Assessments in the Player Perception Survey.}
       \label{tab:player-perception-survey-questions-pt2}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ w{c}{10em} w{c}{5em} m{17em} } % alignments and column size
+      \begin{tabular}{ w{c}{10em} m{20em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
-        \bf Assessment & \bf Category & \bf Objective  \\
+        \bf Assessment & \bf Objective  \\
         \midrule
         % Data
-        \makecell[c]{I think the enemies\\were challenging} & Difficulty & \\
-        \makecell[c]{I think the enemies were\\too challenging for me} & Difficulty & \\
-        \makecell[c]{I think the enemies\\were too easy for me} & Difficulty & \\
-        \makecell[c]{I think the enemies in\\later levels were harder} & Difficulty & \\
-        \makecell[c]{I found myself\\constantly outnumbered} & Learning & \\
-        \makecell[c]{I learned how to defend\\against enemy attacks} & Learning & \\
-        \makecell[c]{I learned how to\\dodge enemy attacks} & Learning & \\
-        \makecell[c]{I think the second version\\was easier than the first} & Improvement & \\
-        \makecell[c]{I think the second version\\was harder than the first} & Improvement & \\
-        \makecell[c]{I think the enemies\\in the second version\\were smarter} & Improvement & \\
-        \makecell[c]{I think the enemies\\in the second version\\were dumber} & Improvement & \\
-        \makecell[c]{I felt confident in my\\first time playing} & Improvement & \\
-        \makecell[c]{I think I did better in\\my second time playing} & Improvement & \\
-        \makecell[c]{I felt more confident in\\the second time playing} & Improvement & \\
-        \makecell[c]{I felt frustrated\\while playing} & Feeling & \\
-        \makecell[c]{I felt anxious\\while playing} & Feeling & \\
-        \makecell[c]{I felt bored\\while playing} & Feeling & \\
-        \makecell[c]{I felt comfortable\\while playing} & Feeling & \\
+        \makecell[c]{I think the game\\was difficult} & Evaluate if a user group perceived the game as generally difficult to complete. \\
+        \makecell[c]{I think the difficulty\\was unfair} & Evaluate if a user group perceived the game as having a significantly higher level of challenge in comparison to their skill level. \\
+        \makecell[c]{I think the enemies\\were challenging} & Evaluate if a user group perceived enemy agents as minimally challenging in comparison to their skill level. \\
+        \makecell[c]{I think the enemies were\\too challenging for me} & Evaluate if a user group perceived enemy agents as overtly challenging in comparison to their skill level. \\
+        \makecell[c]{I think the enemies\\were too easy for me} & Evaluate if a user group perceived enemy agents as insufficiently challenging to their skill level. \\
+        \midrule
+        \makecell[c]{I learned how to defend\\against enemy attacks} & Evaluate if a user group was able to learn how to block enemy attacks \\
+        \makecell[c]{I learned how to\\dodge enemy attacks} & Evaluate if a user group was able to learn how to avoid enemy attacks. \\
+        \makecell[c]{I found myself\\constantly outnumbered} & Evaluate if a user group was able to learn how to isolate targets before engaging combat. \\
+        \midrule
+        \makecell[c]{I think the enemies in\\later levels were harder} & Evaluate if a user group perceived the enemies in the final levels of a first or second playthrough to be harder. \\
+        \makecell[c]{I think the second version\\was easier than the first} & Evaluate if a user group perceived their second playthrough to be easier. Divided by classification. \\
+        \makecell[c]{I think the second version\\was harder than the first} & Evaluate if a user group perceived their second playthrough to be harder. Divided by classification. \\
+        \makecell[c]{I think the enemies\\in the second version\\were smarter} & Evaluate if a user group perceived the enemy agents in a second playthrough to be harder to deal with. Divided by classification. \\
+        \makecell[c]{I think the enemies\\in the second version\\were dumber} & Evaluate if a user group perceived the enemy agents in a second playthrough to be easier to deal with. Divided by classification.  \\
+        \makecell[c]{I felt confident in my\\first time playing} & Evaluate if a user group was comfortable with their skill improvement in the first playthrough. Divided by classification. \\
+        \makecell[c]{I think I did better in\\my second time playing} & Evaluate if a user group perceived improvements in their second playthrough when comparing to their first playthrough. Divided by classification. \\
+        \makecell[c]{I felt more confident in\\the second time playing} & Evaluate if a user group perceived their skill in the second playthrough to be sufficient to the level of challenge. Divided by classification. \\
         \bottomrule
       \end{tabular}
     \end{center}
@@ -492,7 +512,7 @@ Further details on how the survey is presented to users can be seen in Appendix 
 % =============================
 
 % Table with Observations for Performance Metrics for Beginner Players
-\begin{table}[!ht]
+\begin{table}
     \begin{center}
       \caption{Observations on Performance Metrics for Beginner Players.}
       \label{tab:observations-performance-metrics-beginners}
@@ -613,7 +633,7 @@ Further details on how the survey is presented to users can be seen in Appendix 
 % =============================
 
 % Table with Observations for Performance Metrics for Intermediate Players
-\begin{table}[!ht]
+\begin{table}
     \begin{center}
       \caption{Observations on Performance Metrics for Intermediate Players.}
       \label{tab:observations-performance-metrics-intermediates}
@@ -734,7 +754,7 @@ Further details on how the survey is presented to users can be seen in Appendix 
 % =============================
 
 % Table with Observations for Performance Metrics for Veteran Players
-\begin{table}[!ht]
+\begin{table}
     \begin{center}
       \caption{Observations on Performance Metrics for Veteran Players.}
       \label{tab:observations-performance-metrics-veterans}
