@@ -388,7 +388,7 @@ Thus, we selected the following metrics as our objects of analysis: \emph{Averag
 % Player Perception & Comparison Survey Motivation and Details
 % ===================
 
-After collecting data about user performance during the experiment, we wish to verify if the application presents any issues that could affect the observation of the results, and iof the results observed in our metrics can correlate with the perceptions of difficulty and challenge of players. Therefore, we presented a set of propositions that attempts to determine if:
+After collecting data about user performance during the experiment, we wish to verify if the application presents any issues that could affect the observation of the results, and if the results observed in our metrics can correlate with the perceptions of difficulty and challenge of players. Therefore, we presented a set of propositions that attempts to determine if:
 
 \begin{itemize}
     \item{Players experienced any issues regarding defects in our implementation;}
@@ -492,10 +492,57 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 % * Results
 % * =======================
 
-\subsection{Perceptions on Usability and Fidelity of All Players}
+% In this section we describe the results of data collected during performing the experiment
+% First we evaluate perception results for all players
+In this section, we describe and analyze the results of the data collected from players when performing the experiment. First, we evaluate the results of a subset of the propositions in the Player Perception Survey in aggregate for all players, with the objective of verifying whether the application presents issues regarding usability, aesthetical fidelity, ease of learning or any technical issues that could affect our evaluation of player performance in comparison to player skill.
+
+% Then, we explore each user classification
+% Performance results, then perception results
+% Performance results are evaluated per group
+% Perception results are evaluated in aggregate per classification, except when comparing the first vs second part of the experiment
+Second, we explore the performance and perception results for each user classification, starting with beginner players, proceeding intermediate players, and concluding with veteran players. For the performance results, we isolate and compare the data for each user group and part of the experiment, to attempt to validate our hypotheses on the learning curve of the first playthrough and level of challenge of the second playthrough.
+
+For the perception results of each user classification, we first evaluate a subset of the propositions aggregating the answers for both experiment groups, in order to evaluate perceptions on difficulty and the learning curve for each player skill level. Finally, we evaluate the perceptions of each user classification, separated by experiment group, of the comparison of their performance between the first and second playthroughs, in order to evaluate if the second playthrough presented a sufficient level o challenge to players.
+
+% - How to interpret the performance charts?
+%       > Divided in four parts, which are described in the legend below each chart
+The performance charts presented in this section reflect the average values of the user performance metrics selected for the experiment. The metric being represented, along with the target classification of users of the chart, are displayed on a brief title above the charts. We provided four charts for each metric, for each user classification. Each chart represents a comparison, either between experiment parts (first playthrough versus second playthrough) or between experiment groups (Group A vs Group B). The nature of each comparison is described in a caption below each chart.
+
+%               >  Group A Part 1 vs 2 (a), Group B Part 1 vs 2 (b), Group A vs B Part 1 (c) and Group A vs B part 2 (d)
+%       > Objective of Part 1 vs 2 is to assess the difference in performance between the first and second playthrough
+%       > Objective of Group A vs B Part 1 is to assess the difference in the learning curve of fixed vs dynamic difficulty
+%       > Objective of Group A vs B Part 2 is to assess the difference in the challenge level presented to players in the second part, where they should have learned all basic mechanics and enemy patterns
+The comparisons performed by the charts are represented in the following order: (a) \emph{Group A - Part 1 vs Part 2}; (b) \emph{Group B - Part 1 vs Part 2}; (c) \emph{Group A vs B - Part 1}; (d) \emph{Group A vs B - Part 2}. The objective of charts (a) and (b) is to assess the difference in performance between the first and second playthroughs for each user group, which has the objective of comparing general player performance improvements on dynamic versus fixed difficulty.
+
+The objective of chart (c) is to assess the difference in performance in a first playthrough, comparing fixed to dynamic difficulty. Such comparison has the potential to lead us to conclusions regarding the effectiveness of dynamic adjustments in facilitating the learning curve for a game. Finally, the objective of chart (d) is to assess the difference in performance of fixed versus dynamic difficulty in a second playthrough, which has the potential to lead us to conclusions regarding the challenge level presented by dynamic difficulty in the context where a player has learned and become used to the most relevant game mechanics and enemy patterns.
+
+%       > Vertical axis represents the magnitude of each metric
+%       > Horizontal axis separates the data based on each level
+%       > Filled bars represent the average value for each metric
+%       > Top of field bars has a visual representation of the standard deviation for each collected average
+%       > Example: \ref{fig:result-metric-beginners-deaths-per-level}
+
+% - How to interpret the perception charts?
+%       > Results mostly to the right show agreement
+%       > Results mostly to the left show disagreement to the propostion
+%       > Centered results show mixed or indifferent opinions
+The perception charts presented in this section reflect the results of a perception assessment which uses a \emph{Likert Psychometric Scale} as a user rating scale. An example of perception chart can be seen in Figure \ref{fig:perception-aesthetics-all-players}. Each entry in the vertical axis represents a proposition in our assessments, while the horizontal axis displays the user agreement or disagreement with such proposition. The scope of users portrayed in the chart is specified in the title for each chart. For instance, in Figure \ref{fig:perception-aesthetics-all-players} the data displays results for all users in our experiment, disregarding player classifications or experiment groups.
+
+To the rightmost portion of the chart, the percentage of users is shown in blue to represent positive agreement of the user base to a proposition, either by partially or strongly agreeing with such proposition. To the leftmost part, results are shown in red to represent disagreement, either by partially or strongly disagreeing with a proposition. In the central portion of the chart, results are shown in gray to represent indifference or an undefined level of agreement.
 
 %  Player Perception Survey
 % =======================
+\subsection{Perceptions on Usability, Fidelity and Learning of All Players}
+
+% - Why do we want to evaluate perceptions on usability and fidelity?
+%       >  verify if the application presents any issues that could affect the observation of the results
+In this section, we describe the results of our Player Perception Survey in the scope of evaluating the usability, aesthetical fidelity, ease of learning and general issues regarding the use of the application. Using the results of player usability perceptions, we wish to verify if the application presents any technical issues that would affect the evaluation of player performance in comparison to their skill level, such as hard to use controls or presentation which is incompatible with the user's hardware.
+
+% - Why do we want to evaluate perceptions on the ease of learning?
+%       > Verify if the application was overtly complex regarding the ease of learning basic game mechanics, which could affect the results of player performance in early levels or even the entire first playthrough
+% - Why do we evaluate the aggregate for all players?
+%       > We evaluate the data in aggregate because we wish to validate the design of the application for all user classifications and groups, checking whether the results generally would not be affected by poor design
+Regarding player perceptions on the ease of learning of basic game controls and the use of their related mechanics, we wish to verify if the application was overtly complex to learn at a first user interaction, which could significantly affect the evaluation of player performance in comparison to their skill levels during the early levels of a first playthrough, or even for the entire duration of a first playthrough. The data described in this section is evaluated in aggregate for all user classifications and experiment groups, with the objective of evaluating the overall design of the application by evaluating its general impact for all players.
 
 % Perceptions on Aesthetics -- All Players
 % =======================
@@ -508,6 +555,13 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
     \end{center}
 \end{figure}
 
+% About 90% of players strongly agreed that they were interested in the game
+% About 90% players strongly agreed that the game was satisfying
+% About 80% of players strongly agreed that the game was visually appealing, 
+% About 90% of players thought the sounds harmonized with in-game occurrences
+%   > We can assume there is no lack of interest or dislike based on aesthetical elements
+Regarding player perceptions on their interest on the game and the game's aesthetics represented in Figure \ref{fig:perception-aesthetics-all-players}, about 90\% of the user base agreed that they were interested in the game. A similar percentage agreed that the game was satisfying to play, and that the in-game audio (sound effects) harmonized with in-game occurrences. About 80\% of players agreed that the game was visually appealling (regarding the quality of the graphics). Therefore, it can be reasonable to assume that there is no lack of interest or specific issues on the aesthetical elements of our implementation, and such elements should not affect the results of our user performance evaluation.
+
 % Perceptions on Learning - All Players
 % =======================
 \begin{figure}[!ht]
@@ -518,6 +572,14 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
         \label{fig:perception-learning-all-players}
     \end{center}
 \end{figure}
+
+% 60% players strongly disagreed that the game was hard to understand, while the other 40% was mixed, partially agreeing, disagreeing or being indifferent
+% Most players agreed that the game was easy to play
+% Mixed opinions on the game being easy to learn, with strong opinions on both ends of the spectrum
+%   > There might be a problem in the learning curve of the game's mechanics
+Regarding player perceptions on the ease of learning how to play the game (by executing basic game mechanics) shown in Figure \ref{fig:perception-learning-all-players}, about 60\% of the player base strongly disagreed that the game was hard to understand, while the remaining 40\% had mixed opinions, by partially agreeing, partially disagreeing or being indifferent to the proposition. About 80\% of the player base agreed that the game was easy to playing regarding basic game mechanics.
+
+The proposition regarding the game being easy to learn had mixed opinions, with a similar amount of strong agreement and disagreement. Therefore, there is an indication that there could be an issue with the game's learning curve regarding the use of basic mechanics, which would be an issue of level design where the order where challenges are presented to the player are unoptimal, and could affect their improvement process. This could affect player performance in the early levels of a first playthrough, where players are still not used to the game's mechanics and have to identify enemy patterns in parallel to learning basic game elements.
 
 % Perceptions on Troubles - All Players
 % =======================
@@ -530,6 +592,15 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
     \end{center}
 \end{figure}
 
+% Almost all players disagreed to have issues with the game's controls, with about 30% only partially disagreeing.
+% Questions on hitting enemies, defending, dodging, specific enemy and "hard time playing" had mixed opinions, and could have been interpreted as difficulty-related.
+% 90% did not find that they had issues finding out where to go
+%   > Issues with formulating the questions
+%   > Players did not have issues in finding out where to go.
+Regarding player perceptions on issues identified when playing the game presented in figure \ref{fig:perception-troubles-all-players}, almost all players disagreed to have issues with the game's controlls, with only about 30\% partially disagreeing. Propositions regarding the ability to hit enemies, defend against enemies and dodging enemy attacks had mixed opinions, with a slightly favorable perception on difficulty of performing defensive actions. About 90\% of players disagreed that they had issues finding out the path to level objectives.
+
+Therefore, it is reasonable to assume that the design of input controls did not affect the ability of players to execute basic game mechanics, and that the level layouts provided a clear presentation of the path which should be taken by players. However, we identify an issue with the propositions regarding the ability to hit enemies, defending against enemies and dodging enemy attacks. Such propositions were formulated in a generalistic phrasing that could be interpreted as being related to the player's perception of difficulty, instead of the ability to execute each mechanic. Therefore, we could not consolidate a definite conclusion about the results of such propositions.
+
 % Perceptions on Feelings - All Players
 % =======================
 \begin{figure}[!ht]
@@ -541,11 +612,24 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
     \end{center}
 \end{figure}
 
+% Almost all players disagreed to have felt frustrated
+% Most players disagreed to have felt anxious
+% Almost all players disagreed to have felt bored
+% Players had mixed opinions on feeling comfortable
+%   > Short duration of the experiment might not have been enough to capture relevant affect-based data
+%   > Players were receptive to dying and repeating levels
+%   > Players were not bored when being defeated
+Regarding player perceptions on affect-based propositions presented in figure \ref{fig:perception-feelings-all-players}, about 90\% of users disagreed to have felt frustrated when playing the game, with about 40\% only partially disagreeing with such proposition. About 80\% of players disagreed to have felt anxious while playing, and about 95\% of users disagreed to have felt bored whiel playing. Regarding feeling comfortable while playing, players had mixed opinions, with a slight tendency towards disagreeing with feeling comfortable.
+
+We identify an issue with capturing affect-based metrics regarding the short duration of the experiment, which was devised to last in average 30 minutes of duration. In this short time frame, players might not be able to have sufficient information to assess whether they were affected positively or negatively by the game. However, with the current data we could still assume that boredom did not affect the performance players in the second playthrough, and that players were significantly receptive to being defeated and repeating the later levels on a playthrough.
+
 % =================================================================
 % =================================================================
 % =================================================================
 
 \subsection{Beginner Players}
+
+% TODO write paragraphs here
 
 % Performance
 % =============================
@@ -578,7 +662,7 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 %adjustment_target_level
 % Avg Adjustment Target per Level - Beginners
 % =======================
-\begin{figure}
+\begin{figure}[!ht]
     \begin{center}
     \caption{Avg. Adjustment Targets Average (Y) per Level (X) for Beginners.}
         \includegraphics[width=\textwidth]{figures/adjustment_target_level-beginner_players.png}
@@ -662,6 +746,8 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 % Perceptions
 % =============================
 
+% TODO write paragraphs
+
 % Perceptions on Difficulty -- Beginner Players
 % =======================
 \begin{figure}[!ht]
@@ -711,6 +797,8 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 % ==================================================
 
 \subsection{Intermediate Players}
+
+% TODO write paragraphs
 
 % Performance
 % =============================
@@ -827,6 +915,8 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 % Perception
 % =============================
 
+% TODO write paragraphs
+
 % Perceptions on Difficulty -- Intermediate Players
 % =======================
 \begin{figure}[!ht]
@@ -876,6 +966,8 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 % ==================================================
 
 \subsection{Veteran Players}
+
+% TODO write paragraphs
 
 % Performance
 % =============================
@@ -992,6 +1084,8 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 % Perception
 % =============================
 
+% TODO write paragraphs
+
 % Perceptions on Difficulty -- Veteran Players
 % =======================
 \begin{figure}[!ht]
@@ -1046,6 +1140,13 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 % * Summary of Results
 % * =======================
 
+% Conclusions regarding the formulation of the experiment
+% Conclusions regarding the classification of the user base
+% Conclusions regarding the separation of user groups
+% Conclusions regarding the results of the perception survey for all users
+% Conclusions regarding the results of the performance of beginner players
+% Conclusions regarding the results of the perception survey for beginner players
+
 % \subsection{Limitations}
 % * Limitations
 % * =======================
@@ -1054,11 +1155,13 @@ Tables \ref{tab:player-perception-survey-questions-pt1} and \ref{tab:player-perc
 % Difficulty in level 2 was always higher in DDA systems, which might show a level design issue
 % Adjusments should have been tested in isolation and in groups
 % Should have 5 difficulty levels for DDA, instead of 3. Because veterans and beginners should extrapolate higher and lower limits.
-
-
-% \subsection{Comparison with Previous Methodologies}
-% * Comparison with previous work
-% * =======================
+% Should have increased fixed difficult on 2nd part of experiment to reflect players playing on a higher difficulty on the 2nd time
+% Low sample amounts
+% Short duration of experiment
+% Issues with formulation of the classification survey
+% Issues with formulation of the perception survey
+% Adjustment Targets metric had low significance
+% High std deviation is most metrics
 
 % =================================================================
 % =================================================================
