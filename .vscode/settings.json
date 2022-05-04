@@ -29,7 +29,7 @@
         "speedrunners",
         "unblockable"
     ],
-    "editor.fontFamily": "Century",
+    "editor.fontFamily": "Fira Code",
     "editor.fontSize": 16,
     "editor.wordWrap": "on",
     "editor.autoClosingBrackets": "never",

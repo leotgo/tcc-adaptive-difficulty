@@ -506,13 +506,13 @@ For the perception results of each user classification, we first evaluate a subs
 
 % - How to interpret the performance charts?
 %       > Divided in four parts, which are described in the legend below each chart
-The performance charts presented in this section reflect the average values of the user performance metrics selected for the experiment. The metric being represented, along with the target classification of users of the chart, are displayed on a brief title above the charts. We provided four charts for each metric, for each user classification. Each chart represents a comparison, either between experiment parts (first playthrough versus second playthrough) or between experiment groups (Group A vs Group B). The nature of each comparison is described in a caption below each chart.
+The performance charts presented in this section reflect the average values of the user performance metrics selected for the experiment. An example of performance charts for the \emph{Deaths per Level} metric can be seen in Figure \ref{fig:result-metric-beginners-deaths-per-level}. The metric being represented, along with the target classification of users of the chart, are displayed on a brief title above the charts. We provided four charts for each metric, for each user classification. Each chart represents a comparison, either between experiment parts (first playthrough versus second playthrough) or between experiment groups (Group A vs Group B). The nature of each comparison is described in a caption below each chart.
 
 %               >  Group A Part 1 vs 2 (a), Group B Part 1 vs 2 (b), Group A vs B Part 1 (c) and Group A vs B part 2 (d)
 %       > Objective of Part 1 vs 2 is to assess the difference in performance between the first and second playthrough
 %       > Objective of Group A vs B Part 1 is to assess the difference in the learning curve of fixed vs dynamic difficulty
 %       > Objective of Group A vs B Part 2 is to assess the difference in the challenge level presented to players in the second part, where they should have learned all basic mechanics and enemy patterns
-The comparisons performed by the charts are represented in the following order: (a) \emph{Group A - Part 1 vs Part 2}; (b) \emph{Group B - Part 1 vs Part 2}; (c) \emph{Group A vs B - Part 1}; (d) \emph{Group A vs B - Part 2}. The objective of charts (a) and (b) is to assess the difference in performance between the first and second playthroughs for each user group, which has the objective of comparing general player performance improvements on dynamic versus fixed difficulty.
+The comparisons performed by the charts are represented in the following order: (a) \emph{Group A - Part 1 vs Part 2}; (b) \emph{Group B - Part 1 vs Part 2}; (c) \emph{Group A vs B - Part 1}; (d) \emph{Group A vs B - Part 2}. Charts (a) and (b) are used to assess the difference in performance between the first and second playthroughs for each user group, which has the objective of comparing general player performance improvements on dynamic versus fixed difficulty.
 
 The objective of chart (c) is to assess the difference in performance in a first playthrough, comparing fixed to dynamic difficulty. Such comparison has the potential to lead us to conclusions regarding the effectiveness of dynamic adjustments in facilitating the learning curve for a game. Finally, the objective of chart (d) is to assess the difference in performance of fixed versus dynamic difficulty in a second playthrough, which has the potential to lead us to conclusions regarding the challenge level presented by dynamic difficulty in the context where a player has learned and become used to the most relevant game mechanics and enemy patterns.
 
@@ -597,7 +597,7 @@ The proposition regarding the game being easy to learn had mixed opinions, with 
 % 90% did not find that they had issues finding out where to go
 %   > Issues with formulating the questions
 %   > Players did not have issues in finding out where to go.
-Regarding player perceptions on issues identified when playing the game presented in figure \ref{fig:perception-troubles-all-players}, almost all players disagreed to have issues with the game's controlls, with only about 30\% partially disagreeing. Propositions regarding the ability to hit enemies, defend against enemies and dodging enemy attacks had mixed opinions, with a slightly favorable perception on difficulty of performing defensive actions. About 90\% of players disagreed that they had issues finding out the path to level objectives.
+Regarding player perceptions on issues identified when playing the game presented in figure \ref{fig:perception-troubles-all-players}, almost all players disagreed to have issues with the game's controls, with only about 30\% partially disagreeing. Propositions regarding the ability to hit enemies, defend against enemies and dodging enemy attacks had mixed opinions, with a slightly favorable perception on difficulty of performing defensive actions. About 90\% of players disagreed that they had issues finding out the path to level objectives.
 
 Therefore, it is reasonable to assume that the design of input controls did not affect the ability of players to execute basic game mechanics, and that the level layouts provided a clear presentation of the path which should be taken by players. However, we identify an issue with the propositions regarding the ability to hit enemies, defending against enemies and dodging enemy attacks. Such propositions were formulated in a generalistic phrasing that could be interpreted as being related to the player's perception of difficulty, instead of the ability to execute each mechanic. Therefore, we could not consolidate a definite conclusion about the results of such propositions.
 
@@ -629,31 +629,105 @@ We identify an issue with capturing affect-based metrics regarding the short dur
 
 \subsection{Beginner Players}
 
-% TODO write paragraphs here
+% Describe and analyze possible causes for results in metrics for beginner players
+% Verify global increase and decrease of metrics through charts (a) and (b)
+% Compare the effects of dynamic difficulty on the learning curve through chart (c)
+% Compare the level of challenge of dynamic through chart (d)
+% Analyze the validity of the data through the standard deviation
+In this section, we describe and analyze the observed results for each performance metric in the scope of beginner players. We attempt to verify the global increase and decrease of performance by analyzing charts \textsc{(a)} and \textsc{(b)} for each metric. We attempt to assess the effects of dynamic difficulty on the learning curve through chart \textsc{(c)} for each metric. We compare the level of challenge presented in the \nth{2} playthrough through chart \textsc{(d)}. Finally, we attempt to estimate the validity of the data through the general standard deviation of samples for each metric. A summarized version of the observations used as input for the analysis can be seen in Table \ref{tab:observations-performance-metrics-beginners}.
 
 % Performance
 % =============================
 
 % Table with Observations for Performance Metrics for Beginner Players
-\begin{table}
+\begin{table}[ht]
     \begin{center}
-      \caption{Observations on Performance Metrics for Beginner Players.}
+      \caption{Summarized observations on Performance Metrics for Beginner Players.}
       \label{tab:observations-performance-metrics-beginners}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ w{c}{6em} m{27em} } % alignments and column size
+      \begin{tabular}{ >{\small}w{c}{6em} >{\footnotesize}w{l}{28em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
         \bf Metric & \bf Observations  \\
         \midrule
         % Data
-        \makecell[c]{Adjustment\\Targets\\Average} & \\
-        \makecell[c]{Attack\\Avoidance\\Efficiency} & \\
-        \makecell[c]{Attack\\Window\\Efficiency} & \\
-        \makecell[c]{Completion\\Time} & \\
-        \makecell[c]{Damage Dealt\\per 10 seconds} & \\
-        \makecell[c]{Deaths per\\Level} & \\
-        \makecell[c]{Health Lost\\per Encounter} & \\
+        % ----------------------------------------------------------------
+        \makecell[c]{Adjustment\\Targets\\Average} & 
+        \makecell*[{{p{33em}}}]
+        {
+            \textbullet\space Significant increase in average target level for \nth{2} part in group A. Could show increased challenge level for \nth{2} playthrough; \\ % (a)
+            \textbullet\space Steady increase towards intermediate fixed difficulty in \nth{1} part for group B (Dynamic Difficulty). Shows satisfactory learning curve; \\ % (b)
+            \textbullet\space Low standard deviation in all observed results. % std deviation
+        } \\
+        % ----------------------------------------------------------------
+        % Attack avoidance efficiency
+        \makecell[c]{Attack\\Avoidance\\Efficiency} & 
+        \makecell*[{{p{33em}}}]
+        {
+            \textbullet\space Globally higher efficiency in \nth{2} playthrough. Players seem to be more defensively efficient in a \nth{2} playthrough. \\ % global
+            \textbullet\space Slightly higher efficiency in \nth{1} playthrough for players in Group B (Dynamic). Could show signs of a more efficient learning curve. \\ % (c)
+            \textbullet\space Slightly less efficiency in the \nth{2} playthrough for Group A (Dynamic). Could be explained by a higher average difficulty on dynamic difficulty. \\ % (d)
+            \textbullet\space Significant standard deviation in some of the samples. \\ % std deviation
+        } \\
+        % ----------------------------------------------------------------
+        % Attack Window Efficiency
+        \makecell[c]{Attack\\Window\\Efficiency} & 
+        \makecell*[{{p{33em}}}]
+        {
+            \textbullet\space Globally higher efficiency in \nth{2} playthrough. Players seems to be more offensively efficient in a \nth{2} playthrough. \\ % global
+            \textbullet\space Globally lower efficiency in level 3. Could be caused by the new enemy type introduced. \\ % global
+            \textbullet\space Slightly higher efficiency in \nth{1} playthrough for Group B (Dynamic). Could represent a more efficient learning curve. \\ % (c)
+            \textbullet\space Significantly lesser efficiency in \nth{2} playthrough for Group A (Dynamic). Could be caused by a more significative level of challenge. \\ % (d)
+            \textbullet\space Significant standard deviation in some of the samples. \\ % std deviation
+        } \\
+        % ----------------------------------------------------------------
+        % Completion time
+        \makecell[c]{Completion\\Time} & 
+        \makecell*[{{p{33em}}}]
+        {
+            \textbullet\space Steady global increase of completion time after each level. \\
+            \textbullet\space Spike in global completion time (higher) in last level. \\
+            \textbullet\space Slightly lower global completion times in \nth{2} playthrough. \\
+            \textbullet\space Slightly lower Group B (Dynamic) completion times in \nth{1} playthrough. Significant decrease in 4th level. \\
+            \textbullet\space Slightly higher Group A (Dynamic) completion times in \nth{2} playthrough. Higher level of challenge from adjustments. \\
+            \textbullet\space Significant difference in completion times in \nth{4} level between Groups A and B. \\
+            \textbullet\space Low standard deviation in most samples. \\ % std deviation
+        } \\
+        % ----------------------------------------------------------------
+        % Damage Dealth per 10 seconds
+        \makecell[c]{Damage Dealt\\per 10 seconds} & 
+        \makecell*[{{p{33em}}}]
+        {
+            \textbullet\space Globally higher damage dealt in \nth{2} playthrough. \\ % global
+            \textbullet\space Globally lower damage dealt in \nth{3} level. Could be mapped to a difficulty spike. \\ % global
+            \textbullet\space Slightly higher damage dealt in \nth{1} playthrough by Group B (Dynamic). Higher contrast in \nth{3} level. Could show the effects of learning curve. \\ % (c)
+            \textbullet\space Mixed results on damage dealt in \nth{2} playthrough between both groups. \\ % (d)
+            \textbullet\space A few isolated samples present a significant standard deviation. \\ % std deviation
+        } \\
+        % ----------------------------------------------------------------
+        % Deaths per Level
+        \makecell[c]{Deaths per\\Level} & 
+        \makecell*[{{p{33em}}}]
+        {
+            \textbullet\space Global decrease in deaths in \nth{2} playthrough. \\ % global
+            \textbullet\space Decrease in \nth{2} playthrough for Group B (Fixed) is much more significant than group A. Could be an effect of a more efficient learning curve. \\ % (b)
+            \textbullet\space Similar number of deaths in \nth{1} playthrough for both groups. \\ % (c)
+            \textbullet\space Significantly higher average of deaths in Group A (Dynamic) \nth{2} playthrough. Could be an effect of increased level of challenge. \\ % (d)
+            \textbullet\space High standard deviation in samples for later levels. Could show issues with learning curve. \\ % std deviation
+        } \\
+        % ----------------------------------------------------------------
+        % Health Lost per Encounter
+        \makecell[c]{Health Lost\\per Encounter} & 
+        \makecell*[{{p{33em}}}]
+        {
+            \textbullet\space Significantly lower global damage taken in \nth{2} playthrough. Players are more defensively efficient. \\ % global
+            \textbullet\space Significantly lower decrease of damage taken in Group B \nth{2} playthrough. Could correlate with learning curve. \\ % (b)
+            \textbullet\space Similar amount of damage taken between groups in \nth{1} playthrough. \\ % (c)
+            \textbullet\space Significantly higher amount of damage taken in Group A (Dynamic) in \nth{2} playthrough. Correlates with level of challenge. \\ % (d)
+            \textbullet\space High standard deviation in Group B \nth{1} playthrough. \\ % std deviation
+        } \\
+        % ----------------------------------------------------------------
         \bottomrule
       \end{tabular}
     \end{center}
@@ -662,7 +736,7 @@ We identify an issue with capturing affect-based metrics regarding the short dur
 %adjustment_target_level
 % Avg Adjustment Target per Level - Beginners
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Avg. Adjustment Targets Average (Y) per Level (X) for Beginners.}
         \includegraphics[width=\textwidth]{figures/adjustment_target_level-beginner_players.png}
@@ -671,10 +745,14 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the \emph{Adjustment Targets Average}, which can be analyzed in Figure \ref{fig:result-metric-beginners-adjustment-target-level}, we noticed a significant increase in the average adjustment level in the second playthrough for players in Group A, which played the Fixed Difficulty version first and the Dynamic Difficulty version second. As this metric represents the average target difficulty for each of the adjustments, we can compare the results to the fixed presets for the intermediate difficulty. Through this comparison, we can infer that beginner players were able to sufficiently learn the game mechanics and enemy behavioral patterns, and would be able to complete the game at the presets for the intermediate difficulty.
+
+We also noticed a steady increase in adjustment targets during the first playthrough for players in Group B, which played the Dynamic Difficulty version first. This could reinforce the idea that players steadily learned and improved upon their execution of game mechanics, as the DDA system inferred that the performance of players was generally above the thresholds for presets for the beginner difficulty. All results showed an acceptable standard deviation, to which we can conclude that the results appropriately represent the beginner players group. 
+
 %attack_avoidance_efficiency
 % Avg Attack Avoidance Efficiency per Level - Beginners
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Avg. Attack Avoidance Efficiency (Y) per Level (X) for Beginners.}
         \includegraphics[width=\textwidth]{figures/attack_avoidance_efficiency-beginner_players.png}
@@ -683,10 +761,14 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the efficiency of avoiding enemy attacks, which can be analyzed in Figure \ref{fig:result-metric-beginners-attack-avoidance-efficiency}, we noticed a significantly higher efficiency for both groups in the second playthrough. In general, players seem to be better at defending themselves in the second playthrough, where they would have learned all basic game mechanics and general enemy behaviors. We also noticed a slightly higher efficiency in the first playthrough after the second level for players in Group B, which played the Dynamic Difficulty version first. This could be related to a more efficient learning curve, where players which are presented to tougher challenges first might be able to defend themselves better in the later levels.
+
+We noticed a reduced efficiency in the second playthrough for Group A, which played the Dynamic Difficulty version second. By relating this metric with the \emph{Adjustment Targets Average}, we can infer that a higher degree of challenge had a negative impact on the ease at which a player was able to dodge attacks. This can be related with the fact that in higher difficulties the player will often engage combat against a larger amount of enemies simultaneously, which could make dodging attacks harder. We identified a significant standard deviation in some of the samples, and particularly in the first part of the experiment.
+
 %attack_window_efficiency
 % Avg Attack Window Efficiency per Level - Beginners
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Avg. Attack Window Efficiency (Y) per Level (X) for Beginners.}
         \includegraphics[width=\textwidth]{figures/attack_window_efficiency-beginner_players.png}
@@ -695,10 +777,14 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the efficiency of dealing damage to enemies when they are vulnerable through the \emph{Attack Window Efficiency} metric, which can be analyzed in Figure \ref{fig:result-metric-beginners-attack-window-efficiency}, we noticed a higher efficiency in the second playthrough for both groups. Players seemed to be better at taking advantage of enemy vulnerabilities, such as staggers or attack cooldowns. This could be related to the players understanding that after an enemy performs an attack, they have a cooldown time before performing another. However, we also noticed a lower efficiency for both groups in level 3, which correlates with the introduction of the \emph{Armored Knight} enemy, which is designed to be the hardest enemy in the game.
+
+We also noticed a slightly higher efficiency in the first playthrough for Group B, which plays the Dynamic Difficulty version of the application first, and particularly in levels 4 and 5. This reinforces our previous idea that Dynamic Difficulty presents a more efficient learning curve for understanding strategies. In the second playthrough, players from Group A, which played the Fixed Difficulty version first, had a significantly lesser efficiency in taking advantage of attack windows. This could be related to an increase level of challenge, where the player has to tackle larger enemy groups simultaneously. We noticed a significant standard deviation in some of the samples.
+
 %completion_time
 % Avg Completion Time per Level - Beginners
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Avg. Completion Time (Y) per Level (X) for Beginners.}
         \includegraphics[width=\textwidth]{figures/completion_time-beginner_players.png}
@@ -707,10 +793,16 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the average time beginner players took to complete which level, which can be analyzed in Figure \ref{fig:result-metric-beginners-completion-time}, we noticed slight but continuous increase of completion time for both groups with each level, which correlates with our intented level design and experiment duration. However, we noticed a spike in the completion time for both groups in the last level, which took significantly longer to complete. During the design stage, we devised the last level to take about the same duration as the fourth level. This could signify either an unexpected increase in the difficulty, or an issue with the level layout.
+
+We also noticed slightly lower level completion times for both groups during the second playthrough, which aligns with the previously observed efficiency when dealing with enemies. Additionally, since the level layout might be the same depending on the adjustment target, this could also be related to the player being used to such level layout. In Group B, which plays the Dynamic Difficulty version first, we noticed slightly lower completion times during the first playthrough, with the exception of a significant decrease in the fourth level. This could also reinforce differences in the learning curve and efficiency of players which learn to play in a DDA system.
+
+Group A had slightly higher completion times during the second playthrough, in which they would play the DDA version of the application. This could be caused by a generally higher level of challenge caused by the adjustment targets, where a higher amount of enemies, higher enemy difficulty and a different level layout could significantly affect the performance of players. Additionally, there was a significant difference in completion times for the fourth level during the second playthrough when comparing Group A to Group B, where group B was had considerably lower completion times. This could be explained by the fact that Group B experienced the Fixed Difficulty version second, which had beginner-level adjustment targets -- and thus players which were already accustomed to game mechanics would find the level of challenge to be low. We found there was a low standard deviation in almost all samples for this metric.
+
 %damage_dealt_per_10s
 % Avg Damage Dealt per 10s per Level - Beginners
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Avg. Damage Dealt per 10 seconds (Y) per Level (X) for Beginners.}
         \includegraphics[width=\textwidth]{figures/damage_dealt_per_10s-beginner_players.png}
@@ -719,10 +811,14 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the average damage dealt by players during combat, which is represented by the \emph{Damage Dealt per 10 seconds} metric and can be analyzed in Figure \ref{fig:result-metric-beginners-damage-dealt-per-10s}, we noticed that both groups dealt a significantly higher amount of damage during the second playthrough. In general, it could be inferred that players were much more efficient offensively, and our findings harmonize with the results for the \emph{Attack Window Efficiency} metric. However, we noticed a lower amount of damage dealt during the third level for both groups. This could be related to a difficulty spike, which could be caused by the introduction of the \emph{Armored Knight} enemy.
+
+We also noticed a slightly higher amount of damage dealt in the first playthrough by Group B in comparison to Group A, with a higher contrast during the third level. This reinforces the hypothesis of a more efficient learning curve during first playthroughs on DDA systems. However, we had mixed results on the damage dealt during the second playthrough for both groups, which leads to no conclusion regarding the level of challenge presented by DDA systems on a second playthrough. A few isolated samples of this metric had a large standard deviation.
+
 %deaths_per_level
 % Avg Deaths per Level - Beginners
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Avg. Deaths (Y) per Level (X) for Beginners.}
         \includegraphics[width=\textwidth]{figures/deaths_per_level-beginner_players.png}
@@ -731,10 +827,14 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the average number of deaths at each level, which can be analyzed in Figure \ref{fig:result-metric-beginners-deaths-per-level}, we noticed a significant decrease in the number of deaths for both groups during the second playthrough. However, the decrease for Group B (which plays the Fixed Difficulty version second) is much more significant than Group A, which reinforces the fact that the Dynamic Difficulty version presented a much more adequate challenge level for players on a second playthrough. Additionally, we could infer that the learning curve for players which played the DDA version first was more effective.
+
+During the first playthrough, we noticed a similar number of deaths for both groups, with a slight decrease in the number of deaths at the fourth and fifth level for players who played the DDA version first. We also observed a significantly higher number of deaths in the second playthrough for Group A, which played the Dynamic Difficulty version second. This could be a representative of the increased level of challenge of Dynamic Difficulty at a second playthrough. We also noticed a high standard deviation in the samples for later levels, which could show issues with level design or the learning curve.
+
 %health_lost_per_encounter
 % Avg Health Lost per Encounter per Level - Beginners
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Avg. Health Lost per Encounter (Y) per Level (X) for Beginners.}
         \includegraphics[width=\textwidth]{figures/health_lost_per_encounter-beginner_players.png}
@@ -743,14 +843,16 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the amount of health lost during combat, which is represented by the \emph{Health Lost per Encounter} metric and can be analyzed through Figure \ref{fig:result-metric-beginners-health-lost-per-encounter}, we noticed a significant decrease of damage taken for both groups in a second playthrough, which reinforces our previous observation that players are more defensively efficient during a second playthrough, where they would have learned all basic game mechanics and enemy behavioral patterns.
+
+During the second playthrough, we noticed a significantly lower damage taken by Group B in comparison to Group A, which could correlate with the learning curve by starting with a Dynamic Difficulty version first, and playing an easier version of the game second. We noticed a similar amount of damage taken by both groups in the first playthrough, which correlates with the observed results for the number of deaths. We also noticed a significantly higher amount of damage taken in group A in the second playthrough when comparing to Group B, which correlates with the level of challenge presented in a DDA system at a second playthrough. We noticed a high standard deviation in the samples for the first playthrough of Group B.
+
 % Perceptions
 % =============================
 
-% TODO write paragraphs
-
 % Perceptions on Difficulty -- Beginner Players
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Perceptions on Difficulty - Beginner Players.}
         \includegraphics[width=36em]{figures/fig-perception-difficulty-beginner-players.png}
@@ -759,9 +861,13 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the perceptions of beginner players on game difficulty, which can be analyzed in Figure \ref{fig:perception-difficulty-beginner-players}, most users perceived the game as being difficult, with about 50\% strongly aggreing and 30\% partially agreeing. About 70\% of players did not perceive the difficulty as being unfair, but 40\% only partially disagreed with the proposition. Therefore, we can assume that a more granular analysis on each specific group could have exposed issues regarding the level of challenge presented to players.
+
+About 90\% of players perceived the enemies to be challenging, with 50\% strongly agreeing to such proposition. Most players found that the enemies were not overtly challenging regarding their skill level, but about 20\% disagreed. About 90\% of players disagreed that the enemies were too easy in comparison to their skill level, and 80\% of players felt that the enemies in the later levels were harder. Since enemy encounters in later levels were in fact designed to be more difficult, it is reasonable to infer that there are no relevant issues regarding the balancing of enemies for beginner players. 
+
 % Perceptions on Learning -- Beginner Players
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Perceptions on Learning - Beginner Players.}
         \includegraphics[width=36em]{figures/fig-perception-learning-beginner-players.png}
@@ -770,9 +876,11 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the perceptions of beginner players on learn basic mechanics of the game, which can be analyzed in Figure \ref{fig:perception-learning-beginner-players}, most users felt like they learned how to defend (block) against enemy attacks, with about 50\% only partially agreeing to such proposition. Mixed opinions were observed regarding the dodging mechanic, where 30\% of beginners strongly felt that they did not learn how to dodge. Additionally, 90\% of players felt like they were constantly outnumbered, with about 60\% strongly agreeing with such proposition. These results could show that beginner players were unable to properly learn the dodge mechanic. Additionally, we had strong indications that beginner players did not properly learn how to isolate their targets when engaging in combat.
+
 % Perceptions on Playthroughs -- Beginner Players Group A
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Perceptions on Playthroughs - Beginner Players Group A.}
         \includegraphics[width=36em]{figures/fig-perception-versions-beginner-players-group-a.png}
@@ -781,9 +889,15 @@ We identify an issue with capturing affect-based metrics regarding the short dur
     \end{center}
 \end{figure}
 
+Regarding the perceptions of beginner players from Group A when comparing the first to the second playthrough, which can be analyzed in Figure \ref{fig:perception-playthrough-beginner-players-group-a}, about 80\% of players disagreed that the second version was easier than the first, and 80\% of players agreed that the second version was harder than the first. These results align with the fact that players in Group A experienced a higher challenge level in the second version caused by the adjustments performed by the dynamic difficulty.
+
+About half of the beginner players were unable to tell whether the enemies in the second version were smarter, with an additional 30\% of players being agreeable to such proposition. Most players disagreed with the enemies in the second version being less intelligent, with about 40\% not being able to tell the difference. These results can be interpreted as some of the beginner players in Group A being able to perceive that the enemies in the Dynamic Difficulty version did in fact present a more sophisticated behaviors, with different attack patterns and decision algorithms.
+
+About 80\% of players disagreed with feeling confident in their first playthrough, and 80\% of players felt like they performed better during their second playthrough. Additionally, 80\% of players also felt more confident during their second playthrough. Such perceptions align with the results seen in our performance metrics, where even though the level of challenge presented to players was higher, players were able to tackle enemies and execute game mechanics more efficiently.
+
 % Perceptions on Playthroughs -- Beginner Players Group B
 % =======================
-\begin{figure}[!ht]
+\begin{figure}[ht]
     \begin{center}
     \caption{Perceptions on Playthroughs - Beginner Players Group B.}
         \includegraphics[width=36em]{figures/fig-perception-versions-beginner-players-group-b.png}
@@ -791,6 +905,12 @@ We identify an issue with capturing affect-based metrics regarding the short dur
         \label{fig:perception-playthrough-beginner-players-group-b}
     \end{center}
 \end{figure}
+
+Regarding the perceptions of beginner players from Group B when comparing the first to the second playthrough, which can be analyzed in Figure\ref{fig:perception-playthrough-beginner-players-group-b}, about 70\% of players did not agree with the proposition that the second version of the game (Dynamic difficulty) was easier than the first. The other 30\% of players had partially agreeable or indifferent opinions. Most players were indifferent or did not know whether the second version was harder than the first, with the other 20\% either strongly agreeing or disagreeing. These results could be interpreted as players not being able to recognize the difference in difficulty between the two versions, even though players in Group B experienced a significantly easier level of challenge, as previously observed.
+
+About 60\% of players felt like enemies in the second version were smarter than the first, with 40\% being unable to tell the difference. Most players disagreed that enemies in the second version were less intelligent, with 40\% being unable to assess the validity of the proposition. These results go in disagreement with the performance results regarding adjustment target values, where the overall game difficulty was observed to be lower in the second playthrough for players in Group B.
+
+About 60\% of players disagreed with feeling confident in their first playthrough, with 40\% presenting indifferent or partially agreeable opinions. Similarly, 60\% of players perceived their performance on the second playthrough to be better, with 40\% partially agreeing to feeling more confident on a second playthrough. These results align with the previously seen performance results for group B, which were observed to be significantly higher than the first part of the experiment.
 
 % ==================================================
 % ==================================================
@@ -806,23 +926,79 @@ We identify an issue with capturing affect-based metrics regarding the short dur
 % Table with Observations for Performance Metrics for Intermediate Players
 \begin{table}
     \begin{center}
-      \caption{Observations on Performance Metrics for Intermediate Players.}
+      \caption{Summarized observations on Performance Metrics for Intermediate Players.}
       \label{tab:observations-performance-metrics-intermediates}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ w{c}{6em} m{27em} } % alignments and column size
+      \begin{tabular}{ >{\small}w{c}{6em} >{\footnotesize}w{l}{25em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
         \bf Metric & \bf Observations  \\
         \midrule
         % Data
-        \makecell[c]{Adjustment\\Targets\\Average} & \\
-        \makecell[c]{Attack\\Avoidance\\Efficiency} & \\
-        \makecell[c]{Attack\\Window\\Efficiency} & \\
-        \makecell[c]{Completion\\Time} & \\
-        \makecell[c]{Damage Dealt\\per 10 seconds} & \\
-        \makecell[c]{Deaths per\\Level} & \\
-        \makecell[c]{Health Lost\\per Encounter} & \\
+        % ----------------------------------------------------------------
+        \makecell[c]{Adjustment\\Targets\\Average} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Attack avoidance efficiency
+        \makecell[c]{Attack\\Avoidance\\Efficiency} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Attack Window Efficiency
+        \makecell[c]{Attack\\Window\\Efficiency} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Completion time
+        \makecell[c]{Completion\\Time} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Damage Dealth per 10 seconds
+        \makecell[c]{Damage Dealt\\per 10 seconds} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Deaths per Level
+        \makecell[c]{Deaths per\\Level} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Health Lost per Encounter
+        \makecell[c]{Health Lost\\per Encounter} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
         \bottomrule
       \end{tabular}
     \end{center}
@@ -975,23 +1151,79 @@ We identify an issue with capturing affect-based metrics regarding the short dur
 % Table with Observations for Performance Metrics for Veteran Players
 \begin{table}
     \begin{center}
-      \caption{Observations on Performance Metrics for Veteran Players.}
+      \caption{Summarized observations on Performance Metrics for Veteran Players.}
       \label{tab:observations-performance-metrics-veterans}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ w{c}{6em} m{27em} } % alignments and column size
+      \begin{tabular}{ >{\small}w{c}{6em} >{\footnotesize}w{l}{25em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
         \bf Metric & \bf Observations  \\
         \midrule
         % Data
-        \makecell[c]{Adjustment\\Target} & \\
-        \makecell[c]{Attack\\Avoidance\\Efficiency} & \\
-        \makecell[c]{Attack\\Window\\Efficiency} & \\
-        \makecell[c]{Completion\\Time} & \\
-        \makecell[c]{Damage Dealt\\per 10 seconds} & \\
-        \makecell[c]{Deaths per\\Level} & \\
-        \makecell[c]{Health Lost\\per Encounter} & \\
+        % ----------------------------------------------------------------
+        \makecell[c]{Adjustment\\Targets\\Average} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Attack avoidance efficiency
+        \makecell[c]{Attack\\Avoidance\\Efficiency} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Attack Window Efficiency
+        \makecell[c]{Attack\\Window\\Efficiency} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Completion time
+        \makecell[c]{Completion\\Time} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Damage Dealth per 10 seconds
+        \makecell[c]{Damage Dealt\\per 10 seconds} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Deaths per Level
+        \makecell[c]{Deaths per\\Level} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------
+        % Health Lost per Encounter
+        \makecell[c]{Health Lost\\per Encounter} & 
+        \makecell*[{{p{30em}}}]
+        {
+            \textbullet\space Observation 1. \\
+            \textbullet\space Observation 2. \\
+            \textbullet\space Observation 3. \\
+        } \\
+        % ----------------------------------------------------------------  
         \bottomrule
       \end{tabular}
     \end{center}

@@ -10,6 +10,7 @@ cic-tc.blg
 cic-tc.bbl
 cic-tc.fdb_latexmk
 cic-tc.log
+*.fls
 *.aux
 .Rproj.user
 rscripts/barcharts/chart_graphs/adjustment_target_level-beginner_players.jpg
