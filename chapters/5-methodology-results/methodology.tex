@@ -640,7 +640,7 @@ In this section, we describe and analyze the observed results for each performan
 % =============================
 
 % Table with Observations for Performance Metrics for Beginner Players
-\begin{table}[ht]
+\begin{table}[hbt!]
     \begin{center}
       \caption{Summarized observations on Performance Metrics for Beginner Players.}
       \label{tab:observations-performance-metrics-beginners}
@@ -725,7 +725,7 @@ In this section, we describe and analyze the observed results for each performan
             \textbullet\space Significantly lower decrease of damage taken in Group B \nth{2} playthrough. Could correlate with learning curve. \\ % (b)
             \textbullet\space Similar amount of damage taken between groups in \nth{1} playthrough. \\ % (c)
             \textbullet\space Significantly higher amount of damage taken in Group A (Dynamic) in \nth{2} playthrough. Correlates with level of challenge. \\ % (d)
-            \textbullet\space High standard deviation in Group B \nth{1} playthrough. \\ % std deviation
+            \textbullet\space High standard deviation in Group B \nth{1} playthrough. % std deviation
         } \\
         % ----------------------------------------------------------------
         \bottomrule
@@ -918,18 +918,18 @@ About 60\% of players disagreed with feeling confident in their first playthroug
 
 \subsection{Intermediate Players}
 
-% TODO write paragraphs
+In this section, we describe and analyze the results for performance and perception metrics obtained during our experiment in the scope of Intermediate-level players. We compare such results to the previous obtained results from beginner players, to assess the differences in the learning curve and level of challenge for each group. Table \ref{tab:observations-performance-metrics-intermediates} presents a summarized version of our observations on the results.
 
 % Performance
 % =============================
 
 % Table with Observations for Performance Metrics for Intermediate Players
-\begin{table}
+\begin{table}[hbt!]
     \begin{center}
       \caption{Summarized observations on Performance Metrics for Intermediate Players.}
       \label{tab:observations-performance-metrics-intermediates}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ >{\small}w{c}{6em} >{\footnotesize}w{l}{25em} } % alignments and column size
+      \begin{tabular}{ >{\footnotesize}w{c}{5em} >{\footnotesize}w{l}{29em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
@@ -938,65 +938,100 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         % Data
         % ----------------------------------------------------------------
         \makecell[c]{Adjustment\\Targets\\Average} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{35em}}}]
         {
-            \textbullet\space Observation 1. \\
-            \textbullet\space Observation 2. \\
-            \textbullet\space Observation 3. \\
+            % (a) Significant increase in adjustment targets for second part on group A. Intermediate players on a second playthrough would be above the adjustments level.
+            % (b) Overall decrease in adjustment targets for first part on Group B part 1. Initial difficulty for Intermediate players could be unbalanced for a first playthrough.
+            % (d) Significantly higher level of challenge for Group A part 2. Dynamic difficulty offers a higher level of challenge for intermediates on second playthrough.
+            % (std deviation) Low standard deviation in all observed samples. Results are credible.
+            \textbullet\space Significant increase in adjustment targets for Group A \nth{2} part. Intermediate players would be above the intermediate fixed difficulty on a \nth{2} Part. \\
+            \textbullet\space Decrease in adjustment targets for Group B \nth{1} Part. Fixed difficulty for Intermediate players could be unbalanced for a \nth{1} playthrough. \\
+            \textbullet\space Significantly higher adjustment targets for Group A part 2. Dynamic difficulty offers higher level of challenge for intermediates on \nth{2} playthrough. \\
+            \textbullet\space Low standard deviation in all observed samples. \\
         } \\
         % ----------------------------------------------------------------
         % Attack avoidance efficiency
         \makecell[c]{Attack\\Avoidance\\Efficiency} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{35em}}}]
         {
-            \textbullet\space Observation 1. \\
-            \textbullet\space Observation 2. \\
-            \textbullet\space Observation 3. \\
+            % (global) Globally higher avoid efficiency on 2nd playthrough. Higher contrast in levels 1 and 4.
+            % (global) Globally Lower efficiency in level 2. Could be due to ranged enemies.
+            % (a) Higher efficiency in Group A second playthrough. Similar efficiency in later levels. Could be caused by increase in difficulty.
+            % (b) Significantly higher efficiency in Group B second playthrough in all levels, with the exception of level 3. The overall 2nd difficulty should be easier for this group. Similar values in level 3 could indicate difficulty spike.
+            % (c) Slightly higher efficiency in Group B (Dynamic) first playthrough. Makes sense because of lower average difficulty in Dynamic part 1.
+            % (d) Mixed results on part 2 for the first 3 levels. Significantly higher efficiency for Group B (fixed) on later levels. Makes sense because of higher difficulty in dynamic part 2.
+            % (sd) High standard deviation in samples for later levels (4 and 5).
+            \textbullet\space Globally higher efficiency in \nth{2} Part. Higher contrast observed in \nth{1} and \nth{4} levels. \\
+            \textbullet\space Globally lower efficiency on level 2 in both playthroughs. This could be caused by the introduction of \emph{Ranged} enemies. \\
+            \textbullet\space Slightly higher efficiency in Group B \nth{1} playthrough (Dynamic). Could be caused by the lower average adjustment targets. \\
+            \textbullet\space Mixed results on Part 2 for the first three levels. Significantly higher efficiency for Group B (Fixed) on later levels. Harmonizes with higher difficulty in Dynamic Part 2. \\
+            \textbullet\space High standard deviation in the samples for later levels (4 and 5). \\
         } \\
         % ----------------------------------------------------------------
         % Attack Window Efficiency
         \makecell[c]{Attack\\Window\\Efficiency} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{35em}}}]
         {
-            \textbullet\space Observation 1. \\
-            \textbullet\space Observation 2. \\
-            \textbullet\space Observation 3. \\
+            % (global) Globally higher efficiency on 2nd playthrough, with an exception on the last level.
+            % (global) Similar efficiency on 2nd level for both playthroughs and both groups. Ranged enemies could have affected the efficiency metric.
+            % (a) Steady increase in 2nd playthrough, even with a higher average difficulty. Exception for last level. Could be a difficulty spike.
+            % (b) Similar results in both parts in Group B for levels 2 and 3.  Slight increase in later levels.
+            % (c) Better performance in Group B part 1 (Dynamic). Could be caused by a combination of lower difficulty with a better learning curve.
+            % (d) Significantly higher efficiency in all levels (except the second) for Group B on second playthrough. Could be because of lower average difficulty.
+            % (sd) Significant std deviation in samples for Group A part 2 and group B part 1.
+            \textbullet\space Globally higher efficiency on \nth{2} playthrough, with an exception on the last level. \\
+            \textbullet\space Globally congruent efficiency on \nth{2} level for both playthroughs. Introduction of \emph{Ranged} enemies could have affected the efficiency metric. \\
+            \textbullet\space Similar results in both parts in Group B for levels 2 and 3. Slight increase in \nth{2} playthrough for later levels (4 and 5). \\
+            \textbullet\space Better performance in Group B Part 1 (Dynamic). Could be caused by a combination of lower difficulty with a better learning curve. \\
+            \textbullet\space Significantly higher efficiency in all levels (except the \nth{2}) for Group B on \nth{2} playthrough. Could be caused by lower average difficulty. \\
+            \textbullet\space Significant standard deviation in samples for Group A Part 2 and Group B Part 1. \\
         } \\
         % ----------------------------------------------------------------
         % Completion time
         \makecell[c]{Completion\\Time} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{35em}}}]
         {
-            \textbullet\space Observation 1. \\
-            \textbullet\space Observation 2. \\
-            \textbullet\space Observation 3. \\
+            % (global) Globally lower completion time for second playthrough, with an exception for Group B Part 2 (Dynamic). Could be because of a higher difficulty or different level layout.
+            % (a) Significantly lower times in all but the last level for Group A Part 2 (Dynamic). Last level could have a difficulty spike.
+            % (b) Significantly lower completion time on Group B Part 2 (Fixed). Difference to part 1 is generally higher than Group A. Could be to a lower average difficulty, or better efficiency.
+            % (c) Lower completion times on Group B Part 1 (Dynamic), with the exception for the last level. Last level shows a difficulty spike.
+            % (d) Lower completion times on Group B Part 2 (Fixed), which would be explained by a lower average difficulty and a higher level of challenge for Group A.
+            % (sd) Low standard deviation in all but a few isolated samples.
+            \textbullet\space Globally lower completion time for \nth{2} playthrough, with an exception for Group B (Dynamic). Could be caused by higher difficulty. \\
+            \textbullet\space Significantly lower times on Group B Part 2 (Fixed). Difference to part 1 is higher than Group A. Could be caused by lower difficulty or better efficiency. \\
+            \textbullet\space Lower completion times on Group B Part 1 (Dynamic), with an exception for last level. Last level shows a difficulty spike. \\
+            \textbullet\space Lower completion times on Group B Part 2 (Fixed). Would be explained by a lower average difficulty when comparing to Group A.\\
+            \textbullet\space Low standard deviation in all but a few isolated samples. \\
         } \\
         % ----------------------------------------------------------------
         % Damage Dealth per 10 seconds
         \makecell[c]{Damage Dealt\\per 10 seconds} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{35em}}}]
         {
-            \textbullet\space Observation 1. \\
-            \textbullet\space Observation 2. \\
-            \textbullet\space Observation 3. \\
+            \textbullet\space Generally lower amount of damage dealt in Group A Part 2 (Dynamic). Can be related to a higher difficulty level. \\ % (a) 
+            \textbullet\space Lower amount of damage dealt in Group B Part 1 (Dynamic). Incongruent with lower difficulty. \\ % (c) 
+            \textbullet\space Higher amount of damage dealt in Group B Part 2 (Fixed) in comparison to Group A. \\ % (d)
+            \textbullet\space High standard deviation was observed in a significant amount of samples. % (sd) 
         } \\
         % ----------------------------------------------------------------
         % Deaths per Level
         \makecell[c]{Deaths per\\Level} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{35em}}}]
         {
-            \textbullet\space Observation 1. \\
-            \textbullet\space Observation 2. \\
-            \textbullet\space Observation 3. \\
+            \textbullet\space Globally lower amount of deaths on \nth{2} playthrough. \\ % (global)
+            \textbullet\space Slightly lower amount of deaths in Group B Part 1 comparing to Group A. Could be causer by lower adjustment targets. \\ % (c)
+            \textbullet\space Much lower deaths in Group B Part 2 (Fixed). Could be caused by lower difficulty. \\ % (d)
+            \textbullet\space High standard deviation in almost all observed samples. \\ % (sd)
         } \\
         % ----------------------------------------------------------------
         % Health Lost per Encounter
         \makecell[c]{Health Lost\\per Encounter} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{35em}}}]
         {
-            \textbullet\space Observation 1. \\
-            \textbullet\space Observation 2. \\
-            \textbullet\space Observation 3. \\
+            \textbullet\space Globally lower health lost on \nth{2} playthrough. Similar results to beginners.\\ % (global) 
+            \textbullet\space Mixed results on health lost during \nth{1} playthrough for between groups. Shows similar learning curve in Part 1. \\% (c) 
+            \textbullet\space Slightly lower amount of health lost on \nth{2} playthrough for Group B (Fixed). Could be caused by a lower difficulty. \\% (d) 
+            \textbullet\space Low standard deviation in almost all observed results. \\% (sd) 
         } \\
         % ----------------------------------------------------------------
         \bottomrule
@@ -1016,6 +1051,16 @@ About 60\% of players disagreed with feeling confident in their first playthroug
     \end{center}
 \end{figure}
 
+% (a) Significant increase in adjustment targets for second part on group A. Intermediate players on a second playthrough would be above the adjustments level.
+% (b) Overall decrease in adjustment targets for first part on Group B part 1. Initial difficulty for Intermediate players could be unbalanced for a first playthrough.
+% (d) Significantly higher level of challenge for Group A part 2. Dynamic difficulty offers a higher level of challenge for intermediates on second playthrough.
+% (std deviation) Low standard deviation in all observed samples. Results are credible.
+Regarding the average of adjustment target values for intermediate players, which can be analyzed in Figure \ref{fig:result-metric-intermediate-adjustment-target-level}, we noticed a significant increase in adjustment targets for Group A during the second part of the experiment, where such group plays the Fixed difficulty version. The results show that intermediate players on a second playthrough would be able to play at a slightly higher difficulty than the default fixed difficulty for their skill level.
+
+However, we also noticed an overall decrease in the adjustment targets for Group B during the first part of the experiment, which uses a DDA system. Therefore, it is reasonable to assume that the initial difficulty (Fixed preset) for intermediate players could be unbalanced for a first playthrough. Therefore, the default fixed difficulty presets could negatively impact the learning curve.
+
+We also noticed significantly higher adjustment targets for Group A during the second part of the experiment, where the Dynamic Difficulty version of the application is played. These results generally mean that the overall challenge level presented to players in Dynamic Difficulty during a second playthrough would be higher, in comparison to fixed difficulty. We noticed a low standard deviation in all observed samples, which reinforces the validity of the results.
+
 %attack_avoidance_efficiency
 % Avg Attack Avoidance Efficiency per Level - Intermediates
 % =======================
@@ -1027,6 +1072,19 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         \label{fig:result-metric-intermediates-attack-avoidance-efficiency}
     \end{center}
 \end{figure}
+
+% (global) Globally higher avoid efficiency on 2nd playthrough. Higher contrast in levels 1 and 4.
+% (global) Globally Lower efficiency in level 2. Could be due to ranged enemies.
+% (a) Higher efficiency in Group A second playthrough. Similar efficiency in later levels. Could be caused by increase in difficulty.
+% (b) Significantly higher efficiency in Group B second playthrough in all levels, with the exception of level 3. The overall 2nd difficulty should be easier for this group. Similar values in level 3 could indicate difficulty spike.
+Regarding the efficiency in avoiding enemy attacks, which can be analyzed in Figure \ref{fig:result-metric-intermediates-attack-avoidance-efficiency}, we identified a higher efficiency for both groups during the second playthrough, with a higher contrast in the first and fourth levels. However, we also noticed a lower efficiency in the second level for both groups during both versions of the application, which could be related to the introduction of ranged enemies. These results resemble what was observed in the analysis for beginner players.
+
+We noticed an overall higher efficiency for Group A during the second part of the experiment, in which the Dynamic Difficulty version was played. An exception was observed in the fourth and fifth levels, which could be caused by a high contrast in the difficulty in comparison to earlier levels. For Group B, we noticed a significantly higher efficiency in the second playthrough, where the fixed difficulty version was played. These results go in accordance with the fact that Group A experienced a higher overall difficulty than Group B in the second version due to the adjustment target values. However, we noticed that level 3 was an exception, which could indicate a difficulty spike in such level.
+
+% (c) Slightly higher efficiency in Group B (Dynamic) first playthrough. Makes sense because of lower average difficulty in Dynamic part 1.
+% (d) Mixed results on part 2 for the first 3 levels. Significantly higher efficiency for Group B (fixed) on later levels. Makes sense because of higher difficulty in dynamic part 2.
+% (sd) High standard deviation in samples for later levels (4 and 5).
+We noticed a slightly higher avoidance efficiency in Group B in comparison to Group A during the first playthrough, in which the Dynamic difficulty version was played. This could be explained by two possibilities: a more efficient learning curve, or simply an easier level of challenge provided by the adjustment targets. Regarding the second part of the experiment, we noticed mixed results between both groups during the first three levels. However, we noticed a significantly higher efficiency for Group B on the fourth and fifth levels, where the Fixed Difficulty version was played. This could be explained by the lower level of challenge presented by the fixed adjustment targets. However, we also noticed a high standard deviation in samples for the fourth and fifth level.
 
 %attack_window_efficiency
 % Avg Attack Window Efficiency per Level - Intermediates
@@ -1040,6 +1098,18 @@ About 60\% of players disagreed with feeling confident in their first playthroug
     \end{center}
 \end{figure}
 
+% (global) Globally higher efficiency on 2nd playthrough, with an exception on the last level.
+% (global) Similar efficiency on 2nd level for both playthroughs and both groups. Ranged enemies could have affected the efficiency metric.
+Regarding the efficiency of attacking vulnerable enemies, which can be analyzed in Figure \ref{fig:result-metric-intermediates-attack-window-efficiency}, we observed a higher efficiency during the second playthrough for both groups, with an exception for the last level. Results show that intermediate players are also more offensively efficient on a second playthrough. We also noticed a similar efficiency on the second level for both groups during both parts of the experiment. For the second level, the introduction of \emph{Ranged} enemies could have had an effect on offensive efficiency.
+
+% (a) Steady increase in 2nd playthrough, even with a higher average difficulty. Exception for last level. Could be a difficulty spike.
+We also noticed a steady increase in efficiency during the second playthrough for Group A, which played the Dynamic Difficulty version second. The increase occurred regardless of the increase in average difficulty, with an exception for the last level. These results show that even in a higher difficulty, players are able to play the game more efficiently than in an easier version. Regarding the last level, the decrease of efficiency could be related to a difficulty spike.
+
+% (c) Better performance in Group B part 1 (Dynamic). Could be caused by a combination of lower difficulty with a better learning curve.
+% (d) Significantly higher efficiency in all levels (except the second) for Group B on second playthrough. Could be because of lower average difficulty.
+% (sd) Significant std deviation in samples for Group A part 2 and group B part 1.
+We also observed a better performance for Group B in comparison to Group A during the first part of the experiment, which could have been caused by a combination of lower difficulty with a more efficient learning curve. In the second part of the experiment, Group B also presented a significantly higher efficiency in all levels, which could be explained by the lower average difficulty from adjustment targets. We noticed a significant standard deviation in samples for the second part for Group A and the first part for Group B.
+
 %completion_time
 % Avg Completion Time per Level - Intermediates
 % =======================
@@ -1051,6 +1121,16 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         \label{fig:result-metric-intermediates-completion-time}
     \end{center}
 \end{figure}
+
+% (global) Globally lower completion time for second playthrough, with an exception for Group B Part 2 (Dynamic). Could be because of a higher difficulty or different level layout.
+% (a) Significantly lower times in all but the last level for Group A Part 2 (Dynamic). Last level could have a difficulty spike.
+% (b) Significantly lower completion time on Group B Part 2 (Fixed). Difference to part 1 is generally higher than Group A. Could be to a lower average difficulty, or better efficiency.
+Regarding the level completion times for intermediate players, which can be analyzed in Figure \ref{fig:result-metric-intermediates-completion-time}, we observed a globally lower completion time during the second playthrough for both groups, with an exception for the last level -- which reinforces our previous observations of such level being a possible difficulty spike. We also noticed that the difference in completion times for the second part of Group B in comparison to the first part was significantly higher than the same difference in Group A, which could be explained by the lower average difficulty from adjustment targets.
+
+% (c) Lower completion times on Group B Part 1 (Dynamic), with the exception for the last level. Last level shows a difficulty spike.
+% (d) Lower completion times on Group B Part 2 (Fixed), which would be explained by a lower average difficulty and a higher level of challenge for Group A.
+% (sd) Low standard deviation in all but a few isolated samples.
+We noticed lower completion times on the first playthrough for Group B (which started in Dynamic Difficulty) in comparison to Group A, which could be justified by the lower average difficulty and a more efficient learning curve. We also observed lower completion times on Group B when comparing the second part, which uses Fixed Difficulty. This could be explained by an also lower challenge level. We observed low standard deviation in all but a few isolated samples.
 
 %damage_dealt_per_10s
 % Avg Damage Dealt per 10s per Level - Intermediates
@@ -1064,6 +1144,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
     \end{center}
 \end{figure}
 
+% (a) Generally lower amount of damage dealt in Group A Part 2 (Dynamic). Can be related to a higher difficulty level. 
+Regarding the average damage dealt to enemies during combat encounters, which can be observed in Figure \ref{fig:result-metric-intermediates-damage-dealt-per-10s}, we noticed a lower amount of damage dealt by Group A in the second playthrough, where the dynamic difficulty version was played. This could be explained by the higher difficulty level, but contradicts our observations regarding the attack window efficiency.
+
+% (c) Lower amount of damage dealt in Group B Part 1 (Dynamic). Incongruent with lower difficulty. 
+% (d) Higher amount of damage dealt in Group B Part 2 (Fixed) in comparison to Group A.
+% (sd) High standard deviation was observed in a significant amount of samples.
+We also noticed a lower amount of damage dealt in the first playthrough for Group B in comparison to Group A, which uses Dynamic Difficulty. These results could be considered inconsistent with the lower average difficulty from the adjustment targets during this part of the experiment for Group B. However, we noticed a higher amount of damage dealt in the second playthrough by Group B, which presents the fixed difficulty version. Such results are consistent with the lower average difficulty previously discussed. We noticed a high standard deviation in a significant amount of the samples, which could explain the inconsistencies found in the observations.
+
 %deaths_per_level
 % Avg Deaths per Level - Intermediates
 % =======================
@@ -1075,6 +1163,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         \label{fig:result-metric-intermediates-deaths-per-level}
     \end{center}
 \end{figure}
+
+% (global) Globally lower amount of deaths on \nth{2} playthrough.
+% (c) Slightly lower amount of deaths in Group B Part 1 (Dynamic) comparing to Group A. Could be causer by lower adjustment targets.
+Regarding the number of deaths per level from intermediate players, which can be analyzed in Figure \ref{fig:result-metric-intermediates-deaths-per-level}, we observed a globally lower amount of deaths during the second part of the experiment, which is consistent with our previous observation that players are more defensively efficient in the second playthrough. We also noticed a slightly lower amount of deaths in Group B during the first part of the experiment, when comparing to Group A.
+
+% (d) Much lower deaths in Group B Part 2 (Fixed). Could be caused by lower difficulty.
+% (sd) High standard deviation in almost all observed samples.
+Since Group B uses Dynamic Difficulty during the first playthrough, such results could be caused by lower adjustment targets. We also noticed an abnormally high contrast in the amount of deaths for Group B during the second part of the experiment, which uses Fixed Difficulty. Such results are most likely caused by the lower difficulty, in comparison to Group A. However, we noticed a high standard deviation in almost all observed samples.
 
 %health_lost_per_encounter
 % Avg Health Lost per Encounter per Level - Intermediates
@@ -1088,10 +1184,16 @@ About 60\% of players disagreed with feeling confident in their first playthroug
     \end{center}
 \end{figure}
 
+% (global) Globally lower health lost on \nth{2} playthrough. Similar results to beginners.
+% (c) Mixed results on health lost during \nth{1} playthrough for between groups. Shows similar learning curve in Part 1.
+Regarding the average health lost by intermediate players during combat encounters, which can be analyzed in Figure \ref{fig:result-metric-intermediates-health-lost-per-encounter}, we noticed a globally lower average on the second playthrough for both groups, which shows similar results to beginner players. When comparing the first playthrough between both groups, we had mixed results where each group would have a lower average on different levels.
+
+% (d) Slightly lower amount of health lost on \nth{2} playthrough for Group B (Fixed). Could be caused by a lower difficulty.
+% (sd) Low standard deviation in almost all observed results. 
+However, a correlated trend between the two was that as levels progressed, players seemed to be more efficient in taking less damage. Such results go in accordance with what was previosuly seen regarding the defensive efficiency of players. We noticed a slightly lower amount of health lost by Group B during the second playthrough, which uses Fixed Difficulty. This could possibly be explained by the lower average difficulty in comparison to Group A. We observed a low standard deviation in almost all samples.
+
 % Perception
 % =============================
-
-% TODO write paragraphs
 
 % Perceptions on Difficulty -- Intermediate Players
 % =======================
@@ -1104,6 +1206,16 @@ About 60\% of players disagreed with feeling confident in their first playthroug
     \end{center}
 \end{figure}
 
+% About 90% of players found the game to be difficult
+% About 90% disagreed that the difficulty was unfair, with 50% only partially disagreeing - could show an issue with difficulty in first playthrough
+Regarding the perceptions of intermediate players on the difficulty of the game, which can be seen in Figure \ref{fig:perception-difficulty-intermediate-players}, about 90\% of players found the game to be difficult, and 90\% disagreed that the difficulty was unfair, with 50\% only partially disagreeing to such proposition. This could show a slight issue with difficulty balancing in one of the target groups.
+
+% About 90% agreed that the enemies were challenging, with 80% strongly agreeing
+% However, all intermediate players disagreed that the enemies were too challenging for them
+% Additionally, 90% also though the enemies were not too easy for them - This provides strong indications that the perceptual difficulty for enemies is balanced for the level of players
+% Most players agreed that enemies in later levels were harder, with about 30% not being able to determine
+About 90\% of players agreed that the enemies were challenging, with 80\% strongly agreeing. However, all intermediate players disagreed thatenemies were too chalenging for them. Additionally, 90\% also though the enemies were not too easy for them. Such results show strong indicators that the perceptual difficulty for enemies is balanced towards the correct skill level. Most players agreed that the enemies in later levels were harder, with about 30\% not being able to determine.
+
 % Perceptions on Learning -- Intermediate Players
 % =======================
 \begin{figure}[!ht]
@@ -1114,6 +1226,11 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         \label{fig:perception-learning-intermediate-players}
     \end{center}
 \end{figure}
+
+% About 90% agreed to have learned to defend against enemy attacks
+% Regarding dodging, mixed results with a slightly higher amount of players disagreeing to have learned how to dodge enemies, which might show issues with learning the dodging mechanic.
+% Additionally, most players agreed to being constantly outnumbered by enemies, which shows issues with learning how to isolate enemies - which was also observed with beginner players.
+Regarding perceptions on learning how to play the game, which can be observed in Figure \ref{fig:perception-learning-intermediate-players}, about 85\% of players agreed to have learned to defend (block) themselves against enemy attacks. Regarding dodging we observed mixed results, with a slightly higher amount of players disagreeing to have learned how to dodge enemies. Such results can also be observed in the beginner players classification, and might show issues with the learning curve for the dodging mechanic. Additionally, most players agreed to have been constantly outnumber by enemies, which also shows issues with learning how to isolate targets properly. This was also observed with beginner players.
 
 % Perceptions on Playthroughs -- Intermediate Players Group A
 % =======================
@@ -1126,6 +1243,21 @@ About 60\% of players disagreed with feeling confident in their first playthroug
     \end{center}
 \end{figure}
 
+% 80% of players disagreed that the second version was easier than the first
+% 80% Thought the second version was harder than the first, which goes in accordance with the adjustment targets level
+Regarding intermediate player perceptions on each playthrough for Group A, which can be analyzed through Figure \ref{fig:perception-playthrough-intermediate-players-group-a}, about 80\% of players disagreed that the second version of the game (with Dynamic Difficulty) was easier than the first. Additionally, 80\% thoguht that the second version was harder than the first. These results go in accordance with the performance metrics, which show adjustment target levels to be higher than the fixed difficulty preset for intermediate players, which would result in a more challenging game.
+
+% 70% thought that the enemies in the scond version were smarted, with 15% being unable to determine
+% 70% disagreed that enemies in the second version were less intelligent
+% Shows most players in Group A perceived that the second version (Dynamic) was harder, which goes in accordance with the adjustment targets level
+About 70\% of players perceived the enemies in the second version to be smarter. A similar amount disagreed that the enemies in the second version to be less intelligent than the first. Therefore, results show that most players in Group A did perceive that the second version (Dynamic Difficulty) was harder, which goes in accordance with the previously seen results for performance metrics.
+
+% 50% partially disagreed to feeling confident in their first playthrough
+% 80% thought they did better in the second playthrough, with 50% strongly agreeing
+% All players felt more confident in their second playthrough
+% Results go in accordance with efficiency performance metrics
+About 80\% of the players disagreed to feeling confident in their first playthrough. About 80\% thought that they did better in the second playthrough, with 50\% strongly agreeing to such proposition. Additionally, all intermediate players felt more confident in their second playthrough. The results harmonize which was previously seen regarding performance metrics, where offensive and defensive efficiency was much higher in the second playthrough.
+
 % Perceptions on Playthroughs -- Intermediate Players Group B
 % =======================
 \begin{figure}[!ht]
@@ -1136,6 +1268,21 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         \label{fig:perception-playthrough-intermediate-players-group-b}
     \end{center}
 \end{figure}
+
+% 60% of players found the second version to be easier than the first,
+% All players disagreed that the second version was harder than the first
+% Adjustment targets were lower, but players had the impression that the second version was easier, could not detect self improvement
+Regarding intermediate player perceptions on each playthrough for Group B, which can be analyzed through Figure \ref{fig:perception-playthrough-intermediate-players-group-b}, about 60\% of players found the second version to be easier than the first. All players on Group B disagreed that the second version was harder than the first. These results are slightly inconsistent with what was seen in the performance metrics, where the adjustment targets for Group B were slightly lower than the preset for fixed difficulty. Therefore, players were not able to perceive that their performance improvement was caused by properly learning game mechanics during their first playthrough.
+
+% 70% of players disagreed that the enemies in the second version were smarter
+% 60% of players felt the enemies in the second version were less intellingent
+% Similar results to the perception of difficulty
+About 70\% of players disagreed that the enemies in the second version (Fixed Difficulty) were smarter, and 60\% felt that the enemies in the second version were less sophisticated. Such results are similar to the inconsistent perceptions regarding difficulty, as the average adjustment target for the Fixed Difficulty was higher than the first playthrough for Group B.
+
+% All players disagreed to have felt confident in their first time playing, and all players perceived their performance in the second version to be better. 
+% Additionally, all players felt more confident in the second playthrough
+% This goes in accordance with their performance metrics
+All players disagreed to have felt confident in their first time playing, with 30\% only partially agreeing. Additionally all players felt that they performed better in the second version, and agreed to have felt more confident in their second playthrough. These results go in accordance with the previosuly analyzed performance metrics, where players in Group B performed much more efficiently in the fixed difficulty version.
 
 % ==================================================
 % ==================================================
@@ -1154,7 +1301,7 @@ About 60\% of players disagreed with feeling confident in their first playthroug
       \caption{Summarized observations on Performance Metrics for Veteran Players.}
       \label{tab:observations-performance-metrics-veterans}
       \rowcolors{2}{}{gray!25} % Alternate row colors
-      \begin{tabular}{ >{\small}w{c}{6em} >{\footnotesize}w{l}{25em} } % alignments and column size
+      \begin{tabular}{ >{\small}w{c}{6em} >{\footnotesize}w{l}{28em} } % alignments and column size
         \addlinespace
         \toprule
         % Headings
@@ -1163,8 +1310,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         % Data
         % ----------------------------------------------------------------
         \makecell[c]{Adjustment\\Targets\\Average} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{33em}}}]
         {
+            % (global) 
+            % (a) 
+            % (b) 
+            % (c) 
+            % (d) 
+            % (sd) 
             \textbullet\space Observation 1. \\
             \textbullet\space Observation 2. \\
             \textbullet\space Observation 3. \\
@@ -1172,8 +1325,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         % ----------------------------------------------------------------
         % Attack avoidance efficiency
         \makecell[c]{Attack\\Avoidance\\Efficiency} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{33em}}}]
         {
+            % (global) 
+            % (a) 
+            % (b) 
+            % (c) 
+            % (d) 
+            % (sd) 
             \textbullet\space Observation 1. \\
             \textbullet\space Observation 2. \\
             \textbullet\space Observation 3. \\
@@ -1181,8 +1340,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         % ----------------------------------------------------------------
         % Attack Window Efficiency
         \makecell[c]{Attack\\Window\\Efficiency} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{33em}}}]
         {
+            % (global) 
+            % (a) 
+            % (b) 
+            % (c) 
+            % (d) 
+            % (sd) 
             \textbullet\space Observation 1. \\
             \textbullet\space Observation 2. \\
             \textbullet\space Observation 3. \\
@@ -1190,8 +1355,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         % ----------------------------------------------------------------
         % Completion time
         \makecell[c]{Completion\\Time} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{33em}}}]
         {
+            % (global) 
+            % (a) 
+            % (b) 
+            % (c) 
+            % (d) 
+            % (sd) 
             \textbullet\space Observation 1. \\
             \textbullet\space Observation 2. \\
             \textbullet\space Observation 3. \\
@@ -1199,8 +1370,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         % ----------------------------------------------------------------
         % Damage Dealth per 10 seconds
         \makecell[c]{Damage Dealt\\per 10 seconds} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{33em}}}]
         {
+            % (global) 
+            % (a) 
+            % (b) 
+            % (c) 
+            % (d) 
+            % (sd) 
             \textbullet\space Observation 1. \\
             \textbullet\space Observation 2. \\
             \textbullet\space Observation 3. \\
@@ -1208,8 +1385,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         % ----------------------------------------------------------------
         % Deaths per Level
         \makecell[c]{Deaths per\\Level} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{33em}}}]
         {
+            % (global) 
+            % (a) 
+            % (b) 
+            % (c) 
+            % (d) 
+            % (sd) 
             \textbullet\space Observation 1. \\
             \textbullet\space Observation 2. \\
             \textbullet\space Observation 3. \\
@@ -1217,8 +1400,14 @@ About 60\% of players disagreed with feeling confident in their first playthroug
         % ----------------------------------------------------------------
         % Health Lost per Encounter
         \makecell[c]{Health Lost\\per Encounter} & 
-        \makecell*[{{p{30em}}}]
+        \makecell*[{{p{33em}}}]
         {
+            % (global) 
+            % (a) 
+            % (b) 
+            % (c) 
+            % (d) 
+            % (sd) 
             \textbullet\space Observation 1. \\
             \textbullet\space Observation 2. \\
             \textbullet\space Observation 3. \\
