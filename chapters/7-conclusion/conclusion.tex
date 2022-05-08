@@ -1,8 +1,238 @@
 \chapter{CONCLUSION}
 \label{ch:conclusion}
 
-\section{Contributions (TO DO)}
+\section{Overview and Contributions}
 
-\section{Limitations and Problems (TO DO)}
+% Research of previous work
+% - Importance of Difficulty in User Experience for Games
+% - Impact of difficulty on the learning curve
+We started by performing a research exploration of previous work regarding DDA systems. First, we defined the importance of difficulty in the User Experience on games, explaining the impact of difficulty on the learning curve and in helping players achieve the \emph{State of Flow}. In sequence, we motivated the use of adaptive systems to provide a more appropriate level of challenge to specific player profiles, with the objective of creating a more efficient learning curve and a better level of challenge for experienced players.
 
-\section{Future Work (TO DO)}
+% - Definition of the basic adaptive model, with metrics, adjustment policies and adjustment targets
+We identified a basic adaptivity model, which defines a methodology for user data acquisition, metrics for evaluating player performance and preferences, adjustment policies and adjustment targets, which provide dynamic modifications to game difficulty which can better attend to the specific needs of different players.
+
+% - Identified 3 main types of DDA in research: Affect-based, Probability-based and Learning based
+% - Defined probabilistic as the model which is most aligned with industry development process, with fast iteration for designer changes
+% - Identified and analyzed examples of adjustments in successful commercial games, RE4, Mario Kart, God Hand
+We identified three relevant types of Dynamic Difficulty systems in previous research: \emph{Affect-based}, \emph{Probability-based} and \emph{Learning-based}. We argued that the probabilistic model would be best aligned with the games industry development process, which requires fast iteration times to appease the cycle of play-testing and frequent design changes.
+
+% - Definition of guidelines for creating adaptive systems
+%       - Metrics should be bound to the domain of the specific game genre
+%       - Metrics should be used to evaluate player skill
+%       - Metrics have to be captured real time without performance implications
+We defined an extensive set of guidelines to follow when creating adaptive systems, including the use and scope of metrics, the role of thresholds, the objective of dynamic adjustments, and specific restrictions on DDA systems which would satisfy development process needs. Regarding guidelines for the capturing and evaluation of metrics in adaptive systems, we concluded that the selection of metrics should be bound to the domain of the specific game genre being developed, should have the purpose of evaluating player skill or preferences, and should be efficiently captured in real time without significant performance implications.
+
+%       - Thresholds should reflect the classification of player models, i.e. Beginners, Intermediate, Veterans
+Regarding adjustment policies and targets on adaptive systems, we concluded that the thresholds used in the policies for adjustment targets should reflect the classification of the identified player models. If users are classified based on their skill level, each adjustment target should present values targeted at each skill level.
+
+%       - Adjustments should create challenge and variation for highly skilled players
+%       - Adaptive system should be abstracted to beginners
+%       - Adaptive system should incentivize performance improvement rather than manipulation
+%       - Changes on thresholds, adjustments and metrics should provide fast iteration times for designer testing
+We also concluded the adjustments should create challenge and variation for experienced or highly skilled players, while providing opportunities for beginners to improve without manipulating in-game systems to their advantage. Additionally, we concluded that changes in adjustment thresholds should be trivial to provide fast iteration times for designers to repeatedly test and assess the results.
+
+% - Identification of exploration opportunities
+%       - apply adaptation methods to sophisticated modern games
+%       - use DDA systems to alleviate learning curve of difficult games
+%       - provide justification on the games used to employ DDA systems
+%       - validation of adjustment policies
+We identified several exploration opportunities on the field of adaptive systems for games in research, including applying adaptive algorithms to sophisticated games with modern game design, using DDA systems to alleviate the learning curve of inherently difficult games, providing an in-depth analysis and justification for the choice of games used to perform research on adaptive systems, and performing an analysis of the validity and efficiency of adjustment policies and targets.
+
+
+% Analysis of object of study
+We proceeded by performing an analysis of our object of study, the successful and influential game \emph{Dark Souls}, to justify the motivation of its choice, define game aesthetics, design characteristics and gameplay functionality, identify its difficulty factors, and propose possible solutions to its issues with approachability for beginner players.
+
+% - Justified reason of choice
+%       - Controversial discussions of difficulty around Dark Souls
+%       - Use of failure as a mechanic to learn how to play
+%       - Issues with churn rates, low completion rate
+Regarding the motivations of the choice of \emph{Dark Souls} as an object of study for Dynamic Difficulty systems, we identified the prevalent and controversial discussions in media throughout the last decade around the difficulty of the game. Dark Souls employs the use of failure as a mechanic for players to learn how to play the game and adapt to its difficulty. However, such design choices caused frustration to a significant portion of players, with the game presenting significant issues with churn rates and a low completion rate.
+
+% - Defined aesthetics for assets and gameplay feel
+%       - Dark fantasy settings, undead enemies.
+%       - Feeling of unease
+%       - Animations of entities are slow and heavy, for weight and realism
+We also analyzed and described the aesthetics of the artistic and sound direction of the original game, which presents to players a \emph{Dark Fantasy} setting, with undead enemies, monsters and abominations, and causes in players a general feeling of unease. The animations of in-game entities are for the most part slow and heavy, which creates a sense of weight and realism in enemy attacks. With such description, we were able to follow a vision during the definition of in-game assets and the overall design.
+
+% - Defined design characteristics and gameplay functionality
+%       - Third person, Orbital and Lock-On Cameras
+%       - Health, Stamina and Poise resources
+%       - Attacking, Dodging, Blocking and Parrying Mechanics
+We also defined the design characteristics of the original game and general gameplay functionality, including a Third-Person camera view with Orbital and Lock-On Camera modes, free directional movement for the player character with basic physics, Health, Stamina and Poise as the base resources for players during combat, and Attacking, Dodging, Blocking and Parrying as the basic combat mechanics the player can execute.
+
+%       - Stamina cost combat actions, and constant stamina recovery
+%       - Staggers, Recovery times and Animation locking
+We also identified the use of the Stamina resource as a balance factor for the pace of fights, where it defines a cost for combat actions and a time-limited constraint through constant stamina recovery. We identified modifications in entity states during combat which can leave enemies or the player vulnerable, such as Staggers, Recovery Times and Animation Locking.
+
+%       - Simplistic AI behavior with limited actions
+%       - Constricted environments
+%       - Enemies and traps in strategic positions that incentivize careful play
+We also determined that the Artificial Intelligence of enemies in Dark Souls presented simplistic behaviors with limited actions, with most enemies following a similar set of rules and patterns, and variation derives from different attacks, movement and timings. The game mostly takes place in constricted environments, with enemies and traps being placed in strategic positions that incentivize the player to play carefully. 
+
+% - Identified difficulty factors and possible solutions to approachability
+%       - Lack of guidance or instructions
+%       - Level design that punishes risky approaches
+%       - Ambiguous enemy animations
+We identified the difficulty factors of Dark Souls, and proposed plausible solutions to the issue of its approachability for beginner players. We identified that Dark Souls presented a lack of guidance or instructions regarding player objectives or the use of game mechanics, employed a level design methodology that punishes risky approaches, and used ambiguous enemy animations to hinder the player's ability to recognize and defend against enemy attacks.
+
+%       - Punishment mechanics (progression loss)
+%       - Limited Sustainment Resources
+%       - Animation locking
+%       - Overt enemy strength
+%       - Combat Speed
+%       - Perceptual difficulty
+We also identified the use of punishment mechanics through progression loss upon the condition of defeat, to amplify the player's aversion to loss. The game also employ limited sustainment resources through the use of \emph{Estus Flasks}, punishes player attack decisions through Animation Locking, presents enemies with overt strength in comparison to the player, employs and accelerated pace of combat speed in comparison to other action games, and finally presents a perceptually high difficulty level due to the aesthetics, visual design and animations of enemies.
+
+% - Proposed adjustments to mitigate difficulty factors
+%       - Dynamic Level Layouts
+%       - Dynamic Enemies Placement
+%       - Dynamic enemy attacks and visual indicators
+%       - Dynamic enemy behaviors
+%       - Employment of Checkpoints
+%       - Dynamic Game Speed
+We proposed several in-game adjustments that could be applied during gameplay sessions to mitigate the effect of difficulty factors to the approachability of beginner players. Therefore, we proposed the use of dynamic level layouts, dynamic placement of enemies, changes in enemy attacks and the display of visual effects which serve as indications for enemy attacks, dynamic changes to enemy behaviors, the employment of more frequent checkpoints, and the use of adjustable game speed in combat encounters.
+
+% Implementation
+% - Minimized version of Dark Souls
+% - Fixed Difficulty and Difficulty as N-dimensional set of parameters
+% - Difficulty parameters are automatically adjusted by a DDA System
+We proceeded by implementing a game based on our object of study, through which we would be able to convey the ideas and guidelines formulated through the exploration of previous research in DDA systems. We implemented a minimized version of Dark Souls, with two different approaches for defining game difficulty: a Fixed Difficulty version, which contains presets for all game difficulty parameters, and a Dynamic Difficulty version, where we define difficulty as an N-dimensional set of difficulty parameters which can be adjusted separately and dynamically during a play session.
+
+% - Event tracking system implementation
+% - Metrics calculated from event information
+% - Adjustment policies based on metrics
+% - Adjustment targets from difficulty parameters
+We implemented an event tracking system, which was able to store an history of in-game events along with contextual information on each event, such as the actions performed by the player and game entities, and the status of the game environment. We calculated a multitude of metrics based on the information collected from events, which could be used to evaluate player performance and preferences. We defined adjustment policies based on such metrics, which were used to performed dynamic adjustments on multiple difficulty parameters for the implemented game.
+
+% - Gameplay and aesthetics based on analysis of object of study
+%       - Medieval Dark Fantasy environment and player character, undead enemies and Dark Souls-based sounds
+Regarding the aesthetic elements of our implementation, we referenced our previous analysis of the aesthetics of \emph{Dark Souls} to assemble a Medieval Dark Fantasy game environment, using 3D assets of a ruined and abandoned castle to produce such a setting. We also used undead monsters as the 3D models for enemies in the game, and selected audio tracks which produced a heavy and uneasy atmosphere as accompanying sound effects. 
+
+%       - Orbital and Lock-On camera implementations
+%       - Camera-based movement with basic physics, such as acceleration, turn speed, climbing stairs and ledges and grounded state detection
+Based on the original game, we implemented two camera modes for a Third-Person visual perspective -- the \emph{Orbital} and \emph{Lock-On} cameras. We also implemented camera-based movement with basic physics, such as acceleration, turn speed, climbing stairs and ledges and grounded state detection. We implemented an attributes system to define a layer of abstraction between entities and their state, to handle changes on player resources and simplify the implementation of User Interface elements.
+
+%       - Attributes system to handle changes on player resources and displaying of UI
+%       - Combat System with hit detection, blocking and dodging, combat effects and animation-based character states
+% - Simplistic AI implementation based on state machines and a limited set of behaviors
+We created a Combat System with a sophisticated Hit Detection algorithm, including the ability to block and dodge enemy attacks. We implemented a multitude of Combat Effects which were able to modify character state, and created animation-based character states as a constraint for gameplay actions.
+
+% - DDA system
+%       - In Game event tracking system
+%       - Player metrics based on captured events information
+%       - Adjustment policies based on player metrics
+%       - Adjustments based on difficulty parameters
+We implemented a Dynamic Difficulty Adjustments system, which included components for tracking in-game events, calculating metrics based on the information retrieved from captured events, definition of adjustment policies based on player metrics, and performing difficulty adjustments on several difficulty parameters.
+
+% Experiment Methodology
+% - Definition of goals
+%       - Evaluating DDA systems in sophisticated modern games
+%       - Validate if Dynamic Difficulty can alleviate steep learning curve of difficult games
+%       - Validate if Dynamic Difficulty can provide a better level of challenge for experienced players
+We proceeded by defining a methodology for the validation of the goals of this research, including the evaluation of the use of DDA systems in the context of sophisticated modern games, validating if Dynamic Difficulty can be used to alleviate and create a more efficient learning curve for difficult video games, and validating if Dynamic Difficulty can provide a better level of challenge for players which are experienced at a game.
+
+% - User selection criteria based on player profile and hardware requirements
+% - User classification based on definitions of beginners, intermediate and veterans
+% - Division of user base in experiment groups to test Fixed vs Dynamic difficulty in both playthroughs
+% - Selection of metrics to evaluate player learning curve and challenge level based on performance
+% - Player perception survey to correlate performance metrics and presented level of challenge to player perceptions
+We defined a set of user selection criteria based on player profiles and hardware requirements to participate in the experiment. We defined an user classification based on definitions for \emph{beginner}, \emph{intermediate} and \emph{veteran} players to evaluate the impact of Dynamic Difficulty Systems on multiple player skill levels.
+
+We performed a division of the user base in different experiment groups, in order to test the differences between Fixed and Dynamic Difficulty in different playthroughs. We selected several performance metrics to evaluate the learning curve and challenge level experienced by players based on their performance. We employed a Player Perception Survey to correlate performance metrics and the presented learning curve and level of challenge to player perceptions.
+
+% - Analysis of results
+Regarding the results of this work, we performed an analysis of the performance and perception of players, evaluating a subset of the results in aggregate, and separating results based on user classifications and experiment groups. While we were unable to achieve definitive conclusions regarding the achievement of some of the originally defined objectives, we were able to observe strong indications towards positive results.
+
+% Perceptions for all
+% ! Conclusions: Aesthetics of the game made players feel generally interested and motivated to play
+% ! Conclusions: There were possible issues with the learning curve of specific game mechanics
+% ! Conclusions: No significant issues with basic game controls, but an issue in our methodology with the formulation of perception questions on specific mechanics, and no relevant issues were found regarding the role of level design on communicating player objectives
+Regarding the perceptions of all players on the application, which were used to validate the application as a sufficient example of a sophisticated modern game, we concluded that the aesthetics of the game made players feel generally interested and motivated to play the game, that there were possible issues with the learning curve of specific game mechanics, and that there were no significant issues with basic game controls.
+
+Additionally, no relevant issues were found regarding level design in the context of communicating player objectives. We conclude that our application served the purpose of representing a minimized version of Dark Souls, and of applying the DDA systems methodology to an example of modern and complex game design.
+
+% Overall Beginners
+% - Slight indicatives that dynamic difficulty provided a better learning curve % for beginners
+% - Strong indications that dynamic difficulty provided a better challenge for % beginners on a second playthrough
+Regarding the general results observed for beginner players, we observed slight indications that Dynamic Difficulty provided a more efficient learning curve for beginner players, and strong indications that Dynamic Difficulty provided a better challenge level for beginner players during a second playthrough.
+
+%Overall Intermediates
+%- Follows the same trend as beginner players regarding combat efficiency, with better efficiency in first playthrough, but more difficulty in second
+%- Lower average difficulty in first playthroughs, which indicate an unbalanced level of challenge for intermediates in Fixed Difficulty
+%- High standard deviation in a considerable amount of samples
+In the context of intermediate players, we similar trends to beginner players regarding their improvements in combat efficiency, where players which experienced Dynamic Difficulty in a first playthrough presented higher improvements, but players which played on DDA systems in a second playthrough experienced a higher level of challenge.
+
+% Overall Veterans
+% - We found mixed results on performance metrics for veterans
+% - We did not consider individual player skill differences after a certain level % of mastery, high standard deviation
+% - Strong indications on issues with the fixed difficulty presets and the % thresholds for adjustment targets for Veteran players
+Regarding the results for veteran players, we observed mixed results on the performance metrics for veteran players, where during the formulation of the experiment methodology we did not consider individual player skill differences at an expert level of mastery, which could have contributed to the high standard deviation of samples. Additionally, we noticed issues with the fixed difficulty presets for veteran players, and their respective adjustment thresholds on the Dynamic Difficulty version. Therefore, we synthesized no conclusions regarding the results of veteran players.
+
+% Overall results
+%   - Validation of Dynamic Difficulty as a more efficient learning curve
+%   - Validation of Dynamic Difficulty as a more appropriate level of challenge during the second playthrough
+%   - Issues with the amount of samples
+%   - Issues with the balancing of difficulty presets for intermediate and veteran players
+%    - Issues with the balancing of game levels for specific difficulties
+Overall, we validated our implementation as a sufficient representation of sophisticated and modern game design with an inherently steep difficulty curve. We noticed slight positive indications regarding our validation of Dynamic Difficulty as a provider of a more efficient learning curve in comparison to Fixed Difficulty.
+
+We noticed strong indications of Dynamic Difficulty being a provider of a more appropriate level of challenge during a second or subsequent playthrough of a game, in comparison to Fixed Difficulty. However, due to issues with the formulation of the experiment methodology, with the low amount of samples which originated from a limited user base, and issues with the balancing of difficulty presets for intermediate and veteran players, we were unable to synthesize definitive conclusions that would validate the goals of this work.
+
+\section{Limitations and Problems}
+
+% Experiment
+% - Low amount of samples = High std deviation
+% - Over classification of players amplified the issue of low amount of samples
+Regarding the limitations and problems encountered during the scope of the development of this work, the most relevant issues were encountered during the formulation and execution of our experiment. We performed the validation of our goals under a limited user base, with a total of 23 users participating in the experiment.
+
+We amplified such issue by classifying the total user base in three categories, and further diving such categories in two user groups each. The overt subdivision of our user base resulted in metrics being represented by a low amount of samples, with high standard deviation and no statistical significance. Therefore, we were unable to present any confidence during the analysis of our results.
+
+% - No Evaluation of Fixed -> Fixed and Dynamic -> Dynamic
+Additionally, we performed a limited comparison of the impact of Dynamic Difficulty in contrast to Fixed Difficulty. We attempted to evaluate the first and second playthroughs by directly comparing the Dynamic and Fixed Difficulty versions, but did not consider the possible impact of persisting with any of the approaches throughout a second playthrough. Therefore, a more consolidated analysis would have included user groups which played the Fixed and Dynamic Difficulty versions during both playthroughs.
+
+% - Overt amount of adjustments and metrics tested simultaneously
+%   - Adjustments should have been tested in isolation and in groups
+Regarding the analysis of the impact of adjustments, we performed our analysis with an overt amount of simultaneous adjustments and metrics, which were performed with the objective of performing a cross-referenced evaluation of results as to reinforce the validation of our hypotheses.
+
+However, we failed to evaluate the impact of each adjustment and the efficiency of measuring each metric separately. As such, the adjustments and metrics should have been validated in isolation and in separate groups. Such type of analysis would create a better sense of certainty in the analysis of results.
+
+% - Issues with formulation of the perception survey
+% - No perception survey between playthroughs
+We also identified issues with the formulation of our Player Perception Survey, where some of the propositions could have been interpreted by users as being related to a different subject as their original intent. As such, we were unable to synthesize conclusions regarding a subset of the propositions on player perception. Additionally, we did not employ a perception survey between playthroughs, which could have exposed issues with a specific version of the game for an user classification.
+
+% Implementation
+% - Calculation and adjustments based on metrics are executed between levels
+Regarding limitations with our implementation, the calculation and execution of adjustments was limited to occur between levels because of performance restrictions. As a result, a delay occurred between the player successfully improving to overcome a challenge and the game being able to adjust difficulty based on such improvement.
+
+If the player was constantly during a specific level which introduced a difficulty spike, the game would incorrectly assess a lower difficulty level after the player progressed to the next level. Such issue caused a desynchronization between player skill and the level of challenge presented by the game, and negatively affects the significance of our performance evaluation.
+
+% - Should have 5 difficulty levels for DDA, instead of 3.
+We also identified a limitation with the possible adjustment targets for beginner and veteran players. Veteran players which performed significantly above the efficiency for a specific adjustment target would not be able to experience an adequate difficulty level for a specific parameter.
+
+Therefore, it would only be possible for Veteran players to achieve a lower average difficulty in the DDA version of the application, in comparison to the Fixed Difficulty version. Similarly, beginner players which performed under their skill level classification would not be able to experience an easier version of the game. We argue that our implementation should have included two additional adjustment target levels, which would be targeted below and above the lower and upper limits of the skill levels in the scope of our classification.
+
+% - Adjustments for veteran players indicated unbalanced thresholds
+Additionally, we identified that the the adjustment targets for veteran players indicated unbalanced thresholds, where even if the performance of players indicated high combat efficiency and satisfactory completion times, players would still experience a considerably lower average difficulty than the Fixed presets for veteran players.
+
+% - Short duration of the game, with 15 minutes average for full playthrough
+We also identified that the experiment presented an overtly short duration, with an average of 15 minutes for a full playthrough by intermediate players. Such a short experiment duration could have further degraded the significance of performance metrics in our application, where a low amount of samples for each player would not properly represent the challenges faced by players in commercial solutions.
+
+% Literature Research
+% - Limited analysis of previous work, only identifying 3 types of dynamic adjustments in research
+Regarding limitations with our exploration of previous research regarding DDA systems, we performed a limited analysis of previous work, which only identified three types of Adaptive Systems commonly used in research. We argue that a more specific and granular categorization with a wider scope could have exposed more improvement opportunities, which could have been explored in the scope of this work.
+
+\section{Future Work}
+
+% Evaluate N-dimensional difficulty in isolation, without Dynamic Adjustments
+Regarding future subjects that could be explored in research of Adaptive Systems for video games, one of the first examples would be the evaluation of the impact of N-dimensional difficulty in isolation, without the use of performance-based Dynamic Adjustments. Such approach can already be seen in recent commercial titles, but we identified a lack of research regarding the positive and negative aspects of such approach.
+
+% Evaluate effects of individual adjustment targets separately
+We also argue that an analysis of adjustment targets at an individual level should be performed, where each difficulty adjustment for a specific game should be evaluated and properly validated. A significant amount of previous research, including this work, assessed the effectiveness of the use of DDA systems as a whole, but failed to address if the selected adjustment policies and metrics properly represented player performance and the difficulty factors of the target game.
+
+% Perform experiment with a much higher sample size for each classification and group
+% Perform experiment with four user groups
+% - Fixed -> Fixed
+% - Dynamic -> Dynamic
+% - Fixed -> Dynamic
+% - Dynamic -> Fixed
+We also argue that the experiment performed in the scope of this work should be performed with significantly higher sample sizes for each classification and group. Additionally, the increase of the user base should also be combined with the addition of two user groups, each of which persist in a specific version of the game throughout both playthroughs (Fixed or Dynamic). Such improvements would create a much more reliable representation of the comparisons required to validate the goals of this study.
